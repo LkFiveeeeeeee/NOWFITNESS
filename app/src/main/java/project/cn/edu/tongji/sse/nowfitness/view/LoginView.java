@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.Explode;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +23,8 @@ public class LoginView extends AppCompatActivity {
     private LoginPresenter loginPresenter;
     private TextInputEditText userName;
     private TextInputEditText passWord;
+    private TextInputLayout userNameLayout;
+    private TextInputLayout passWordLayout;
     private Button loginButton;
     private CardView loginView;
     private FloatingActionButton switchToRegister;
@@ -39,6 +44,8 @@ public class LoginView extends AppCompatActivity {
         loginButton = findViewById(R.id.start);
         loginView = findViewById(R.id.login_view);
         switchToRegister = findViewById(R.id.switch_button);
+        userNameLayout = findViewById(R.id.usernamelayout);
+        passWordLayout = findViewById(R.id.passwordlayout);
         setListener();
     }
 
@@ -52,7 +59,8 @@ public class LoginView extends AppCompatActivity {
                 getWindow().setEnterTransition(explode);
                 ActivityOptionsCompat optionsCompat
                         = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginView.this);
-                //TODO 跳转向首页面
+
+                loginPresenter.queryForVertify(userName.getText().toString(),passWord.getText().toString());
             }
         });
 
@@ -72,6 +80,40 @@ public class LoginView extends AppCompatActivity {
             }
         });
 
+        userName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                loginPresenter.vertifyForUserName(userName.getText().toString());
+            }
+        });
+
+        passWord.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                loginPresenter.vertifyForPassWord(passWord.getText().toString());
+            }
+        });
+
     }
 
     @Override
@@ -84,5 +126,13 @@ public class LoginView extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         switchToRegister.setVisibility(View.VISIBLE);
+    }
+
+    public void userNameSetError(String error){
+        userNameLayout.setError(error);
+    }
+
+    public void passWordSetError(String error){
+        passWordLayout.setError(error);
     }
 }
