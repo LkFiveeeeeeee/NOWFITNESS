@@ -5,4 +5,6 @@
     <color name="colorAccent">#b794f6</color>
     <color name="colorSecondary">#7fb469</color>
     <color name="hintColor">#E6EE9C</color>
+    <color name="leftFragment">#03DAC5</color>
+    <color name="rightFragment">#ffaf49</color>
 </resources>
