@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:orientation="vertical"
-            android:background="@drawable/normal_button"
+            android:background="@color/lightBlue"
             >
 
             <android.support.v7.widget.CardView
@@ -57,11 +57,14 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:background="#fff"
+            android:background="@drawable/linear_up_bc"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="70dp"
+
+            >
 
             <LinearLayout
+                android:id="@+id/indimoment"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -78,7 +81,7 @@
                     android:layout_height="24dp" />
 
                 <TextView
-
+                    android:id="@+id/momentnum"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:layout_gravity="center_horizontal"
@@ -90,6 +93,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/indifollow"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -104,7 +108,7 @@
                     android:layout_height="24dp" />
 
                 <TextView
-
+                    android:id="@+id/followersnum"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:layout_gravity="center_horizontal"
@@ -114,6 +118,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/indifans"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -128,7 +133,7 @@
                     android:layout_height="24dp" />
 
                 <TextView
-
+                    android:id="@+id/fansnum"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:layout_gravity="center_horizontal"
@@ -234,7 +239,7 @@
                     android:layout_height="24dp" />
 
                 <TextView
-                    android:id="@+id/ibm_bmiview"
+                    android:id="@+id/bmiview"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_height="40dp"
@@ -385,7 +390,7 @@
                     app:selected_theme_color="#108cd4"
                     app:week_background="#fff"
                     app:week_text_color="#111"
-
+                    app:week_view="project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.SimpleWeekView"
                     app:year_view_day_text_color="#333333"
                     app:year_view_day_text_size="9sp"
                     app:year_view_month_text_color="#ff0000"

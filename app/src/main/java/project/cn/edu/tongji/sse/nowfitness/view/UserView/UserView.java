@@ -8,9 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.haibin.calendarview.Calendar;
@@ -20,11 +24,18 @@ import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarControlMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.ConstantColor;
 
-public class UserView extends AppCompatActivity implements CalendarControlMethod {
+
+public class UserView extends AppCompatActivity implements CalendarControlMethod, userViewMethod{
+
+    private UserViewPresenter userViewPresenter;
 
     /*Calendar Para*/
     private TextView monthDay;
@@ -35,14 +46,37 @@ public class UserView extends AppCompatActivity implements CalendarControlMethod
     /*Calendar Para*/
 
 
+    /*others Para*/
+    private CircleImageView avatarImageView;
+    private LinearLayout momentLayout;
+    private LinearLayout followLayout;
+    private LinearLayout fansLayout;
+    private TextView momentNum;
+    private TextView fansNum;
+    private TextView followersNum;
+    private EditText hightNum;
+    private EditText weightNum;
+    private TextView BMINum;
+    /*others Para*/
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userview);
-        initView();
+        userViewPresenter = new UserViewPresenter(this);
+        userViewPresenter.initView();
     }
 
-    void initView(){
+    public void initView(){
+        setActionBar();
+        initUserView();
+        initCalendarView();
+    }
+
+    /*Calendar Method*/
+
+    private void setActionBar(){
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -54,10 +88,7 @@ public class UserView extends AppCompatActivity implements CalendarControlMethod
         }
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        initCalendarView();
     }
-
-    /*Calendar Method*/
 
     @Override
     public void initCalendarView() {
@@ -76,9 +107,113 @@ public class UserView extends AppCompatActivity implements CalendarControlMethod
         lunarDay.setText("今日");
         currentDay.setText(String.valueOf(calendarView.getCurDay()));
         Map<String, Calendar> map = new HashMap<>();
-        map.put(getSchemeCalendar(year, month, 3, 0xFF40db25, "假").toString(),
-                getSchemeCalendar(year, month, 3, 0xFF40db25, "假"));
+        map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 3, " ").toString(),
+                getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 3, " "));
+        map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 4, " ").toString(),
+                getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 4, " "));
+        map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 5, " ").toString(),
+                getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 5, " "));
+        map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 6, " ").toString(),
+                getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 6, " "));
+
+        calendarView.setSchemeDate(map);
+
+    }
+
+    @Override
+    public Calendar getSchemeCalendar(int year, int month, int day, String text) {
+        Random random = new Random();
+        int color = ConstantColor.color[random.nextInt(100) % ConstantColor.color.length];
+
+        Calendar calendar = new Calendar();
+        calendar.setYear(year);
+        calendar.setMonth(month);
+        calendar.setDay(day);
+        calendar.setSchemeColor(color);
+        calendar.setScheme(text);
+        return calendar;
     }
 
     /*Calendar Method*/
+
+
+    /*UserView Method*/
+    @Override
+    public void initUserView() {
+        avatarImageView = findViewById(R.id.avatar);
+        momentLayout = findViewById(R.id.indimoment);
+        followLayout = findViewById(R.id.indifollow);
+        fansLayout = findViewById(R.id.indifans);
+        momentNum = findViewById(R.id.momentnum);
+        fansNum = findViewById(R.id.fansnum);
+        followersNum = findViewById(R.id.followersnum);
+        hightNum = findViewById(R.id.height_view);
+        weightNum = findViewById(R.id.weight_view);
+        BMINum = findViewById(R.id.bmiview);
+        setLisenter();
+    }
+
+    @Override
+    public void setBMINum() {
+        if(hightNum.getText().equals("")||weightNum.getText().equals("")){
+            return;
+        }else{
+            //TODO calculate BMI number
+        }
+    }
+
+    @Override
+    public void setLisenter() {
+        momentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO Intent
+            }
+        });
+        followLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO Intent
+            }
+        });
+        fansLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO Intent
+            }
+        });
+        hightNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setBMINum();
+            }
+        });
+        weightNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setBMINum();
+            }
+        });
+    }
+    /*UserView Method*/
 }
