@@ -9,20 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.LoginView">
+        <activity android:name=".view.LoginAndRegisterView.LoginView">
 
         </activity>
         <activity android:name=".view.MainView">
+
+        </activity>
+        <activity
+            android:name=".view.LoginAndRegisterView.RegisterView"
+            android:theme="@style/Translucent"
+            ></activity>
+        <activity android:name=".view.UserView.DisplayVIEW.DisplayView">
+
+        </activity>
+        <activity android:name=".view.UserView.UserView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.RegisterView"
-            android:theme="@style/Translucent"
-            ></activity>
     </application>
 
 </manifest>

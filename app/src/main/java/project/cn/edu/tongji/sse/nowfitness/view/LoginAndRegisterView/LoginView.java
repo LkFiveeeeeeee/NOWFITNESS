@@ -1,4 +1,4 @@
-package project.cn.edu.tongji.sse.nowfitness.view;
+package project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView;
 
 import android.content.Intent;
 import android.os.Bundle;

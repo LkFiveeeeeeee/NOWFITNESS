@@ -1,4 +1,4 @@
-package project.cn.edu.tongji.sse.nowfitness.view;
+package project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

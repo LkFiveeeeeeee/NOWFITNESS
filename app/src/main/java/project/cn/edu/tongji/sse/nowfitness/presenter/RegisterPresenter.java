@@ -1,6 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import project.cn.edu.tongji.sse.nowfitness.view.RegisterView;
+import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterView;
 
 public class RegisterPresenter {
     private RegisterView registerView;

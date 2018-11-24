@@ -3,4 +3,9 @@
     <string name="finish_button">完成</string>
     <string name="user">个人中心</string>
     <string name="thing">周边动态</string>
+    <string name="isFollowed">已关注</string>
+    <string name="unFollowed">未关注</string>
+    <string name="userHeight">身高(cm)</string>
+    <string name="userWeight">体重(kg)</string>
+    <string name="BMINumber">BMI</string>
 </resources>
