@@ -1,10 +1,10 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserView;
+import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 
 public class UserViewPresenter {
-    private UserView userView;
-    public UserViewPresenter(UserView userView){
+    private UserViewFragment userView;
+    public UserViewPresenter(UserViewFragment userView){
         this.userView = userView;
     }
     public void initView(){

@@ -33,7 +33,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarC
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.ConstantColor;
 
 
-public class UserView extends AppCompatActivity implements CalendarControlMethod, userViewMethod{
+public class UserViewFragment extends Fragment implements CalendarControlMethod, userViewMethod{
 
     private UserViewPresenter userViewPresenter;
 
@@ -57,15 +57,21 @@ public class UserView extends AppCompatActivity implements CalendarControlMethod
     private EditText hightNum;
     private EditText weightNum;
     private TextView BMINum;
+    private View myView;
     /*others Para*/
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        myView = inflater.inflate(R.layout.userview,container,false);
+        userViewPresenter.initView();
+        return myView;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.userview);
         userViewPresenter = new UserViewPresenter(this);
-        userViewPresenter.initView();
     }
 
     public void initView(){
@@ -78,25 +84,25 @@ public class UserView extends AppCompatActivity implements CalendarControlMethod
 
     private void setActionBar(){
         if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
+            View decorView = getActivity().getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
-            getWindow().setNavigationBarColor(Color.TRANSPARENT);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            getActivity().getWindow().setNavigationBarColor(Color.TRANSPARENT);
+            getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.hide();
     }
 
     @Override
     public void initCalendarView() {
-        monthDay = findViewById(R.id.tv_month_day);
-        yearDay = findViewById(R.id.tv_year);
-        lunarDay = findViewById(R.id.tv_lunar);
-        currentDay = findViewById(R.id.tv_current_day);
-        calendarView = findViewById(R.id.calendarView);
+        monthDay = (TextView) myView.findViewById(R.id.tv_month_day);
+        yearDay = (TextView) myView.findViewById(R.id.tv_year);
+        lunarDay = (TextView) myView.findViewById(R.id.tv_lunar);
+        currentDay = (TextView) myView.findViewById(R.id.tv_current_day);
+        calendarView = (CalendarView) myView.findViewById(R.id.calendarView);
         setInitView();
     }
 
@@ -137,19 +143,20 @@ public class UserView extends AppCompatActivity implements CalendarControlMethod
     /*Calendar Method*/
 
 
-    /*UserView Method*/
+    /*UserViewFragment Method*/
     @Override
     public void initUserView() {
-        avatarImageView = findViewById(R.id.avatar);
-        momentLayout = findViewById(R.id.indimoment);
-        followLayout = findViewById(R.id.indifollow);
-        fansLayout = findViewById(R.id.indifans);
-        momentNum = findViewById(R.id.momentnum);
-        fansNum = findViewById(R.id.fansnum);
-        followersNum = findViewById(R.id.followersnum);
-        hightNum = findViewById(R.id.height_view);
-        weightNum = findViewById(R.id.weight_view);
-        BMINum = findViewById(R.id.bmiview);
+        avatarImageView =
+                (CircleImageView) myView.findViewById(R.id.avatar);
+        momentLayout = (LinearLayout) myView.findViewById(R.id.indimoment);
+        followLayout = (LinearLayout) myView.findViewById(R.id.indifollow);
+        fansLayout = (LinearLayout) myView.findViewById(R.id.indifans);
+        momentNum = (TextView) myView.findViewById(R.id.momentnum);
+        fansNum = (TextView) myView.findViewById(R.id.fansnum);
+        followersNum = (TextView) myView.findViewById(R.id.followersnum);
+        hightNum = (EditText) myView.findViewById(R.id.height_view);
+        weightNum = (EditText) myView.findViewById(R.id.weight_view);
+        BMINum = (TextView) myView.findViewById(R.id.bmiview);
         setLisenter();
     }
 
@@ -215,5 +222,5 @@ public class UserView extends AppCompatActivity implements CalendarControlMethod
             }
         });
     }
-    /*UserView Method*/
+    /*UserViewFragment Method*/
 }

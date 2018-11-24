@@ -22,7 +22,7 @@
         <activity android:name=".view.UserView.DisplayVIEW.DisplayView">
 
         </activity>
-        <activity android:name=".view.UserView.UserView">
+        <activity android:name=".view.UserView.UserViewFragment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
