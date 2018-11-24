@@ -14,4 +14,6 @@
     <color name="LightPink">#B39DDB</color>
     <color name="textColor">#888888</color>
     <color name="lightRed">#FFAB91</color>
+    <color name="divider_timeline_item">#ebeef4</color>
+    <color name="text_54">#69000000</color>
 </resources>

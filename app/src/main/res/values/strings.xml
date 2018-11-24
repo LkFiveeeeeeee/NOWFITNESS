@@ -8,4 +8,6 @@
     <string name="userHeight">身高(cm)</string>
     <string name="userWeight">体重(kg)</string>
     <string name="BMINumber">BMI</string>
+    <string name="follow">我的关注</string>
+    <string name="nearby">附近的人</string>
 </resources>
