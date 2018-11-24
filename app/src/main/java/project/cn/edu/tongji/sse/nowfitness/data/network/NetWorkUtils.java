@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetWorkUtils {
     public static Retrofit makeRetrofit(){
         return new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl("http://47.107.167.12:8080/api/")
                 .client(makeClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

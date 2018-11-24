@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.cn.edu.tongji.sse.nowfitness">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,18 +13,23 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.LoginAndRegisterView.LoginView">
 
-        </activity>
-        <activity android:name=".view.MainView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".view.MainView">
+
         </activity>
         <activity
             android:name=".view.LoginAndRegisterView.RegisterView"
             android:theme="@style/Translucent"
-            ></activity>
+            >
+
+
+        </activity>
         <activity android:name=".view.UserView.DisplayVIEW.DisplayView">
 
         </activity>

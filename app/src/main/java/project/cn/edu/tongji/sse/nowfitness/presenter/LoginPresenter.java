@@ -1,12 +1,24 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import project.cn.edu.tongji.sse.nowfitness.data.APIRepositaryImpl;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
+import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.loginMethod;
 
 public class LoginPresenter {
     private LoginView loginView;
+    private loginMethod loginMethod;
+    private CompositeDisposable subscriptions = new CompositeDisposable();
+    private APIRepositaryImpl apiRepositary;
 
-    public LoginPresenter(LoginView loginView){
+
+    public LoginPresenter(LoginView loginView,loginMethod loginMethod){
+        apiRepositary = new APIRepositaryImpl();
         this.loginView = loginView;
+        this.loginMethod = loginMethod;
     }
 
     public void initView(){
@@ -15,7 +27,7 @@ public class LoginPresenter {
 
     public boolean vertifyForUserName(String userName){
 
-        if(userName.length() < 8){
+        if(userName.length() < 6){
             loginView.userNameSetError("用户名长度过短");
             return false;
         }
@@ -34,8 +46,13 @@ public class LoginPresenter {
 
     public void queryForVertify(String userName,String passWord){
         if(vertifyForUserName(userName) && vertifyForPassWord(passWord)){
+            subscriptions.add(apiRepositary.vertifyInfo(userName,passWord)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(loginMethod::loginSuccess,loginMethod::loginError)
+            );
 
-            //TODO
+
             //onResponse 成功跳转主页面,失败Toast提示
         }
 

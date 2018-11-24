@@ -12,13 +12,18 @@ import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Explode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
+import project.cn.edu.tongji.sse.nowfitness.model.LoginModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LoginPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.MainView;
 
-public class LoginView extends AppCompatActivity {
+public class LoginView extends AppCompatActivity implements loginMethod {
 
     private LoginPresenter loginPresenter;
     private TextInputEditText userName;
@@ -33,7 +38,7 @@ public class LoginView extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_one);
-        loginPresenter = new LoginPresenter(this);
+        loginPresenter = new LoginPresenter(this,this);
         loginPresenter.initView();
 
     }
@@ -134,5 +139,26 @@ public class LoginView extends AppCompatActivity {
 
     public void passWordSetError(String error){
         passWordLayout.setError(error);
+    }
+
+    @Override
+    public void loginSuccess(LoginModel loginModel) {
+        Log.d("1111111", "loginSuccess: ");
+        Log.d("11111",loginModel.toString());
+        Log.d("11111",loginModel.getResult().toString());
+        Log.d("11111",Constant.LOGIN_SUCCESS);
+        if(loginModel.getResult().equals(Constant.LOGIN_SUCCESS)){
+            Intent intent = new Intent(LoginView.this,MainView.class);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this,loginModel.getResult().toString(),Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void loginError(Throwable e) {
+        Log.d("222222", "loginError: ");
+        e.printStackTrace();
     }
 }

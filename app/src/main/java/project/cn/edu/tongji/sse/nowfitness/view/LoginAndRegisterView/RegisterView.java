@@ -2,6 +2,7 @@ package project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,15 +14,20 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
+import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
+import project.cn.edu.tongji.sse.nowfitness.model.LoginModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.RegisterPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.MainView;
 
-public class RegisterView extends AppCompatActivity {
+public class RegisterView extends AppCompatActivity implements RegisterMethod{
     private FloatingActionButton cancelButton;
     private CardView registerView;
     private RegisterPresenter registerPresenter;
@@ -38,7 +44,7 @@ public class RegisterView extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_two);
-        registerPresenter = new RegisterPresenter(this);
+        registerPresenter = new RegisterPresenter(this,this);
         registerPresenter.showAnimate();
         registerPresenter.initView();
 
@@ -124,7 +130,18 @@ public class RegisterView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO
-                //提交表单,一系列验证操作
+                if(registerPresenter.vertifyUserName(userName.getText().toString())
+                        && registerPresenter.vertifyPassWord(passWord.getText().toString())
+                        &&registerPresenter.vertifyPassWordAgain(passWord.getText().toString(),
+                                                    repeatPassWord.getText().toString())){
+                    registerPresenter.applyRegister(userName.getText().toString(),passWord.getText().toString());
+                    //提交表单,一系列验证操作
+                }
+                else{
+                    //TODO toast
+                }
+
+
             }
         });
 
@@ -227,5 +244,24 @@ public class RegisterView extends AppCompatActivity {
 
     public void repeatPassWordError(String error){
         repeatPassWordLayout.setError(error);
+    }
+
+    @Override
+    public void RegisterSuccees(LoginModel loginModel) {
+        Log.d("1111111", "loginSuccess: ");
+        Log.d("11111",loginModel.toString());
+        Log.d("11111",loginModel.getResult().toString());
+        Log.d("11111",Constant.LOGIN_SUCCESS);
+        if(loginModel.getResult().equals(Constant.REGISTER_SUCCESS)){
+            Intent intent = new Intent(RegisterView.this,MainView.class);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this,loginModel.getResult().toString(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void RegisterApplyError(Throwable e) {
+        e.printStackTrace();
     }
 }
