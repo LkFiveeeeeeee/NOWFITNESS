@@ -2,4 +2,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="design_fab_size_mini" tools:override="true">72dp</dimen>
     <dimen name="design_fab_content_size" tools:override="true">48dp</dimen>
+
+    <!--timeline-->
+    <dimen name="moments_item_time_padding">10dip</dimen>
+    <dimen name="moments_item_time_margin">5dip</dimen>
+    <dimen name="moments_gap_pics">4sp</dimen>
 </resources>

@@ -3,4 +3,6 @@
     <string name="finish_button">完成</string>
     <string name="user">个人中心</string>
     <string name="thing">周边动态</string>
+    <string name="follow">我的关注</string>
+    <string name="nearby">附近的人</string>
 </resources>

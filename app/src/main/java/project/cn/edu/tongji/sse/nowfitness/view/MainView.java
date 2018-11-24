@@ -1,16 +1,26 @@
 package project.cn.edu.tongji.sse.nowfitness.view;
 
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 
+
 public class MainView extends AppCompatActivity {
+
+    private LeftFragment leftFragment;//omf
+    private FragmentManager fragmentManager;
+
+
 
     private AHBottomNavigation bottomNavigation;
 
@@ -49,5 +59,35 @@ public class MainView extends AppCompatActivity {
         bottomNavigation.setCurrentItem(0);
         bottomNavigation.disableItemAtPosition(1); //禁用占位图标
         bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
+
+        fragmentManager=getSupportFragmentManager();//omf
+        initEvent();
+    }
+
+    //omf
+    private void initEvent(){
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                if(position==0){
+                    if(leftFragment ==null) {
+                        leftFragment = new LeftFragment();
+                        fragmentTransaction.add(R.id.fragment, leftFragment);
+                    }else{
+                        fragmentTransaction.show(leftFragment);
+                    }
+                    fragmentTransaction.commit();
+                }
+                return true;
+            }
+        });
+
+    }
+    //omf
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

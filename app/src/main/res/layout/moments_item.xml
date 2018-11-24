@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:id="@+id/cardView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dip"
+    android:layout_marginTop="8dip"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="#ffffff"
+    app:cardElevation="1.5dip">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/moments_item_time_padding"
+        android:paddingRight="@dimen/moments_item_time_padding"
+        android:paddingTop="@dimen/moments_item_time_padding">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/moments_user_photo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/test"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/rightFragment"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/moments_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MomentsTextTitle"
+                android:layout_toRightOf="@id/moments_user_photo"
+                android:text="名字"/>
+
+            <ImageView
+                android:id="@+id/imgVerified"
+                android:layout_width="18dip"
+                android:layout_height="18dip"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="10dip"
+                android:layout_toRightOf="@id/moments_user_name"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/moments_release_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MomentsTextSubhead"
+                android:layout_below="@id/moments_user_name"
+                android:layout_toRightOf="@+id/moments_user_photo"
+                android:layout_marginTop="2dip"
+                android:text="来自omf 2018-11-23"/>
+
+            <TextView
+                android:id="@+id/moments_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MomentsTextBody"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/moments_user_photo"
+                android:layout_marginTop="22dp"
+                android:lineSpacingExtra="2dip"
+                android:text="哈哈，我今天发了条微博" />
+
+
+            <!--android:background="@drawable/timeline_profile_question_single_normal"-->
+            <RelativeLayout
+                android:id="@+id/layRe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/moments_content"
+                android:layout_marginLeft="-10dip"
+                android:layout_marginRight="-10dip"
+                android:orientation="vertical"
+                android:paddingBottom="4dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip">
+
+
+
+                <ImageView
+                    android:id="@+id/content_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:lineSpacingExtra="2dip"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/ic_launcher" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dip"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/moments_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dip"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="2dip">
+
+                <ImageView
+                    android:id="@+id/image_like"
+                    android:layout_width="24dip"
+                    android:layout_height="20dip"
+                    android:background="@drawable/src_like"/>
+
+                <TextView
+                    android:id="@+id/like_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MomentsTextBody"
+                    android:paddingTop="4dip"
+                    android:text="1人赞了"
+                    android:textColor="@color/text_54"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/momemts_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/timeline_icon_comment"/>
+
+                <TextView
+                    android:id="@+id/comment_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MomentsTextBody"
+                    android:text="100"
+                    android:textColor="@color/text_54"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnMenus"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_gravity="right"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingBottom="8dip"
+        android:src="@drawable/ic_menu_moreoverflow_card_dark_normal"/>
+
+</android.support.v7.widget.CardView>
