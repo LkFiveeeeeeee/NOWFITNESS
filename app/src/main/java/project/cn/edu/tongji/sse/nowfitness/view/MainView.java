@@ -73,11 +73,13 @@ public class MainView extends AppCompatActivity {
                 if(position==0){
                     if(leftFragment ==null) {
                         leftFragment = new LeftFragment();
-                        fragmentTransaction.add(R.id.fragment, leftFragment);
+                        fragmentTransaction.replace(R.id.fragment, leftFragment);
                     }else{
                         fragmentTransaction.show(leftFragment);
                     }
                     fragmentTransaction.commit();
+                }else{
+
                 }
                 return true;
             }
