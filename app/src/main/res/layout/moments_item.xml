@@ -31,7 +31,7 @@
                 android:id="@+id/moments_user_photo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/test"
+                android:src="@drawable/add_mini"
                 app:civ_border_width="2dp"
                 app:civ_border_color="@color/rightFragment"
                 android:layout_alignParentTop="true"

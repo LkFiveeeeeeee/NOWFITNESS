@@ -1,4 +1,4 @@
-package project.cn.edu.tongji.sse.nowfitness.view;
+package project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +12,19 @@ import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Explode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
+import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LoginPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
-public class LoginView extends AppCompatActivity {
+public class LoginView extends AppCompatActivity implements loginMethod {
 
     private LoginPresenter loginPresenter;
     private TextInputEditText userName;
@@ -33,7 +39,7 @@ public class LoginView extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_one);
-        loginPresenter = new LoginPresenter(this);
+        loginPresenter = new LoginPresenter(this,this);
         loginPresenter.initView();
 
     }
@@ -134,5 +140,32 @@ public class LoginView extends AppCompatActivity {
 
     public void passWordSetError(String error){
         passWordLayout.setError(error);
+    }
+
+    @Override
+    public void loginSuccess(SignModel signModel) {
+        Log.d("1111111", "loginSuccess: ");
+        Log.d("11111", signModel.toString());
+        Log.d("11111", signModel.getResult().toString());
+        Log.d("11111",Constant.LOGIN_SUCCESS);
+        if(signModel.getResult().equals(Constant.LOGIN_SUCCESS)){
+            useIntent(userName.getText().toString(),passWord.getText().toString());
+        }else{
+            Toast.makeText(this, signModel.getResult().toString(),Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void loginError(Throwable e) {
+        Log.d("222222", "loginError: ");
+        e.printStackTrace();
+    }
+
+    public void useIntent(String userName,String passWord){
+        Intent intent = new Intent(LoginView.this,MainView.class);
+        intent.putExtra(ConstantMethod.userName_Key,userName);
+        intent.putExtra(ConstantMethod.passWord_Key,passWord);
+        startActivity(intent);
     }
 }

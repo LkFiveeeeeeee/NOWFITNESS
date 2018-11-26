@@ -1,10 +1,18 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import project.cn.edu.tongji.sse.nowfitness.view.RegisterView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import project.cn.edu.tongji.sse.nowfitness.data.APIRepositaryImpl;
+import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterView;
 
-public class RegisterPresenter {
+public class RegisterPresenter extends BasePresenter{
     private RegisterView registerView;
-    public RegisterPresenter(RegisterView registerView){
+    private RegisterMethod registerMethod;
+    public RegisterPresenter(RegisterView registerView, RegisterMethod registerMethod){
+        apiRepositary = new APIRepositaryImpl();
+        this.registerMethod = registerMethod;
         this.registerView = registerView;
     }
 
@@ -42,4 +50,13 @@ public class RegisterPresenter {
         registerView.repeatPassWordError("");
         return true;
     }
+
+    public void applyRegister(String userName,String passWord){
+        subscriptions.add(apiRepositary.applyInfo(userName,passWord)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(registerMethod::RegisterSuccees,registerMethod::RegisterApplyError)
+        );
+    }
+
 }

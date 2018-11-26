@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         app:fabSize="normal"
         android:transitionName="loginFab"
-        android:src="@mipmap/ic_add_round"
+        android:src="@drawable/add"
         android:layout_alignTop="@id/login_view"
         android:layout_marginTop="25dp"
         android:layout_alignEnd="@id/login_view"
