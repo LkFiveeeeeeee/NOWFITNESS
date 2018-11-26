@@ -7,10 +7,8 @@ import project.cn.edu.tongji.sse.nowfitness.data.APIRepositaryImpl;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterView;
 
-public class RegisterPresenter {
+public class RegisterPresenter extends BasePresenter{
     private RegisterView registerView;
-    private CompositeDisposable subscriptions = new CompositeDisposable();
-    private APIRepositaryImpl apiRepositary;
     private RegisterMethod registerMethod;
     public RegisterPresenter(RegisterView registerView, RegisterMethod registerMethod){
         apiRepositary = new APIRepositaryImpl();
@@ -60,6 +58,5 @@ public class RegisterPresenter {
                 .subscribe(registerMethod::RegisterSuccees,registerMethod::RegisterApplyError)
         );
     }
-
 
 }

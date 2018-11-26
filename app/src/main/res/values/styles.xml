@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/slidestyle</item>
+        <item name="android:windowExitTransition">@transition/explodestyle</item>
         <item name="android:windowIsTranslucent">true</item>
         <!-- omf -->
         <item name="windowActionBar">false</item>
@@ -19,6 +22,12 @@
     <style name="AppTheme.ColorButtonStyle" parent="Widget.AppCompat.Button.Colored">
         <item name="android:colorButtonNormal">@color/colorAccent</item>
         <item name="android:colorControlHighlight">@color/leftFragment</item>
+    </style>
+    
+    <style name="AppTheme.ToolBarTheme" parent="Theme.AppCompat.Light">
+        <item name="actionMenuTextColor">@color/textColor</item>
+        <item name="colorButtonNormal">@color/lightGray</item>
+
     </style>
 
 

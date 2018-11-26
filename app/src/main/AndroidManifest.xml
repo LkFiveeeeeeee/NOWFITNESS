@@ -3,6 +3,8 @@
     package="project.cn.edu.tongji.sse.nowfitness">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -13,14 +15,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.LoginAndRegisterView.LoginView">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
-        <activity android:name=".view.MainView">
+        <activity android:name=".view.MainView.MainView">
 
         </activity>
         <activity
@@ -32,6 +29,13 @@
         </activity>
         <activity android:name=".view.UserView.DisplayVIEW.DisplayView">
 
+        </activity>
+        <activity android:name=".view.publishMomentView.PubishMomentView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -1,6 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
-public class LoginModel {
+public class SignModel {
     public String getResult() {
         return result;
     }
@@ -10,7 +10,7 @@ public class LoginModel {
     }
 
     String result;
-    public LoginModel(String response){
+    public SignModel(String response){
         result = response;
     }
 }

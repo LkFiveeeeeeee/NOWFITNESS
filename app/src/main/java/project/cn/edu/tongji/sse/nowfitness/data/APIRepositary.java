@@ -9,4 +9,6 @@ public interface APIRepositary {
     Single vertifyInfo(String userName,String passWord);
 
     Single applyInfo(String userName,String passWord);
+
+    Single queryUserInfo(String userName, String passWord);
 }

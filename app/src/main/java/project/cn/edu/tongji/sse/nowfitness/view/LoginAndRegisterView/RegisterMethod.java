@@ -1,11 +1,9 @@
 package project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView;
 
-import android.widget.Toast;
-
-import project.cn.edu.tongji.sse.nowfitness.model.LoginModel;
+import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 
 public interface RegisterMethod {
-    void RegisterSuccees(LoginModel loginModel);
+    void RegisterSuccees(SignModel signModel);
 
     void RegisterApplyError(Throwable e);
 }

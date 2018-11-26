@@ -56,29 +56,29 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:background="@drawable/linear_up_bc"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:background="@drawable/linear_up_bc"
+            android:orientation="horizontal"
 
             >
 
             <LinearLayout
                 android:id="@+id/indimoment"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
+                android:layout_weight="1"
                 android:orientation="vertical"
 
                 >
 
                 <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="18sp"
-                    android:text="动态"
                     android:layout_width="wrap_content"
-                    android:layout_height="24dp" />
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="动态"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/momentnum"
@@ -86,26 +86,25 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center_horizontal"
                     android:text="11"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/indifollow"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="18sp"
-                    android:text="关注"
                     android:layout_width="wrap_content"
-                    android:layout_height="24dp" />
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="关注"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/followersnum"
@@ -113,24 +112,23 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center_horizontal"
                     android:text="11"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/indifans"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="18sp"
-                    android:text="粉丝"
                     android:layout_width="wrap_content"
-                    android:layout_height="24dp" />
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="粉丝"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/fansnum"
@@ -138,8 +136,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center_horizontal"
                     android:text="11"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -405,7 +402,7 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:background="@drawable/linear_bt_bc"
             >
 

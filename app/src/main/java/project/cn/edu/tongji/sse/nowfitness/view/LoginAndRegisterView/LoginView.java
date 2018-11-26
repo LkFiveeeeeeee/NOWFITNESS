@@ -19,9 +19,10 @@ import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
-import project.cn.edu.tongji.sse.nowfitness.model.LoginModel;
+import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LoginPresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class LoginView extends AppCompatActivity implements loginMethod {
 
@@ -142,16 +143,15 @@ public class LoginView extends AppCompatActivity implements loginMethod {
     }
 
     @Override
-    public void loginSuccess(LoginModel loginModel) {
+    public void loginSuccess(SignModel signModel) {
         Log.d("1111111", "loginSuccess: ");
-        Log.d("11111",loginModel.toString());
-        Log.d("11111",loginModel.getResult().toString());
+        Log.d("11111", signModel.toString());
+        Log.d("11111", signModel.getResult().toString());
         Log.d("11111",Constant.LOGIN_SUCCESS);
-        if(loginModel.getResult().equals(Constant.LOGIN_SUCCESS)){
-            Intent intent = new Intent(LoginView.this,MainView.class);
-            startActivity(intent);
+        if(signModel.getResult().equals(Constant.LOGIN_SUCCESS)){
+            useIntent(userName.getText().toString(),passWord.getText().toString());
         }else{
-            Toast.makeText(this,loginModel.getResult().toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, signModel.getResult().toString(),Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -160,5 +160,12 @@ public class LoginView extends AppCompatActivity implements loginMethod {
     public void loginError(Throwable e) {
         Log.d("222222", "loginError: ");
         e.printStackTrace();
+    }
+
+    public void useIntent(String userName,String passWord){
+        Intent intent = new Intent(LoginView.this,MainView.class);
+        intent.putExtra(ConstantMethod.userName_Key,userName);
+        intent.putExtra(ConstantMethod.passWord_Key,passWord);
+        startActivity(intent);
     }
 }

@@ -8,15 +8,11 @@ import project.cn.edu.tongji.sse.nowfitness.data.APIRepositaryImpl;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.loginMethod;
 
-public class LoginPresenter {
+public class LoginPresenter extends BasePresenter{
     private LoginView loginView;
     private loginMethod loginMethod;
-    private CompositeDisposable subscriptions = new CompositeDisposable();
-    private APIRepositaryImpl apiRepositary;
-
 
     public LoginPresenter(LoginView loginView,loginMethod loginMethod){
-        apiRepositary = new APIRepositaryImpl();
         this.loginView = loginView;
         this.loginMethod = loginMethod;
     }
@@ -51,8 +47,6 @@ public class LoginPresenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(loginMethod::loginSuccess,loginMethod::loginError)
             );
-
-
             //onResponse 成功跳转主页面,失败Toast提示
         }
 

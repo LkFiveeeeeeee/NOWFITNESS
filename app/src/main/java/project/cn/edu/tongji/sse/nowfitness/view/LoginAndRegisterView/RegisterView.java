@@ -23,9 +23,9 @@ import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
-import project.cn.edu.tongji.sse.nowfitness.model.LoginModel;
+import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.RegisterPresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 
 public class RegisterView extends AppCompatActivity implements RegisterMethod{
     private FloatingActionButton cancelButton;
@@ -247,16 +247,16 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
     }
 
     @Override
-    public void RegisterSuccees(LoginModel loginModel) {
+    public void RegisterSuccees(SignModel signModel) {
         Log.d("1111111", "loginSuccess: ");
-        Log.d("11111",loginModel.toString());
-        Log.d("11111",loginModel.getResult().toString());
+        Log.d("11111", signModel.toString());
+        Log.d("11111", signModel.getResult().toString());
         Log.d("11111",Constant.LOGIN_SUCCESS);
-        if(loginModel.getResult().equals(Constant.REGISTER_SUCCESS)){
+        if(signModel.getResult().equals(Constant.REGISTER_SUCCESS)){
             Intent intent = new Intent(RegisterView.this,MainView.class);
             startActivity(intent);
         }else{
-            Toast.makeText(this,loginModel.getResult().toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, signModel.getResult().toString(),Toast.LENGTH_SHORT).show();
         }
     }
 
