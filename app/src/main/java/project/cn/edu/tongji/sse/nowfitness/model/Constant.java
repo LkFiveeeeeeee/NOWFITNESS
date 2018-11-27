@@ -1,5 +1,12 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
+import org.greenrobot.greendao.converter.PropertyConverter;
+
+import java.beans.PropertyChangeListener;
+import java.sql.Array;
+import java.util.Arrays;
+import java.util.List;
+
 public class Constant {
     public static final String REGISTER_FAIL ="register fail";
     public static final String REGISTER_SUCCESS ="register success";

@@ -29,6 +29,7 @@ import com.haibin.calendarview.CalendarView;
 import com.zhihu.matisse.Matisse;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -49,7 +50,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarC
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.ConstantColor;
 
 
-public class UserViewFragment extends Fragment implements CalendarControlMethod, userViewMethod,PermissionMethod {
+public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,PermissionMethod {
     /*temp para*/
     private List<Uri> imageUri;
 
@@ -92,7 +93,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userViewPresenter = new UserViewPresenter(this);
+        userViewPresenter = new UserViewPresenter(this,this);
     }
 
     public void initView(){
@@ -217,10 +218,25 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
     @Override
     public void setBMINum() {
-        if(hightNum.getText().equals("")||weightNum.getText().equals("")){
+        if(hightNum.getText().equals("0")||weightNum.getText().equals("0")){
             return;
         }else{
             //TODO calculate BMI number
+            double num = userViewPresenter.getBMINum();
+            DecimalFormat decimalFormat = new DecimalFormat("#.#");
+
+            if(num == 0){
+                return;
+            }
+            if(num < 18.5){
+                BMINum.setText(decimalFormat.format(num) + " 过轻 ");
+            }else if(num < 24){
+                BMINum.setText(decimalFormat.format(num) + " 正常 ");
+            }else if(num < 28){
+                BMINum.setText(decimalFormat.format(num) + " 超重 ");
+            }else{
+                BMINum.setText(decimalFormat.format(num) + " 肥胖 ");
+            }
         }
     }
 
@@ -257,7 +273,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
             @Override
             public void afterTextChanged(Editable editable) {
-                setBMINum();
+                userViewPresenter.setHeight(hightNum.getText().toString());
             }
         });
         weightNum.addTextChangedListener(new TextWatcher() {
@@ -273,7 +289,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
             @Override
             public void afterTextChanged(Editable editable) {
-                setBMINum();
+                userViewPresenter.setWeight(weightNum.getText().toString());
             }
         });
         avatarImageView.setOnClickListener(new View.OnClickListener() {
@@ -338,6 +354,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             imageUri = Matisse.obtainResult(data);
             Log.d("1111", "onActivityResult:succsess Image ");
             Glide.with(myView).load(imageUri.get(0)).into(avatarImageView);
+            userViewPresenter.setAvatar(imageUri.get(0).toString());
         }
     }
 

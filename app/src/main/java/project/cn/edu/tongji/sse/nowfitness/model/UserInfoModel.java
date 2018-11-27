@@ -1,13 +1,20 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Transient;
+
 import java.util.Date;
 import java.util.List;
 import java.util.PrimitiveIterator;
 
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
+import org.greenrobot.greendao.annotation.Generated;
 
+@Entity
 public class UserInfoModel {
-    private int id;
+    @Id(autoincrement = true)
+    private long id;
     private String userName;
     private String passWord;
     private double height;
@@ -18,11 +25,18 @@ public class UserInfoModel {
     private int followingNum;
     private int fansNum;
     private int momentsNum;
+    private String dateCheckString;
+
+    @Transient
+    private List<String> dateCheckList;
+
+    @Transient
+    private StrinrgAndListConvertMethod convert = new StrinrgAndListConvertMethod();
 
     public UserInfoModel(int id, String userName, String passWord, double height,
                          double weight, String sex, int age, String pictureUrl,
                          int followingNum, int fansNum, int momentsNum, List<String> dateCheckList) {
-        this.id = id;
+        this.id = (long) id;
         this.userName = userName;
         this.passWord = passWord;
         this.height = height;
@@ -49,11 +63,34 @@ public class UserInfoModel {
         this.fansNum = userInfoDTO.getFans();
         this.momentsNum = userInfoDTO.getMomentsNum();
         this.dateCheckList = userInfoDTO.getDateCheckList();
+        this.dateCheckString = convert.convertToDatabaseValue(this.dateCheckList);
+    }
+
+    @Generated(hash = 900675157)
+    public UserInfoModel(long id, String userName, String passWord, double height, double weight,
+            String sex, int age, String pictureUrl, int followingNum, int fansNum, int momentsNum,
+            String dateCheckString) {
+        this.id = id;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.height = height;
+        this.weight = weight;
+        this.sex = sex;
+        this.age = age;
+        this.pictureUrl = pictureUrl;
+        this.followingNum = followingNum;
+        this.fansNum = fansNum;
+        this.momentsNum = momentsNum;
+        this.dateCheckString = dateCheckString;
+    }
+
+    @Generated(hash = 886444478)
+    public UserInfoModel() {
     }
 
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -149,5 +186,17 @@ public class UserInfoModel {
         this.dateCheckList = dateCheckList;
     }
 
-    private List<String> dateCheckList;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getDateCheckString() {
+        return this.dateCheckString;
+    }
+
+    public void setDateCheckString(String dateCheckString) {
+        this.dateCheckString = dateCheckString;
+    }
+
+
 }

@@ -23,6 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoSession;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
@@ -200,6 +204,9 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
     @Override
     public void querySuccess(UserInfoModel userInfoModel) {
         UserInfoLab.get().setUserInfoModel(userInfoModel);
+        DaoSession daoSession = DaoManager.getDaoInstance().getDaoSession();
+        UserInfoModelDao userInfoModelDao = daoSession.getUserInfoModelDao();
+        userInfoModelDao.insertOrReplace(UserInfoLab.get().getUserInfoModel());
         Log.d("1111111", "querySuccess: UserInfoSuccess!!!!");
     }
 
