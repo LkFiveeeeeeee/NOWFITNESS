@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
+import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
 
 public class NOWFITNESSApplication extends Application {
     private final String TAG = "onApplication";
@@ -19,10 +20,11 @@ public class NOWFITNESSApplication extends Application {
             Log.d(TAG, "onCreate: context = null!!!!!!");
         }
         DaoManager.getDaoInstance();
+      //  initIndividualMap();
     }
 
     public static Context getContext(){
-        
         return context;
     }
+
 }

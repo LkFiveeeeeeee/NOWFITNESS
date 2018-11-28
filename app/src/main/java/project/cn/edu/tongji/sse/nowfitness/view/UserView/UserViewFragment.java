@@ -44,6 +44,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarControlMethod;
@@ -246,18 +247,27 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             @Override
             public void onClick(View view) {
                 //TODO Intent
+
             }
         });
         followLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO Intent
+                Intent intent = new Intent(getActivity(),DisplayView.class);
+                intent.putExtra(ConstantMethod.type_Key,
+                        ConstantMethod.stars_Type);
+                startActivity(intent);
             }
         });
         fansLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO Intent
+                Intent intent = new Intent(getActivity(),DisplayView.class);
+                intent.putExtra(ConstantMethod.type_Key,
+                        ConstantMethod.fans_Type);
+                startActivity(intent);
             }
         });
         hightNum.addTextChangedListener(new TextWatcher() {

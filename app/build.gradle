@@ -22,7 +22,7 @@ android {
         }
     }
     greendao{
-        schemaVersion 1
+        schemaVersion 2
         daoPackage 'project.cn.edu.tongji.sse.nowfitness.greendao.db'
         targetGenDir 'src/main/java'
     }

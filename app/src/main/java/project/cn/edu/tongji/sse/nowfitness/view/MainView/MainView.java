@@ -14,7 +14,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -23,10 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoSession;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.IndiInfoModelDao;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.IndiRelationModelDao;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
+import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
@@ -37,6 +40,8 @@ import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
 
 
 public class MainView extends AppCompatActivity implements PermissionMethod,MainViewMethod{
+    private final String TAG ="Test Database";
+
 
     private LeftFragment leftFragment;//omf
     private UserViewFragment userViewFragment;
@@ -62,8 +67,7 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
                 intent.getStringExtra(ConstantMethod.userName_Key),
                 intent.getStringExtra(ConstantMethod.passWord_Key)
         );
-
-
+        testDataBase();
         mainViewPresenter.initView();
     }
 
@@ -204,6 +208,7 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
     @Override
     public void querySuccess(UserInfoModel userInfoModel) {
         UserInfoLab.get().setUserInfoModel(userInfoModel);
+        Long num = Long.valueOf(2);
         DaoSession daoSession = DaoManager.getDaoInstance().getDaoSession();
         UserInfoModelDao userInfoModelDao = daoSession.getUserInfoModelDao();
         userInfoModelDao.insertOrReplace(UserInfoLab.get().getUserInfoModel());
@@ -214,5 +219,22 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
     public void queryError(Throwable e) {
         e.printStackTrace();
         Log.d("1111111", "queryError: errorForQUERY!!!");
+    }
+
+    private void testDataBase(){
+        DaoSession daoSession = DaoManager.getDaoInstance().getDaoSession();
+        IndiRelationModelDao relationModelDao = daoSession.getIndiRelationModelDao();
+        IndiInfoModelDao infoModelDao = daoSession.getIndiInfoModelDao();
+        IndiRelationModel relationModel = new IndiRelationModel(null,
+                1,2);
+        IndiRelationModel relationModel1 = new IndiRelationModel(null,1,3);
+        relationModelDao.insertInTx(relationModel,relationModel1);
+        IndiInfoModel indiInfoModel = new IndiInfoModel(null,"1","2","3");
+        infoModelDao.insert(indiInfoModel);
+        indiInfoModel.setUserName("小芳");
+        DaoMethod.updateIndiInfo(indiInfoModel);
+        List<IndiInfoModel> list = DaoMethod.queryForIndiInfo(1);
+        Log.d(TAG, list.toString());
+        Log.d(TAG, "AA"  + list.size());
     }
 }

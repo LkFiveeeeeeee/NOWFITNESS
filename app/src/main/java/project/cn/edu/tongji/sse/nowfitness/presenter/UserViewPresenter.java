@@ -1,6 +1,5 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import org.greenrobot.greendao.rx.RxDao;
 
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
