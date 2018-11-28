@@ -14,7 +14,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -26,7 +25,7 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.LeftFragment;
+import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.LeftFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;

@@ -1,4 +1,4 @@
-package project.cn.edu.tongji.sse.nowfitness.view;
+package project.cn.edu.tongji.sse.nowfitness.view.MomentsView;
 
 
 import android.app.Activity;
@@ -26,6 +26,7 @@ import com.youth.banner.Banner;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.presenter.BookPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LeftFragmentPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
 
 import static android.support.constraint.Constraints.TAG;
 

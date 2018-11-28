@@ -1,6 +1,7 @@
-package project.cn.edu.tongji.sse.nowfitness.view;
+package project.cn.edu.tongji.sse.nowfitness.view.MomentsView;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
@@ -57,7 +59,9 @@ public class MomentsView extends Fragment {
     public void initView(){
         momentsRecyclerView = (RecyclerView) myView.findViewById(R.id.news_recyclerView);
         momentsRecyclerView.setLayoutManager(new LinearLayoutManager(myView.getContext(), LinearLayout.VERTICAL,false));
+        //momentsRecyclerView.addItemDecoration(new MomentsItemDecoration());
         momentsPresenter.setMomentsRecyerView(momentsRecyclerView);
+
     }
 
     public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -91,18 +95,25 @@ public class MomentsView extends Fragment {
 
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.image_like:
-                    if(view.isSelected()==false) {
+                if(view.getId()==R.id.image_like) {
+                    if (view.isSelected() == false) {
                         view.setSelected(true);
-                    }else
+                    } else
                         view.setSelected(false);
                     momentsPresenter.likeOrDislike();
-                    break;
-                default:
-                    //调用presenter跳转到动态详情页
+                }
+        }
+    }
+    public class MomentsItemDecoration extends RecyclerView.ItemDecoration {
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+       //如果不是第一个，则设置top的值。
+            if (parent.getChildAdapterPosition(view) != 0){
+                //这里直接硬编码为10px
+                outRect.top = 2;
             }
         }
     }
-
 }

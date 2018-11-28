@@ -1,6 +1,7 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,13 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
-import project.cn.edu.tongji.sse.nowfitness.view.MomentsView;
+import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
+import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
 
 /**
  * Created by a on 2018/11/23.
  */
 
-public class MomentsPresenter {
+public class MomentsPresenter extends BasePresenter{
     private RecyclerView momentsRecyclerView;
     private MomentsView momentsView;
     private List<String> mMomentsLab;
@@ -40,8 +42,15 @@ public class MomentsPresenter {
     }
     private void setAdapter(){
         momentsRecyclerView.setAdapter(new MomentsRecyclerAdapter());
+
     }
 
+
+    public void jumpToMomentsDetail(){
+        Intent intent = new Intent();
+        intent.setClass(momentsView.getActivity(), MomentsDetailView.class);
+        momentsView.startActivity(intent);
+    }
 
     public class MomentsRecyclerAdapter extends RecyclerView.Adapter<MomentsView.MomentsViewHolder > {
 
@@ -77,6 +86,13 @@ public class MomentsPresenter {
         @Override
         public void onBindViewHolder(@NonNull MomentsView.MomentsViewHolder holder, int position) {
            holder.onBindMomentsData(mMomentsLab.get(position));
+           holder.itemView.setOnClickListener(new View.OnClickListener(){
+               @Override
+               public void onClick(View view) {
+                   //请求数据加载数据
+                   jumpToMomentsDetail();
+               }
+           });
         }
         @Override
         public int getItemCount() {
