@@ -33,7 +33,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.LeftFragment;
+import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.LeftFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;

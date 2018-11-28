@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/moments_detail_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/moments_detail_userPicture"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/add_mini"
+                android:layout_marginLeft="16dp"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@android:color/white"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/moments_detail_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#5B595A"
+                    android:textSize="14sp"
+                    android:text="刘客" />
+                <TextView
+                    android:id="@+id/moments_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-11-25 11:25"
+                    android:textSize="12sp"
+                    android:layout_marginTop="3dp"
+                    android:textColor="#989898"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/moments_detail_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="如果我是DJ,你会爱我吗，你会爱我吗
+                     爱我别走，如果你说:你不爱我！"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="6dp"
+            android:textSize="18sp"
+            android:textColor="#363636"/>
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/moments_detail_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/add_mini"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="#e6e6e6"/>
+    </LinearLayout>
+

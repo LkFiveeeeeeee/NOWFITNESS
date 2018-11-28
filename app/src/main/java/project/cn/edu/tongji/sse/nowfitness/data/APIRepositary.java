@@ -11,4 +11,6 @@ public interface APIRepositary {
     Single applyInfo(String userName,String passWord);
 
     Single queryUserInfo(String userName, String passWord);
+
+    Single getStarsInfo (int userId);
 }

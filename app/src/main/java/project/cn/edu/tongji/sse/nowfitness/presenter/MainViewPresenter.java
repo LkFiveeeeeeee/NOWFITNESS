@@ -22,6 +22,8 @@ public class MainViewPresenter extends BasePresenter {
             .subscribe(mainViewMethod::querySuccess,mainViewMethod::queryError)
         );
     }
+
+
     public void initView(){
         mainView.initView();
     }
