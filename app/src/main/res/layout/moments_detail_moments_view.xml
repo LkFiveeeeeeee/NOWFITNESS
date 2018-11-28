@@ -18,7 +18,7 @@
                 android:id="@+id/moments_detail_userPicture"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/test"
+                android:src="@drawable/add_mini"
                 android:layout_marginLeft="16dp"
                 app:civ_border_width="1dp"
                 app:civ_border_color="@android:color/white"/>
@@ -60,7 +60,7 @@
             android:id="@+id/moments_detail_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/test"
+            android:src="@drawable/add_mini"
             android:layout_gravity="center"/>
 
         <View

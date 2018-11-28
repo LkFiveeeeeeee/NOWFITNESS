@@ -24,7 +24,7 @@
             android:id="@+id/comment_item_logo"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/test"
+            android:src="@drawable/add_mini"
             android:layout_marginLeft="14dp"
             android:layout_marginRight="6dp"/>
         <LinearLayout

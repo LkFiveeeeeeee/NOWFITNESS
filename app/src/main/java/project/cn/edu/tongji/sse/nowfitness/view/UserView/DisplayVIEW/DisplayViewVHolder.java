@@ -50,12 +50,12 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
         userName.setText(individualModel.getUserName());
         sex.setText(individualModel.getSex());
         Glide.with(itemView).load(individualModel.getImageUrl()).into(avatar);
-        setSwitchButton(individualModel.isFollowed());
+        setSwitchButton(individualModel.getIsFollowed());
         switchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                individualModel.setFollowed(!individualModel.isFollowed());
-                setSwitchButton(individualModel.isFollowed());
+                individualModel.setIsFollowed(!individualModel.getIsFollowed());
+                setSwitchButton(individualModel.getIsFollowed());
                 //TODO 更改网络方面数据
                 //TODO Toast 成功or失败信息
             }

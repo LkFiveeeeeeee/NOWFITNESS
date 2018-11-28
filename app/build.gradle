@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
@@ -19,6 +20,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    greendao{
+        schemaVersion 2
+        daoPackage 'project.cn.edu.tongji.sse.nowfitness.greendao.db'
+        targetGenDir 'src/main/java'
     }
 }
 
@@ -46,6 +52,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 }

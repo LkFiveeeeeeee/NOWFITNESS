@@ -11,7 +11,9 @@ import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
 
 public class DisplayViewAdapter extends RecyclerView.Adapter<DisplayViewVHolder> {
     private List<IndividualModel> individualModels;
-    public DisplayViewAdapter(List<IndividualModel> list){individualModels = list;}
+    public DisplayViewAdapter(List<IndividualModel> list){
+        individualModels = list;
+    }
 
 
 

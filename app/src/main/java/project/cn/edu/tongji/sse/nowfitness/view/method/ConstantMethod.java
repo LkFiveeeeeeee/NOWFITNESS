@@ -24,6 +24,9 @@ public class ConstantMethod {
     public static int REQUEST_IMAGE_CODE = 188;
     public static String userName_Key = "userName";
     public static String passWord_Key = "passWord";
+    public static String type_Key = "clickType";
+    public static String stars_Type = "following";
+    public static String fans_Type = "followers";
 
     public static Intent newIntent(Context packageContext,Class<?> targetClass){
         Intent intent = new Intent(packageContext,targetClass);

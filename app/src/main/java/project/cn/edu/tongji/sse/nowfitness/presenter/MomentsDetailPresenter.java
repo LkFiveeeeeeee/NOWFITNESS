@@ -9,12 +9,13 @@ import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
+import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 
 /**
  * Created by a on 2018/11/25.
  */
 
-public class MomentsDetailPresenter extends BasePresenter{
+public class MomentsDetailPresenter extends BasePresenter  {
     private MomentsDetailView momentsDetailView;
     private ExpandableListView expandableListView;
     private CommentsListViewAdapter adapter;

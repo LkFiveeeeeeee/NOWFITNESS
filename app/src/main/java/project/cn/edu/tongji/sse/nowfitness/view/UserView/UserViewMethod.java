@@ -1,6 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view.UserView;
 
-public interface userViewMethod {
+public interface UserViewMethod {
     void initUserView();
     void setBMINum();
     void setLisenter();
