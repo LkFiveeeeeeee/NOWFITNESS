@@ -76,6 +76,7 @@ public class MomentsPresenter extends BasePresenter{
             mMomentsLab.add("OMFFFFf");
             mMomentsLab.add("OMFFFFf");
         }
+
         @NonNull
         @Override
         public MomentsView.MomentsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
