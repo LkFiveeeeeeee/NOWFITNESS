@@ -1,12 +1,15 @@
 package project.cn.edu.tongji.sse.nowfitness.data.network;
 
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.LoginDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
@@ -24,7 +27,7 @@ public interface ApiInterface {
     Single<MomentsDTO> getStarsAllMoments(@Query("userId") int userID);
 
 
-
-    @POST("user/information")
-    Single<LoginDTO> postUserAvatar(@Part("photo")RequestBody photo);
+    @POST("user/uploadPhoto")
+    @Multipart
+    Single<ResponseDTO> postUserAvatar(@Part MultipartBody.Part file,@Part("id") RequestBody id);
 }

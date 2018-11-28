@@ -57,7 +57,7 @@ public class MomentsView extends Fragment implements MomentsMethod{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.moments_page,container,false);
-        momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId());
+   //     momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId());
         momentsPresenter.initView();
         return myView;
     }

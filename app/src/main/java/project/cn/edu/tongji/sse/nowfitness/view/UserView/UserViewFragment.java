@@ -41,8 +41,11 @@ import java.util.Random;
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.data.network.Constant;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.presenter.FileHelper;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
@@ -122,7 +125,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
         Log.d("String1111111", userInfoModel.getPictureUrl());
         if(userInfoModel.getPictureUrl() != null){
-            Glide.with(myView).load(Constant.plusImageUrl+userInfoModel.getPictureUrl()).into(avatarImageView);
+            Glide.with(myView).load(userInfoModel.getPictureUrl()).into(avatarImageView);
         }
         momentNum.setText(String.valueOf(userInfoModel.getMomentsNum()));
         followersNum.setText(String.valueOf(userInfoModel.getFollowingNum()));
@@ -166,6 +169,12 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
         calendarView.setSchemeDate(map);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setInitView();
     }
 
     @Override
@@ -240,6 +249,8 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             }
         }
     }
+
+
 
     @Override
     public void setLisenter() {
@@ -332,11 +343,15 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     @Override
     public void queryError(Throwable e) {
         e.printStackTrace();
+        Log.d("error", "queryError: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     @Override
-    public void applyForImageChange() {
-
+    public void applyForImageChange(SignModel responseDTO) {
+        if(responseDTO.getResult().equals("picture upload succeed")){
+            Log.d("test post", "applyForImageChange: success!!!!!!");
+        }
+        Log.d("test post", responseDTO.getResult().toString());
     }
 
     @Override
@@ -363,8 +378,12 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         if (requestCode == ConstantMethod.REQUEST_IMAGE_CODE && resultCode == Activity.RESULT_OK) {
             imageUri = Matisse.obtainResult(data);
             Log.d("1111", "onActivityResult:succsess Image ");
+            String url = FileHelper.getFilePath(getContext(),imageUri.get(0));
+            Log.d("AAAA", url);
             Glide.with(myView).load(imageUri.get(0)).into(avatarImageView);
             userViewPresenter.setAvatar(imageUri.get(0).toString());
+            Log.d("AAAA", url);
+            userViewPresenter.postAvatar(url,(int) UserInfoLab.get().getUserInfoModel().getId());
         }
     }
 
