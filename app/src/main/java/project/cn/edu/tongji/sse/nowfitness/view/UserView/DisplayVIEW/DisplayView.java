@@ -31,12 +31,12 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_view);
         Intent intent = getIntent();
-        String typeString = intent.getStringExtra(ConstantMethod.type_Key);
+ /*       String typeString = intent.getStringExtra(ConstantMethod.type_Key);
         if(typeString.equals(ConstantMethod.fans_Type)){
             type = fans_type;
         }else{
             type = stars_type;
-        }
+        }*/
         displayPresenter = new DisplayPresenter(this);
         //TODO 本地数据库信息获取
         displayPresenter.initView();
