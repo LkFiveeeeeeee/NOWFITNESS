@@ -83,7 +83,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     @Override
     public void querySuccess(List<CommentsDetailModel> commentsDetailModelsList) {
         if(commentsDetailModelsList.size()>0)
-            momentsDetailPresenter.reserCommentsList(commentsDetailModelsList);
+            momentsDetailPresenter.resetCommentsList(commentsDetailModelsList);
     }
 
     @Override
@@ -123,7 +123,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
                 if(groupPosition!=0) {
-                    boolean isExpanded = expandableListView.isGroupExpanded(groupPosition);
                     showCommentDialog(commentList, COMMENT_TARGET_COMMENTS, groupPosition, -1);
                     return true;
                 }

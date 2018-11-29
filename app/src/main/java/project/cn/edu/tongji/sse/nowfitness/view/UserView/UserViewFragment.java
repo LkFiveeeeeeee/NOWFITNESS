@@ -2,8 +2,14 @@ package project.cn.edu.tongji.sse.nowfitness.view.UserView;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -39,10 +46,14 @@ import java.util.Map;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Observable;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.data.network.Constant;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.presenter.FileHelper;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
@@ -51,7 +62,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarC
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.ConstantColor;
 
 
-public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,PermissionMethod {
+public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,PermissionMethod,SensorEventListener{
     /*temp para*/
     private List<Uri> imageUri;
 
@@ -83,6 +94,61 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     private View myView;
     /*others Para*/
 
+    private SensorManager sensorManager;
+    private Sensor accelerateSensor;
+    private boolean isShake = false;
+    private AlertDialog dialog;
+
+    /*摇一摇相关*/
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        sensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
+        if(sensorManager != null){
+            accelerateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            if(accelerateSensor != null){
+                sensorManager.registerListener((SensorEventListener) this,accelerateSensor,SensorManager.SENSOR_DELAY_UI);
+                Log.d("Test Sensor", "onStart: OK 加速器传感器");
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if(sensorManager != null){
+            sensorManager.unregisterListener((SensorEventListener) this);
+        }
+        super.onPause();
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        Log.d("Test Sensor", "onStart: OK here is an event");
+        int type = sensorEvent.sensor.getType();
+        if(type == Sensor.TYPE_ACCELEROMETER){
+            float[] values = sensorEvent.values;
+            float x = values[0];
+            float y = values[1];
+            float z = values[2];
+
+            if((Math.abs(x) > 17  || Math.abs(y) > 17 || Math.abs(z)>17 )&& ! isShake){
+                Log.d("Test Sensor", "onStart: OK 加速器传感器 The event is OK");
+                isShake = true;
+                Intent intent = new Intent(getActivity(),DisplayView.class);
+                Observable.just("Success")
+                        .subscribe(this::shakeSuccess,this::queryError);
+            }
+        }
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,11 +166,26 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     public void initView(){
         initUserView();
         initCalendarView();
+        initDialog();
     }
 
     /*Calendar Method*/
 
-
+    private void initDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        dialog = builder.setIcon(R.drawable.running)
+                .setTitle("ε=ε=ε=┌(；´ﾟｪﾟ)┘")
+                .setMessage("是否展开今日运动计划调查")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(getActivity(),DisplayView.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNeutralButton("取消",null)
+                .create();
+    }
 
     @Override
     public void initCalendarView() {
@@ -122,7 +203,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
         Log.d("String1111111", userInfoModel.getPictureUrl());
         if(userInfoModel.getPictureUrl() != null){
-            Glide.with(myView).load(Constant.plusImageUrl+userInfoModel.getPictureUrl()).into(avatarImageView);
+            Glide.with(myView).load(userInfoModel.getPictureUrl()).into(avatarImageView);
         }
         momentNum.setText(String.valueOf(userInfoModel.getMomentsNum()));
         followersNum.setText(String.valueOf(userInfoModel.getFollowingNum()));
@@ -166,6 +247,14 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
         calendarView.setSchemeDate(map);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sensorManager.registerListener((SensorEventListener) this,accelerateSensor,SensorManager.SENSOR_DELAY_UI);
+        Log.d("Test Sensor", "onStart: OK 加速器传感器 The event is OK");
+        setInitView();
     }
 
     @Override
@@ -240,6 +329,8 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             }
         }
     }
+
+
 
     @Override
     public void setLisenter() {
@@ -332,11 +423,24 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     @Override
     public void queryError(Throwable e) {
         e.printStackTrace();
+        Log.d("error", "queryError: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     @Override
-    public void applyForImageChange() {
+    public void shakeSuccess(String s) {
+        isShake = false;
+        Log.d("Test shake", "shakeSuccess: " + isShake);
+        Log.d("Test Sensor", s);
+        dialog.show();
 
+    }
+
+    @Override
+    public void applyForImageChange(SignModel responseDTO) {
+        if(responseDTO.getResult().equals("picture upload succeed")){
+            Log.d("test post", "applyForImageChange: success!!!!!!");
+        }
+        Log.d("test post", responseDTO.getResult().toString());
     }
 
     @Override
@@ -363,8 +467,12 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         if (requestCode == ConstantMethod.REQUEST_IMAGE_CODE && resultCode == Activity.RESULT_OK) {
             imageUri = Matisse.obtainResult(data);
             Log.d("1111", "onActivityResult:succsess Image ");
+            String url = FileHelper.getFilePath(getContext(),imageUri.get(0));
+            Log.d("AAAA", url);
             Glide.with(myView).load(imageUri.get(0)).into(avatarImageView);
             userViewPresenter.setAvatar(imageUri.get(0).toString());
+            Log.d("AAAA", url);
+            userViewPresenter.postAvatar(url,(int) UserInfoLab.get().getUserInfoModel().getId());
         }
     }
 

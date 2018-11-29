@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/girl"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -13,81 +13,84 @@
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true"
         android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
         android:id="@+id/login_view"
         >
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <RelativeLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="45dp">
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp">
+
                 <View
-                    android:layout_alignParentStart="true"
                     android:layout_width="8dp"
                     android:layout_height="match_parent"
-                    android:background="#2fa881"
-                    />
+                    android:layout_alignParentStart="true"
+                    android:background="#2fa881" />
+
                 <TextView
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="50dp"
                     android:text="登录"
                     android:textColor="#FFCC00"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:textColorHint="#c5c5c5"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/usernamelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColorHint="#c5c5c5"
+                app:counterEnabled="true"
+                app:counterMaxLength="12"
+                app:errorEnabled="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/usernamelayout"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="12"
-                    app:errorEnabled="true"
-                    >
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/username"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="用户名"
-                        android:inputType="textPersonName"
-                        android:maxLength="12"
-                        android:textSize="18sp" />
+                    android:layout_height="match_parent"
+                    android:hint="用户名"
+                    android:inputType="textPersonName"
+                    android:maxLength="12"
+                    android:textSize="18sp" />
 
 
-                </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/passwordlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textColorHint="@color/hintColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 app:counterEnabled="true"
                 app:counterMaxLength="15"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true">
 
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/password"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="密码"
-                        android:inputType="textPassword"
-                        android:textColor="#2fa881"
-                        android:textSize="18sp" />
-                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="密码"
+                    android:inputType="textPassword"
+                    android:textColor="#2fa881"
+                    android:textSize="18sp" />
+            </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -96,14 +99,13 @@
 
                 <Button
                     android:id="@+id/start"
-                    android:layout_marginTop="20dp"
-                    android:layout_gravity="center"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
                     android:text="登录"
                     android:textColor="#9a9a9a"
-                    android:textSize="12sp"
-                    />
+                    android:textSize="12sp" />
 
             </android.support.design.widget.TextInputLayout>
 

@@ -72,15 +72,6 @@ public class MomentsDetailPresenter extends BasePresenter  {
        // commentsModel.setCommentsList(new ArrayList<>());
         CommentsDetailModel emptyPlacement = new CommentsDetailModel();
         commentsList.add(emptyPlacement);
-        /*for(int i=0;i<5;i++){
-            CommentsDetailModel commentsDetailModel = new CommentsDetailModel();
-            commentsDetailModel.setCommentTime("2018-11-"+i+" 14:28");
-            commentsDetailModel.setCommentUserName("bbb"+i);
-            commentsDetailModel.setCommentUserPhoto("");
-            commentsDetailModel.setContent("如果我是djdjdjdjdjdj"+i);
-           commentsList.add(commentsDetailModel);
-        }*/
-
     }
 
 
@@ -101,7 +92,7 @@ public class MomentsDetailPresenter extends BasePresenter  {
         );
     }
 
-    public void reserCommentsList(List<CommentsDetailModel> commentsDetailModelList){
+    public void resetCommentsList(List<CommentsDetailModel> commentsDetailModelList){
         List<CommentsDetailModel> tempModelList = new ArrayList<>();
         tempModelList.add(new CommentsDetailModel());
         for(CommentsDetailModel model:commentsDetailModelList){

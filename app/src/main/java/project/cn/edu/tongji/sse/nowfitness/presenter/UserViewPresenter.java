@@ -1,6 +1,15 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
 
+import android.net.Uri;
+
+import java.io.File;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
@@ -73,6 +82,22 @@ public class UserViewPresenter extends BasePresenter{
     public void setAvatar(String imageUrl){
         userInfoModel.setPictureUrl(imageUrl);
         userInfoModelDao.insertOrReplace(userInfoModel);
+    }
+
+    public void postAvatar(String uri, int userId){
+        File file = new File(uri);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
+        RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(userId));
+     /*   RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("id",String.valueOf(userId)    )
+                .addFormDataPart("file",file.getName(),requestFile)
+                .build();*/
+        subscriptions.add(apiRepositary.postUserAvatar(part,requestId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(userViewMethod::applyForImageChange,userViewMethod::queryError));
     }
 
     public void queryMyMoments() {

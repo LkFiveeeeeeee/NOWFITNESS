@@ -1,19 +1,23 @@
 package project.cn.edu.tongji.sse.nowfitness.view.MainView;
 
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -37,6 +41,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.LeftFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PubishMomentView;
 
 
 public class MainView extends AppCompatActivity implements PermissionMethod,MainViewMethod{
@@ -47,6 +52,7 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
     private UserViewFragment userViewFragment;
     private FragmentManager fragmentManager;
     private MainViewPresenter mainViewPresenter;
+    private FloatingActionButton addButton;
 
 
 
@@ -69,10 +75,13 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
         );
         testDataBase();
         mainViewPresenter.initView();
+   //     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
 
     public void initView(){
+
+        addButton = findViewById(R.id.add_button);
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
         AHBottomNavigationItem itemOne = new AHBottomNavigationItem(R.string.thing,R.drawable.cameradiaphragm,R.color.leftFragment);
@@ -100,8 +109,18 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
         fragmentManager=getSupportFragmentManager();//omf
         initFragment();
         initEvent();
+        setListener();
     }
 
+    private void setListener(){
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainView.this,PubishMomentView.class);
+                startActivity(intent);
+            }
+        });
+    }
 
     private void initFragment(){
         leftFragment = new LeftFragment();
