@@ -1,5 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view.CommentsView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.List;
@@ -26,12 +28,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.CommentsListViewAdapter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 
-public class MomentsDetailView extends AppCompatActivity {
-
+public class MomentsDetailView extends AppCompatActivity implements CommentsMethod{
+    private MomentsModel momentsModel;
 
     public static final int COMMENT_TARGET_MOMENTS=1001;
     public static final int COMMENT_TARGET_COMMENTS=1002;
@@ -42,6 +47,8 @@ public class MomentsDetailView extends AppCompatActivity {
     private TextView momentsTimeText;
     private TextView momentsContentText;
     private PhotoView momentsImage;
+    private ImageView likesImage;
+    private TextView likesNum;
 
     private BottomSheetDialog dialog;
     private TextView commentTextView;
@@ -50,10 +57,38 @@ public class MomentsDetailView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.moments_detail_view);
-        momentsDetailPresenter = new MomentsDetailPresenter(this);
+        Intent intent = getIntent();
+        momentsModel = (MomentsModel) intent.getSerializableExtra("moments");
+        momentsDetailPresenter = new MomentsDetailPresenter(this,momentsModel,this);
         momentsDetailPresenter.initView();
         momentsDetailPresenter.setExpandableListView(expandableListView);
         momentsDetailPresenter.initExpandableList();
+        momentsDetailPresenter.queryForComments(momentsModel.getMomentsId());
+    }
+
+    @Override
+    public void makeCommentsSuccess(SignModel signModel) {
+        //很糟糕
+        Log.e("commmmm",signModel.getResult());
+        if(signModel.getResult()== Constant.MAKE_COMMENT_SUCCESS)
+            momentsDetailPresenter.queryForComments(momentsModel.getMomentsId());
+
+    }
+
+    @Override
+    public void makeCommentsError(Throwable e) {
+        e.printStackTrace();
+    }
+
+    @Override
+    public void querySuccess(List<CommentsDetailModel> commentsDetailModelsList) {
+        if(commentsDetailModelsList.size()>0)
+            momentsDetailPresenter.reserCommentsList(commentsDetailModelsList);
+    }
+
+    @Override
+    public void queryError(Throwable e) {
+        e.printStackTrace();
     }
 
     public void initView(List<CommentsDetailModel> commentsList){
@@ -64,15 +99,20 @@ public class MomentsDetailView extends AppCompatActivity {
         momentsContentText = (TextView)findViewById(R.id.moments_detail_detail);
         expandableListView = ( CommentExpandableListView) findViewById(R.id.moments_detail_comments_listView);
         commentTextView = (TextView) findViewById(R.id.moments_detail_do_comment);
-        commentTextView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                showCommentDialog(commentsList,COMMENT_TARGET_MOMENTS,-1,-1);
-            }
-        });
+        likesImage = (ImageView)findViewById(R.id.detail_likes_image);
+        likesNum = (TextView)findViewById(R.id.detail_likes_num);
+        likesImage.setSelected(momentsModel.isLiked());
+        likesNum.setText(String.valueOf(momentsModel.getLikes()));
+
     }
 
     public void initExpandableListView(final List<CommentsDetailModel> commentList){
+        commentTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                showCommentDialog(commentList,COMMENT_TARGET_MOMENTS,-1,-1);
+            }
+        });
         expandableListView.setGroupIndicator(null);
         //默认展开所有回复
 
@@ -82,9 +122,11 @@ public class MomentsDetailView extends AppCompatActivity {
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
-                boolean isExpanded = expandableListView.isGroupExpanded(groupPosition);
-                Log.e("momentsDetailView", "onGroupClick: 当前的评论id>>>"+commentList.get(groupPosition).getCommentUserName());
-                showCommentDialog(commentList,COMMENT_TARGET_COMMENTS,groupPosition,-1);
+                if(groupPosition!=0) {
+                    boolean isExpanded = expandableListView.isGroupExpanded(groupPosition);
+                    showCommentDialog(commentList, COMMENT_TARGET_COMMENTS, groupPosition, -1);
+                    return true;
+                }
                 return true;
             }
         });
@@ -109,6 +151,7 @@ public class MomentsDetailView extends AppCompatActivity {
         final EditText commentText = (EditText) commentView.findViewById(R.id.moments_dialog_comment_et);
         final Button bt_comment = (Button) commentView.findViewById(R.id.moments_dialog_comment_bt);
         CommentsDetailModel commentsDetailModel;
+        String logmessage="";
         switch (commentType) {
             case COMMENT_TARGET_MOMENTS :
                 commentText.setHint("请输入评论内容");
@@ -192,8 +235,14 @@ public class MomentsDetailView extends AppCompatActivity {
             topDivider = (View)view.findViewById(R.id.top_divider);
         }
         public void onBindView(CommentsDetailModel commentsDetailModel){
+            if(commentsDetailModel.getCommentTime()!=null) {
+                String time = commentsDetailModel.getCommentTime();
+                time = time.substring(0, 19);
+                time = time.replace("T", " ");
+                tv_time.setText(time);
+            }
             tv_name.setText(commentsDetailModel.getCommentUserName());
-            tv_time.setText(commentsDetailModel.getCommentTime());
+
             tv_content.setText(commentsDetailModel.getContent());
         }
         public void setTopDivider(int groupPostion) {
@@ -206,6 +255,7 @@ public class MomentsDetailView extends AppCompatActivity {
     }
 
     public class GroupMomentsHolder{
+        private View myView;
         private CircleImageView userPhoto;
         private TextView userName, content,releaseTime;
         private PhotoView momentsImage;
@@ -215,6 +265,23 @@ public class MomentsDetailView extends AppCompatActivity {
             userName = (TextView) view.findViewById(R.id.moments_detail_userName);
             releaseTime = (TextView) view.findViewById(R.id.moments_detail_time);
             momentsImage = (PhotoView)view.findViewById(R.id.moments_detail_image);
+            myView =view;
+        }
+        public void onBindView(MomentsModel momentsModel){
+            if(momentsModel!=null){
+                content.setText(momentsModel.getContent());
+                userName.setText(momentsModel.getUserName());
+                String time = momentsModel.getReleaseTime();
+               time = time.substring(0,19);
+               time = time.replace("T"," ");
+               releaseTime.setText(time);
+                if (momentsModel.getUserPhoto()!=null)
+                    Glide.with(myView).load("http://47.107.167.12:8080/api/image/get?imageName="+momentsModel.getUserPhoto()).into(userPhoto);
+                if(momentsModel.getImage()!=null)
+                    Glide.with(myView).load("http://47.107.167.12:8080/api/image/get?imageName="+momentsModel.getImage()).into(momentsImage);
+                else
+                    momentsImage.setVisibility(View.GONE);
+            }
         }
     }
     public class ChildHolder{
@@ -225,8 +292,9 @@ public class MomentsDetailView extends AppCompatActivity {
         }
         public void onBindView(CommentsReplyModel commentsReplyModel){
             String replyUser = commentsReplyModel.getFromUserName();
+            String toUserName =commentsReplyModel.getToUserName();
             if(!TextUtils.isEmpty(replyUser)){
-                tv_name.setText(replyUser + ":");
+                tv_name.setText(replyUser + " @ "+toUserName);
             }else {
                 tv_name.setText("无名"+":");
             }

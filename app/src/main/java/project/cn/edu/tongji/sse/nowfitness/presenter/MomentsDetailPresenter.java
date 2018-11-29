@@ -5,9 +5,16 @@ import android.widget.ExpandableListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.CommentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 
@@ -21,9 +28,13 @@ public class MomentsDetailPresenter extends BasePresenter  {
     private CommentsListViewAdapter adapter;
     private MomentsCommentsModel commentsModel;
     private List<CommentsDetailModel> commentsList;
-    public MomentsDetailPresenter(MomentsDetailView momentsDetailView){
+    private MomentsModel pMomentsModel;
+    private CommentsMethod commentsMethod;
+    public MomentsDetailPresenter(MomentsDetailView momentsDetailView, MomentsModel momentsModel,CommentsMethod commentsMethod){
         this.momentsDetailView=momentsDetailView;
         commentsList = new ArrayList<>();
+        this.pMomentsModel = momentsModel;
+        this.commentsMethod = commentsMethod;
         getAllComments();
 
     }
@@ -35,7 +46,7 @@ public class MomentsDetailPresenter extends BasePresenter  {
     }
 
     public void initExpandableList(){
-        adapter = new CommentsListViewAdapter(momentsDetailView, commentsList);
+        adapter = new CommentsListViewAdapter(momentsDetailView, commentsList,pMomentsModel);
         expandableListView.setAdapter(adapter);
         momentsDetailView.initExpandableListView(commentsList);
     }
@@ -48,6 +59,9 @@ public class MomentsDetailPresenter extends BasePresenter  {
     public void addCommentData(String commentContent){
         CommentsDetailModel commentModel = new CommentsDetailModel();
         commentModel.setContent(commentContent);
+        commentModel.setCommentUserName(UserInfoLab.get().getUserInfoModel().getUserName());
+        commentModel.setCommentUserId((int)UserInfoLab.get().getUserInfoModel().getId());
+        //makeNewComments(commentModel);
         adapter.addTheCommentData(commentModel);
     }
 
@@ -58,14 +72,44 @@ public class MomentsDetailPresenter extends BasePresenter  {
        // commentsModel.setCommentsList(new ArrayList<>());
         CommentsDetailModel emptyPlacement = new CommentsDetailModel();
         commentsList.add(emptyPlacement);
-        for(int i=0;i<5;i++){
+        /*for(int i=0;i<5;i++){
             CommentsDetailModel commentsDetailModel = new CommentsDetailModel();
             commentsDetailModel.setCommentTime("2018-11-"+i+" 14:28");
             commentsDetailModel.setCommentUserName("bbb"+i);
             commentsDetailModel.setCommentUserPhoto("");
             commentsDetailModel.setContent("如果我是djdjdjdjdjdj"+i);
            commentsList.add(commentsDetailModel);
-        }
+        }*/
 
+    }
+
+
+    public void queryForComments(int momentsId){
+        subscriptions.add(apiRepositary.getCommentsInfo(momentsId)
+        .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(commentsMethod::querySuccess,commentsMethod::queryError)
+        );
+
+    }
+
+    public void makeNewComments(CommentsDetailModel commentsDetailModel){
+        subscriptions.add(apiRepositary.makeNewCommentInfo(commentsDetailModel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(commentsMethod::makeCommentsSuccess,commentsMethod::makeCommentsError)
+        );
+    }
+
+    public void reserCommentsList(List<CommentsDetailModel> commentsDetailModelList){
+        List<CommentsDetailModel> tempModelList = new ArrayList<>();
+        tempModelList.add(new CommentsDetailModel());
+        for(CommentsDetailModel model:commentsDetailModelList){
+            tempModelList.add(model);
+        }
+        commentsList = tempModelList;
+        adapter.resetCommentsList(commentsList);
+        adapter.notifyDataSetChanged();
+        momentsDetailView.initExpandableListView(commentsList);
     }
 }

@@ -16,4 +16,6 @@ public class Constant {
     public static final String LOGIN_SUCCESS="login success";
     public static final String UPDATE_USER_INFORMATION_SUCCESS ="update user information success";
     public static final String ERROR_PASSWORD ="error password";
+    public static final String COMMENT_IMFORMATION_LACK ="comment information lack";
+    public static final String MAKE_COMMENT_SUCCESS ="make comment success";
 }

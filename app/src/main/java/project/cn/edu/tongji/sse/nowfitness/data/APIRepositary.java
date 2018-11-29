@@ -2,6 +2,7 @@ package project.cn.edu.tongji.sse.nowfitness.data;
 
 import io.reactivex.Single;
 import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import retrofit2.http.GET;
 
 public interface APIRepositary {
@@ -13,4 +14,9 @@ public interface APIRepositary {
     Single queryUserInfo(String userName, String passWord);
 
     Single getStarsInfo (int userId);
+
+    //omf
+    Single getCommentsInfo(int momentsId);
+    //omf
+    Single makeNewCommentInfo(CommentsDetailModel commentsDetailModel);
 }

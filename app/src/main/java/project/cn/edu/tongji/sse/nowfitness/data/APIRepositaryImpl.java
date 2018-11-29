@@ -8,10 +8,13 @@ import java.util.List;
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
 import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.LoginDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RepliesDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
@@ -68,5 +71,31 @@ public class APIRepositaryImpl implements APIRepositary {
                 });
     }
 
+    //omf
+  @Override
+    public  Single<List<CommentsDetailModel>> getCommentsInfo(int momentsId){
+        List<CommentsDetailModel> commentsDetailModelList = new ArrayList<>();
+        return api.getAllComments(momentsId)
+                .map(new Function<CommentsDTO, List<CommentsDetailModel>>() {
+                    @Override
+                    public List<CommentsDetailModel> apply(CommentsDTO commentsDTO) throws Exception {
+                        for(CommentsDTO.CommentsListBean bean:commentsDTO.getCommentsList()){
+                            commentsDetailModelList.add(new CommentsDetailModel(bean));
+                        }
+                        return commentsDetailModelList;
+                    }
+                });
+  }
 
+  //omf
+  @Override
+    public Single<SignModel> makeNewCommentInfo(CommentsDetailModel commentsDetailModel){
+        return api.makeNewComments(commentsDetailModel)
+                .map(new Function<RepliesDTO, SignModel>() {
+                    @Override
+                    public SignModel apply(RepliesDTO repliesDTO) throws Exception {
+                        return new SignModel(repliesDTO.getResult());
+                    }
+                });
+  }
 }

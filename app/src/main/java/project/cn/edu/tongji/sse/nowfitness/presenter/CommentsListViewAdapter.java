@@ -21,6 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
 
 /**
@@ -35,11 +36,16 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
     private List<CommentsDetailModel> commentsList;
     private List<CommentsReplyModel> replyList;
     private MomentsDetailView context;
+    private MomentsModel dMomentsModel;
     private int pageIndex = 1;
 
-    public CommentsListViewAdapter(MomentsDetailView context, List<CommentsDetailModel> commentsList) {
+    public CommentsListViewAdapter(MomentsDetailView context, List<CommentsDetailModel> commentsList, MomentsModel momentsModel) {
         this.context = context;
         this.commentsList = commentsList;
+        dMomentsModel = momentsModel;
+    }
+    public void resetCommentsList(List<CommentsDetailModel>commentsDetailModelList){
+        commentsList = commentsDetailModelList;
     }
 
     @Override
@@ -85,7 +91,7 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(final int groupPosition, boolean isExpand, View convertView, ViewGroup viewGroup) {
         int type = getItemViewType(groupPosition);
-        if(type==TYPE_2) {
+        if(type==TYPE_2&&commentsList.size()>1) {
             final MomentsDetailView.GroupHolder groupHolder;
             if (groupPosition==1||convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.comment_item, viewGroup, false);
@@ -107,7 +113,8 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
             } else {
                 groupMomentsHolder = (MomentsDetailView.GroupMomentsHolder) convertView.getTag();
             }
-            Glide.with(context).load(R.drawable.test);//errorrrrr
+            //Glide.with(context).load(R.drawable.test);//errorrrrr
+            groupMomentsHolder.onBindView(dMomentsModel);
             return convertView;
         }
     }
