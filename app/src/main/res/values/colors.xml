@@ -17,4 +17,6 @@
     <color name="lightRed">#FFAB91</color>
     <color name="divider_timeline_item">#ebeef4</color>
     <color name="text_54">#69000000</color>
+    <color name="button_default">#999999</color>
+    <color name="button_select">#52f8ab</color>
 </resources>
