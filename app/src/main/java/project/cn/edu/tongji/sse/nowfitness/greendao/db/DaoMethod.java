@@ -1,9 +1,12 @@
 package project.cn.edu.tongji.sse.nowfitness.greendao.db;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
+import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 
 public class DaoMethod {
 
@@ -55,6 +58,12 @@ public class DaoMethod {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static List<StepModel> queryByDate(String date,long userID){
+        QueryBuilder<StepModel> queryBuilder = DaoManager.getDaoInstance().getDaoSession().getStepModelDao().queryBuilder();
+        queryBuilder.where(queryBuilder.and(StepModelDao.Properties.Today.eq(date),StepModelDao.Properties.UserId.eq(userID)));
+        return queryBuilder.list();
     }
 
 }

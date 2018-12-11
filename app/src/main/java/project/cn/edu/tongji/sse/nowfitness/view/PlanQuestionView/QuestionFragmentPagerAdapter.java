@@ -10,46 +10,37 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.cn.edu.tongji.sse.nowfitness.model.Question;
 import project.cn.edu.tongji.sse.nowfitness.model.QuestionModel;
 
-public class QuestionFragmentPagerAdapter extends FragmentPagerAdapter implements QuestionAdapter {
-    private List<QuestionFragment> fragmentList;
-    private float baseElevation;
-    public QuestionFragmentPagerAdapter(FragmentManager fm,List<QuestionModel> questionModels,float baseElevation){
-        super(fm);
-        fragmentList = new ArrayList<>();
-        this.baseElevation = baseElevation;
+public class QuestionFragmentPagerAdapter extends FragmentStatePagerAdapter {
+    private List<Question> questionModelList;
+    private List<BaseFragment> fragments = new ArrayList<>();
+    private FragmentManager fragmentManager;
+    public QuestionFragmentPagerAdapter(FragmentManager fragmentManager,List<Question> questionModels){
+        super(fragmentManager);
+        this.fragmentManager = fragmentManager;
+        questionModelList = questionModels;
+        for(int i = 0;i < questionModelList.size();i++){
+            QuestionFragment questionFragment = QuestionFragment.newInstance(i);
+            fragments.add(questionFragment);
+        }
+        fragments.add(new QuestionFinishFragment());
     }
 
-    @Override
-    public float getBaseElevation() {
-        return baseElevation;
-    }
 
-    @Override
-    public CardView getCardViewAt(int position) {
-        return fragmentList.get(position).getQuestionView();
-    }
 
-    @Override
-    public int getCount() {
-        return fragmentList.size();
-    }
 
     @Override
     public Fragment getItem(int position) {
-        return fragmentList.get(position);
+        return fragments.get(position);
     }
 
-   /* @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        QuestionFragment fragment = (QuestionFragment) super.instantiateItem(container,position);
-        fragmentList.set(position,fragment);
-        fragment.bindView(questionModelList.get(position));
-        return fragment;
-    }*/
 
-    public void addQuestionFragment(QuestionFragment fragment){
-        fragmentList.add(fragment);
+
+
+    @Override
+    public int getCount() {
+        return questionModelList.size()+1;
     }
 }

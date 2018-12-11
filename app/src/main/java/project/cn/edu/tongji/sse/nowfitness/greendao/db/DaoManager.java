@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import org.greenrobot.greendao.database.Database;
+
 
 import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 

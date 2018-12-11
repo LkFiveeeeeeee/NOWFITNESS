@@ -1,6 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
-public class UserInfoLab  {
+public class    UserInfoLab  {
     private static UserInfoLab userInfoLab;
 
     public UserInfoModel getUserInfoModel() {
