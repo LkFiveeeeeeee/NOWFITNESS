@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
+import com.victor.ringbutton.RingButton;
 import com.zhihu.matisse.Matisse;
 
 import java.text.DateFormat;
@@ -55,6 +56,8 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FileHelper;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.DataChartView.DataChartView;
+import project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.PlanQuestionView;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
@@ -92,6 +95,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     private ImageView sexImage;
     private TextView userName;
     private View myView;
+    private RingButton settingButton;
     /*others Para*/
 
     private SensorManager sensorManager;
@@ -179,7 +183,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(getActivity(),DisplayView.class);
+                        Intent intent = new Intent(getActivity(),PlanQuestionView.class);
                         startActivity(intent);
                     }
                 })
@@ -210,6 +214,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         fansNum.setText(String.valueOf(userInfoModel.getFansNum()));
         hightNum.setText(String.valueOf(userInfoModel.getHeight()));
         weightNum.setText(String.valueOf(userInfoModel.getWeight()));
+
 
         yearDay.setText(String.valueOf(calendarView.getCurYear()));
         monthDay.setText(calendarView.getCurMonth() + "月" + calendarView.getCurDay() + "日");
@@ -302,7 +307,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         BMINum = (TextView) myView.findViewById(R.id.bmiview);
         userName = (TextView) myView.findViewById(R.id.username);
         sexImage = (ImageView) myView.findViewById(R.id.sex);
-
+        settingButton = (RingButton) myView.findViewById(R.id.ringButton);
         setLisenter();
     }
 
@@ -397,6 +402,18 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             @Override
             public void onClick(View view) {
                 checkPermission();
+            }
+        });
+        settingButton.setOnClickListener(new RingButton.OnClickListener() {
+            @Override
+            public void clickUp() {
+                Intent intent = new Intent(getContext(),DataChartView.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void clickDown() {
+
             }
         });
     }

@@ -55,4 +55,6 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 }
