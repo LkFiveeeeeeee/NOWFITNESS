@@ -16,7 +16,7 @@ import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepServ
 public class NOWFITNESSApplication extends Application {
     private final String TAG = "onApplication";
     private static Context context;
-    private boolean isBind = false;
+   // private boolean isBind = false;
     ServiceConnection conn;
     @Override
     public void onCreate() {
@@ -35,7 +35,7 @@ public class NOWFITNESSApplication extends Application {
         return context;
     }
     private void setupService(){
-        conn = new ServiceConnection() {
+      /*  conn = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 StepService stepService = ((StepService.StepBinder) iBinder).getService();
@@ -45,10 +45,9 @@ public class NOWFITNESSApplication extends Application {
             public void onServiceDisconnected(ComponentName componentName) {
 
             }
-        };
+        };*/
 
         Intent intent = new Intent(this,StepService.class);
-        isBind = bindService(intent,conn,Context.BIND_AUTO_CREATE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             startForegroundService(intent);
         }else{

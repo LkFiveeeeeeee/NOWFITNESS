@@ -1,8 +1,8 @@
 package project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView;
 
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 
 public interface loginMethod {
-    void loginSuccess(SignModel signModel);
+    void loginSuccess(ResponseModel responseModel);
     void loginError(Throwable e);
 }

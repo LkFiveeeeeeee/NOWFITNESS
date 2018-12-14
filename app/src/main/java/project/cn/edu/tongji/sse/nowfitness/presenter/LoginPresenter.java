@@ -4,6 +4,8 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.APIRepositaryImpl;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.loginMethod;
@@ -42,7 +44,9 @@ public class LoginPresenter extends BasePresenter{
 
     public void queryForVertify(String userName,String passWord){
         if(vertifyForUserName(userName) && vertifyForPassWord(passWord)){
-            subscriptions.add(apiRepositary.vertifyInfo(userName,passWord)
+            RequestBody userNameBody = RequestBody.create(MediaType.parse("text/plain"),userName);
+            RequestBody passWordBody = RequestBody.create(MediaType.parse("text/plain"),passWord);
+            subscriptions.add(apiRepositary.vertifyInfo(userNameBody,passWordBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(loginMethod::loginSuccess,loginMethod::loginError)

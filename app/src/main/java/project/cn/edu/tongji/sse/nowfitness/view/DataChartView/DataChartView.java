@@ -18,7 +18,7 @@ public class DataChartView extends AppCompatActivity {
     SegmentTabLayout switchLayout;
     private String[] titles = {"日","周","月"};
     private DataChartAdapter dataChartAdapter;
-    private ViewPager viewPager;
+    private BanSwipingViewPager viewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class DataChartView extends AppCompatActivity {
         backIcon = (ImageView) findViewById(R.id.back_icon);
         switchLayout = (SegmentTabLayout) findViewById(R.id.switch_bar);
         switchLayout.setTabData(titles);
-        viewPager = (ViewPager) findViewById(R.id.chart_pager);
+        viewPager = (BanSwipingViewPager) findViewById(R.id.chart_pager);
         viewPager.setAdapter(dataChartAdapter);
 
         setListener();
@@ -56,7 +56,8 @@ public class DataChartView extends AppCompatActivity {
 
             }
         });
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+     /*   viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -71,7 +72,7 @@ public class DataChartView extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
+        });*/
         viewPager.setCurrentItem(0);
     }
 }

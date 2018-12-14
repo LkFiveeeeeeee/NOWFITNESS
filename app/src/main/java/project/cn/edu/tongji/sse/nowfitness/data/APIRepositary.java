@@ -10,9 +10,9 @@ import retrofit2.http.GET;
 
 public interface APIRepositary {
 
-    Single vertifyInfo(String userName,String passWord);
+    Single vertifyInfo(RequestBody userName,RequestBody passWord);
 
-    Single applyInfo(String userName,String passWord);
+    Single applyInfo(RequestBody userName,RequestBody passWord);
 
     Single queryUserInfo(String userName, String passWord);
 

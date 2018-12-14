@@ -1,9 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view.UserView;
 
-import android.content.Intent;
-
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 
 public interface UserViewMethod {
     void initUserView();
@@ -16,7 +13,7 @@ public interface UserViewMethod {
     void queryError(Throwable e);
     void shakeSuccess(String s);
 
-    void applyForImageChange(SignModel responseDTO);
+    void applyForImageChange(ResponseModel responseDTO);
     void applyForBodyInfoChange();
     void applyForMomentsInfoChange();
 }

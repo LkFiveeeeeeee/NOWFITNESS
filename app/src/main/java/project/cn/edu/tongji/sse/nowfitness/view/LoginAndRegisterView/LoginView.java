@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LoginPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
@@ -143,15 +143,13 @@ public class LoginView extends AppCompatActivity implements loginMethod {
     }
 
     @Override
-    public void loginSuccess(SignModel signModel) {
+    public void loginSuccess(ResponseModel responseModel) {
         Log.d("1111111", "loginSuccess: ");
-        Log.d("11111", signModel.toString());
-        Log.d("11111", signModel.getResult().toString());
         Log.d("11111",Constant.LOGIN_SUCCESS);
-        if(signModel.getResult().equals(Constant.LOGIN_SUCCESS)){
+        if(responseModel.getStatus() == 200){
             useIntent(userName.getText().toString(),passWord.getText().toString());
         }else{
-            Toast.makeText(this, signModel.getResult().toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, responseModel.getError(),Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -7,8 +7,10 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.LoginDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -17,14 +19,17 @@ import retrofit2.http.Query;
 public interface ApiInterface {
     //TODO API接口函数声明
 
-    @GET("user/login")
-    Single<LoginDTO> vertifyInfo(@Query("userName") String userName, @Query("password") String passWord);
-    @GET("user/register")
-    Single<LoginDTO> applyRegister(@Query("userName") String userName, @Query("password") String passWord);
+    @POST("user/login")
+    @Multipart
+    Single<ResponseDTO<LoginDTO>> vertifyInfo(@Part("userName") RequestBody userName, @Part("password") RequestBody password);
+
+    @POST("user/register")
+    @Multipart
+    Single<ResponseDTO<LoginDTO>> applyRegister(@Part("userName") RequestBody userName, @Part("password") RequestBody passWord);
     @GET("user/information")
-    Single<UserInfoDTO> queryUserInfo(@Query("userName") String userName,@Query("password") String passWord);
+    Single<ResponseDTO<UserInfoDTO>> queryUserInfo(@Query("userName") String userName,@Query("password") String passWord);
     @GET("moments/getFollowing")
-    Single<MomentsDTO> getStarsAllMoments(@Query("userId") int userID);
+    Single<ResponseDTO<MomentsDTO>> getStarsAllMoments(@Query("userId") int userID);
 
 
     @POST("user/uploadPhoto")

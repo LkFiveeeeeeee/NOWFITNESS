@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataChartAdapter extends FragmentPagerAdapter {
-    private List<DataChartFragment> dataChartFragments = new ArrayList<>();
+    private List<Fragment> dataChartFragments = new ArrayList<>();
     public DataChartAdapter(FragmentManager fragmentManager){
         super(fragmentManager);
-        dataChartFragments.add(DataChartFragment.newInstance(1));
+        dataChartFragments.add(new DayFragment());
         dataChartFragments.add(DataChartFragment.newInstance(7));
         dataChartFragments.add(DataChartFragment.newInstance(30));
     }

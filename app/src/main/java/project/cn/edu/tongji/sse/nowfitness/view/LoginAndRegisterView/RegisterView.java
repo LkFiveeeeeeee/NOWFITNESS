@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.RegisterPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 
@@ -247,16 +247,13 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
     }
 
     @Override
-    public void RegisterSuccees(SignModel signModel) {
+    public void RegisterSuccees(ResponseModel responseModel) {
         Log.d("1111111", "loginSuccess: ");
-        Log.d("11111", signModel.toString());
-        Log.d("11111", signModel.getResult().toString());
-        Log.d("11111",Constant.LOGIN_SUCCESS);
-        if(signModel.getResult().equals(Constant.REGISTER_SUCCESS)){
+        if(responseModel.getStatus() == 201){
             Intent intent = new Intent(RegisterView.this,MainView.class);
             startActivity(intent);
         }else{
-            Toast.makeText(this, signModel.getResult().toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, responseModel.getError(),Toast.LENGTH_SHORT).show();
         }
     }
 

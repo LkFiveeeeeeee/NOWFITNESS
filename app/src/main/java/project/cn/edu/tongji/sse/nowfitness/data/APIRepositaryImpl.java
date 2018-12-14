@@ -1,6 +1,5 @@
 package project.cn.edu.tongji.sse.nowfitness.data;
 
-import android.net.wifi.p2p.WifiP2pManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
 public class APIRepositaryImpl implements APIRepositary {
@@ -25,23 +24,29 @@ public class APIRepositaryImpl implements APIRepositary {
     ApiInterface api = NetWorkUtils.makeRetrofit().create(ApiInterface.class);
 
     @Override
-    public Single<SignModel> vertifyInfo(String userName, String passWord) {
+    public Single<ResponseModel> vertifyInfo(RequestBody userName, RequestBody passWord) {
+        ResponseModel responseModel = new ResponseModel();
         return api.vertifyInfo(userName,passWord)
-                .map(new Function<LoginDTO, SignModel>() {
+                .map(new Function<ResponseDTO<LoginDTO>, ResponseModel>() {
                     @Override
-                    public SignModel apply(LoginDTO loginDTO) throws Exception {
-                        return new SignModel(loginDTO.getResult());
+                    public ResponseModel apply(ResponseDTO<LoginDTO> loginDTOResponseDTO) throws Exception {
+                        responseModel.setStatus(loginDTOResponseDTO.getStatus());
+                        responseModel.setError(loginDTOResponseDTO.getError());
+                        return responseModel;
                     }
                 });
     }
 
     @Override
-    public Single<SignModel> applyInfo(String userName, String passWord) {
+    public Single<ResponseModel> applyInfo(RequestBody userName, RequestBody passWord) {
+        ResponseModel responseModel = new ResponseModel();
         return api.applyRegister(userName,passWord)
-                .map(new Function<LoginDTO, SignModel>() {
+                .map(new Function<ResponseDTO<LoginDTO>, ResponseModel>() {
                     @Override
-                    public SignModel apply(LoginDTO loginDTO) throws Exception {
-                        return new SignModel(loginDTO.getResult());
+                    public ResponseModel apply(ResponseDTO<LoginDTO> loginDTOResponseDTO) throws Exception {
+                        responseModel.setStatus(loginDTOResponseDTO.getStatus());
+                        responseModel.setError(loginDTOResponseDTO.getError());
+                        return responseModel;
                     }
                 });
     }
@@ -49,10 +54,10 @@ public class APIRepositaryImpl implements APIRepositary {
     @Override
     public Single<UserInfoModel> queryUserInfo(String userName, String passWord) {
         return api.queryUserInfo(userName,passWord)
-                .map(new Function<UserInfoDTO, UserInfoModel>() {
+                .map(new Function<ResponseDTO<UserInfoDTO>, UserInfoModel>() {
                     @Override
-                    public UserInfoModel apply(UserInfoDTO userInfoDTO) throws Exception {
-                        return new UserInfoModel(userInfoDTO);
+                    public UserInfoModel apply(ResponseDTO<UserInfoDTO> userInfoDTOResponseDTO) throws Exception {
+                        return new UserInfoModel(userInfoDTOResponseDTO.getData());
                     }
                 });
     }
@@ -61,10 +66,10 @@ public class APIRepositaryImpl implements APIRepositary {
     public Single<List<MomentsModel>> getStarsInfo(int userId) {
         List<MomentsModel> modelList = new ArrayList<>();
         return api.getStarsAllMoments(userId)
-                .map(new Function<MomentsDTO, List<MomentsModel>>() {
+                .map(new Function<ResponseDTO<MomentsDTO>, List<MomentsModel>>() {
                     @Override
-                    public List<MomentsModel> apply(MomentsDTO momentsDTO) throws Exception {
-                        for(MomentsDTO.MomentsModelsListBean bean:momentsDTO.getMomentsModelsList()){
+                    public List<MomentsModel> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
+                        for(MomentsDTO.MomentsModelsListBean bean:momentsDTOResponseDTO.getData().getMomentsModelsList()){
                             modelList.add(new MomentsModel(bean));
                         }
                         return modelList;
@@ -73,13 +78,16 @@ public class APIRepositaryImpl implements APIRepositary {
     }
 
     @Override
-    public Single<SignModel> postUserAvatar(MultipartBody.Part file,RequestBody body) {
+    public Single<ResponseModel> postUserAvatar(MultipartBody.Part file, RequestBody body) {
+        ResponseModel responseModel = new ResponseModel();
         return api.postUserAvatar(file,body)
-                .map(new Function<ResponseDTO, SignModel>() {
+                .map(new Function<ResponseDTO, ResponseModel>() {
                     @Override
-                    public SignModel apply(ResponseDTO responseDTO) throws Exception {
-                        Log.d("AAAAAAAAA", "apply: SignModel");
-                        return new SignModel(responseDTO.getResult());
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        Log.d("AAAAAAAAA", "apply: ResponseModel");
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseDTO.setError(responseDTO.getError());
+                        return responseModel;
                     }
                 });
     }

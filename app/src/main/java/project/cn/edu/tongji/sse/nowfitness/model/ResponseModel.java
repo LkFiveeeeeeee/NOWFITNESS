@@ -1,6 +1,7 @@
-package project.cn.edu.tongji.sse.nowfitness.data.network.DTO;
+package project.cn.edu.tongji.sse.nowfitness.model;
 
-public class ResponseDTO<T>{
+public class ResponseModel {
+
     /**
      * timestamp : 2018-12-11 22:49:52.94
      * status : 400
@@ -15,10 +16,7 @@ public class ResponseDTO<T>{
     private String error;
     private String message;
     private String path;
-
-
-
-    private T data;
+    private Object data;
 
     public String getTimestamp() {
         return timestamp;
@@ -60,18 +58,11 @@ public class ResponseDTO<T>{
         this.path = path;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
-
-
-    /**
-     * result : picture upload succeed
-     */
-
-
 }

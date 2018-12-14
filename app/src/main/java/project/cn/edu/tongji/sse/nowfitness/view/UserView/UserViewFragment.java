@@ -49,9 +49,7 @@ import java.util.Random;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import project.cn.edu.tongji.sse.nowfitness.R;
-import project.cn.edu.tongji.sse.nowfitness.data.network.Constant;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FileHelper;
@@ -453,11 +451,11 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     }
 
     @Override
-    public void applyForImageChange(SignModel responseDTO) {
-        if(responseDTO.getResult().equals("picture upload succeed")){
+    public void applyForImageChange(ResponseModel responseDTO) {
+        if(responseDTO.getStatus() == 200){
             Log.d("test post", "applyForImageChange: success!!!!!!");
         }
-        Log.d("test post", responseDTO.getResult().toString());
+        Log.d("test post", responseDTO.getError());
     }
 
     @Override
