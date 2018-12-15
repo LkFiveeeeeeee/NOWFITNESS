@@ -44,13 +44,17 @@ public class PubishMomentView extends AppCompatActivity implements PublishMoment
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.publish_view);
+       setToolbar();
+        photoSelected = (ImageView) findViewById(R.id.display_image);
+        setListener();
+    }
+
+    private void setToolbar(){
         toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.inflateMenu(R.menu.publish_menu);
-        photoSelected = (ImageView) findViewById(R.id.display_image);
-        setListener();
     }
 
     private void setListener(){

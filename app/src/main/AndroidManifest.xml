@@ -54,6 +54,10 @@
         </activity>
 
         <activity android:name=".view.DataChartView.DataChartView">
+
+        </activity>
+
+        <activity android:name=".view.UserSettingView.UserSettingView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -75,6 +79,11 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </service>
+        
+        <receiver android:name=".pedometerModule.StepService.StepServiceRestartReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped"></receiver>
     </application>
 
 </manifest>

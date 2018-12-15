@@ -68,6 +68,7 @@ public class DayFragment extends Fragment {
 
             }
         };
+
         isBind = getActivity().bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             getActivity().startForegroundService(intent);

@@ -35,6 +35,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepCount;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepValuePassListener;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 
 
 public class StepService extends Service implements SensorEventListener {
@@ -81,6 +82,17 @@ public class StepService extends Service implements SensorEventListener {
     //UI监听器
     private UpdateUICallBack uiCallBack;
 
+
+    public StepService(){
+
+    }
+
+    public StepService(Context context){
+        super();
+        Log.d(TAG, "StepService:启动 ");
+    }
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -94,10 +106,12 @@ public class StepService extends Service implements SensorEventListener {
                 startStepDetector();
             }
         }).start();
+        startTimeCount();
     }
 
     //初始化通知栏
     private void initNotification(){
+
         notificationManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -135,12 +149,13 @@ public class StepService extends Service implements SensorEventListener {
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.fitnesslogo);*/
         Notification notification = builder.build();
-
+        notification.flags = notification.flags | Notification.FLAG_NO_CLEAR;
         startForeground(notifyID,notification);
         Log.d(TAG, "initNotification: ");
     }
 
     private PendingIntent getDefalutIntent(int flagOngoingEvent) {
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this,1,new Intent(),flagOngoingEvent);
         return pendingIntent;
     }
@@ -285,6 +300,7 @@ public class StepService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         return START_STICKY;
     }
 
@@ -420,6 +436,8 @@ public class StepService extends Service implements SensorEventListener {
     public void onDestroy() {
         super.onDestroy();
         stopForeground(true);
+        Intent boradcastIntent = new Intent(this,StepServiceRestartReceiver.class);
+        sendBroadcast(boradcastIntent);
         unregisterReceiver(broadcastReceiver);
     }
 

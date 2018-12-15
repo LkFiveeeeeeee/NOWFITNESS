@@ -1,5 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,6 +17,8 @@ import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepServ
 public class NOWFITNESSApplication extends Application {
     private final String TAG = "onApplication";
     private static Context context;
+    private Intent serviceIntent;
+    private StepService stepService;
    // private boolean isBind = false;
     ServiceConnection conn;
     @Override
@@ -46,12 +49,31 @@ public class NOWFITNESSApplication extends Application {
 
             }
         };*/
-
-        Intent intent = new Intent(this,StepService.class);
+        stepService = new StepService(getContext());
+        serviceIntent = new Intent(this,stepService.getClass());
+        if(!isMyServiceRunning(stepService.getClass()))
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            startForegroundService(intent);
+            startForegroundService(serviceIntent);
         }else{
-            startService(intent);
+            startService(serviceIntent);
         }
     }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass){
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for(ActivityManager.RunningServiceInfo serviceInfo: activityManager.getRunningServices(Integer.MAX_VALUE)){
+            if(serviceClass.getName().equals(serviceInfo.service.getClassName())){
+                Log.i("isMyServiceRunning", "isMyServiceRunning: tttrue");
+                return  true;
+            }
+        }
+        Log.i("isMyServiceRunning", "isMyServiceRunning: fffalse");
+        return false;
+    }
+
+    //TODO
+    /**
+     * 将启动服务迁移到MainView
+     */
+
 }
