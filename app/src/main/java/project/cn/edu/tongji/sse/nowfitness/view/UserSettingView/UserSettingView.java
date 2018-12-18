@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,9 +26,18 @@ import android.widget.Toast;
 import com.bruce.pickerview.popwindow.DatePickerPopWin;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.presenter.UserSettingPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 
 public class UserSettingView extends AppCompatActivity {
+    /**
+     * Presenter param
+     */
+    private UserSettingPresenter userSettingPresenter;
+
+    /**
+     * UI param
+     */
     private CardView userInfoSetting;
     private CardView passWordSetting;
     private AlertDialog passWordDialog;
@@ -42,6 +52,7 @@ public class UserSettingView extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usersetting_view);
+        userSettingPresenter = new UserSettingPresenter(this);
         initView();
     }
 
@@ -81,8 +92,7 @@ public class UserSettingView extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View userInfoView = inflater.inflate(R.layout.changeuserinfo_view,(ViewGroup) findViewById(R.id.userinfo_dialog));
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LinearLayout dateChoose = (LinearLayout) userInfoView.findViewById(R.id.date_choose);
-        TextView dateInfo = (TextView) userInfoView.findViewById(R.id.date_text);
+        EditText ageInfo = (EditText) userInfoView.findViewById(R.id.age_text);
         RadioGroup sexChoose = (RadioGroup) userInfoView.findViewById(R.id.sex_button);
         TextInputEditText userNameText = (TextInputEditText) userInfoView.findViewById(R.id.username_text);
 
@@ -95,32 +105,6 @@ public class UserSettingView extends AppCompatActivity {
             }
         });
 
-
-        dateChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerPopWin pickerPopWin = new DatePickerPopWin.Builder(userInfoDialog.getContext()
-                        , new DatePickerPopWin.OnDatePickedListener() {
-                    @Override
-                    public void onDatePickCompleted(int year, int month, int day, String dateDesc) {
-                        Toast.makeText(getApplicationContext(),dateInfo.getText().toString(),Toast.LENGTH_SHORT).show();
-                        dateInfo.setText(dateDesc);
-                    }
-                }).textConfirm("确定")
-                        .textCancel("取消")
-                        .btnTextSize(16)
-                        .viewTextSize(25)
-                        .colorCancel(Color.parseColor("#999999"))
-                        .colorConfirm(Color.parseColor("#b794f6"))
-                        .minYear(1930)
-                        .maxYear(2015)
-                        .dateChose("1998-11-11")
-                        .build();
-                //TODO 研究显示
-                pickerPopWin.showAtLocation(userInfoDialog.getCurrentFocus(),Gravity.NO_GRAVITY,-200,-500);
-
-            }
-        });
         userInfoDialog = builder.setTitle("修改个人信息")
                 .setView(userInfoView)
                 .setIcon(R.mipmap.ic_add)
@@ -141,7 +125,7 @@ public class UserSettingView extends AppCompatActivity {
                     public void onClick(View view) {
                         //TODO
                         //确定之后的网络与验证操作
-                        if(vertifyInfo(userNameText.getText().toString(),dateInfo.getText().toString(),
+                        if(vertifyInfo(userNameText.getText().toString(),ageInfo.getText().toString(),
                                 sex)){
                             userInfoDialog.dismiss();
                         }
@@ -183,7 +167,7 @@ public class UserSettingView extends AppCompatActivity {
         return true;
     }
 
-    public boolean vertifyInfo(String userName,String birthDay,String sex){
+    public boolean vertifyInfo(String userName,String age,String sex){
         if(userName.equals("")){
             showToast("用户名不能为空");
             return false;
@@ -191,7 +175,7 @@ public class UserSettingView extends AppCompatActivity {
             showToast("用户名的长度不可以超过12");
             return false;
         }
-        if(birthDay.equals("")){
+        if(age.equals("")){
             showToast("生日还没有进行选择");
             return false;
         }
