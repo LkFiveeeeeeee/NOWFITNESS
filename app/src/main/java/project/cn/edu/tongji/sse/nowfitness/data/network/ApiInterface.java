@@ -3,14 +3,18 @@ package project.cn.edu.tongji.sse.nowfitness.data.network;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.LoginDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RepliesDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -31,6 +35,13 @@ public interface ApiInterface {
     @GET("moments/getFollowing")
     Single<ResponseDTO<MomentsDTO>> getStarsAllMoments(@Query("userId") int userID);
 
+    //omf
+    @GET("comment")
+    Single<CommentsDTO> getAllComments(@Query("momentsId")int momentsId);
+    //omf
+    @POST("/comment/make")
+    @Headers({"Content-Type:application/json"})
+    Single<ResponseDTO> makeNewComments(@Body RequestBody commentsBody);
 
     @POST("user/uploadPhoto")
     @Multipart

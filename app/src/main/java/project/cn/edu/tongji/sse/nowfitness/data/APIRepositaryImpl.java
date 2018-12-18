@@ -10,11 +10,14 @@ import io.reactivex.functions.Function;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.LoginDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RepliesDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
@@ -77,6 +80,21 @@ public class APIRepositaryImpl implements APIRepositary {
                 });
     }
 
+    //omf
+  @Override
+    public  Single<List<CommentsDetailModel>> getCommentsInfo(int momentsId){
+        List<CommentsDetailModel> commentsDetailModelList = new ArrayList<>();
+        return api.getAllComments(momentsId)
+                .map(new Function<CommentsDTO, List<CommentsDetailModel>>() {
+                    @Override
+                    public List<CommentsDetailModel> apply(CommentsDTO commentsDTO) throws Exception {
+                        for(CommentsDTO.CommentsListBean bean:commentsDTO.getCommentsList()){
+                            commentsDetailModelList.add(new CommentsDetailModel(bean));
+                        }
+                        return commentsDetailModelList;
+                    }
+                });
+  }
     @Override
     public Single<ResponseModel> postUserAvatar(MultipartBody.Part file, RequestBody body) {
         ResponseModel responseModel = new ResponseModel();
@@ -86,11 +104,25 @@ public class APIRepositaryImpl implements APIRepositary {
                     public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
                         Log.d("AAAAAAAAA", "apply: ResponseModel");
                         responseModel.setStatus(responseDTO.getStatus());
-                        responseDTO.setError(responseDTO.getError());
+                        responseModel.setError(responseDTO.getError());
                         return responseModel;
                     }
                 });
     }
 
 
+  //omf
+  @Override
+    public Single<ResponseModel> makeNewCommentInfo(RequestBody body){
+      ResponseModel responseModel = new ResponseModel();
+        return api.makeNewComments(body)
+                .map(new Function<ResponseDTO, ResponseModel>() {
+                    @Override
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseModel.setError(responseDTO.getError());
+                        return responseModel;
+                    }
+                });
+  }
 }

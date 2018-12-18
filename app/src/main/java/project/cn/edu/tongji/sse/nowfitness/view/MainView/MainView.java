@@ -75,7 +75,7 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
         );
         testDataBase();
         mainViewPresenter.initView();
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+   //     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
 

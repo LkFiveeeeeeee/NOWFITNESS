@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
+
 /**
  * Created by a on 2018/11/26.
  */
@@ -28,6 +30,22 @@ public class CommentsReplyModel {
         private String fromUserName;
 
         private String toUserName;
+
+        public CommentsReplyModel(CommentsDTO.CommentsListBean.RepliesListBean repliesListBean){
+            this.id = repliesListBean.getId();
+            this.commentId = repliesListBean.getCommentId();
+            this.fromUserId = repliesListBean.getFromUserId();
+            this.toUserId = repliesListBean.getToUserId();
+            this.replyType = repliesListBean.getReplyType();
+            this.replyTime = repliesListBean.getReplyTime();
+            this.content = repliesListBean.getContent();
+            this.replyId = repliesListBean.getReplyId();
+            this.fromUserName = repliesListBean.getFromUserName();
+            this.toUserName = repliesListBean.getToUserName();
+        }
+        public CommentsReplyModel(){
+
+        }
 
         public int getId() {
             return id;

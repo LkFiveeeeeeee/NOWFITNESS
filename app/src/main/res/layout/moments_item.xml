@@ -43,6 +43,8 @@
                 android:layout_height="wrap_content"
                 style="@style/MomentsTextTitle"
                 android:layout_toRightOf="@id/moments_user_photo"
+                android:textSize="22dp"
+                android:layout_marginLeft="5dp"
                 android:text="名字"/>
 
             <ImageView
@@ -61,6 +63,8 @@
                 style="@style/MomentsTextSubhead"
                 android:layout_below="@id/moments_user_name"
                 android:layout_toRightOf="@+id/moments_user_photo"
+                android:textSize="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="2dip"
                 android:text="来自omf 2018-11-23"/>
 

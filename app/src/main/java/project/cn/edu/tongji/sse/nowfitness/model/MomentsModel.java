@@ -1,8 +1,10 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
+import java.io.Serializable;
+
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 
-public class MomentsModel {
+public class MomentsModel implements Serializable {
     private int momentsId;
     private int userId;
     private String userPhoto;

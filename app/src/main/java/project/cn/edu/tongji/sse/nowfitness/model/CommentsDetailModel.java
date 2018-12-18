@@ -1,6 +1,11 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
+import org.w3c.dom.Comment;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 
 /**
  * Created by a on 2018/11/26.
@@ -17,6 +22,25 @@ public class CommentsDetailModel {
         private String commentUserName;
         private List<CommentsReplyModel> repliesList;
 
+    public CommentsDetailModel(CommentsDTO.CommentsListBean listBean){
+        momentsId = listBean.getMomentsId();
+        id = listBean.getId();
+        momentsId  =listBean.getMomentsId();
+        content = listBean.getContent();
+        commentUserId = listBean.getCommentUserId();
+        commentTime =listBean.getCommentTime();
+        commentUserPhoto = getCommentUserPhoto();
+        commentUserName =listBean.getCommentUserName();
+        repliesList = new ArrayList<>();
+        for(CommentsDTO.CommentsListBean.RepliesListBean reply:listBean.getRepliesList()){
+            repliesList.add(new CommentsReplyModel(reply));
+        }
+        }
+
+
+        public CommentsDetailModel() {
+
+        }
 
         public int getId() {
             return id;
