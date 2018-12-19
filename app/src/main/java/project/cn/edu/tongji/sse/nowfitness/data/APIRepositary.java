@@ -19,7 +19,7 @@ public interface APIRepositary {
 
     Single postUserAvatar(MultipartBody.Part file,RequestBody body);
 
-    Single getStarsInfo (int userId);
+    Single getStarsInfo (int userId,int pageNum);
 
     //omf
     Single getCommentsInfo(int momentsId);

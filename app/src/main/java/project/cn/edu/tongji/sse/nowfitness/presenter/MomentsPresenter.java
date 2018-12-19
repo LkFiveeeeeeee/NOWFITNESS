@@ -49,7 +49,7 @@ public class MomentsPresenter extends BasePresenter{
     }
 
     public void queryForInfo(int userId){
-        subscriptions.add(apiRepositary.getStarsInfo(userId)
+        subscriptions.add(apiRepositary.getStarsInfo(userId,1)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(momentsMethod::querySuccess,momentsMethod::queryError)

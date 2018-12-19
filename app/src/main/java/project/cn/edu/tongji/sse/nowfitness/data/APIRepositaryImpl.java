@@ -20,6 +20,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
@@ -77,16 +78,25 @@ public class APIRepositaryImpl implements APIRepositary {
     }
 
     @Override
-    public Single<List<MomentsModel>> getStarsInfo(int userId) {
-        List<MomentsModel> modelList = new ArrayList<>();
-        return api.getStarsAllMoments(userId)
-                .map(new Function<ResponseDTO<MomentsDTO>, List<MomentsModel>>() {
+    public Single<ResponseModel<MomentsModelList>> getStarsInfo(int userId, int pageNum) {
+        ResponseModel responseModel = new ResponseModel();
+
+        return api.getStarsAllMoments(userId,pageNum)
+                .map(new Function<ResponseDTO<MomentsDTO>, ResponseModel<MomentsModelList>>() {
                     @Override
-                    public List<MomentsModel> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
-                        for(MomentsDTO.MomentsModelsListBean bean:momentsDTOResponseDTO.getData().getMomentsModelsList()){
-                            modelList.add(new MomentsModel(bean));
+                    public ResponseModel<MomentsModelList> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
+                        List<MomentsModel> modelList = new ArrayList<>();
+                        MomentsModelList momentsModelList = new MomentsModelList(momentsDTOResponseDTO.getData());
+                        if(momentsDTOResponseDTO.getData() != null){
+                            for(MomentsDTO.ListBean bean:momentsDTOResponseDTO.getData().getList()){
+                                modelList.add(new MomentsModel(bean));
+                            }
+                            momentsModelList.setList(modelList);
                         }
-                        return modelList;
+                        responseModel.setStatus(momentsDTOResponseDTO.getStatus());
+                        responseModel.setError(momentsDTOResponseDTO.getError());
+                        responseModel.setData(momentsModelList);
+                        return responseModel;
                     }
                 });
     }

@@ -65,8 +65,8 @@ public interface ApiInterface {
     @Multipart
     Single<ResponseDTO> postUserAvatar(@Part MultipartBody.Part file,@Part("id") RequestBody id);
 
-    @GET("moments/getFollowing")
-    Single<ResponseDTO<MomentsDTO>> getStarsAllMoments(@Query("userId") int userID);
+    @GET("user/{userId}/following/moments/{pageNum}")
+    Single<ResponseDTO<MomentsDTO>> getStarsAllMoments(@Path("userId") int userID,@Path("pageNum") int pageNum);
 
     //omf
     @GET("comment")
