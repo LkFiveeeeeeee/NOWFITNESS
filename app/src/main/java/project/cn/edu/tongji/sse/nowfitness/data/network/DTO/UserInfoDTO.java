@@ -23,6 +23,10 @@ public class UserInfoDTO {
     private int id;
     private String userName;
     private String password;
+
+
+
+    private String nickName;
     private double height;
     private double weight;
     private String sex;
@@ -127,6 +131,14 @@ public class UserInfoDTO {
 
     public void setDailyCheckList(List<String> dailyCheckList) {
         this.dailyCheckList = dailyCheckList;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public List<String> getDateCheckList() {

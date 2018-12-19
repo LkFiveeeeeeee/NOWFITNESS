@@ -25,6 +25,7 @@ public class DaoMaster extends AbstractDaoMaster {
         IndiInfoModelDao.createTable(db, ifNotExists);
         IndiRelationModelDao.createTable(db, ifNotExists);
         StepModelDao.createTable(db, ifNotExists);
+        TokenDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -33,6 +34,7 @@ public class DaoMaster extends AbstractDaoMaster {
         IndiInfoModelDao.dropTable(db, ifExists);
         IndiRelationModelDao.dropTable(db, ifExists);
         StepModelDao.dropTable(db, ifExists);
+        TokenDao.dropTable(db, ifExists);
     }
 
     /**
@@ -55,6 +57,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(IndiInfoModelDao.class);
         registerDaoClass(IndiRelationModelDao.class);
         registerDaoClass(StepModelDao.class);
+        registerDaoClass(TokenDao.class);
     }
 
     public DaoSession newSession() {

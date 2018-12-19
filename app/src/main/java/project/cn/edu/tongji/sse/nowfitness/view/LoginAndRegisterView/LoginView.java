@@ -18,8 +18,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.Token;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LoginPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
@@ -143,10 +145,16 @@ public class LoginView extends AppCompatActivity implements loginMethod {
     }
 
     @Override
-    public void loginSuccess(ResponseModel responseModel) {
+    public void loginSuccess(ResponseModel<Token> responseModel) {
         Log.d("1111111", "loginSuccess: ");
         Log.d("11111",Constant.LOGIN_SUCCESS);
         if(responseModel.getStatus() == 200){
+            Log.d("TOKEN_VALUE", responseModel.toString());
+            Log.d("TOKEN_VALUE", responseModel.getData().toString());
+            Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue().toString());
+            Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue());
+            DaoMethod.insertToken(responseModel.getData());
+
             useIntent(userName.getText().toString(),passWord.getText().toString());
         }else{
             Toast.makeText(this, responseModel.getError(),Toast.LENGTH_SHORT).show();

@@ -15,7 +15,9 @@ public interface APIRepositary {
 
     Single applyInfo(RequestBody userName,RequestBody passWord);
 
-    Single queryUserInfo(String userName, String passWord);
+    Single queryUserInfo(String userName);
+
+    Single postUserAvatar(MultipartBody.Part file,RequestBody body);
 
     Single getStarsInfo (int userId);
 
@@ -23,5 +25,6 @@ public interface APIRepositary {
     Single getCommentsInfo(int momentsId);
     //omf
     Single makeNewCommentInfo(RequestBody body);
-    Single postUserAvatar(MultipartBody.Part file,RequestBody body);
+
+    Single makeReply(RequestBody body);
 }

@@ -14,6 +14,7 @@ public class UserInfoModel {
     @Id(autoincrement = true)
     private long id;
     private String userName;
+    private String nickName;
     private String passWord;
     private double height;
     private double weight;
@@ -56,6 +57,7 @@ public class UserInfoModel {
         this.id = userInfoDTO.getId();
         this.userName = userInfoDTO.getUserName();
         this.passWord = userInfoDTO.getPassword();
+        this.nickName = userInfoDTO.getNickName();
         this.height = userInfoDTO.getHeight();
         this.weight = userInfoDTO.getWeight();
         this.sex = userInfoDTO.getSex();
@@ -68,12 +70,13 @@ public class UserInfoModel {
         this.dateCheckString = convert.convertToDatabaseValue(this.dateCheckList);
     }
 
-    @Generated(hash = 900675157)
-    public UserInfoModel(long id, String userName, String passWord, double height, double weight,
-            String sex, int age, String pictureUrl, int followingNum, int fansNum, int momentsNum,
-            String dateCheckString) {
+    @Generated(hash = 447512337)
+    public UserInfoModel(long id, String userName, String nickName, String passWord, double height,
+            double weight, String sex, int age, String pictureUrl, int followingNum, int fansNum,
+            int momentsNum, String dateCheckString) {
         this.id = id;
         this.userName = userName;
+        this.nickName = nickName;
         this.passWord = passWord;
         this.height = height;
         this.weight = weight;
@@ -198,6 +201,14 @@ public class UserInfoModel {
 
     public void setDateCheckString(String dateCheckString) {
         this.dateCheckString = dateCheckString;
+    }
+
+    public String getNickName() {
+        return this.nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
 

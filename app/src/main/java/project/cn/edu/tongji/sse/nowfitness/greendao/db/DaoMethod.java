@@ -7,8 +7,15 @@ import java.util.List;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
+import project.cn.edu.tongji.sse.nowfitness.model.Token;
 
 public class DaoMethod {
+
+    public static void insertToken(Token token){
+        token.setId(Token.TOKEN_ID);
+        DaoManager.getDaoInstance().getDaoSession().getTokenDao()
+                .insertOrReplace(token);
+    }
 
 
     //查询成功时返回List<IndiInfoModel>

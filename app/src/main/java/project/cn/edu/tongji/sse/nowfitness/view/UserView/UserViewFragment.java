@@ -91,7 +91,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     private EditText weightNum;
     private TextView BMINum;
     private ImageView sexImage;
-    private TextView userName;
+    private TextView nickName;
     private View myView;
     private RingButton settingButton;
     /*others Para*/
@@ -212,7 +212,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         fansNum.setText(String.valueOf(userInfoModel.getFansNum()));
         hightNum.setText(String.valueOf(userInfoModel.getHeight()));
         weightNum.setText(String.valueOf(userInfoModel.getWeight()));
-
+        nickName.setText(userInfoModel.getNickName());
 
         yearDay.setText(String.valueOf(calendarView.getCurYear()));
         monthDay.setText(calendarView.getCurMonth() + "月" + calendarView.getCurDay() + "日");
@@ -303,7 +303,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         hightNum = (EditText) myView.findViewById(R.id.height_view);
         weightNum = (EditText) myView.findViewById(R.id.weight_view);
         BMINum = (TextView) myView.findViewById(R.id.bmiview);
-        userName = (TextView) myView.findViewById(R.id.username);
+        nickName = (TextView) myView.findViewById(R.id.username);
         sexImage = (ImageView) myView.findViewById(R.id.sex);
         settingButton = (RingButton) myView.findViewById(R.id.ringButton);
         setLisenter();

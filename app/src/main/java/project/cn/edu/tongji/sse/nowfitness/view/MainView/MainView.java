@@ -34,6 +34,7 @@ import project.cn.edu.tongji.sse.nowfitness.greendao.db.IndiRelationModelDao;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
@@ -70,8 +71,7 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
         Log.d("11111111", "onCreate: " + intent.getStringExtra(ConstantMethod.userName_Key));
         Log.d("11111111", "onCreate: " + intent.getStringExtra(ConstantMethod.passWord_Key));
         mainViewPresenter.queryForUserInfo(
-                intent.getStringExtra(ConstantMethod.userName_Key),
-                intent.getStringExtra(ConstantMethod.passWord_Key)
+                intent.getStringExtra(ConstantMethod.userName_Key)
         );
         testDataBase();
         mainViewPresenter.initView();
@@ -225,12 +225,17 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
     }
 
     @Override
-    public void querySuccess(UserInfoModel userInfoModel) {
-        UserInfoLab.get().setUserInfoModel(userInfoModel);
-        Long num = Long.valueOf(2);
-        DaoSession daoSession = DaoManager.getDaoInstance().getDaoSession();
-        UserInfoModelDao userInfoModelDao = daoSession.getUserInfoModelDao();
-        userInfoModelDao.insertOrReplace(UserInfoLab.get().getUserInfoModel());
+    public void querySuccess(ResponseModel<UserInfoModel> userInfoModel) {
+        if(userInfoModel.getStatus() >= 200 && userInfoModel.getStatus() < 300 ){
+            UserInfoLab.get().setUserInfoModel(userInfoModel.getData());
+            DaoSession daoSession = DaoManager.getDaoInstance().getDaoSession();
+            UserInfoModelDao userInfoModelDao = daoSession.getUserInfoModelDao();
+            userInfoModelDao.insertOrReplace(UserInfoLab.get().getUserInfoModel());
+        }else{
+            //TODO Toast错误信息,回到注册界面
+        }
+
+
         Log.d("1111111", "querySuccess: UserInfoSuccess!!!!");
     }
 

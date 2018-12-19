@@ -22,8 +22,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.Token;
 import project.cn.edu.tongji.sse.nowfitness.presenter.RegisterPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 
@@ -247,9 +249,14 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
     }
 
     @Override
-    public void RegisterSuccees(ResponseModel responseModel) {
+    public void RegisterSuccees(ResponseModel<Token> responseModel) {
         Log.d("1111111", "loginSuccess: ");
         if(responseModel.getStatus() == 201){
+            Log.d("TOKEN_VALUE", responseModel.toString());
+            Log.d("TOKEN_VALUE", responseModel.getData().toString());
+            Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue().toString());
+            Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue());
+        //    DaoMethod.insertToken(responseModel.getData());
             Intent intent = new Intent(RegisterView.this,MainView.class);
             startActivity(intent);
         }else{

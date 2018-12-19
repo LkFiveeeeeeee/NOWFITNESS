@@ -1,6 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
-public class ResponseModel {
+public class ResponseModel<T> {
 
     /**
      * timestamp : 2018-12-11 22:49:52.94
@@ -16,7 +16,7 @@ public class ResponseModel {
     private String error;
     private String message;
     private String path;
-    private Object data;
+    private T data;
 
     public String getTimestamp() {
         return timestamp;
@@ -58,11 +58,11 @@ public class ResponseModel {
         this.path = path;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }
