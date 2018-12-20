@@ -9,6 +9,7 @@ public class MomentsModel implements Serializable {
     private int userId;
     private String userPhoto;
     private String userName;
+    private String nickName;
     private String content;
     private String releaseTime;
     private String image;
@@ -16,7 +17,7 @@ public class MomentsModel implements Serializable {
     private int commentsNum;
     private boolean liked;
 
-    public MomentsModel(MomentsDTO.MomentsModelsListBean listBean){
+    public MomentsModel(MomentsDTO.ListBean listBean){
         momentsId = listBean.getMomentsId();
         userId =listBean.getUserId();
         userPhoto = listBean.getUserPhoto();
@@ -107,5 +108,13 @@ public class MomentsModel implements Serializable {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }

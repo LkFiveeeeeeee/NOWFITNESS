@@ -1,6 +1,5 @@
 package project.cn.edu.tongji.sse.nowfitness.data;
 
-import android.net.wifi.p2p.WifiP2pManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -16,11 +15,14 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.LoginDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RepliesDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.Token;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
 public class APIRepositaryImpl implements APIRepositary {
@@ -28,49 +30,73 @@ public class APIRepositaryImpl implements APIRepositary {
     ApiInterface api = NetWorkUtils.makeRetrofit().create(ApiInterface.class);
 
     @Override
-    public Single<SignModel> vertifyInfo(String userName, String passWord) {
+    public Single<ResponseModel<Token>> vertifyInfo(RequestBody userName, RequestBody passWord) {
+        ResponseModel responseModel = new ResponseModel();
         return api.vertifyInfo(userName,passWord)
-                .map(new Function<LoginDTO, SignModel>() {
+                .map(new Function<ResponseDTO<TokenDTO>, ResponseModel<Token>>() {
                     @Override
-                    public SignModel apply(LoginDTO loginDTO) throws Exception {
-                        return new SignModel(loginDTO.getResult());
+                    public ResponseModel<Token> apply(ResponseDTO<TokenDTO> tokenDTOResponseDTO) throws Exception {
+                        responseModel.setError(tokenDTOResponseDTO.getError());
+                        responseModel.setStatus(tokenDTOResponseDTO.getStatus());
+                        Token token = new Token(tokenDTOResponseDTO.getData());
+                        responseModel.setData(token);
+                        return responseModel;
                     }
                 });
     }
 
     @Override
-    public Single<SignModel> applyInfo(String userName, String passWord) {
+    public Single<ResponseModel> applyInfo(RequestBody userName, RequestBody passWord) {
+        ResponseModel responseModel = new ResponseModel();
         return api.applyRegister(userName,passWord)
-                .map(new Function<LoginDTO, SignModel>() {
+                .map(new Function<ResponseDTO<TokenDTO>, ResponseModel>() {
                     @Override
-                    public SignModel apply(LoginDTO loginDTO) throws Exception {
-                        return new SignModel(loginDTO.getResult());
+                    public ResponseModel apply(ResponseDTO<TokenDTO> tokenDTOResponseDTO) throws Exception {
+                        responseModel.setError(tokenDTOResponseDTO.getError());
+                        responseModel.setStatus(tokenDTOResponseDTO.getStatus());
+                        Token token = new Token(tokenDTOResponseDTO.getData());
+                        responseModel.setData(token);
+                        return responseModel;
                     }
                 });
     }
 
     @Override
-    public Single<UserInfoModel> queryUserInfo(String userName, String passWord) {
-        return api.queryUserInfo(userName,passWord)
-                .map(new Function<UserInfoDTO, UserInfoModel>() {
+    public Single<ResponseModel<UserInfoModel>> queryUserInfo(String userName) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.queryUserInfo(userName)
+                .map(new Function<ResponseDTO<UserInfoDTO>, ResponseModel<UserInfoModel>>() {
                     @Override
-                    public UserInfoModel apply(UserInfoDTO userInfoDTO) throws Exception {
-                        return new UserInfoModel(userInfoDTO);
+                    public ResponseModel<UserInfoModel> apply(ResponseDTO<UserInfoDTO> userInfoDTOResponseDTO) throws Exception {
+                        responseModel.setStatus(userInfoDTOResponseDTO.getStatus());
+                        responseModel.setError(userInfoDTOResponseDTO.getError());
+                        UserInfoModel userInfoModel = new UserInfoModel(userInfoDTOResponseDTO.getData());
+                        responseModel.setData(userInfoModel);
+                        return responseModel;
                     }
                 });
     }
 
     @Override
-    public Single<List<MomentsModel>> getStarsInfo(int userId) {
-        List<MomentsModel> modelList = new ArrayList<>();
-        return api.getStarsAllMoments(userId)
-                .map(new Function<MomentsDTO, List<MomentsModel>>() {
+    public Single<ResponseModel<MomentsModelList>> getStarsInfo(int userId, int pageNum) {
+        ResponseModel responseModel = new ResponseModel();
+
+        return api.getStarsAllMoments(userId,pageNum)
+                .map(new Function<ResponseDTO<MomentsDTO>, ResponseModel<MomentsModelList>>() {
                     @Override
-                    public List<MomentsModel> apply(MomentsDTO momentsDTO) throws Exception {
-                        for(MomentsDTO.MomentsModelsListBean bean:momentsDTO.getMomentsModelsList()){
-                            modelList.add(new MomentsModel(bean));
+                    public ResponseModel<MomentsModelList> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
+                        List<MomentsModel> modelList = new ArrayList<>();
+                        MomentsModelList momentsModelList = new MomentsModelList(momentsDTOResponseDTO.getData());
+                        if(momentsDTOResponseDTO.getData() != null){
+                            for(MomentsDTO.ListBean bean:momentsDTOResponseDTO.getData().getList()){
+                                modelList.add(new MomentsModel(bean));
+                            }
+                            momentsModelList.setList(modelList);
                         }
-                        return modelList;
+                        responseModel.setStatus(momentsDTOResponseDTO.getStatus());
+                        responseModel.setError(momentsDTOResponseDTO.getError());
+                        responseModel.setData(momentsModelList);
+                        return responseModel;
                     }
                 });
     }
@@ -91,13 +117,16 @@ public class APIRepositaryImpl implements APIRepositary {
                 });
   }
     @Override
-    public Single<SignModel> postUserAvatar(MultipartBody.Part file,RequestBody body) {
+    public Single<ResponseModel> postUserAvatar(MultipartBody.Part file, RequestBody body) {
+        ResponseModel responseModel = new ResponseModel();
         return api.postUserAvatar(file,body)
-                .map(new Function<ResponseDTO, SignModel>() {
+                .map(new Function<ResponseDTO, ResponseModel>() {
                     @Override
-                    public SignModel apply(ResponseDTO responseDTO) throws Exception {
-                        Log.d("AAAAAAAAA", "apply: SignModel");
-                        return new SignModel(responseDTO.getResult());
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        Log.d("AAAAAAAAA", "apply: ResponseModel");
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseModel.setError(responseDTO.getError());
+                        return responseModel;
                     }
                 });
     }
@@ -105,13 +134,31 @@ public class APIRepositaryImpl implements APIRepositary {
 
   //omf
   @Override
-    public Single<SignModel> makeNewCommentInfo(CommentsDetailModel commentsDetailModel){
-        return api.makeNewComments(commentsDetailModel)
-                .map(new Function<RepliesDTO, SignModel>() {
+    public Single<ResponseModel> makeNewCommentInfo(RequestBody body){
+      ResponseModel responseModel = new ResponseModel();
+        return api.makeNewComments(body)
+                .map(new Function<ResponseDTO, ResponseModel>() {
                     @Override
-                    public SignModel apply(RepliesDTO repliesDTO) throws Exception {
-                        return new SignModel(repliesDTO.getResult());
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseModel.setError(responseDTO.getError());
+                        return responseModel;
                     }
                 });
   }
+
+
+    @Override
+    public Single<ResponseModel> makeReply(RequestBody body) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.postReply(body)
+                .map(new Function<ResponseDTO, ResponseModel>() {
+                    @Override
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseModel.setError(responseDTO.getError());
+                        return responseModel;
+                    }
+                });
+    }
 }

@@ -13,13 +13,6 @@ public class IndiRelationModel {
     long starId;
     long followId;
 
-
-
-
-
-
-
-
     @Generated(hash = 635889064)
     public IndiRelationModel(Long id, long starId, long followId) {
         this.id = id;

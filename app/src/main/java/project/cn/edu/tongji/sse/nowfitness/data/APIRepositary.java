@@ -11,17 +11,20 @@ import retrofit2.http.GET;
 
 public interface APIRepositary {
 
-    Single vertifyInfo(String userName,String passWord);
+    Single vertifyInfo(RequestBody userName,RequestBody passWord);
 
-    Single applyInfo(String userName,String passWord);
+    Single applyInfo(RequestBody userName,RequestBody passWord);
 
-    Single queryUserInfo(String userName, String passWord);
+    Single queryUserInfo(String userName);
 
-    Single getStarsInfo (int userId);
+    Single postUserAvatar(MultipartBody.Part file,RequestBody body);
+
+    Single getStarsInfo (int userId,int pageNum);
 
     //omf
     Single getCommentsInfo(int momentsId);
     //omf
-    Single makeNewCommentInfo(CommentsDetailModel commentsDetailModel);
-    Single postUserAvatar(MultipartBody.Part file,RequestBody body);
+    Single makeNewCommentInfo(RequestBody body);
+
+    Single makeReply(RequestBody body);
 }

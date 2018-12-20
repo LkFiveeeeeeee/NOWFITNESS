@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_alignParentTop="true"
+        android:id="@+id/userinfo_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="10dp"
+        android:theme="@style/AppTheme.ToolBarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/userinfo_setting"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@id/my_toolbar"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="20dp"
+        app:cardMaxElevation="12dp"
+        >
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:src="@drawable/infopc"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="修改个人资料"
+                android:textColor="@color/textColor"
+                android:textSize="17dp"
+                />
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_below="@id/userinfo_setting"
+        android:id="@+id/password_setting"
+        android:layout_width="600dp"
+        android:layout_height="180dp"
+
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        app:cardMaxElevation="12dp"
+        >
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:text="修改密码"
+            android:textColor="@color/textColor"
+            android:textSize="17dp"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="match_parent"
+            android:src="@drawable/psbc"
+            android:scaleType="fitXY"
+            android:contentDescription="修改密码"
+            />
+
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="120dp"
+        android:layout_marginBottom="62dp"
+        android:background="@color/lightRed"
+        android:text="退出登录"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

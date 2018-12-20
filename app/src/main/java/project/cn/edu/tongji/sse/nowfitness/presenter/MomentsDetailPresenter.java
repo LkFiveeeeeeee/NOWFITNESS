@@ -1,14 +1,24 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
+
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+
+import android.util.Log;
 import android.widget.ExpandableListView;
+
+import com.google.gson.JsonIOException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
@@ -93,7 +103,20 @@ public class MomentsDetailPresenter extends BasePresenter  {
     }
 
     public void makeNewComments(CommentsDetailModel commentsDetailModel){
-        subscriptions.add(apiRepositary.makeNewCommentInfo(commentsDetailModel)
+        JSONObject postData = new JSONObject();
+        try{
+            postData.put("momentsId",commentsDetailModel.getMomentsId());
+            postData.put("content",commentsDetailModel.getContent());
+            postData.put("commentUserId",commentsDetailModel.getCommentUserId());
+        }catch (JSONException e) {
+            e.printStackTrace();
+            Log.d("JsonException", "makeNewComments: ");
+        }
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type,application/json"),
+                postData.toString());
+
+        subscriptions.add(apiRepositary.makeNewCommentInfo(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(commentsMethod::makeCommentsSuccess,commentsMethod::makeCommentsError)

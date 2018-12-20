@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
+import com.victor.ringbutton.RingButton;
 import com.zhihu.matisse.Matisse;
 
 import java.text.DateFormat;
@@ -48,13 +49,13 @@ import java.util.Random;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import project.cn.edu.tongji.sse.nowfitness.R;
-import project.cn.edu.tongji.sse.nowfitness.data.network.Constant;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FileHelper;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.DataChartView.DataChartView;
+import project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.PlanQuestionView;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
@@ -90,8 +91,9 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     private EditText weightNum;
     private TextView BMINum;
     private ImageView sexImage;
-    private TextView userName;
+    private TextView nickName;
     private View myView;
+    private RingButton settingButton;
     /*others Para*/
 
     private SensorManager sensorManager;
@@ -179,7 +181,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(getActivity(),DisplayView.class);
+                        Intent intent = new Intent(getActivity(),PlanQuestionView.class);
                         startActivity(intent);
                     }
                 })
@@ -210,6 +212,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         fansNum.setText(String.valueOf(userInfoModel.getFansNum()));
         hightNum.setText(String.valueOf(userInfoModel.getHeight()));
         weightNum.setText(String.valueOf(userInfoModel.getWeight()));
+        nickName.setText(userInfoModel.getNickName());
 
         yearDay.setText(String.valueOf(calendarView.getCurYear()));
         monthDay.setText(calendarView.getCurMonth() + "月" + calendarView.getCurDay() + "日");
@@ -300,9 +303,9 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         hightNum = (EditText) myView.findViewById(R.id.height_view);
         weightNum = (EditText) myView.findViewById(R.id.weight_view);
         BMINum = (TextView) myView.findViewById(R.id.bmiview);
-        userName = (TextView) myView.findViewById(R.id.username);
+        nickName = (TextView) myView.findViewById(R.id.username);
         sexImage = (ImageView) myView.findViewById(R.id.sex);
-
+        settingButton = (RingButton) myView.findViewById(R.id.ringButton);
         setLisenter();
     }
 
@@ -399,6 +402,18 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
                 checkPermission();
             }
         });
+        settingButton.setOnClickListener(new RingButton.OnClickListener() {
+            @Override
+            public void clickUp() {
+                Intent intent = new Intent(getContext(),DataChartView.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void clickDown() {
+
+            }
+        });
     }
     /*UserViewFragment Method*/
 
@@ -436,11 +451,11 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     }
 
     @Override
-    public void applyForImageChange(SignModel responseDTO) {
-        if(responseDTO.getResult().equals("picture upload succeed")){
+    public void applyForImageChange(ResponseModel responseDTO) {
+        if(responseDTO.getStatus() == 200){
             Log.d("test post", "applyForImageChange: success!!!!!!");
         }
-        Log.d("test post", responseDTO.getResult().toString());
+        Log.d("test post", responseDTO.getError());
     }
 
     @Override

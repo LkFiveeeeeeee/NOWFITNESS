@@ -36,8 +36,13 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+<<<<<<< HEAD
 import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+=======
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.presenter.CommentsListViewAdapter;
+>>>>>>> b21eabd24ce6f0e7b9e1e8bf1ce9d6277eccbbc9
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
 
@@ -74,12 +79,13 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     }
 
     @Override
-    public void makeCommentsSuccess(SignModel signModel) {
-        //很糟糕
-        Log.e("commmmm",signModel.getResult());
-        if(signModel.getResult()== Constant.MAKE_COMMENT_SUCCESS)
-            momentsDetailPresenter.queryForComments(momentsModel.getMomentsId());
+    public void makeCommentsSuccess(ResponseModel responseModel) {
 
+        if(responseModel.getStatus() == 200 || responseModel.getStatus() == 201)
+            momentsDetailPresenter.queryForComments(momentsModel.getMomentsId());
+        else{
+            Toast.makeText(MomentsDetailView.this,responseModel.getError(),Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

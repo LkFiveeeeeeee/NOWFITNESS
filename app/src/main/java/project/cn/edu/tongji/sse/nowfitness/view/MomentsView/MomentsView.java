@@ -31,6 +31,8 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 
 
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
 
@@ -112,11 +114,12 @@ public class MomentsView extends Fragment implements MomentsMethod{
 
 
     @Override
-    public void querySuccess(List<MomentsModel> models) {
-        Log.d("TestQuerry", "querySuccess: " + models.size());
-        Log.d("TestQuerry", "querySuccess: " + models.get(0).getUserName());
-        momentsPresenter.resetMomentsList(models);
-        swipeRefreshLayout.setRefreshing(false );
+    public void querySuccess(ResponseModel<MomentsModelList> models) {
+        if(models.getStatus() >= 200 || models.getStatus() < 300){
+            momentsPresenter.resetMomentsList(models.getData().getList());
+            swipeRefreshLayout.setRefreshing(false );
+        }
+
 
     }
 
