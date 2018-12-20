@@ -1,7 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,45 +10,27 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
-import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsRecyclerAdapter;
-import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 
 /**
- * Created by a on 2018/11/23.
+ * Created by a on 2018/12/13.
  */
 
-public class MomentsPresenter extends BaseMomentsPresenter{
-    private MomentsView momentsView;
-    //private List<MomentsModel> pMomentsLab;
-   // private MomentsMethod momentsMethod;
-    //private MomentsRecyclerAdapter momentsRecyclerAdapter;
+public class PersonPagePresenter extends BaseMomentsPresenter{
+    private PersonPageView personPageView;
+    private Context mContext;
 
-
-    public void initView(){
-        momentsView.initView();
+    public PersonPagePresenter(Context context, MomentsMethod momentsMethod,PersonPageView personPageView){
+       super(momentsMethod, context);
+       this.personPageView = personPageView;
     }
-    public void likeOrDislike(){
-
+    public void intiView(){
+        personPageView.initView();
     }
-    public MomentsPresenter(MomentsView momentsView, MomentsMethod momentsMethod){
-        super(momentsMethod,momentsView.getActivity());
-        this.momentsView = momentsView;
-        pMomentsLab = new ArrayList<>();
-        this.momentsMethod = momentsMethod;
-    }
-
-    public void queryForInfo(int userId){
-        /*subscriptions.add(apiRepositary.getStarsInfo(userId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(momentsMethod::querySuccess,momentsMethod::queryError)
-        );*/
-
+    public  void queryForInfo(int id,int i){
         String momentsListJson=" [\n" +
                 "        {\n" +
                 "            \"momentsId\": 1,\n" +
@@ -129,33 +110,38 @@ public class MomentsPresenter extends BaseMomentsPresenter{
         Type type1=new TypeToken<List<MomentsModel>>(){}.getType();
         mList=gson.fromJson(momentsListJson, type1);
         java.util.Random r= new java.util.Random();
-        if(r.nextInt()%4==0) {
-            if (mList.size() > 0) {
-                setAdapterStates(MomentsRecyclerAdapter.NORMAL);
-                addMomentsList(mList);
-            }
-        }
+       if(r.nextInt()%4==0) {
+           if (mList.size() > 0) {
+               setAdapterStates(MomentsRecyclerAdapter.NORMAL);
+               addMomentsList(mList);
+           }
+       }
         else {
-            if(pMomentsLab.size()==0) {
-                if (r.nextInt() % 2 == 0)
-                    setAdapterStates(MomentsRecyclerAdapter.NO_NETWORK);
-                else
-                    setAdapterStates(MomentsRecyclerAdapter.NO_CONTENT);
-            }
-        }
+           if(pMomentsLab.size()==0) {
+               if (r.nextInt() % 2 == 0)
+                   setAdapterStates(MomentsRecyclerAdapter.NO_NETWORK);
+               else
+                   setAdapterStates(MomentsRecyclerAdapter.NO_CONTENT);
+           }
+       }
 
-    }
-
-    public void resetMomentsList(List<MomentsModel> momentsModelList){
-        pMomentsLab = momentsModelList;
-        momentsRecyclerAdapter.resetMomentsModelsList(momentsModelList);
-        momentsRecyclerAdapter.notifyDataSetChanged();
     }
 
     public void addMomentsList(List<MomentsModel> momentsModelList){
         for(MomentsModel e:momentsModelList)
             pMomentsLab.add(e);
-        momentsRecyclerAdapter.resetMomentsModelsList(pMomentsLab);
-        momentsRecyclerAdapter.notifyDataSetChanged();
+         momentsRecyclerAdapter.resetMomentsModelsList(pMomentsLab);
+         momentsRecyclerAdapter.notifyDataSetChanged();
     }
+
+    public void quertForPersonInfo(int personId){
+
+    }
+    public void deleteMoments(int position){
+        MomentsModel momentsDel = pMomentsLab.get(position);
+        pMomentsLab.remove(position);
+        momentsRecyclerAdapter.notifyItemRemoved(position);
+        momentsRecyclerAdapter.notifyItemRangeChanged(position,pMomentsLab.size()-position);
+    }
+
 }

@@ -19,6 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.List;
 
@@ -40,6 +44,7 @@ public class MomentsView extends Fragment implements MomentsMethod{
     private RecyclerView momentsRecyclerView;
     private MomentsPresenter momentsPresenter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private SmartRefreshLayout refreshLayout;
 
     public static MomentsView newInstance(String type){
         Bundle args = new Bundle();
@@ -61,8 +66,9 @@ public class MomentsView extends Fragment implements MomentsMethod{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.moments_page,container,false);
-   //     momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId());
+       // momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId());
         momentsPresenter.initView();
+        //momentsPresenter.queryForInfo(1);
         return myView;
     }
 
@@ -74,6 +80,9 @@ public class MomentsView extends Fragment implements MomentsMethod{
         //momentsRecyclerView.addItemDecoration(new MomentsItemDecoration());
         momentsPresenter.setMomentsRecyerView(momentsRecyclerView);
         momentsPresenter.setAdapter();
+        refreshLayout = (SmartRefreshLayout)myView.findViewById(R.id.moments_refreshLayout);
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setRefreshFooter(new ClassicsFooter(this.getActivity()));
         initEvent();
     }
 
@@ -81,7 +90,22 @@ public class MomentsView extends Fragment implements MomentsMethod{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId());
+               // momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId());
+                momentsPresenter.queryForInfo(1);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                java.util.Random r= new java.util.Random();
+                if(r.nextBoolean())
+                    refreshlayout.finishLoadMoreWithNoMoreData();
+                else {
+                    refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                    //finishLoadMore(delayed);
+                    momentsPresenter.queryForInfo(1);
+                }
             }
         });
     }

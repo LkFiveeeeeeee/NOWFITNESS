@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:name=".view.NOWFITNESSApplication"
@@ -15,23 +17,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.LoginAndRegisterView.LoginView">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
-        <activity android:name=".view.MainView.MainView"></activity>
+        <activity android:name=".view.MainView.MainView" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".view.LoginAndRegisterView.RegisterView"
-            android:theme="@style/Translucent"></activity>
-        <activity android:name=".view.UserView.DisplayVIEW.DisplayView"></activity>
-        <activity android:name=".view.publishMomentView.PubishMomentView">
-
+            android:theme="@style/Translucent" />
+        <activity android:name=".view.UserView.DisplayVIEW.DisplayView" />
+        <activity android:name=".view.publishMomentView.PubishMomentView"></activity>
+        <activity android:name=".view.CommentsView.MomentsDetailView"></activity>
+        <activity android:name=".view.PersonPageView.PersonPageView">
         </activity>
-        <activity android:name=".view.CommentsView.MomentsDetailView">
-
-        </activity>
-
     </application>
 
 </manifest>

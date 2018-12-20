@@ -21,7 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    greendao{
+    greendao {
         schemaVersion 2
         daoPackage 'project.cn.edu.tongji.sse.nowfitness.greendao.db'
         targetGenDir 'src/main/java'
@@ -55,4 +55,10 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation 'com.lai:buttonStyle:1.0.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
 }

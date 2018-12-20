@@ -54,9 +54,6 @@ public class LeftFragment extends Fragment {
         super.onCreate(savedInstanceState);
         leftFragmentPresenter = new LeftFragmentPresenter(this);
         bookPresenter = new BookPresenter();
-
-
-
     }
 
     @Nullable
