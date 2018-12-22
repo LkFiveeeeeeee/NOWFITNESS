@@ -5,7 +5,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 public interface UserViewMethod {
     void initUserView();
     void setBMINum();
-    void setLisenter();
+    void setListener();
 
     void jumpToStars();
     void jumpToFans();

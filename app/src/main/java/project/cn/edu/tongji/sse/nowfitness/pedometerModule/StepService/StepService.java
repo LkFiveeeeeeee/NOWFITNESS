@@ -32,10 +32,10 @@ import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
 import project.cn.edu.tongji.sse.nowfitness.model.StepLab;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepCount;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepValuePassListener;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
-import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 
 
 public class StepService extends Service implements SensorEventListener {
@@ -119,7 +119,7 @@ public class StepService extends Service implements SensorEventListener {
             builder = new NotificationCompat.Builder(this,channelID);
             builder.setContentTitle("NowFitness计步")
                     .setContentText("今日计步" + currentStep +" 步")
-                    .setContentIntent(getDefalutIntent(Notification.FLAG_ONGOING_EVENT))
+                    .setContentIntent(getDefaultIntent(Notification.FLAG_ONGOING_EVENT))
                     //        .setContentIntent(getDe)
                     .setWhen(System.currentTimeMillis())
                     .setPriority(Notification.PRIORITY_DEFAULT)
@@ -130,7 +130,7 @@ public class StepService extends Service implements SensorEventListener {
             builder = new NotificationCompat.Builder(this);
             builder.setContentTitle("NowFitness计步")
                     .setContentText("今日计步" + currentStep +" 步")
-                    .setContentIntent(getDefalutIntent(Notification.FLAG_ONGOING_EVENT))
+                    .setContentIntent(getDefaultIntent(Notification.FLAG_ONGOING_EVENT))
                     //        .setContentIntent(getDe)
                     .setWhen(System.currentTimeMillis())
                     .setPriority(Notification.PRIORITY_DEFAULT)
@@ -141,7 +141,7 @@ public class StepService extends Service implements SensorEventListener {
   /*      builder = new NotificationCompat.Builder(this,channelID);
         builder.setContentTitle("NowFitness计步")
                 .setContentText("今日计步" + currentStep +" 步")
-                .setContentIntent(getDefalutIntent(Notification.FLAG_ONGOING_EVENT))
+                .setContentIntent(getDefaultIntent(Notification.FLAG_ONGOING_EVENT))
         //        .setContentIntent(getDe)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(Notification.PRIORITY_DEFAULT)
@@ -154,7 +154,7 @@ public class StepService extends Service implements SensorEventListener {
         Log.d(TAG, "initNotification: ");
     }
 
-    private PendingIntent getDefalutIntent(int flagOngoingEvent) {
+    private PendingIntent getDefaultIntent(int flagOngoingEvent) {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,1,new Intent(),flagOngoingEvent);
         return pendingIntent;
@@ -163,19 +163,23 @@ public class StepService extends Service implements SensorEventListener {
     private void initTodayData(){
         currentDate = getTodayDate();
         //TODO 数据库相关
-        List<StepModel> stepList = DaoMethod.queryByDate(currentDate,1);
-        if(stepList.size() == 0 || stepList.isEmpty()){
+        UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+        List<StepModel> stepList = DaoMethod.queryByDate(currentDate,userInfoModel.getId());
+        Log.d(TAG, "initTodayData: querySize = " + stepList.size());
+        if(stepList.size() == 0){
             currentStep = 0;
             StepModel stepModel = new StepModel();
             stepModel.setId(null);
+            stepModel.setUserId((int) userInfoModel.getId());
             stepModel.setStep(String.valueOf(currentStep));
             stepModel.setToday(currentDate);
             StepLab.get().setStepModel(stepModel);
-            DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insert(stepModel);
+            DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insertOrReplace(stepModel);
         }else if(stepList.size() == 1){
             Log.d(TAG, "initTodayData: 步数初始化");
             currentStep = Integer.parseInt(stepList.get(0).getStep());
             StepLab.get().setStepModel(stepList.get(0));
+            Log.d(TAG, "initTodayData: " + stepList.get(0).getId());
         }else{
             Log.d(TAG, "initTodayData: 出错了orz");
         }
@@ -414,30 +418,18 @@ public class StepService extends Service implements SensorEventListener {
     //保存计步数据
     private void save(){
         int tempStep = currentStep;
-        //TODO 数据库操作
-        //TODO 修正用户ID
-        List<StepModel> stepList = DaoMethod.queryByDate(currentDate,1);
-        StepModel data = new StepModel();
-
-        data.setUserId(1);
-        data.setToday(currentDate);
-        data.setStep(tempStep + "");
-        if(stepList.size() == 0 || stepList.isEmpty()){
-            DaoManager.getDaoInstance().getDaoSession()
-                    .getStepModelDao().insertOrReplace(data);
-        }else if(stepList.size() == 1){
-            DaoManager.getDaoInstance().getDaoSession()
-                    .getStepModelDao().insertOrReplace(data);
-        }
-
+        Log.d(TAG, "save: do a save");
+        StepLab.get().setStep(tempStep + "");
+        Log.d(TAG, "save: " + tempStep);
+        DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insertOrReplace(StepLab.get().getStepModel());
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         stopForeground(true);
-        Intent boradcastIntent = new Intent(this,StepServiceRestartReceiver.class);
-        sendBroadcast(boradcastIntent);
+        Intent broadcastIntent = new Intent(this,StepServiceRestartReceiver.class);
+        sendBroadcast(broadcastIntent);
         unregisterReceiver(broadcastReceiver);
     }
 
@@ -449,8 +441,8 @@ public class StepService extends Service implements SensorEventListener {
     @RequiresApi(Build.VERSION_CODES.O)
     private String createChannel(){
         String channelID = "countStepService";
-        String chaanelName = "NowFitness";
-        NotificationChannel channel = new NotificationChannel(channelID,chaanelName,NotificationManager.IMPORTANCE_NONE);
+        String channelName = "NowFitness";
+        NotificationChannel channel = new NotificationChannel(channelID,channelName,NotificationManager.IMPORTANCE_NONE);
         notificationManager.createNotificationChannel(channel);
         return channelID;
     }

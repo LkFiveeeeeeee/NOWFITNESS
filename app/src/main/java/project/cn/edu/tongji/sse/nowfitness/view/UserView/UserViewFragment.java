@@ -13,6 +13,7 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -56,6 +57,7 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.FileHelper;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.DataChartView.DataChartView;
 import project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.PlanQuestionView;
+import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingView;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
@@ -63,7 +65,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarC
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.ConstantColor;
 
 
-public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,PermissionMethod,SensorEventListener{
+public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,SensorEventListener{
     /*temp para*/
     private List<Uri> imageUri;
 
@@ -87,7 +89,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     private TextView momentNum;
     private TextView fansNum;
     private TextView followersNum;
-    private EditText hightNum;
+    private EditText heightNum;
     private EditText weightNum;
     private TextView BMINum;
     private ImageView sexImage;
@@ -210,9 +212,15 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         momentNum.setText(String.valueOf(userInfoModel.getMomentsNum()));
         followersNum.setText(String.valueOf(userInfoModel.getFollowingNum()));
         fansNum.setText(String.valueOf(userInfoModel.getFansNum()));
-        hightNum.setText(String.valueOf(userInfoModel.getHeight()));
+        heightNum.setText(String.valueOf(userInfoModel.getHeight()));
         weightNum.setText(String.valueOf(userInfoModel.getWeight()));
         nickName.setText(userInfoModel.getNickName());
+        if(userInfoModel.getSex().equals("男")){
+            sexImage.setImageResource(R.drawable.male);
+        }else if(userInfoModel.getSex().equals("女")){
+            sexImage.setImageResource(R.drawable.female);
+        }
+
 
         yearDay.setText(String.valueOf(calendarView.getCurYear()));
         monthDay.setText(calendarView.getCurMonth() + "月" + calendarView.getCurDay() + "日");
@@ -300,18 +308,18 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         momentNum = (TextView) myView.findViewById(R.id.momentnum);
         fansNum = (TextView) myView.findViewById(R.id.fansnum);
         followersNum = (TextView) myView.findViewById(R.id.followersnum);
-        hightNum = (EditText) myView.findViewById(R.id.height_view);
+        heightNum = (EditText) myView.findViewById(R.id.height_view);
         weightNum = (EditText) myView.findViewById(R.id.weight_view);
         BMINum = (TextView) myView.findViewById(R.id.bmiview);
         nickName = (TextView) myView.findViewById(R.id.username);
         sexImage = (ImageView) myView.findViewById(R.id.sex);
         settingButton = (RingButton) myView.findViewById(R.id.ringButton);
-        setLisenter();
+        setListener();
     }
 
     @Override
     public void setBMINum() {
-        if(hightNum.getText().equals("0")||weightNum.getText().equals("0")){
+        if(heightNum.getText().equals("0")||weightNum.getText().equals("0")){
             return;
         }else{
             //TODO calculate BMI number
@@ -336,7 +344,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
 
     @Override
-    public void setLisenter() {
+    public void setListener() {
         momentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -364,7 +372,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
                 startActivity(intent);
             }
         });
-        hightNum.addTextChangedListener(new TextWatcher() {
+        heightNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -377,7 +385,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
             @Override
             public void afterTextChanged(Editable editable) {
-                userViewPresenter.setHeight(hightNum.getText().toString());
+                userViewPresenter.setHeight(heightNum.getText().toString());
             }
         });
         weightNum.addTextChangedListener(new TextWatcher() {
@@ -399,7 +407,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         avatarImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkPermission();
+                ConstantMethod.useMatisseFromFragment(UserViewFragment.this);
             }
         });
         settingButton.setOnClickListener(new RingButton.OnClickListener() {
@@ -411,7 +419,8 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
             @Override
             public void clickDown() {
-
+                Intent intent = new Intent(getContext(),UserSettingView.class);
+                startActivity(intent);
             }
         });
     }
@@ -491,20 +500,6 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         }
     }
 
-    @Override
-    public void checkPermission() {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-            Log.d("1111", "onRequestPermissionsResult:sendsend ");
-           int flag_read = ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.READ_EXTERNAL_STORAGE);
-           int flag_write = ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE);
-           if(flag_read != PackageManager.PERMISSION_GRANTED
-                   || flag_write != PackageManager.PERMISSION_GRANTED){
-               Toast.makeText(getContext(),"没有读写权限!!!",Toast.LENGTH_SHORT).show();
-           }else{
-               Log.d("1111111111111111", "checkPermission: we do it");
-               ConstantMethod.useMatisseFromFragment(this);
-           }
-        }
-    }
+
 
 }

@@ -22,11 +22,14 @@ import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LoginPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.WelcomeView.WelcomeView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
-public class LoginView extends AppCompatActivity implements loginMethod {
+public class LoginView extends AppCompatActivity implements LoginMethod {
 
     private LoginPresenter loginPresenter;
     private TextInputEditText userName;
@@ -68,7 +71,7 @@ public class LoginView extends AppCompatActivity implements loginMethod {
                 ActivityOptionsCompat optionsCompat
                         = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginView.this);
 
-                loginPresenter.queryForVertify(userName.getText().toString(),passWord.getText().toString());
+                loginPresenter.queryForVerify(userName.getText().toString(),passWord.getText().toString());
             }
         });
 
@@ -101,7 +104,7 @@ public class LoginView extends AppCompatActivity implements loginMethod {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                loginPresenter.vertifyForUserName(userName.getText().toString());
+                loginPresenter.verifyForUserName(userName.getText().toString());
             }
         });
 
@@ -118,7 +121,7 @@ public class LoginView extends AppCompatActivity implements loginMethod {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                loginPresenter.vertifyForPassWord(passWord.getText().toString());
+                loginPresenter.verifyForPassWord(passWord.getText().toString());
             }
         });
 
@@ -148,14 +151,16 @@ public class LoginView extends AppCompatActivity implements loginMethod {
     public void loginSuccess(ResponseModel<Token> responseModel) {
         Log.d("1111111", "loginSuccess: ");
         Log.d("11111",Constant.LOGIN_SUCCESS);
-        if(responseModel.getStatus() == 200){
+        if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
             Log.d("TOKEN_VALUE", responseModel.toString());
             Log.d("TOKEN_VALUE", responseModel.getData().toString());
             Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue().toString());
             Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue());
-            DaoMethod.insertToken(responseModel.getData());
+            Token token = responseModel.getData();
+            token.setUserName(userName.getText().toString());
+            DaoMethod.insertToken(token);
+            loginPresenter.queryForUserInfo(userName.getText().toString());
 
-            useIntent(userName.getText().toString(),passWord.getText().toString());
         }else{
             Toast.makeText(this, responseModel.getError(),Toast.LENGTH_SHORT).show();
         }
@@ -168,10 +173,17 @@ public class LoginView extends AppCompatActivity implements loginMethod {
         e.printStackTrace();
     }
 
-    public void useIntent(String userName,String passWord){
-        Intent intent = new Intent(LoginView.this,MainView.class);
-        intent.putExtra(ConstantMethod.userName_Key,userName);
-        intent.putExtra(ConstantMethod.passWord_Key,passWord);
-        startActivity(intent);
+    @Override
+    public void querySuccess(ResponseModel<UserInfoModel> responseModel) {
+        if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
+            UserInfoLab.get().setUserInfoModel(responseModel.getData());
+            Intent intent = new Intent(LoginView.this,MainView.class);
+            startActivity(intent);
+            finish();
+        }else{
+            ConstantMethod.toastShort(LoginView.this,responseModel.getError());
+        }
     }
+
+
 }

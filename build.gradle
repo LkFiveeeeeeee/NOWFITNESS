@@ -5,7 +5,13 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
-        maven { url "https://dl.bintray.com/shinelw/maven" }
+        maven {
+            url "https://dl.bintray.com/shinelw/maven"
+        }
+        maven{
+            url 'https://dl.bintray.com/wangyuwei/maven'
+        }
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'

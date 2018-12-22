@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <me.wangyuwei.particleview.ParticleView
+        android:id="@+id/welcome_nowfitness"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightGray"
+        app:pv_background_color="#2E2E2E"
+        app:pv_host_text="NOWFITNESS"
+        app:pv_particle_text="Hi"
+        app:pv_host_text_size="42sp"
+        app:pv_text_color="@color/colorPrimaryDark"
+        />
+
+</LinearLayout>

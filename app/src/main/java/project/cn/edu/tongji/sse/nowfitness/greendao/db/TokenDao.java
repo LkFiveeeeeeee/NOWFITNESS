@@ -26,6 +26,7 @@ public class TokenDao extends AbstractDao<Token, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, long.class, "id", true, "_id");
         public final static Property TokenValue = new Property(1, String.class, "tokenValue", false, "TOKEN_VALUE");
+        public final static Property UserName = new Property(2, String.class, "userName", false, "USER_NAME");
     }
 
 
@@ -42,7 +43,8 @@ public class TokenDao extends AbstractDao<Token, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"TOKEN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
-                "\"TOKEN_VALUE\" TEXT);"); // 1: tokenValue
+                "\"TOKEN_VALUE\" TEXT," + // 1: tokenValue
+                "\"USER_NAME\" TEXT);"); // 2: userName
     }
 
     /** Drops the underlying database table. */
@@ -60,6 +62,11 @@ public class TokenDao extends AbstractDao<Token, Long> {
         if (tokenValue != null) {
             stmt.bindString(2, tokenValue);
         }
+ 
+        String userName = entity.getUserName();
+        if (userName != null) {
+            stmt.bindString(3, userName);
+        }
     }
 
     @Override
@@ -70,6 +77,11 @@ public class TokenDao extends AbstractDao<Token, Long> {
         String tokenValue = entity.getTokenValue();
         if (tokenValue != null) {
             stmt.bindString(2, tokenValue);
+        }
+ 
+        String userName = entity.getUserName();
+        if (userName != null) {
+            stmt.bindString(3, userName);
         }
     }
 
@@ -82,7 +94,8 @@ public class TokenDao extends AbstractDao<Token, Long> {
     public Token readEntity(Cursor cursor, int offset) {
         Token entity = new Token( //
             cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // tokenValue
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // tokenValue
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // userName
         );
         return entity;
     }
@@ -91,6 +104,7 @@ public class TokenDao extends AbstractDao<Token, Long> {
     public void readEntity(Cursor cursor, Token entity, int offset) {
         entity.setId(cursor.getLong(offset + 0));
         entity.setTokenValue(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setUserName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     @Override

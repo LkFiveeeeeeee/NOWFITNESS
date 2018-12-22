@@ -20,6 +20,7 @@ public class CommentsDetailModel {
         private String commentTime;
         private String commentUserPhoto;
         private String commentUserName;
+        private String commentUserNickName;
         private List<CommentsReplyModel> repliesList;
 
     public CommentsDetailModel(CommentsDTO.CommentsListBean listBean){
@@ -31,11 +32,12 @@ public class CommentsDetailModel {
         commentTime =listBean.getCommentTime();
         commentUserPhoto = getCommentUserPhoto();
         commentUserName =listBean.getCommentUserName();
+        commentUserNickName = listBean.getCommentUserNickName();
         repliesList = new ArrayList<>();
         for(CommentsDTO.CommentsListBean.RepliesListBean reply:listBean.getRepliesList()){
             repliesList.add(new CommentsReplyModel(reply));
         }
-        }
+    }
 
 
         public CommentsDetailModel() {

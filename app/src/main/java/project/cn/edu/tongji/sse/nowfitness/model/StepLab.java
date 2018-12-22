@@ -15,4 +15,7 @@ public class StepLab {
         }
         return stepModelLab;
     }
+    public void setStep(String step){
+        stepModel.setStep(step);
+    }
 }

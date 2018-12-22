@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepService;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.UpdateUICallBack;
@@ -69,7 +71,7 @@ public class DayFragment extends Fragment {
             }
         };
 
-        isBind = getActivity().bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE);
+        isBind = Objects.requireNonNull(getActivity()).bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             getActivity().startForegroundService(intent);
         }else{
@@ -81,7 +83,7 @@ public class DayFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if(isBind){
-            this.getActivity().unbindService(serviceConnection);
+            Objects.requireNonNull(this.getActivity()).unbindService(serviceConnection);
         }
     }
 }

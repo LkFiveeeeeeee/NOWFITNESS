@@ -11,10 +11,28 @@ import project.cn.edu.tongji.sse.nowfitness.model.Token;
 
 public class DaoMethod {
 
+    /**
+     * 向Token表中插入token
+     * @param token
+     */
     public static void insertToken(Token token){
         token.setId(Token.TOKEN_ID);
         DaoManager.getDaoInstance().getDaoSession().getTokenDao()
                 .insertOrReplace(token);
+    }
+
+    /**
+     * 表中只存一个Token,所以当用户退出登录时,直接删除表中全部数据
+     */
+
+    public static void deleteToken(){
+        DaoManager.getDaoInstance().getDaoSession().getTokenDao()
+                .deleteAll();
+    }
+
+    public static List<Token> queryForToken(){
+        return DaoManager.getDaoInstance().getDaoSession().getTokenDao()
+                .queryBuilder().list();
     }
 
 

@@ -1,11 +1,11 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
 import io.reactivex.disposables.CompositeDisposable;
-import project.cn.edu.tongji.sse.nowfitness.data.APIRepositaryImpl;
+import project.cn.edu.tongji.sse.nowfitness.data.APIRepositoryImpl;
 
 public class BasePresenter {
     protected  CompositeDisposable subscriptions = new CompositeDisposable();
-    protected APIRepositaryImpl apiRepositary= new APIRepositaryImpl();
+    protected APIRepositoryImpl apiRepositary= new APIRepositoryImpl();
     public void onViewDestroyed(){
         subscriptions.dispose();
     }

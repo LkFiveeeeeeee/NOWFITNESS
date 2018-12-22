@@ -27,6 +27,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
@@ -34,6 +35,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.CommentsListViewAdapter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class MomentsDetailView extends AppCompatActivity implements CommentsMethod{
     private MomentsModel momentsModel;
@@ -78,13 +80,22 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
 
     @Override
     public void makeCommentsError(Throwable e) {
+        Log.d("getComment", "querySuccess: ");
         e.printStackTrace();
     }
 
     @Override
-    public void querySuccess(List<CommentsDetailModel> commentsDetailModelsList) {
-        if(commentsDetailModelsList.size()>0)
-            momentsDetailPresenter.resetCommentsList(commentsDetailModelsList);
+    public void querySuccess(ResponseModel<CommentsDetailModelList> commentsDetailModelsList) {
+        Log.d("getComment", "querySuccess: ");
+        if(commentsDetailModelsList.getStatus() >= 200 && commentsDetailModelsList.getStatus() < 300){
+            Log.d("getComment", "querySuccess: " + commentsDetailModelsList.getData().getCommentsDetailModels().size());
+            if(commentsDetailModelsList.getData().getCommentsDetailModels().size()>0){
+                momentsDetailPresenter.resetCommentsList(commentsDetailModelsList.getData().getCommentsDetailModels());
+            }
+        }else{
+            ConstantMethod.toastShort(MomentsDetailView.this,commentsDetailModelsList.getError());
+        }
+
     }
 
     @Override
@@ -186,7 +197,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                            momentsDetailPresenter.addCommentData(commentContent);
                             break;
                         case COMMENT_TARGET_COMMENTS:
-                           momentsDetailPresenter.addReplyData(groupPosition-0,commentContent);
+                            momentsDetailPresenter.addReplyData(groupPosition-0,commentContent);
                             expandableListView.expandGroup(groupPosition);
                             //Toast.makeText(MainActivity.this,"回复成功",Toast.LENGTH_SHORT).show();
                             break;

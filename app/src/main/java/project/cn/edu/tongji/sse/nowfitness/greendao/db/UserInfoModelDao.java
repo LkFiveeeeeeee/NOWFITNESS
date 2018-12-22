@@ -27,7 +27,7 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
         public final static Property Id = new Property(0, long.class, "id", true, "_id");
         public final static Property UserName = new Property(1, String.class, "userName", false, "USER_NAME");
         public final static Property NickName = new Property(2, String.class, "nickName", false, "NICK_NAME");
-        public final static Property PassWord = new Property(3, String.class, "passWord", false, "PASS_WORD");
+        public final static Property Password = new Property(3, String.class, "password", false, "PASSWORD");
         public final static Property Height = new Property(4, double.class, "height", false, "HEIGHT");
         public final static Property Weight = new Property(5, double.class, "weight", false, "WEIGHT");
         public final static Property Sex = new Property(6, String.class, "sex", false, "SEX");
@@ -55,7 +55,7 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
                 "\"USER_NAME\" TEXT," + // 1: userName
                 "\"NICK_NAME\" TEXT," + // 2: nickName
-                "\"PASS_WORD\" TEXT," + // 3: passWord
+                "\"PASSWORD\" TEXT," + // 3: password
                 "\"HEIGHT\" REAL NOT NULL ," + // 4: height
                 "\"WEIGHT\" REAL NOT NULL ," + // 5: weight
                 "\"SEX\" TEXT," + // 6: sex
@@ -88,9 +88,9 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
             stmt.bindString(3, nickName);
         }
  
-        String passWord = entity.getPassWord();
-        if (passWord != null) {
-            stmt.bindString(4, passWord);
+        String password = entity.getPassword();
+        if (password != null) {
+            stmt.bindString(4, password);
         }
         stmt.bindDouble(5, entity.getHeight());
         stmt.bindDouble(6, entity.getWeight());
@@ -130,9 +130,9 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
             stmt.bindString(3, nickName);
         }
  
-        String passWord = entity.getPassWord();
-        if (passWord != null) {
-            stmt.bindString(4, passWord);
+        String password = entity.getPassword();
+        if (password != null) {
+            stmt.bindString(4, password);
         }
         stmt.bindDouble(5, entity.getHeight());
         stmt.bindDouble(6, entity.getWeight());
@@ -168,7 +168,7 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
             cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nickName
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // passWord
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // password
             cursor.getDouble(offset + 4), // height
             cursor.getDouble(offset + 5), // weight
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // sex
@@ -187,7 +187,7 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
         entity.setId(cursor.getLong(offset + 0));
         entity.setUserName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setNickName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setPassWord(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setPassword(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setHeight(cursor.getDouble(offset + 4));
         entity.setWeight(cursor.getDouble(offset + 5));
         entity.setSex(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));

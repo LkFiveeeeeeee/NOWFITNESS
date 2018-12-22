@@ -1,20 +1,17 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import project.cn.edu.tongji.sse.nowfitness.data.APIRepositaryImpl;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
-import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.loginMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginMethod;
 
 public class LoginPresenter extends BasePresenter{
     private LoginView loginView;
-    private loginMethod loginMethod;
+    private LoginMethod loginMethod;
 
-    public LoginPresenter(LoginView loginView,loginMethod loginMethod){
+    public LoginPresenter(LoginView loginView,LoginMethod loginMethod){
         this.loginView = loginView;
         this.loginMethod = loginMethod;
     }
@@ -23,7 +20,7 @@ public class LoginPresenter extends BasePresenter{
         loginView.initView();
     }
 
-    public boolean vertifyForUserName(String userName){
+    public boolean verifyForUserName(String userName){
 
         if(userName.length() < 6){
             loginView.userNameSetError("用户名长度过短");
@@ -33,7 +30,7 @@ public class LoginPresenter extends BasePresenter{
         return true;
     }
 
-    public boolean vertifyForPassWord(String passWord){
+    public boolean verifyForPassWord(String passWord){
         if(passWord.length() < 6){
             loginView.passWordSetError("密码长度过短");
             return false;
@@ -42,20 +39,24 @@ public class LoginPresenter extends BasePresenter{
         return true;
     }
 
-    public void queryForVertify(String userName,String passWord){
-        if(vertifyForUserName(userName) && vertifyForPassWord(passWord)){
+    public void queryForVerify(String userName, String passWord){
+        if(verifyForUserName(userName) && verifyForPassWord(passWord)){
             RequestBody userNameBody = RequestBody.create(MediaType.parse("text/plain"),userName);
             RequestBody passWordBody = RequestBody.create(MediaType.parse("text/plain"),passWord);
-            subscriptions.add(apiRepositary.vertifyInfo(userNameBody,passWordBody)
+            subscriptions.add(apiRepositary.verifyInfo(userNameBody,passWordBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(loginMethod::loginSuccess,loginMethod::loginError)
             );
             //onResponse 成功跳转主页面,失败Toast提示
         }
+    }
 
-
-
-
+    public void queryForUserInfo(String userName){
+        subscriptions.add(apiRepositary.queryUserInfo(userName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(loginMethod::querySuccess,loginMethod::loginError)
+        );
     }
 }

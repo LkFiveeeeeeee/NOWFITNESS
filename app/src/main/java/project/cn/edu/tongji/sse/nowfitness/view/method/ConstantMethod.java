@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -20,7 +21,7 @@ public class ConstantMethod {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    public static int REQUEST_PERMISSION_CODE = 55;
+    public static final int REQUEST_PERMISSION_CODE = 55;
     public static int REQUEST_IMAGE_CODE = 188;
     public static String userName_Key = "userName";
     public static String passWord_Key = "passWord";
@@ -28,10 +29,6 @@ public class ConstantMethod {
     public static String stars_Type = "following";
     public static String fans_Type = "followers";
 
-    public static Intent newIntent(Context packageContext,Class<?> targetClass){
-        Intent intent = new Intent(packageContext,targetClass);
-        return intent;
-    }
 
     //TODO 模板Intent函数?
 
@@ -60,5 +57,9 @@ public class ConstantMethod {
                 .thumbnailScale(0.85f)
                 .imageEngine(new MyGlideEngine())
                 .forResult(REQUEST_IMAGE_CODE);
+    }
+
+    public static void toastShort(Context context,String string){
+        Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
     }
 }

@@ -3,11 +3,10 @@ package project.cn.edu.tongji.sse.nowfitness.presenter;
 import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import project.cn.edu.tongji.sse.nowfitness.data.APIRepositaryImpl;
+import project.cn.edu.tongji.sse.nowfitness.data.APIRepositoryImpl;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterView;
 
@@ -15,13 +14,13 @@ public class RegisterPresenter extends BasePresenter{
     private RegisterView registerView;
     private RegisterMethod registerMethod;
     public RegisterPresenter(RegisterView registerView, RegisterMethod registerMethod){
-        apiRepositary = new APIRepositaryImpl();
+        apiRepositary = new APIRepositoryImpl();
         this.registerMethod = registerMethod;
         this.registerView = registerView;
     }
 
     public void showAnimate(){
-        registerView.showEnterAnimaton();
+        registerView.showEnterAnimation();
     }
 
     public void initView(){
@@ -37,7 +36,7 @@ public class RegisterPresenter extends BasePresenter{
         return true;
     }
 
-    public boolean vertifyPassWord(String passWord){
+    public boolean verifyPassWord(String passWord){
         if(passWord.length() < 8){
             registerView.passWordSetError("密码过短");
             return false;
@@ -46,7 +45,7 @@ public class RegisterPresenter extends BasePresenter{
         return true;
     }
 
-    public boolean vertifyPassWordAgain(String passWord,String passWordTwo){
+    public boolean verifyPassWordAgain(String passWord, String passWordTwo){
         if(!passWord.equals(passWordTwo)){
             registerView.repeatPassWordError("两次密码不相同");
             return false;
@@ -62,7 +61,15 @@ public class RegisterPresenter extends BasePresenter{
         subscriptions.add(apiRepositary.applyInfo(userNameBody,passWordBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(registerMethod::RegisterSuccees,registerMethod::RegisterApplyError)
+                .subscribe(registerMethod::registerSuccess,registerMethod::registerApplyError)
+        );
+    }
+
+    public void queryForUserInfo(String userName){
+        subscriptions.add(apiRepositary.queryUserInfo(userName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(registerMethod::querySuccess,registerMethod::registerApplyError)
         );
     }
 

@@ -3,6 +3,7 @@ package project.cn.edu.tongji.sse.nowfitness.view.CommentsView;
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 
 
@@ -11,7 +12,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
  */
 
 public interface CommentsMethod {
-    void querySuccess(List<CommentsDetailModel> commentsDetailModelsList);
+    void querySuccess(ResponseModel<CommentsDetailModelList> commentsDetailModelsList);
     void queryError(Throwable e);
 
     void makeCommentsSuccess(ResponseModel responseModel);

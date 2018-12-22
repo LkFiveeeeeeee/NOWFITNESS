@@ -50,6 +50,7 @@ public class CommentsDTO {
         private int commentUserId;
         private String commentTime;
         private String commentUserPhoto;
+        private String commentUserNickName;
         private String commentUserName;
         private List<RepliesListBean> repliesList;
 
@@ -109,6 +110,14 @@ public class CommentsDTO {
             this.commentUserName = commentUserName;
         }
 
+        public String getCommentUserNickName() {
+            return commentUserNickName;
+        }
+
+        public void setCommentUserNickName(String commentUserNickName) {
+            this.commentUserNickName = commentUserNickName;
+        }
+
         public List<RepliesListBean> getRepliesList() {
             return repliesList;
         }
@@ -141,6 +150,9 @@ public class CommentsDTO {
             private int replyId;
             private String fromUserName;
             private String toUserName;
+            private String fromUserNickName;
+
+            private String toUserNickName;
 
             public int getId() {
                 return id;
@@ -221,6 +233,24 @@ public class CommentsDTO {
             public void setToUserName(String toUserName) {
                 this.toUserName = toUserName;
             }
+
+
+            public String getFromUserNickName() {
+                return fromUserNickName;
+            }
+
+            public void setFromUserNickName(String fromUserNickName) {
+                this.fromUserNickName = fromUserNickName;
+            }
+
+            public String getToUserNickName() {
+                return toUserNickName;
+            }
+
+            public void setToUserNickName(String toUserNickName) {
+                this.toUserNickName = toUserNickName;
+            }
+
         }
     }
 }

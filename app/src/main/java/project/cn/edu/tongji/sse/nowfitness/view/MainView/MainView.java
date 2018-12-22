@@ -1,19 +1,15 @@
 package project.cn.edu.tongji.sse.nowfitness.view.MainView;
 
 
-import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -22,31 +18,17 @@ import android.view.View;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import project.cn.edu.tongji.sse.nowfitness.R;
-import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
-import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
-import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoSession;
-import project.cn.edu.tongji.sse.nowfitness.greendao.db.IndiInfoModelDao;
-import project.cn.edu.tongji.sse.nowfitness.greendao.db.IndiRelationModelDao;
-import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
-import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
-import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
-import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
-import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepService;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.LeftFragment;
+import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
-import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PubishMomentView;
+import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentView;
 
 
-public class MainView extends AppCompatActivity implements PermissionMethod,MainViewMethod{
-    private final String TAG ="Test Database";
+public class MainView extends AppCompatActivity {
+  //  private final String TAG ="Test Database";
 
 
     private LeftFragment leftFragment;//omf
@@ -54,10 +36,10 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
     private FragmentManager fragmentManager;
     private MainViewPresenter mainViewPresenter;
     private FloatingActionButton addButton;
-
-
-
     private AHBottomNavigation bottomNavigation;
+
+    private Intent serviceIntent;
+    private StepService stepService;
 
 
 
@@ -66,14 +48,14 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_view);
-        mainViewPresenter = new MainViewPresenter(this,this);
-        Intent intent = getIntent();
+        mainViewPresenter = new MainViewPresenter(this);
+        setupService();
+    /*    Intent intent = getIntent();
         Log.d("11111111", "onCreate: " + intent.getStringExtra(ConstantMethod.userName_Key));
         Log.d("11111111", "onCreate: " + intent.getStringExtra(ConstantMethod.passWord_Key));
         mainViewPresenter.queryForUserInfo(
                 intent.getStringExtra(ConstantMethod.userName_Key)
-        );
-        testDataBase();
+        );*/
         mainViewPresenter.initView();
    //     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
@@ -116,7 +98,7 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainView.this,PubishMomentView.class);
+                Intent intent = new Intent(MainView.this,PublishMomentView.class);
                 startActivity(intent);
             }
         });
@@ -152,40 +134,8 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
                                 .replace(R.id.fragment,userViewFragment)
                                 .addToBackStack(null)
                                 .commit();
-
                     }
                 }
-             /*   int leftcount = 0;
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                if(position==0){
-                    if(leftFragment ==null) {
-                        leftFragment = new LeftFragment();
-                        fragmentTransaction.add(R.id.fragment, leftFragment);
-                    }
-                    if(wasSelected == false || leftcount == 0){
-                        fragmentTransaction.replace(R.id.fragment,leftFragment);
-                        fragmentTransaction.commit();
-                        leftcount++;
-                        Log.d("FragmentTAC", "onTabSelected 0");
-                    }
-                }else if(position == 2){
-                    if(userViewFragment == null){
-                        userViewFragment = new UserViewFragment();
-                        fragmentTransaction.add(R.id.fragment,userViewFragment);
-                    }
-                    if(wasSelected == false){
-                        fragmentTransaction
-                                .setCustomAnimations(R.anim.right_slide_in,
-                                        R.anim.left_slide_out,
-                                        R.anim.left_slide_in,
-                                        R.anim.right_slide_out)
-                                .replace(R.id.fragment,userViewFragment);
-
-                        fragmentTransaction.commit();
-                        Log.d("FragmentTAC", "onTabSelected 2");
-                    }
-
-                }*/
                 return true;
             }
         });
@@ -198,67 +148,46 @@ public class MainView extends AppCompatActivity implements PermissionMethod,Main
         return super.onCreateOptionsMenu(menu);
     }
 
+    //处理Android自带Back按钮对Fragment栈的影响
     @Override
-    public void checkPermission() {
-        List<String> permissionList = new ArrayList<>();
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-            Log.d("1111", "onRequestPermissionsResult:sendsend ");
-            for(int i = 0; i < ConstantMethod.PERMISSIONS_STROAGE.length; i++){
-                if(ContextCompat.checkSelfPermission
-                        (MainView.this,ConstantMethod.PERMISSIONS_STROAGE[i]) !=
-                        PackageManager.PERMISSION_GRANTED){
-                    permissionList.add(ConstantMethod.PERMISSIONS_STROAGE[i]);
-                }
-                if(permissionList.isEmpty()){
-                    return;
-                }else{
-                    String[] permissions = permissionList.toArray(new String[permissionList.size()]);
-                    ActivityCompat.requestPermissions(MainView.this,permissions,ConstantMethod.REQUEST_PERMISSION_CODE);;
-                }
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    private void setupService(){
+      /*  conn = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                StepService stepService = ((StepService.StepBinder) iBinder).getService();
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+
+            }
+        };*/
+        stepService = new StepService(NOWFITNESSApplication.getContext());
+        serviceIntent = new Intent(this,stepService.getClass());
+        if(!isMyServiceRunning(stepService.getClass()))
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                startForegroundService(serviceIntent);
+            }else{
+                startService(serviceIntent);
+            }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass){
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for(ActivityManager.RunningServiceInfo serviceInfo: activityManager.getRunningServices(Integer.MAX_VALUE)){
+            if(serviceClass.getName().equals(serviceInfo.service.getClassName())){
+                Log.i("isMyServiceRunning", "isMyServiceRunning: tttrue");
+                return  true;
             }
         }
+        Log.i("isMyServiceRunning", "isMyServiceRunning: fffalse");
+        return false;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
-    @Override
-    public void querySuccess(ResponseModel<UserInfoModel> userInfoModel) {
-        if(userInfoModel.getStatus() >= 200 && userInfoModel.getStatus() < 300 ){
-            UserInfoLab.get().setUserInfoModel(userInfoModel.getData());
-            DaoSession daoSession = DaoManager.getDaoInstance().getDaoSession();
-            UserInfoModelDao userInfoModelDao = daoSession.getUserInfoModelDao();
-            userInfoModelDao.insertOrReplace(UserInfoLab.get().getUserInfoModel());
-        }else{
-            //TODO Toast错误信息,回到注册界面
-        }
-
-
-        Log.d("1111111", "querySuccess: UserInfoSuccess!!!!");
-    }
-
-    @Override
-    public void queryError(Throwable e) {
-        e.printStackTrace();
-        Log.d("1111111", "queryError: errorForQUERY!!!");
-    }
-
-    private void testDataBase(){
-        DaoSession daoSession = DaoManager.getDaoInstance().getDaoSession();
-        IndiRelationModelDao relationModelDao = daoSession.getIndiRelationModelDao();
-        IndiInfoModelDao infoModelDao = daoSession.getIndiInfoModelDao();
-        IndiRelationModel relationModel = new IndiRelationModel(null,
-                1,2);
-        IndiRelationModel relationModel1 = new IndiRelationModel(null,1,3);
-        relationModelDao.insertInTx(relationModel,relationModel1);
-        IndiInfoModel indiInfoModel = new IndiInfoModel(null,"1","2","3");
-        infoModelDao.insert(indiInfoModel);
-        indiInfoModel.setUserName("小芳");
-        DaoMethod.updateIndiInfo(indiInfoModel);
-        List<IndiInfoModel> list = DaoMethod.queryForIndiInfo(1);
-        Log.d(TAG, list.toString());
-        Log.d(TAG, "AA"  + list.size());
-    }
 }

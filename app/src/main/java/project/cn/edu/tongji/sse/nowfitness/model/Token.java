@@ -16,12 +16,14 @@ public class Token {
     long id;
     
     String tokenValue;
+    String userName;
 
 
-    @Generated(hash = 47599984)
-    public Token(long id, String tokenValue) {
+    @Generated(hash = 1396497195)
+    public Token(long id, String tokenValue, String userName) {
         this.id = id;
         this.tokenValue = tokenValue;
+        this.userName = userName;
     }
 
     @Generated(hash = 79808889)
@@ -46,5 +48,13 @@ public class Token {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -23,11 +23,13 @@ import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
-import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.RegisterPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class RegisterView extends AppCompatActivity implements RegisterMethod{
     private FloatingActionButton cancelButton;
@@ -103,9 +105,9 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                registerPresenter.vertifyPassWord(passWord.getText().toString());
+                registerPresenter.verifyPassWord(passWord.getText().toString());
                 if(!repeatPassWord.getText().toString().equals("")){
-                    registerPresenter.vertifyPassWordAgain(passWord.getText().toString(),repeatPassWord.getText().toString());
+                    registerPresenter.verifyPassWordAgain(passWord.getText().toString(),repeatPassWord.getText().toString());
                 }
             }
         });
@@ -124,7 +126,7 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                registerPresenter.vertifyPassWordAgain(repeatPassWord.getText().toString(),passWord.getText().toString());
+                registerPresenter.verifyPassWordAgain(repeatPassWord.getText().toString(),passWord.getText().toString());
             }
         });
 
@@ -133,8 +135,8 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
             public void onClick(View view) {
                 //TODO
                 if(registerPresenter.vertifyUserName(userName.getText().toString())
-                        && registerPresenter.vertifyPassWord(passWord.getText().toString())
-                        &&registerPresenter.vertifyPassWordAgain(passWord.getText().toString(),
+                        && registerPresenter.verifyPassWord(passWord.getText().toString())
+                        &&registerPresenter.verifyPassWordAgain(passWord.getText().toString(),
                                                     repeatPassWord.getText().toString())){
                     registerPresenter.applyRegister(userName.getText().toString(),passWord.getText().toString());
                     //提交表单,一系列验证操作
@@ -149,7 +151,7 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
 
     }
 
-    public void showEnterAnimaton(){
+    public void showEnterAnimation(){
         Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.fabtransition);
         getWindow().setSharedElementEnterTransition(transition);
 
@@ -249,23 +251,37 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
     }
 
     @Override
-    public void RegisterSuccees(ResponseModel<Token> responseModel) {
+    public void registerSuccess(ResponseModel<Token> responseModel) {
         Log.d("1111111", "loginSuccess: ");
-        if(responseModel.getStatus() == 201){
+        if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
             Log.d("TOKEN_VALUE", responseModel.toString());
             Log.d("TOKEN_VALUE", responseModel.getData().toString());
             Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue().toString());
             Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue());
-        //    DaoMethod.insertToken(responseModel.getData());
-            Intent intent = new Intent(RegisterView.this,MainView.class);
-            startActivity(intent);
+            Token token = new Token();
+            token.setTokenValue(responseModel.getData().getTokenValue());
+            token.setUserName(userName.getText().toString());
+            DaoMethod.insertToken(token);
+            registerPresenter.queryForUserInfo(userName.getText().toString());
         }else{
             Toast.makeText(this, responseModel.getError(),Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void RegisterApplyError(Throwable e) {
+    public void registerApplyError(Throwable e) {
         e.printStackTrace();
+    }
+
+    @Override
+    public void querySuccess(ResponseModel<UserInfoModel> responseModel) {
+        if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
+            UserInfoLab.get().setUserInfoModel(responseModel.getData());
+            Intent intent = new Intent(RegisterView.this,MainView.class);
+            startActivity(intent);
+            finish();
+        }else{
+            ConstantMethod.toastShort(RegisterView.this,responseModel.getError());
+        }
     }
 }

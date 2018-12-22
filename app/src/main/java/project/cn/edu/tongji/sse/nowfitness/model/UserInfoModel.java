@@ -15,7 +15,7 @@ public class UserInfoModel {
     private long id;
     private String userName;
     private String nickName;
-    private String passWord;
+    private String password;
     private double height;
     private double weight;
     private String sex;
@@ -36,12 +36,12 @@ public class UserInfoModel {
 
     @Transient
     private StrinrgAndListConvertMethod convert = new StrinrgAndListConvertMethod();
-    public UserInfoModel(int id, String userName, String passWord, double height,
+    public UserInfoModel(int id, String userName, String password, double height,
                          double weight, String sex, int age, String pictureUrl,
                          int followingNum, int fansNum, int momentsNum, List<String> dateCheckList) {
         this.id = (long) id;
         this.userName = userName;
-        this.passWord = passWord;
+        this.password = password;
         this.height = height;
         this.weight = weight;
         this.sex = sex;
@@ -56,7 +56,7 @@ public class UserInfoModel {
     public UserInfoModel(UserInfoDTO userInfoDTO){
         this.id = userInfoDTO.getId();
         this.userName = userInfoDTO.getUserName();
-        this.passWord = userInfoDTO.getPassword();
+        this.password = userInfoDTO.getPassword();
         this.nickName = userInfoDTO.getNickName();
         this.height = userInfoDTO.getHeight();
         this.weight = userInfoDTO.getWeight();
@@ -70,14 +70,37 @@ public class UserInfoModel {
         this.dateCheckString = convert.convertToDatabaseValue(this.dateCheckList);
     }
 
-    @Generated(hash = 447512337)
-    public UserInfoModel(long id, String userName, String nickName, String passWord, double height,
+    public UserInfoModel(UserInfoModel userInfoModel){
+        this.id = userInfoModel.getId();
+        this.userName = userInfoModel.getUserName();
+        this.password = userInfoModel.getPassword();
+        this.nickName = userInfoModel.getNickName();
+        this.height = userInfoModel.getHeight();
+        this.weight = userInfoModel.getWeight();
+        this.sex = userInfoModel.getSex();
+        this.age = userInfoModel.getAge();
+        this.pictureUrl = userInfoModel.getPictureUrl();
+        this.followingNum = userInfoModel.getFollowingNum();
+        this.fansNum = userInfoModel.getFansNum();
+        this.momentsNum = userInfoModel.getMomentsNum();
+        this.dateCheckList = userInfoModel.getDateCheckList();
+        this.dateCheckString = convert.convertToDatabaseValue(this.dateCheckList);
+    }
+
+    
+
+    @Generated(hash = 886444478)
+    public UserInfoModel() {
+    }
+
+    @Generated(hash = 345454430)
+    public UserInfoModel(long id, String userName, String nickName, String password, double height,
             double weight, String sex, int age, String pictureUrl, int followingNum, int fansNum,
             int momentsNum, String dateCheckString) {
         this.id = id;
         this.userName = userName;
         this.nickName = nickName;
-        this.passWord = passWord;
+        this.password = password;
         this.height = height;
         this.weight = weight;
         this.sex = sex;
@@ -87,10 +110,6 @@ public class UserInfoModel {
         this.fansNum = fansNum;
         this.momentsNum = momentsNum;
         this.dateCheckString = dateCheckString;
-    }
-
-    @Generated(hash = 886444478)
-    public UserInfoModel() {
     }
 
 
@@ -111,12 +130,12 @@ public class UserInfoModel {
         this.userName = userName;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public double getHeight() {

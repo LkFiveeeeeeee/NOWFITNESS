@@ -11,120 +11,142 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
  */
 
 public class CommentsReplyModel {
-        private int id;
+    private int id;
 
-        private int commentId;
+    private int commentId;
 
-        private int fromUserId;
+    private int fromUserId;
 
-        private int toUserId;
+    private int toUserId;
 
-        private String replyType;
+    private String replyType;
 
-        private String content;
+    private String content;
 
-        private String replyTime;
+    private String replyTime;
 
-        private int replyId;
+    private int replyId;
 
-        private String fromUserName;
+    private String fromUserName;
 
-        private String toUserName;
+    private String toUserName;
 
-        public CommentsReplyModel(CommentsDTO.CommentsListBean.RepliesListBean repliesListBean){
-            this.id = repliesListBean.getId();
-            this.commentId = repliesListBean.getCommentId();
-            this.fromUserId = repliesListBean.getFromUserId();
-            this.toUserId = repliesListBean.getToUserId();
-            this.replyType = repliesListBean.getReplyType();
-            this.replyTime = repliesListBean.getReplyTime();
-            this.content = repliesListBean.getContent();
-            this.replyId = repliesListBean.getReplyId();
-            this.fromUserName = repliesListBean.getFromUserName();
-            this.toUserName = repliesListBean.getToUserName();
-        }
-        public CommentsReplyModel(){
+    private String fromUserNickName;
 
-        }
+    private String toUserNickName;
 
-        public int getId() {
-            return id;
-        }
+    public CommentsReplyModel(CommentsDTO.CommentsListBean.RepliesListBean repliesListBean){
+        this.id = repliesListBean.getId();
+        this.commentId = repliesListBean.getCommentId();
+        this.fromUserId = repliesListBean.getFromUserId();
+        this.toUserId = repliesListBean.getToUserId();
+        this.replyType = repliesListBean.getReplyType();
+        this.replyTime = repliesListBean.getReplyTime();
+        this.content = repliesListBean.getContent();
+        this.replyId = repliesListBean.getReplyId();
+        this.fromUserName = repliesListBean.getFromUserName();
+        this.toUserName = repliesListBean.getToUserName();
+        this.fromUserNickName = repliesListBean.getFromUserNickName();
+        this.toUserNickName = repliesListBean.getToUserNickName();
+    }
+    public CommentsReplyModel(){
 
-        public void setId(int id) {
-            this.id = id;
-        }
+    }
 
-        public int getCommentId() {
-            return commentId;
-        }
+    public int getId() {
+        return id;
+    }
 
-        public void setCommentId(int commentId) {
-            this.commentId = commentId;
-        }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-        public int getFromUserId() {
-            return fromUserId;
-        }
+    public int getCommentId() {
+        return commentId;
+    }
 
-        public void setFromUserId(int fromUserId) {
-            this.fromUserId = fromUserId;
-        }
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
 
-        public int getToUserId() {
-            return toUserId;
-        }
+    public int getFromUserId() {
+        return fromUserId;
+    }
 
-        public void setToUserId(int toUserId) {
-            this.toUserId = toUserId;
-        }
+    public void setFromUserId(int fromUserId) {
+        this.fromUserId = fromUserId;
+    }
 
-        public String getReplyType() {
-            return replyType;
-        }
+    public int getToUserId() {
+        return toUserId;
+    }
 
-        public void setReplyType(String replyType) {
-            this.replyType = replyType;
-        }
+    public void setToUserId(int toUserId) {
+        this.toUserId = toUserId;
+    }
 
-        public String getContent() {
-            return content;
-        }
+    public String getReplyType() {
+        return replyType;
+    }
 
-        public void setContent(String content) {
-            this.content = content;
-        }
+    public void setReplyType(String replyType) {
+        this.replyType = replyType;
+    }
 
-        public String getReplyTime() {
-            return replyTime;
-        }
+    public String getContent() {
+        return content;
+    }
 
-        public void setReplyTime(String replyTime) {
-            this.replyTime = replyTime;
-        }
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-        public int getReplyId() {
-            return replyId;
-        }
+    public String getReplyTime() {
+        return replyTime;
+    }
 
-        public void setReplyId(int replyId) {
-            this.replyId = replyId;
-        }
+    public void setReplyTime(String replyTime) {
+        this.replyTime = replyTime;
+    }
 
-        public String getFromUserName() {
-            return fromUserName;
-        }
+    public int getReplyId() {
+        return replyId;
+    }
 
-        public void setFromUserName(String fromUserName) {
-            this.fromUserName = fromUserName;
-        }
+    public void setReplyId(int replyId) {
+        this.replyId = replyId;
+    }
 
-        public String getToUserName() {
-            return toUserName;
-        }
+    public String getFromUserName() {
+        return fromUserName;
+    }
 
-        public void setToUserName(String toUserName) {
-            this.toUserName = toUserName;
-        }
+    public void setFromUserName(String fromUserName) {
+        this.fromUserName = fromUserName;
+    }
+
+    public String getToUserName() {
+        return toUserName;
+    }
+
+    public void setToUserName(String toUserName) {
+        this.toUserName = toUserName;
+    }
+
+    public String getFromUserNickName() {
+        return fromUserNickName;
+    }
+
+    public void setFromUserNickName(String fromUserNickName) {
+        this.fromUserNickName = fromUserNickName;
+    }
+
+    public String getToUserNickName() {
+        return toUserNickName;
+    }
+
+    public void setToUserNickName(String toUserNickName) {
+        this.toUserNickName = toUserNickName;
+    }
 
 }

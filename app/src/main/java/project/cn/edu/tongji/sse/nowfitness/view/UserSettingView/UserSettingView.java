@@ -1,11 +1,13 @@
 package project.cn.edu.tongji.sse.nowfitness.view.UserSettingView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -20,10 +22,16 @@ import android.widget.Toast;
 
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserSettingPresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
+import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
-public class UserSettingView extends AppCompatActivity {
+public class UserSettingView extends AppCompatActivity implements UserSettingMethod{
     /**
      * Presenter param
      */
@@ -37,6 +45,11 @@ public class UserSettingView extends AppCompatActivity {
     private AlertDialog passWordDialog;
     private AlertDialog userInfoDialog;
     private Toolbar toolbar;
+    private AppCompatButton logoutButton;
+    private EditText ageInfo;
+    private TextInputEditText nickNameText;
+
+
 
 
     private String sex = "";
@@ -46,13 +59,14 @@ public class UserSettingView extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usersetting_view);
-        userSettingPresenter = new UserSettingPresenter(this);
+        userSettingPresenter = new UserSettingPresenter(this,this);
         initView();
     }
 
     private void initView(){
         userInfoSetting = findViewById(R.id.userinfo_setting);
         passWordSetting = findViewById(R.id.password_setting);
+        logoutButton = findViewById(R.id.logout_button);
         setUpPassWordDialog();
         setUpUserInfoDialog();
         setListener();
@@ -86,9 +100,17 @@ public class UserSettingView extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View userInfoView = inflater.inflate(R.layout.changeuserinfo_view,(ViewGroup) findViewById(R.id.userinfo_dialog));
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        EditText ageInfo = (EditText) userInfoView.findViewById(R.id.age_text);
+        ageInfo = (EditText) userInfoView.findViewById(R.id.age_text);
         RadioGroup sexChoose = (RadioGroup) userInfoView.findViewById(R.id.sex_button);
-        TextInputEditText userNameText = (TextInputEditText) userInfoView.findViewById(R.id.username_text);
+        nickNameText = (TextInputEditText) userInfoView.findViewById(R.id.username_text);
+        nickNameText.setText(UserInfoLab.get().getUserInfoModel().getNickName());
+        sex = UserInfoLab.get().getUserInfoModel().getSex();
+        if(sex.equals("男")){
+            sexChoose.check(R.id.male_sex);
+        }else if(sex.equals("女")){
+            sexChoose.check(R.id.female_sex);
+        }
+        ageInfo.setText(String.valueOf(UserInfoLab.get().getUserInfoModel().getAge()));
 
         sexChoose.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -117,11 +139,14 @@ public class UserSettingView extends AppCompatActivity {
                 positive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO
-                        //确定之后的网络与验证操作
-                        if(vertifyInfo(userNameText.getText().toString(),ageInfo.getText().toString(),
+                        if(verifyInfo(nickNameText.getText().toString(),ageInfo.getText().toString(),
                                 sex)){
-                            userInfoDialog.dismiss();
+                            UserInfoModel putModel = new UserInfoModel(UserInfoLab.get().getUserInfoModel());
+                            putModel.setAge(Integer.valueOf(ageInfo.getText().toString()));
+                            putModel.setNickName(nickNameText.getText().toString());
+                            putModel.setSex(sex);
+                            putModel.setPictureUrl("");
+                            userSettingPresenter.putUserInfo(putModel);
                         }
                     }
                 });
@@ -144,6 +169,16 @@ public class UserSettingView extends AppCompatActivity {
                 userInfoDialog.show();
             }
         });
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DaoMethod.deleteToken();
+                Intent intent = new Intent(UserSettingView.this,LoginView.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void setToolbar(){
@@ -161,26 +196,46 @@ public class UserSettingView extends AppCompatActivity {
         return true;
     }
 
-    public boolean vertifyInfo(String userName,String age,String sex){
+    public boolean verifyInfo(String userName, String age, String sex){
         if(userName.equals("")){
-            showToast("用户名不能为空");
+            ConstantMethod.toastShort(getApplicationContext(),"用户名不能为空");
             return false;
         }else if(userName.length() > 12){
-            showToast("用户名的长度不可以超过12");
+            ConstantMethod.toastShort(getApplicationContext(),"用户名的长度不可以超过12");
             return false;
         }
         if(age.equals("")){
-            showToast("生日还没有进行选择");
+            ConstantMethod.toastShort(getApplicationContext(),"生日还没有进行选择");
             return false;
         }
         if(sex.equals("")){
-            showToast("性别还没有进行选择");
+            ConstantMethod.toastShort(getApplicationContext(),"性别还没有进行选择");
             return false;
         }
         return true;
     }
 
-    public void showToast(String string){
-        Toast.makeText(getApplicationContext(),string,Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void putSuccess(ResponseModel responseModel) {
+        if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
+            userInfoDialog.dismiss();
+            UserInfoLab.get().getUserInfoModel().setAge(Integer.valueOf(ageInfo.getText().toString()));
+            UserInfoLab.get().getUserInfoModel().setNickName(nickNameText.getText().toString());
+            UserInfoLab.get().getUserInfoModel().setSex(sex);
+        }else{
+            ConstantMethod.toastShort(UserSettingView.this,responseModel.getError());
+        }
+    }
+
+    @Override
+    public void putError(Throwable e) {
+        e.printStackTrace();
+        ConstantMethod.toastShort(UserSettingView.this,"出现了未知的网络错误");
     }
 }
