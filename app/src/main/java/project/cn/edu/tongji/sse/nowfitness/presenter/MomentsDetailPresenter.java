@@ -1,5 +1,9 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
+
+import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
+
 import android.util.Log;
 import android.widget.ExpandableListView;
 
@@ -11,7 +15,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -21,10 +24,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
-import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.CommentsListViewAdapter;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.CommentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
-import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 
 /**
  * Created by a on 2018/11/25.
@@ -38,6 +41,7 @@ public class MomentsDetailPresenter extends BasePresenter  {
     private List<CommentsDetailModel> commentsList;
     private MomentsModel pMomentsModel;
     private CommentsMethod commentsMethod;
+
     public MomentsDetailPresenter(MomentsDetailView momentsDetailView, MomentsModel momentsModel,CommentsMethod commentsMethod){
         this.momentsDetailView=momentsDetailView;
         commentsList = new ArrayList<>();
@@ -54,28 +58,34 @@ public class MomentsDetailPresenter extends BasePresenter  {
     }
 
     public void initExpandableList(){
-        adapter = new CommentsListViewAdapter(momentsDetailView, commentsList,pMomentsModel);
+        adapter = new CommentsListViewAdapter(momentsDetailView, commentsList,pMomentsModel,this);
         expandableListView.setAdapter(adapter);
         momentsDetailView.initExpandableListView(commentsList);
     }
 
-    public void addReplyData(int groupPosition,String commentContent){
+    public void addReplyData(int childPosition,int groupPosition,String commentContent){
         CommentsReplyModel replyDetailModel= new CommentsReplyModel();
+        if (childPosition!=-1)
+            replyDetailModel.setToUserName(commentsList.get(groupPosition).getRepliesList().get(childPosition).getFromUserName());
+        else
+            replyDetailModel.setToUserName(commentsList.get(groupPosition).getCommentUserName());
         replyDetailModel.setContent(commentContent);
+        replyDetailModel.setFromUserName(UserInfoLab.get().getUserInfoModel().getUserName());
         adapter.addTheReplyData(replyDetailModel,groupPosition);
+        commentsList = adapter.getCommentsList();
     }
     public void addCommentData(String commentContent){
         CommentsDetailModel commentModel = new CommentsDetailModel();
         commentModel.setContent(commentContent);
         commentModel.setCommentUserName(UserInfoLab.get().getUserInfoModel().getUserName());
         commentModel.setCommentUserId((int)UserInfoLab.get().getUserInfoModel().getId());
-        //makeNewComments(commentModel);
+        makeNewComments(commentModel);
         adapter.addTheCommentData(commentModel);
+        commentsList = adapter.getCommentsList();
     }
 
     //模拟数据
     private void getAllComments(){
-
         commentsModel = new MomentsCommentsModel();
        // commentsModel.setCommentsList(new ArrayList<>());
         CommentsDetailModel emptyPlacement = new CommentsDetailModel();
@@ -123,5 +133,29 @@ public class MomentsDetailPresenter extends BasePresenter  {
         adapter.resetCommentsList(commentsList);
         adapter.notifyDataSetChanged();
         momentsDetailView.initExpandableListView(commentsList);
+    }
+
+    public boolean deleteReply(int groupPos,int childPos){
+        if(adapter.deleteReply(groupPos,childPos)==true){
+            //服务端请求删除回复
+            return true;
+        }else
+            return false;
+    }
+
+    public boolean deleteComments(int groupPos){
+        if(adapter.deleteComments(groupPos)){
+            //请求服务端删除评论
+            return true;
+        }else
+            return false;
+    }
+    public void jumpToPersonPage(int id,String personName,String personPhoto){
+        Intent intent = new Intent();
+        intent.putExtra("userId",id);
+        intent.putExtra("name",personName);
+        intent.putExtra("photo",personPhoto);
+        intent.setClass(momentsDetailView, PersonPageView.class);
+        momentsDetailView.startActivity(intent);
     }
 }

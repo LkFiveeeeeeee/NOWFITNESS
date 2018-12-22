@@ -5,19 +5,10 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/comments_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           >
+        android:layout_height="match_parent">
             <LinearLayout
                 android:id="@+id/moments_detail_comment_container"
                 android:layout_below="@+id/moments_detail_content_container"
@@ -29,7 +20,8 @@
                 android:background="#F5F5F5"
                 android:orientation="vertical">
 
-                <project.cn.edu.tongji.sse.nowfitness.view.CommentsView.CommentExpandableListView
+
+                <ExpandableListView
                     android:id="@+id/moments_detail_comments_listView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -39,9 +31,7 @@
                     android:scrollbars="none"/>
 
             </LinearLayout>
-        </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

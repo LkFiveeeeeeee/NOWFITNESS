@@ -1,9 +1,11 @@
 package project.cn.edu.tongji.sse.nowfitness.view.MainView;
 
 
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,8 +23,11 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepService;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.LeftFragment;
+
 import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
+
+import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
+
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentView;
 

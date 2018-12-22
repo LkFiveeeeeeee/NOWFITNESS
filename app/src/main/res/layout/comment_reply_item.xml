@@ -22,9 +22,24 @@
             android:id="@+id/reply_item_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="罗宇:"
+            android:text="罗宇"
             android:textSize="14sp"
-            android:textColor="#626262"/>
+            android:textColor="#0000CD"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="#626262"
+            android:textSize="13sp"
+            android:text="回复" />
+        <TextView
+            android:id="@+id/to_item_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="刘科"
+            android:textSize="14sp"
+            android:textColor="#0000CD"/>
         <TextView
             android:id="@+id/reply_item_content"
             android:layout_width="wrap_content"

@@ -2,24 +2,31 @@ package project.cn.edu.tongji.sse.nowfitness.view.CommentsView;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.List;
@@ -27,15 +34,20 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
+
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
-import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
-import project.cn.edu.tongji.sse.nowfitness.model.Constant;
-import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
+
+
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+
+
+
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
-import project.cn.edu.tongji.sse.nowfitness.presenter.CommentsListViewAdapter;
+
+
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
+
 
 public class MomentsDetailView extends AppCompatActivity implements CommentsMethod{
     private MomentsModel momentsModel;
@@ -43,7 +55,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     public static final int COMMENT_TARGET_MOMENTS=1001;
     public static final int COMMENT_TARGET_COMMENTS=1002;
     public static final int COMMENT_TARGET_REPLYS=1003;
-    private CommentExpandableListView expandableListView;
+    private ExpandableListView expandableListView;
     private CircleImageView momentsUserImage;
     private TextView momentsUserNameText;
     private TextView momentsTimeText;
@@ -52,6 +64,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     private ImageView likesImage;
     private TextView likesNum;
 
+    private SwipeRefreshLayout commentsRefreshLayout;
     private BottomSheetDialog dialog;
     private TextView commentTextView;
     private MomentsDetailPresenter momentsDetailPresenter;
@@ -109,14 +122,42 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         momentsUserNameText = (TextView)findViewById(R.id.moments_detail_userName);
         momentsTimeText =(TextView)findViewById(R.id.moments_detail_time);
         momentsContentText = (TextView)findViewById(R.id.moments_detail_detail);
-        expandableListView = ( CommentExpandableListView) findViewById(R.id.moments_detail_comments_listView);
+        expandableListView = ( ExpandableListView) findViewById(R.id.moments_detail_comments_listView);
         commentTextView = (TextView) findViewById(R.id.moments_detail_do_comment);
         likesImage = (ImageView)findViewById(R.id.detail_likes_image);
         likesNum = (TextView)findViewById(R.id.detail_likes_num);
         likesImage.setSelected(momentsModel.isLiked());
         likesNum.setText(String.valueOf(momentsModel.getLikes()));
-
+        commentsRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.comments_refresh);
+        initEvent();
     }
+
+    public void initEvent(){
+        expandableListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0) {
+                    View firstVisibleItemView = expandableListView.getChildAt(0);
+                    if (firstVisibleItemView != null && firstVisibleItemView.getTop() == 0)
+                        commentsRefreshLayout.setEnabled(true);
+                    else
+                        commentsRefreshLayout.setEnabled(false);
+                }
+                else
+                    commentsRefreshLayout.setEnabled(false);
+            }
+        });
+        commentsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                momentsDetailPresenter.queryForComments(momentsModel.getMomentsId());
+            }
+        });
+    }
+
 
     public void initExpandableListView(final List<CommentsDetailModel> commentList){
         commentTextView.setOnClickListener(new View.OnClickListener(){
@@ -131,6 +172,20 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         for(int i = 1; i<commentList.size(); i++){
             expandableListView.expandGroup(i);
         }
+        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final long packedPosition = expandableListView.getExpandableListPosition(i);
+                final int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
+                final int childPosition = ExpandableListView.getPackedPositionChild(packedPosition);
+                //长按的是group的时候，childPosition = -1
+                if (childPosition!= -1) {
+                    showPopWindows(view,childPosition,groupPosition);
+                }
+                return true;
+            }
+
+        });
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
@@ -157,7 +212,9 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     }
 
     private void showCommentDialog( List<CommentsDetailModel> commentsList,final int commentType, final int groupPosition, final int childPosition){
-        dialog = new BottomSheetDialog(this);
+        if(!isCommentable(commentsList, commentType, groupPosition, childPosition))
+            return;
+        dialog = new BottomSheetDialog(this,R.style.BottomSheetEdit);
         View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
         final EditText commentText = (EditText) commentView.findViewById(R.id.moments_dialog_comment_et);
         final Button bt_comment = (Button) commentView.findViewById(R.id.moments_dialog_comment_bt);
@@ -197,12 +254,13 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                            momentsDetailPresenter.addCommentData(commentContent);
                             break;
                         case COMMENT_TARGET_COMMENTS:
-                            momentsDetailPresenter.addReplyData(groupPosition-0,commentContent);
+                           momentsDetailPresenter.addReplyData(childPosition,groupPosition-0,commentContent);
+
                             expandableListView.expandGroup(groupPosition);
                             //Toast.makeText(MainActivity.this,"回复成功",Toast.LENGTH_SHORT).show();
                             break;
                         case COMMENT_TARGET_REPLYS:
-                            momentsDetailPresenter.addReplyData(groupPosition-0,commentContent);
+                            momentsDetailPresenter.addReplyData(childPosition,groupPosition-0,commentContent);
                             expandableListView.expandGroup(groupPosition);
                             break;
                         default:
@@ -234,82 +292,60 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         dialog.show();
     }
 
-    public class GroupHolder{
-        private CircleImageView logo;
-        private TextView tv_name, tv_content, tv_time;
-        private View topDivider;
-        public GroupHolder(View view) {
-            logo = (CircleImageView) view.findViewById(R.id.comment_item_logo);
-            tv_content = (TextView) view.findViewById(R.id.comment_item_content);
-            tv_name = (TextView) view.findViewById(R.id.comment_item_userName);
-            tv_time = (TextView) view.findViewById(R.id.comment_item_time);
-            topDivider = (View)view.findViewById(R.id.top_divider);
-        }
-        public void onBindView(CommentsDetailModel commentsDetailModel){
-            if(commentsDetailModel.getCommentTime()!=null) {
-                String time = commentsDetailModel.getCommentTime();
-                time = time.substring(0, 19);
-                time = time.replace("T", " ");
-                tv_time.setText(time);
-            }
-            tv_name.setText(commentsDetailModel.getCommentUserName());
-
-            tv_content.setText(commentsDetailModel.getContent());
-        }
-        public void setTopDivider(int groupPostion) {
-            if (groupPostion <= 1) {
-                topDivider.setVisibility(View.GONE);
-            } else {
-                topDivider.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
-    public class GroupMomentsHolder{
-        private View myView;
-        private CircleImageView userPhoto;
-        private TextView userName, content,releaseTime;
-        private PhotoView momentsImage;
-        public GroupMomentsHolder(View view) {
-            userPhoto = (CircleImageView) view.findViewById(R.id.moments_detail_userPicture);
-            content = (TextView) view.findViewById(R.id.moments_detail_detail);
-            userName = (TextView) view.findViewById(R.id.moments_detail_userName);
-            releaseTime = (TextView) view.findViewById(R.id.moments_detail_time);
-            momentsImage = (PhotoView)view.findViewById(R.id.moments_detail_image);
-            myView =view;
-        }
-        public void onBindView(MomentsModel momentsModel){
-            if(momentsModel!=null){
-                content.setText(momentsModel.getContent());
-                userName.setText(momentsModel.getUserName());
-                String time = momentsModel.getReleaseTime();
-               time = time.substring(0,19);
-               time = time.replace("T"," ");
-               releaseTime.setText(time);
-                if (momentsModel.getUserPhoto()!=null)
-                    Glide.with(myView).load("http://47.107.167.12:8080/api/image/get?imageName="+momentsModel.getUserPhoto()).into(userPhoto);
-                if(momentsModel.getImage()!=null)
-                    Glide.with(myView).load("http://47.107.167.12:8080/api/image/get?imageName="+momentsModel.getImage()).into(momentsImage);
+    private boolean isCommentable(List<CommentsDetailModel> commentsList,final int commentType, final int groupPosition, final int childPosition){
+        switch (commentType){
+            case COMMENT_TARGET_MOMENTS :
+                return true;
+            case COMMENT_TARGET_COMMENTS:
+                if(commentsList.get(groupPosition).getCommentUserName().equals("1000")){//UserInfoLab.get().getUserInfoModel().getUserName())){
+                    return false;
+                 }else
+                    return true;
+            case COMMENT_TARGET_REPLYS:
+                if(commentsList.get(groupPosition).getRepliesList().get(childPosition).getFromUserName()
+                        .equals("1000"))//UserInfoLab.get().getUserInfoModel().getUserName()))
+                    return false;
                 else
-                    momentsImage.setVisibility(View.GONE);
-            }
+                    return true;
+            default:
+                return true;
         }
     }
-    public class ChildHolder{
-        private TextView tv_name, tv_content;
-        public ChildHolder(View view) {
-            tv_name = (TextView) view.findViewById(R.id.reply_item_user);
-            tv_content = (TextView) view.findViewById(R.id.reply_item_content);
-        }
-        public void onBindView(CommentsReplyModel commentsReplyModel){
-            String replyUser = commentsReplyModel.getFromUserName();
-            String toUserName =commentsReplyModel.getToUserName();
-            if(!TextUtils.isEmpty(replyUser)){
-                tv_name.setText(replyUser + " @ "+toUserName);
-            }else {
-                tv_name.setText("无名"+":");
+    private void showPopWindows(View v,int childPos,int groupPos) {
+
+        /** pop view */
+        View mPopView = LayoutInflater.from(this).inflate(R.layout.menu_popup, null);
+        final PopupWindow mPopWindow = new PopupWindow(mPopView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        /** set */
+        mPopWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        /** 这个很重要 ,获取弹窗的长宽度 */
+        mPopView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int popupWidth = mPopView.getMeasuredWidth();
+        int popupHeight = mPopView.getMeasuredHeight();
+        /** 获取父控件的位置 */
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        /** 显示位置 */
+        mPopWindow.showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - popupWidth / 2, location[1]
+                +popupHeight/2);
+        mPopWindow.update();
+
+        final String copyTxt = (String) v.getTag();
+        mPopView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v){
+               if( momentsDetailPresenter.deleteReply(groupPos,childPos)==true)
+                    Toast.makeText(MomentsDetailView.this,"删除成功",Toast.LENGTH_SHORT).show();
+               else
+                   Toast.makeText(MomentsDetailView.this,"删除失败",Toast.LENGTH_SHORT).show();
+
+                if (mPopWindow != null) {
+                    mPopWindow.dismiss();
+                }
             }
-                tv_content.setText(commentsReplyModel.getContent());
-        }
+        });
     }
+
 }

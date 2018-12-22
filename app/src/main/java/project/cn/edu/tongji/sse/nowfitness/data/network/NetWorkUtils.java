@@ -24,8 +24,8 @@ public class NetWorkUtils {
 
     static OkHttpClient makeClient(){
         return new OkHttpClient.Builder()
-                .connectTimeout(60,TimeUnit.SECONDS)
-                .readTimeout(60,TimeUnit.SECONDS)
+                .connectTimeout(5,TimeUnit.SECONDS)
+                .readTimeout(5,TimeUnit.SECONDS)
                 .addInterceptor(makeLoggingInterceptor())
            //     .addInterceptor()
                 .build();

@@ -1,0 +1,67 @@
+package project.cn.edu.tongji.sse.nowfitness.view.CommentsView;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
+
+/**
+ * Created by a on 2018/12/2.
+ */
+
+public class GroupMomentsHolder extends BaseExHolder implements View.OnClickListener{
+    private View myView;
+    private CircleImageView userPhoto;
+    private TextView userName, content,releaseTime;
+    private PhotoView momentsImage;
+    private MomentsModel momentsModel;
+    public GroupMomentsHolder(View view, Context context, MomentsDetailPresenter momentsDetailPresenter) {
+        super(context,momentsDetailPresenter);
+        userPhoto = (CircleImageView) view.findViewById(R.id.moments_detail_userPicture);
+        content = (TextView) view.findViewById(R.id.moments_detail_detail);
+        userName = (TextView) view.findViewById(R.id.moments_detail_userName);
+        releaseTime = (TextView) view.findViewById(R.id.moments_detail_time);
+        momentsImage = (PhotoView)view.findViewById(R.id.moments_detail_image);
+        myView =view;
+    }
+    public void onBindView(MomentsModel momentsModel){
+        this.momentsModel = momentsModel;
+        if(momentsModel!=null){
+            content.setText(momentsModel.getContent());
+            userName.setText(momentsModel.getUserName());
+            String time = momentsModel.getReleaseTime();
+            time = time.substring(0,19);
+            time = time.replace("T"," ");
+            releaseTime.setText(time);
+            if (momentsModel.getUserPhoto()!=null)
+                Glide.with(myView).load("http://47.107.167.12:8080/api/image/get?imageName="+momentsModel.getUserPhoto()).into(userPhoto);
+            if(momentsModel.getImage()!=null)
+                Glide.with(myView).load("http://47.107.167.12:8080/api/image/get?imageName="+momentsModel.getImage()).into(momentsImage);
+            else
+                momentsImage.setVisibility(View.GONE);
+            userName.setOnClickListener(this);
+            userPhoto.setOnClickListener(this);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.moments_detail_userPicture:
+                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),momentsModel.getUserName(),momentsModel.getUserPhoto());
+                break;
+            case R.id.moments_detail_userName:
+                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),momentsModel.getUserName(),momentsModel.getUserPhoto());
+                break;
+            default:
+                break;
+        }
+    }
+}

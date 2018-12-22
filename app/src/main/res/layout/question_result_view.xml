@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.QuestionResultView">
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/heart_image"
+        android:src="@drawable/red"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_marginTop="30dp"
+        android:id="@+id/sports_example"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="举重、短跑、拳击、格斗"
+        android:gravity="center"
+        android:textColor="#444444"
+        android:textSize="15sp"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:id="@+id/sports_function"
+        android:layout_marginTop="10dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="对提升爆发力,增大肌肉维度，等力量素质以及敏捷度有很大作用，增强神经系统"
+        android:textColor="#444444"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/who_need"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="有长期中高强度运动的习惯，或是对爆发力、肌肉维度等有强烈提升意愿的人群，或是肌肉中快肌纤维粗壮且占比高的人"
+        android:textColor="#444444"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"/>
+
+
+</LinearLayout>
