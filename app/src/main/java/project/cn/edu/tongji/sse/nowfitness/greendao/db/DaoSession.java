@@ -8,15 +8,15 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
-import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
 
-import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.IndiInfoModelDao;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.IndiRelationModelDao;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.StepModelDao;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.TokenDao;
 
@@ -29,15 +29,15 @@ import project.cn.edu.tongji.sse.nowfitness.greendao.db.TokenDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
-    private final DaoConfig userInfoModelDaoConfig;
     private final DaoConfig indiInfoModelDaoConfig;
     private final DaoConfig indiRelationModelDaoConfig;
+    private final DaoConfig userInfoModelDaoConfig;
     private final DaoConfig stepModelDaoConfig;
     private final DaoConfig tokenDaoConfig;
 
-    private final UserInfoModelDao userInfoModelDao;
     private final IndiInfoModelDao indiInfoModelDao;
     private final IndiRelationModelDao indiRelationModelDao;
+    private final UserInfoModelDao userInfoModelDao;
     private final StepModelDao stepModelDao;
     private final TokenDao tokenDao;
 
@@ -45,14 +45,14 @@ public class DaoSession extends AbstractDaoSession {
             daoConfigMap) {
         super(db);
 
-        userInfoModelDaoConfig = daoConfigMap.get(UserInfoModelDao.class).clone();
-        userInfoModelDaoConfig.initIdentityScope(type);
-
         indiInfoModelDaoConfig = daoConfigMap.get(IndiInfoModelDao.class).clone();
         indiInfoModelDaoConfig.initIdentityScope(type);
 
         indiRelationModelDaoConfig = daoConfigMap.get(IndiRelationModelDao.class).clone();
         indiRelationModelDaoConfig.initIdentityScope(type);
+
+        userInfoModelDaoConfig = daoConfigMap.get(UserInfoModelDao.class).clone();
+        userInfoModelDaoConfig.initIdentityScope(type);
 
         stepModelDaoConfig = daoConfigMap.get(StepModelDao.class).clone();
         stepModelDaoConfig.initIdentityScope(type);
@@ -60,29 +60,25 @@ public class DaoSession extends AbstractDaoSession {
         tokenDaoConfig = daoConfigMap.get(TokenDao.class).clone();
         tokenDaoConfig.initIdentityScope(type);
 
-        userInfoModelDao = new UserInfoModelDao(userInfoModelDaoConfig, this);
         indiInfoModelDao = new IndiInfoModelDao(indiInfoModelDaoConfig, this);
         indiRelationModelDao = new IndiRelationModelDao(indiRelationModelDaoConfig, this);
+        userInfoModelDao = new UserInfoModelDao(userInfoModelDaoConfig, this);
         stepModelDao = new StepModelDao(stepModelDaoConfig, this);
         tokenDao = new TokenDao(tokenDaoConfig, this);
 
-        registerDao(UserInfoModel.class, userInfoModelDao);
         registerDao(IndiInfoModel.class, indiInfoModelDao);
         registerDao(IndiRelationModel.class, indiRelationModelDao);
+        registerDao(UserInfoModel.class, userInfoModelDao);
         registerDao(StepModel.class, stepModelDao);
         registerDao(Token.class, tokenDao);
     }
     
     public void clear() {
-        userInfoModelDaoConfig.clearIdentityScope();
         indiInfoModelDaoConfig.clearIdentityScope();
         indiRelationModelDaoConfig.clearIdentityScope();
+        userInfoModelDaoConfig.clearIdentityScope();
         stepModelDaoConfig.clearIdentityScope();
         tokenDaoConfig.clearIdentityScope();
-    }
-
-    public UserInfoModelDao getUserInfoModelDao() {
-        return userInfoModelDao;
     }
 
     public IndiInfoModelDao getIndiInfoModelDao() {
@@ -91,6 +87,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public IndiRelationModelDao getIndiRelationModelDao() {
         return indiRelationModelDao;
+    }
+
+    public UserInfoModelDao getUserInfoModelDao() {
+        return userInfoModelDao;
     }
 
     public StepModelDao getStepModelDao() {

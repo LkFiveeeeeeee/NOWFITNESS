@@ -12,6 +12,7 @@ import android.widget.Toast;
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 
 /**
@@ -45,7 +46,7 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
         tv_name.setOnClickListener(this);
         tv_content.setText(commentsDetailModel.getContent());
         logo.setOnClickListener(this);
-        if(commentsDetailModel.getCommentUserId()==1) {//(int)UserInfoLab.get().getUserInfoModel().getId());
+        if(commentsDetailModel.getCommentUserId()==(int) UserInfoLab.get().getUserInfoModel().getId()) {
             menu.setVisibility(View.VISIBLE);
             menu.setOnClickListener(this);
         }

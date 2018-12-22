@@ -70,15 +70,15 @@ public class MomentsDetailPresenter extends BasePresenter  {
         else
             replyDetailModel.setToUserName(commentsList.get(groupPosition).getCommentUserName());
         replyDetailModel.setContent(commentContent);
-        replyDetailModel.setFromUserName("asdfasdf");//UserInfoLab.get().getUserInfoModel().getUserName());
+        replyDetailModel.setFromUserName(UserInfoLab.get().getUserInfoModel().getUserName());
         adapter.addTheReplyData(replyDetailModel,groupPosition);
         commentsList = adapter.getCommentsList();
     }
     public void addCommentData(String commentContent){
         CommentsDetailModel commentModel = new CommentsDetailModel();
         commentModel.setContent(commentContent);
-        commentModel.setCommentUserName("rqfadsf");//UserInfoLab.get().getUserInfoModel().getUserName());
-        commentModel.setCommentUserId(1);//(int)UserInfoLab.get().getUserInfoModel().getId());
+        commentModel.setCommentUserName(UserInfoLab.get().getUserInfoModel().getUserName());
+        commentModel.setCommentUserId((int)UserInfoLab.get().getUserInfoModel().getId());
         makeNewComments(commentModel);
         adapter.addTheCommentData(commentModel);
         commentsList = adapter.getCommentsList();

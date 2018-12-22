@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:id="@+id/iv_book"
+                    android:layout_width="120dp"
+                    android:layout_height="171dp" />
+
+
+                <LinearLayout
+                    android:paddingLeft="20dp"
+                    android:layout_toRightOf="@+id/iv_book"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_book_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:text="拉伸：最好的运动"/>
+                    <TextView
+                        android:id="@+id/tv_book_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="13sp"
+                        android:textColor="#444444"
+                        android:text="作者：鲍勃·安德森"/>
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_rating"
+                            android:text="评分 8.2"
+                            android:textColor="#FB5B81"
+                            android:textSize="13sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:text="695 人评分"
+                            android:textColor="#444444"
+                            android:textSize="13sp"
+                            android:maxLines="1"
+                            android:id="@+id/tv_rating_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:text="2010-10年出版"
+                        android:layout_marginTop="5dp"
+                        android:textSize="13sp"
+                        android:textColor="#444444"
+                        android:id="@+id/tv_pub_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="健身/运动/健康/养生"
+                        android:layout_marginTop="5dp"
+                        android:textSize="13sp"
+                        android:textColor="#444444"
+                        android:id="@+id/tv_book_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </RelativeLayout>
+            <TextView
+                android:text="简介:"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+
+                android:paddingRight="10dp"
+                android:background="#F2F2F2"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text=" 《拉伸:最好的运动》内容简介：拉伸，最好的运动——任何人在任何时间和地点都可以进行的简单和柔和的运动。现代人越来越有健康意识，而健康的指标之一，就是筋骨柔软度。想要增加身体的柔软度，最简单的方法，就是每天进行规律的拉伸，而且只需几分钟。全球最知名的拉伸教练鲍伯·安德鲁在《拉伸:最好的运动》中，综合自身多年经验，为您详细剖析每种拉伸方法的原理，教您如何渐次拉伸全身肌肉。安德森针对身体各个部位如颈、肩、背、腰、髋、臀、腿、手、脚，以及不同状况如起床前后、打电脑、久坐之后、坐飞机等，还有不同职业、年龄的人，设计出人人都需要的拉伸动作。即使是最忙碌、最不爱运动的人，安德森也没放过，他设计出可让你边看电视边做的拉伸动作，保证让你气脉畅通、疲倦尽消。《拉伸:最好的运动》的另一重点是针对慢跑、游泳、高尔夫、爬山、骑自行车等二十多种运动，设计出运动前后不可或缺的拉伸动作，让你更能尽情享受运动的好处，不用担心运动伤害"
+                android:background="#F2F2F2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:id="@+id/tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:layout_marginBottom="30dp"
+                android:text="更多信息请前往豆瓣"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:id="@+id/tv_more_info"
+                android:textColor="#000000"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#F2F2F2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

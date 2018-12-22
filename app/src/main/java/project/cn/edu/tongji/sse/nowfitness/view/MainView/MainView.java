@@ -1,9 +1,7 @@
 package project.cn.edu.tongji.sse.nowfitness.view.MainView;
 
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -38,7 +36,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.LeftFragment;
+import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;

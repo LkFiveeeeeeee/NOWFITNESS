@@ -30,6 +30,9 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
+import project.cn.edu.tongji.sse.nowfitness.model.Response;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
@@ -37,8 +40,9 @@ import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 public class PersonPageView extends AppCompatActivity implements MomentsMethod {
 
     private int personId;
-    private String personName;
+    private String nickName;
     private String photo;
+    private String userName;
 
     private TextView nameView, followsView, fansView;
     private ButtonStyle ageTab, sexTab;
@@ -61,7 +65,8 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
         Intent intent = getIntent();
         if(intent!=null) {
             personId = intent.getIntExtra("userId", -1);
-            personName = intent.getStringExtra("name");
+            nickName = intent.getStringExtra("nickName");
+            userName = intent.getStringExtra("userName");
             photo = intent.getStringExtra("photo");
         }
         personPagePresenter = new PersonPagePresenter(this,this,this);
@@ -78,8 +83,8 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
        // refreshLayout.setRefreshFooter(new ClassicsFooter(this).setSpinnerStyle(SpinnerStyle.Scale));
         personToolbar = (Toolbar)findViewById(R.id.person_toolbar);
         nameView = (TextView) findViewById(R.id.person_name);
-        if (personName!=null)
-            nameView.setText(personName);
+        if (nickName!=null)
+            nameView.setText(nickName);
         followsView = (TextView) findViewById(R.id.follow);
         fansView = (TextView) findViewById(R.id.fan);
         ageTab = (ButtonStyle) findViewById(R.id.age_button);
@@ -167,8 +172,8 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -headLayout.getHeight() / 2) {
                    // personToolbar.setVisibility(View.VISIBLE);
-                    if(personName!=null)
-                        mCollapsingToolbarLayout.setTitle(personName);
+                    if(nickName!=null)
+                        mCollapsingToolbarLayout.setTitle(nickName);
                     else
                         mCollapsingToolbarLayout.setTitle("刘欣然_");
                 } else {
@@ -180,7 +185,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
     }
 
     @Override
-    public void querySuccess(List<MomentsModel> models) {
+    public void querySuccess(ResponseModel<MomentsModelList> momentsModelListResponseModel) {
     }
 
     @Override

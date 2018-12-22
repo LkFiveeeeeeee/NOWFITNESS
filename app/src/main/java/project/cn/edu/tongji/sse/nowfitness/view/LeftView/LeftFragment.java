@@ -1,4 +1,4 @@
-package project.cn.edu.tongji.sse.nowfitness.view.MomentsView;
+package project.cn.edu.tongji.sse.nowfitness.view.LeftView;
 
 
 import android.app.Activity;
@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 
 
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.presenter.BookPresenter;
@@ -36,6 +37,8 @@ import static android.support.constraint.Constraints.TAG;
 
 public class LeftFragment extends Fragment {
 
+    public static String TAB_TYPE_1= "following";
+    public static String TAB_TYPE_2 = "nearBy";
 
     private Banner bookBanner;
     private AppBarLayout   appBarLayout;
@@ -53,7 +56,7 @@ public class LeftFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         leftFragmentPresenter = new LeftFragmentPresenter(this);
-        bookPresenter = new BookPresenter();
+        bookPresenter = new BookPresenter(this.getActivity());
     }
 
     @Nullable
@@ -61,8 +64,9 @@ public class LeftFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.left_fragment,container,false);
         mAppCompatActivity=(AppCompatActivity)getActivity();
+        //请求豆瓣api
         leftFragmentPresenter.initView();
-        bookPresenter.initBannner();
+        //bookPresenter.initBannner();
         return myView;
     }
 
@@ -88,8 +92,10 @@ public class LeftFragment extends Fragment {
         newsFeedViewPager.setAdapter(new FragmentPagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
-
-                return MomentsView.newInstance("following");
+                if(position==0)
+                    return MomentsView.newInstance(TAB_TYPE_1);
+                else
+                    return MomentsView.newInstance(TAB_TYPE_2);
             }
             @Override
             public int getCount() {
@@ -100,6 +106,12 @@ public class LeftFragment extends Fragment {
     }
 
     private void initEvent(){
+        bookBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                bookPresenter.jumpToBookDetail(position);
+            }
+        });
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -111,7 +123,8 @@ public class LeftFragment extends Fragment {
             }
         });
         newsFeedViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabBar));
-        tabBar.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(newsFeedViewPager));//到交互双向联动，也就是点击tab，viewpager就会去变动，滑动viewpager，tab也会自动变,只有在仅仅文字颜色变动时才可以使用法该种方法
+        tabBar.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(newsFeedViewPager));
+        //到交互双向联动，也就是点击tab，viewpager就会去变动，滑动viewpager，tab也会自动变,只有在仅仅文字颜色变动时才可以使用法该种方法
     }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

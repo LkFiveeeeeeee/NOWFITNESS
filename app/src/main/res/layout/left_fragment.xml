@@ -34,6 +34,8 @@
                 android:id="@+id/book_banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:image_scale_type="center_inside"
+                app:banner_layout="@layout/book_view"
                 app:layout_collapseMode="pin"
                 app:layout_collapseParallaxMultiplier="0.7" />
             <android.support.v7.widget.Toolbar

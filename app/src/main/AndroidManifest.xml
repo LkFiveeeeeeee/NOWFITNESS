@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ProtectedPermissions"
-    package="project.cn.edu.tongji.sse.nowfitness">
+    package="project.cn.edu.tongji.sse.nowfitness"
+    tools:ignore="ProtectedPermissions">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <uses-feature
         android:name="android.hardware.sensor.stepcounter"
         android:required="true" />
     <uses-feature
         android:name="android.hardware.sensor.stepdetector"
         android:required="true" />
-
     <uses-feature android:name="android.hardware.sensor.accelerometer" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -35,40 +35,29 @@
         <activity android:name=".view.LoginAndRegisterView.LoginView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MainView.MainView">
-
-        </activity>
+        <activity android:name=".view.MainView.MainView" />
         <activity
             android:name=".view.LoginAndRegisterView.RegisterView"
-            android:theme="@style/Translucent">
-
-        </activity>
-        <activity android:name=".view.UserView.DisplayVIEW.DisplayView"></activity>
-        <activity android:name=".view.publishMomentView.PubishMomentView"> </activity>
-        <activity android:name=".view.CommentsView.MomentsDetailView"></activity>
-        <activity android:name=".view.PersonPageView.PersonPageView"> </activity>
-
-        <activity android:name=".view.PlanQuestionView.PlanQuestionView">
-
-        </activity>
-
-        <activity android:name=".view.DataChartView.DataChartView">
-
-        </activity>
-
-        <activity android:name=".view.UserSettingView.UserSettingView">
-
-        </activity>
+            android:theme="@style/Translucent" />
+        <activity android:name=".view.UserView.DisplayVIEW.DisplayView" />
+        <activity android:name=".view.publishMomentView.PubishMomentView" />
+        <activity android:name=".view.CommentsView.MomentsDetailView" />
+        <activity android:name=".view.PersonPageView.PersonPageView" />
+        <activity android:name=".view.PlanQuestionView.PlanQuestionView" />
+        <activity android:name=".view.DataChartView.DataChartView" />
+        <activity android:name=".view.UserSettingView.UserSettingView" />
 
         <service
             android:name=".pedometerModule.StepService.StepService"
             android:enabled="true"
             android:priority="1000">
             <intent-filter>
-                <!-- 系统启动完成后会调用-->
+
+                <!-- 系统启动完成后会调用 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.DATE_CHANGED" />
                 <action android:name="android.intent.action.MEDIA_MOUNTED" />
@@ -78,10 +67,15 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </service>
-        <receiver android:name=".pedometerModule.StepService.StepServiceRestartReceiver"
+
+        <receiver
+            android:name=".pedometerModule.StepService.StepServiceRestartReceiver"
             android:enabled="true"
             android:exported="true"
-            android:label="RestartServiceWhenStopped"></receiver>
+            android:label="RestartServiceWhenStopped" />
+
+        <activity android:name=".view.LeftView.BooksDetailView" />
+        <activity android:name=".view.PlanQuestionView.QuestionResultView"></activity>
     </application>
 
 </manifest>

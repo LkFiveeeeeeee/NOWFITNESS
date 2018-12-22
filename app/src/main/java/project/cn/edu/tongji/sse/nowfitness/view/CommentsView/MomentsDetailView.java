@@ -36,13 +36,13 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
-<<<<<<< HEAD
-import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
+
+//import project.cn.edu.tongji.sse.nowfitness.model.SignModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
-=======
+
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
-import project.cn.edu.tongji.sse.nowfitness.presenter.CommentsListViewAdapter;
->>>>>>> b21eabd24ce6f0e7b9e1e8bf1ce9d6277eccbbc9
+
+
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
 

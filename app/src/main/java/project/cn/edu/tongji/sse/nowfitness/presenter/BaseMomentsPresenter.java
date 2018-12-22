@@ -29,10 +29,28 @@ public class BaseMomentsPresenter extends BasePresenter {
     private Context mContext;
     protected MomentsMethod momentsMethod;
 
+    public void  setPageNum(int pageNum){
+        this.pageNum =pageNum;
+    }
+    public void setPages(int pages){
+        this.pages = pages;
+    }
+    public void setPageSize(int pageSize){
+        this.pageSize = pageSize;
+    }
+    public void setTotalMoments(int totalMoments){
+        this.totalMoments = totalMoments;
+    }
+
     public BaseMomentsPresenter(MomentsMethod momentsMethod,Context context){
         this.momentsMethod = momentsMethod;
         this.mContext = context;
         pMomentsLab = new ArrayList<>();
+        pageNum = 0;
+        pages = 0;
+        totalMoments = 0;
+        currentPageSize = 0;
+        pageSize = 10;
     }
     public Context getContext(){
         return mContext;
@@ -51,11 +69,12 @@ public class BaseMomentsPresenter extends BasePresenter {
         intent.setClass(mContext, MomentsDetailView.class);
         mContext.startActivity(intent);
     }
-    public void jumpToPersonPage(int id,String personName,String personPhoto){
+    public void jumpToPersonPage(int id,String userName,String nickName,String personPhoto){
         Intent intent = new Intent();
         intent.putExtra("userId",id);
-        intent.putExtra("name",personName);
+        intent.putExtra("nickName",nickName);
         intent.putExtra("photo",personPhoto);
+        intent.putExtra("userName",userName);
         intent.setClass(mContext, PersonPageView.class);
         mContext.startActivity(intent);
     }
@@ -64,5 +83,16 @@ public class BaseMomentsPresenter extends BasePresenter {
         momentsRecyclerAdapter.setViewStatus(states);
         momentsRecyclerAdapter.notifyItemChanged(0);
     }
+
+    public int getNextPage(){
+            if(pages == pageNum)
+                return pageNum+1;
+            else
+                return pageNum+1;
+    }
+    public int getTotal(){
+        return totalMoments;
+    }
+
 
 }

@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.BaseMomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
@@ -34,7 +36,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
 
     private CircleImageView userPhotoImage;
     private ImageView contentPicImage;
-    private TextView userNameTextView;
+    private TextView nickNameTextView;
     private TextView contentTextView;
     private TextView timeTextView;
     private ImageView like;
@@ -52,7 +54,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
     public MomentsViewHolder(View itemView, BaseMomentsPresenter baseMomentsPresenter) {
         super(itemView);
         userPhotoImage = (CircleImageView) itemView.findViewById(R.id.moments_user_photo);
-        userNameTextView =(TextView)itemView.findViewById(R.id.moments_user_name);
+        nickNameTextView =(TextView)itemView.findViewById(R.id.moments_user_name);
         timeTextView =(TextView)itemView.findViewById(R.id.moments_release_time);
         contentTextView =(TextView)itemView.findViewById(R.id.moments_content);
         contentPicImage =(ImageView)itemView.findViewById(R.id.content_image);
@@ -70,16 +72,17 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             String time = moments.getReleaseTime();
             time = time.substring(0,19);
             time=time.replace("T"," ");
-            userNameTextView.setText(moments.getUserName());
+            nickNameTextView.setText(moments.getNickName());
             likeNum.setText(String.valueOf(moments.getLikes())+"人点赞");
             contentTextView.setText(moments.getContent());
             commentsNum.setText(String.valueOf(moments.getCommentsNum())+"人评论");
             timeTextView.setText(time);
             like.setSelected(moments.isLiked());
+            Log.d("sssssss", "onBindMomentsData: "+moments.getUserPhoto());
             if (moments.getUserPhoto()!=null)
-                Glide.with(itemView).load("http://47.107.167.12:8080/api/image/get?imageName="+moments.getUserPhoto()).into(userPhotoImage);
+                Glide.with(itemView).load(moments.getUserPhoto()).into(userPhotoImage);
             if(moments.getImage()!=null)
-                Glide.with(itemView).load("http://47.107.167.12:8080/api/image/get?imageName="+moments.getImage()).into(contentPicImage);
+                Glide.with(itemView).load(moments.getImage()).into(contentPicImage);
             else
                 contentPicImage.setVisibility(View.GONE);
         }
@@ -89,7 +92,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             btMenu.setVisibility(View.GONE);
         like.setOnClickListener(this);
         userPhotoImage.setOnClickListener(this);
-        userNameTextView.setOnClickListener(this);
+        nickNameTextView.setOnClickListener(this);
     }
 
     @Override
@@ -109,15 +112,15 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                 }
                 break;
             case R.id.moments_user_photo :
-                baseMomentsPresenter.jumpToPersonPage(userId,mMoments.getUserName(),mMoments.getUserPhoto());
+                baseMomentsPresenter.jumpToPersonPage(userId,mMoments.getUserName(),mMoments.getNickName(),mMoments.getUserPhoto());
                 break;
             case R.id.moments_user_name:
-                baseMomentsPresenter.jumpToPersonPage(userId,mMoments.getUserName(),mMoments.getUserPhoto());
+                baseMomentsPresenter.jumpToPersonPage(userId,mMoments.getUserName(),mMoments.getNickName(),mMoments.getUserPhoto());
                 break;
             case R.id.btnMenus:
                 PopupMenu popup = new PopupMenu(baseMomentsPresenter.getContext(),btMenu);
                 if(baseMomentsPresenter instanceof PersonPagePresenter){
-                if(userId!=0) {//USERINFORid
+                if(userId!=(int) UserInfoLab.get().getUserInfoModel().getId()) {
                     popup.getMenuInflater().inflate(R.menu.moments_pop_menu_u, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override

@@ -35,6 +35,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
 
 /**
  * Created by a on 2018/11/23.
@@ -68,9 +69,9 @@ public class MomentsView extends Fragment implements MomentsMethod{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.moments_page,container,false);
-       // momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId());
+        if(type== LeftFragment.TAB_TYPE_1)
+            momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId(),1);
         momentsPresenter.initView();
-        //momentsPresenter.queryForInfo(1);
         return myView;
     }
 
@@ -78,7 +79,6 @@ public class MomentsView extends Fragment implements MomentsMethod{
         swipeRefreshLayout = (SwipeRefreshLayout)myView.findViewById(R.id.news_swipe_refresh);
         momentsRecyclerView = (RecyclerView) myView.findViewById(R.id.news_recyclerView);
         momentsRecyclerView.setLayoutManager(new LinearLayoutManager(myView.getContext(), LinearLayout.VERTICAL,false));
-
         //momentsRecyclerView.addItemDecoration(new MomentsItemDecoration());
         momentsPresenter.setMomentsRecyerView(momentsRecyclerView);
         momentsPresenter.setAdapter();
@@ -92,22 +92,14 @@ public class MomentsView extends Fragment implements MomentsMethod{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               // momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId());
-                momentsPresenter.queryForInfo(1);
-                swipeRefreshLayout.setRefreshing(false);
+                momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId(),1);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                java.util.Random r= new java.util.Random();
-                if(r.nextBoolean())
-                    refreshlayout.finishLoadMoreWithNoMoreData();
-                else {
-                    refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                    momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId(),momentsPresenter.getNextPage());
                     //finishLoadMore(delayed);
-                    momentsPresenter.queryForInfo(1);
-                }
             }
         });
     }
@@ -116,15 +108,36 @@ public class MomentsView extends Fragment implements MomentsMethod{
     @Override
     public void querySuccess(ResponseModel<MomentsModelList> models) {
         if(models.getStatus() >= 200 || models.getStatus() < 300){
-            momentsPresenter.resetMomentsList(models.getData().getList());
-            swipeRefreshLayout.setRefreshing(false );
+           if(models.getData().getTotal()==0)
+               momentsPresenter.setAdapterStates(MomentsRecyclerAdapter.NO_CONTENT);
+           else if(models.getData().getSize()==0) {
+               refreshLayout.finishLoadMoreWithNoMoreData();
+           }else {
+               momentsPresenter.setPages(models.getData().getPages());
+               momentsPresenter.setPageNum(models.getData().getPageNum());
+               momentsPresenter.setTotalMoments(models.getData().getTotal());
+               if(models.getData().getPageNum()==1) {
+                   momentsPresenter.resetMomentsList(models.getData().getList());
+                   momentsPresenter.setAdapterStates(MomentsRecyclerAdapter.NORMAL);
+                   refreshLayout.setNoMoreData(false);
+               }
+               else {
+                   momentsPresenter.addMomentsList(models.getData().getList());
+                   refreshLayout.finishLoadMore();
+               }
+
+           }
+            swipeRefreshLayout.setRefreshing(false);
         }
-
-
     }
 
     @Override
     public void queryError(Throwable e) {
+        if(momentsPresenter.getTotal()==0)
+            momentsPresenter.setAdapterStates(MomentsRecyclerAdapter.NO_NETWORK);
+        else
+            refreshLayout.finishLoadMore(false);
+        swipeRefreshLayout.setRefreshing(false);
         e.printStackTrace();
     }
 

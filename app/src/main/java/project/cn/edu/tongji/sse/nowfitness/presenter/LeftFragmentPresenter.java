@@ -1,6 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.LeftFragment;
+import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
 
 /**
  * Created by a on 2018/11/22.
