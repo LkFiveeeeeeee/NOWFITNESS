@@ -1,8 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view.MomentsView;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -19,10 +16,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.BaseMomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 
 /**
  * Created by a on 2018/11/28.
@@ -49,7 +46,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
     private int myPosition;
 
     private String title,message;
-    private int type=DIALOG_NULL;
+    private int type = DIALOG_NULL;
 
     public MomentsViewHolder(View itemView, BaseMomentsPresenter baseMomentsPresenter) {
         super(itemView);
@@ -96,19 +93,22 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
     }
 
     @Override
-    public void onClick(View view) {;
+    public void onClick(View view) {
+        UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
         switch (view.getId()) {
             case R.id.image_like :
-                if (view.isSelected() == false) {
+                if (!view.isSelected()) {
                     view.setSelected(true);
                     mMoments.setLikes(mMoments.getLikes()+1);
                     likeNum.setText(String.valueOf(mMoments.getLikes())+"人点赞");
+                    baseMomentsPresenter.postLikeInfo(mMoments.getMomentsId(),(int)userInfoModel.getId());
                     //发送点赞请求
                 } else {
                     view.setSelected(false);
                     mMoments.setLikes(mMoments.getLikes()-1);
                     likeNum.setText(String.valueOf(mMoments.getLikes())+"人点赞");
-                    //发送点赞请求
+                    baseMomentsPresenter.deleteLikeInfo(mMoments.getMomentsId(),(int) userInfoModel.getId());
+                    //删除点赞请求?
                 }
                 break;
             case R.id.moments_user_photo :

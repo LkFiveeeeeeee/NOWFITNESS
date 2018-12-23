@@ -13,7 +13,6 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentView;
-import retrofit2.http.Multipart;
 
 import static project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication.getContext;
 
@@ -45,14 +44,14 @@ public class PublishMomentPresenter extends BasePresenter {
     }
 
     private void postMomentWithFile(RequestBody userId, RequestBody requestContent, MultipartBody.Part part){
-        subscriptions.add(apiRepositary.postMoment(userId,requestContent,part)
+        subscriptions.add(apiRepository.postMoment(userId,requestContent,part)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(publishMomentMethod::postSuccess,publishMomentMethod::postError));
     }
 
     private void postMomentWithoutFile(RequestBody userId, RequestBody requestContent){
-        subscriptions.add(apiRepositary.postMomentWithoutFile(userId,requestContent)
+        subscriptions.add(apiRepository.postMomentWithoutFile(userId,requestContent)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(publishMomentMethod::postSuccess,publishMomentMethod::postError));

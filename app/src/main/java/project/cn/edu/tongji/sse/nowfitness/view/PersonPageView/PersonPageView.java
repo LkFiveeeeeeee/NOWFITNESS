@@ -25,13 +25,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
-import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
-import project.cn.edu.tongji.sse.nowfitness.model.Response;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
@@ -105,7 +101,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
         momentsRecyclerView.setHasFixedSize(false);
         momentsRecyclerView.setNestedScrollingEnabled(false);
         momentsRecyclerView.setLayoutManager(mLinearLayoutManager);
-        personPagePresenter.setMomentsRecyerView(momentsRecyclerView);
+        personPagePresenter.setMomentsRecyclerView(momentsRecyclerView);
         personPagePresenter.setAdapter();
         personToolbar.setVisibility(View.GONE);
         personToolbar.setVisibility(View.VISIBLE);

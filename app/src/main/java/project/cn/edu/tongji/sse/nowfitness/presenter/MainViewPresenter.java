@@ -14,7 +14,7 @@ public class MainViewPresenter extends BasePresenter {
     }
 
     public void queryForUserInfo(String userName){
-        subscriptions.add(apiRepositary.queryUserInfo(userName)
+        subscriptions.add(apiRepository.queryUserInfo(userName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(mainViewMethod::querySuccess,mainViewMethod::queryError)

@@ -2,23 +2,14 @@ package project.cn.edu.tongji.sse.nowfitness.presenter;
 
 
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.widget.ExpandableListView;
-
-import com.google.gson.JsonIOException;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
@@ -65,20 +56,42 @@ public class MomentsDetailPresenter extends BasePresenter  {
 
     public void addReplyData(int childPosition,int groupPosition,String commentContent){
         CommentsReplyModel replyDetailModel= new CommentsReplyModel();
-        if (childPosition!=-1)
+        if (childPosition!=-1) {
             replyDetailModel.setToUserName(commentsList.get(groupPosition).getRepliesList().get(childPosition).getFromUserName());
-        else
+        }
+        else {
             replyDetailModel.setToUserName(commentsList.get(groupPosition).getCommentUserName());
+        }
         replyDetailModel.setContent(commentContent);
         replyDetailModel.setFromUserName(UserInfoLab.get().getUserInfoModel().getUserName());
+
         adapter.addTheReplyData(replyDetailModel,groupPosition);
+        //TODO  ADD makeNewReply
         commentsList = adapter.getCommentsList();
     }
+
+    private void makeNewReply(CommentsReplyModel commentsReplyModel){
+        subscriptions.add(apiRepository.makeReply(commentsReplyModel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
+    //TODO ? 我把ID当做replyId的,不知道是不是,不是直接改一下传的参数就行了,反正都是int类型
+    private void deleteReply(int replyId){
+        subscriptions.add(apiRepository.deleteReply(replyId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        );
+    }
+
     public void addCommentData(String commentContent){
         CommentsDetailModel commentModel = new CommentsDetailModel();
         commentModel.setContent(commentContent);
         commentModel.setCommentUserName(UserInfoLab.get().getUserInfoModel().getUserName());
         commentModel.setCommentUserId((int)UserInfoLab.get().getUserInfoModel().getId());
+        commentModel.setMomentsId(pMomentsModel.getMomentsId());
         makeNewComments(commentModel);
         adapter.addTheCommentData(commentModel);
         commentsList = adapter.getCommentsList();
@@ -94,7 +107,7 @@ public class MomentsDetailPresenter extends BasePresenter  {
 
 
     public void queryForComments(int momentsId){
-        subscriptions.add(apiRepositary.getCommentsInfo(momentsId)
+        subscriptions.add(apiRepository.getCommentsInfo(momentsId)
         .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(commentsMethod::querySuccess,commentsMethod::queryError)
@@ -102,25 +115,11 @@ public class MomentsDetailPresenter extends BasePresenter  {
 
     }
 
-    public void makeNewComments(CommentsDetailModel commentsDetailModel){
-        JSONObject postData = new JSONObject();
-        try{
-            postData.put("momentsId",commentsDetailModel.getMomentsId());
-            postData.put("content",commentsDetailModel.getContent());
-            postData.put("commentUserId",commentsDetailModel.getCommentUserId());
-        }catch (JSONException e) {
-            e.printStackTrace();
-            Log.d("JsonException", "makeNewComments: ");
-        }
-
-        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type,application/json"),
-                postData.toString());
-
-        subscriptions.add(apiRepositary.makeNewCommentInfo(requestBody)
+    private void makeNewComments(CommentsDetailModel commentsDetailModel){
+        subscriptions.add(apiRepository.makeNewCommentInfo(commentsDetailModel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(commentsMethod::makeCommentsSuccess,commentsMethod::makeCommentsError)
-        );
+                .subscribe());
     }
 
     public void resetCommentsList(List<CommentsDetailModel> commentsDetailModelList){
@@ -136,14 +135,19 @@ public class MomentsDetailPresenter extends BasePresenter  {
     }
 
     public boolean deleteReply(int groupPos,int childPos){
-        if(adapter.deleteReply(groupPos,childPos)==true){
+        if(adapter.deleteReply(groupPos, childPos)){
             //服务端请求删除回复
+            //TODO add deleteReply
             return true;
         }else
             return false;
     }
 
     public boolean deleteComments(int groupPos){
+        subscriptions.add(apiRepository.deleteComment(commentsList.get(groupPos).getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
         if(adapter.deleteComments(groupPos)){
             //请求服务端删除评论
             return true;

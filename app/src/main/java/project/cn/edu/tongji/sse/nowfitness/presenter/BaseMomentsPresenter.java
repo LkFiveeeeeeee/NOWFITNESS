@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
@@ -55,7 +57,7 @@ public class BaseMomentsPresenter extends BasePresenter {
     public Context getContext(){
         return mContext;
     }
-    public void setMomentsRecyerView(RecyclerView recyclerView){
+    public void setMomentsRecyclerView(RecyclerView recyclerView){
         this.momentsRecyclerView=recyclerView;
     }
     public void setAdapter(){
@@ -92,6 +94,22 @@ public class BaseMomentsPresenter extends BasePresenter {
     }
     public int getTotal(){
         return totalMoments;
+    }
+
+    public void postLikeInfo(int momentsId,int likesId){
+        subscriptions.add(apiRepository.postLikeInfo(momentsId,likesId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        );
+    }
+
+    public void deleteLikeInfo(int momentsId,int likesId){
+        subscriptions.add(apiRepository.delLikeInfo(momentsId,likesId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        );
     }
 
 

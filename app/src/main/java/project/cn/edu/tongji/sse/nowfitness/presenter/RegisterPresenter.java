@@ -14,7 +14,7 @@ public class RegisterPresenter extends BasePresenter{
     private RegisterView registerView;
     private RegisterMethod registerMethod;
     public RegisterPresenter(RegisterView registerView, RegisterMethod registerMethod){
-        apiRepositary = new APIRepositoryImpl();
+        apiRepository = new APIRepositoryImpl();
         this.registerMethod = registerMethod;
         this.registerView = registerView;
     }
@@ -58,7 +58,7 @@ public class RegisterPresenter extends BasePresenter{
         RequestBody userNameBody = RequestBody.create(MediaType.parse("text/plain"),userName);
         RequestBody passWordBody = RequestBody.create(MediaType.parse("text/plain"),passWord);
         Log.d("applyRegister", "applyRegister: ");
-        subscriptions.add(apiRepositary.applyInfo(userNameBody,passWordBody)
+        subscriptions.add(apiRepository.applyInfo(userNameBody,passWordBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(registerMethod::registerSuccess,registerMethod::registerApplyError)
@@ -66,7 +66,7 @@ public class RegisterPresenter extends BasePresenter{
     }
 
     public void queryForUserInfo(String userName){
-        subscriptions.add(apiRepositary.queryUserInfo(userName)
+        subscriptions.add(apiRepository.queryUserInfo(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(registerMethod::querySuccess,registerMethod::registerApplyError)

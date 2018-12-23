@@ -14,7 +14,7 @@ public class WelcomeViewPresenter extends BasePresenter {
     }
 
     public void queryForUserInfo(String userName){
-        subscriptions.add(apiRepositary.queryUserInfo(userName)
+        subscriptions.add(apiRepository.queryUserInfo(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(welcomeViewMethod::querySuccess,welcomeViewMethod::queryError)

@@ -9,28 +9,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
-import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 
 
-import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
@@ -69,7 +60,7 @@ public class MomentsView extends Fragment implements MomentsMethod{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.moments_page,container,false);
-        if(type== LeftFragment.TAB_TYPE_1)
+        if(type.equals(LeftFragment.TAB_TYPE_1))
             momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId(),1);
         momentsPresenter.initView();
         return myView;
@@ -80,7 +71,7 @@ public class MomentsView extends Fragment implements MomentsMethod{
         momentsRecyclerView = (RecyclerView) myView.findViewById(R.id.news_recyclerView);
         momentsRecyclerView.setLayoutManager(new LinearLayoutManager(myView.getContext(), LinearLayout.VERTICAL,false));
         //momentsRecyclerView.addItemDecoration(new MomentsItemDecoration());
-        momentsPresenter.setMomentsRecyerView(momentsRecyclerView);
+        momentsPresenter.setMomentsRecyclerView(momentsRecyclerView);
         momentsPresenter.setAdapter();
         refreshLayout = (SmartRefreshLayout)myView.findViewById(R.id.moments_refreshLayout);
         refreshLayout.setEnableRefresh(false);

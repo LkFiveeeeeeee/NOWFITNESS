@@ -1,14 +1,7 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import android.support.annotation.MainThread;
-import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingView;
@@ -37,7 +30,7 @@ public class UserSettingPresenter extends BasePresenter {
             return;
         }*/
 
-        subscriptions.add(apiRepositary.putUserInfo(userInfoModel)
+        subscriptions.add(apiRepository.putUserInfo(userInfoModel)
             .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userSettingMethod::putSuccess,userSettingMethod::putError)

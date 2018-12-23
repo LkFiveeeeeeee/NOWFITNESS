@@ -1,8 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
 
-import android.net.Uri;
-
 import java.io.File;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -94,7 +92,7 @@ public class UserViewPresenter extends BasePresenter{
                 .addFormDataPart("id",String.valueOf(userId)    )
                 .addFormDataPart("file",file.getName(),requestFile)
                 .build();*/
-        subscriptions.add(apiRepositary.postUserAvatar(part,requestId)
+        subscriptions.add(apiRepository.postUserAvatar(part,requestId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(userViewMethod::applyForImageChange,userViewMethod::queryError));

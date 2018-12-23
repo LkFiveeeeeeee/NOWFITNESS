@@ -18,6 +18,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
@@ -162,7 +163,7 @@ public class APIRepositoryImpl implements APIRepository {
 
   //omf
   @Override
-    public Single<ResponseModel> makeNewCommentInfo(RequestBody body){
+    public Single<ResponseModel> makeNewCommentInfo(CommentsDetailModel body){
       ResponseModel responseModel = new ResponseModel();
         return api.makeNewComments(body)
                 .map(new Function<ResponseDTO, ResponseModel>() {
@@ -177,9 +178,23 @@ public class APIRepositoryImpl implements APIRepository {
 
 
     @Override
-    public Single<ResponseModel> makeReply(RequestBody body) {
+    public Single<ResponseModel> makeReply(CommentsReplyModel body) {
         ResponseModel responseModel = new ResponseModel();
         return api.postReply(body)
+                .map(new Function<ResponseDTO, ResponseModel>() {
+                    @Override
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseModel.setError(responseDTO.getError());
+                        return responseModel;
+                    }
+                });
+    }
+
+    @Override
+    public Single deleteReply(int id) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.deleteReply(id)
                 .map(new Function<ResponseDTO, ResponseModel>() {
                     @Override
                     public ResponseModel apply(ResponseDTO responseDTO) throws Exception {

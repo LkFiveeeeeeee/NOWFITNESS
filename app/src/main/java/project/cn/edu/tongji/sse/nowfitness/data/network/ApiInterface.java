@@ -12,6 +12,8 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -109,9 +111,9 @@ public interface ApiInterface {
      * @return ResponseDTO without data
      */
     //omf
-    @POST("comment/make")
+    @POST("comment")
     @Headers({"Content-Type:application/json"})
-    Single<ResponseDTO> makeNewComments(@Body RequestBody commentsBody);
+    Single<ResponseDTO> makeNewComments(@Body CommentsDetailModel commentsBody);
 
 
     /**
@@ -126,7 +128,10 @@ public interface ApiInterface {
      */
     @POST("reply")
     @Headers({"Content-Type:application/json"})
-    Single<ResponseDTO> postReply(@Body RequestBody commentsBody);
+    Single<ResponseDTO> postReply(@Body CommentsReplyModel commentsBody);
+
+    @DELETE("reply/{id}")
+    Single<ResponseDTO> deleteReply(@Path("id") int id);
 
 
 
@@ -162,7 +167,7 @@ public interface ApiInterface {
      * @param commentsId  所要删除评论的id
      * @return ResponseDTO without data
      */
-    @DELETE ("/comments/{commentsId}")
+    @DELETE ("comments/{commentsId}")
     Single<ResponseDTO> deleteComment(@Path("commentsId") int commentsId);
 
 

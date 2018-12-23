@@ -43,7 +43,7 @@ public class LoginPresenter extends BasePresenter{
         if(verifyForUserName(userName) && verifyForPassWord(passWord)){
             RequestBody userNameBody = RequestBody.create(MediaType.parse("text/plain"),userName);
             RequestBody passWordBody = RequestBody.create(MediaType.parse("text/plain"),passWord);
-            subscriptions.add(apiRepositary.verifyInfo(userNameBody,passWordBody)
+            subscriptions.add(apiRepository.verifyInfo(userNameBody,passWordBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(loginMethod::loginSuccess,loginMethod::loginError)
@@ -53,7 +53,7 @@ public class LoginPresenter extends BasePresenter{
     }
 
     public void queryForUserInfo(String userName){
-        subscriptions.add(apiRepositary.queryUserInfo(userName)
+        subscriptions.add(apiRepository.queryUserInfo(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loginMethod::querySuccess,loginMethod::loginError)

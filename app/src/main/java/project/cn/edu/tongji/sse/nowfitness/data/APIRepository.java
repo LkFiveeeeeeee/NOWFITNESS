@@ -9,6 +9,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
+import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import retrofit2.http.GET;
 
@@ -29,9 +30,9 @@ public interface APIRepository {
     //omf
     Single getCommentsInfo(int momentsId);
     //omf
-    Single makeNewCommentInfo(RequestBody body);
+    Single makeNewCommentInfo(CommentsDetailModel body);
 
-    Single makeReply(RequestBody body);
+    Single makeReply(CommentsReplyModel body);
 
     Single putUserInfo(UserInfoModel userInfoObject);
 
@@ -48,4 +49,6 @@ public interface APIRepository {
     Single postFollowInfo(int userId,int followId);
 
     Single deleteFollowInfo(int userId,int followId);
+
+    Single deleteReply(int id);
 }
