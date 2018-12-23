@@ -45,6 +45,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 
 
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
@@ -180,7 +181,8 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                 final int childPosition = ExpandableListView.getPackedPositionChild(packedPosition);
                 //长按的是group的时候，childPosition = -1
                 if (childPosition!= -1) {
-                    showPopWindows(view,childPosition,groupPosition);
+                    if(momentsDetailPresenter.isReplyDeletable(groupPosition,childPosition))
+                        showPopWindows(view,childPosition,groupPosition);
                 }
                 return true;
             }
@@ -297,13 +299,13 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
             case COMMENT_TARGET_MOMENTS :
                 return true;
             case COMMENT_TARGET_COMMENTS:
-                if(commentsList.get(groupPosition).getCommentUserName().equals("1000")){//UserInfoLab.get().getUserInfoModel().getUserName())){
+                if(commentsList.get(groupPosition).getCommentUserName().equals(UserInfoLab.get().getUserInfoModel().getUserName())){
                     return false;
                  }else
                     return true;
             case COMMENT_TARGET_REPLYS:
                 if(commentsList.get(groupPosition).getRepliesList().get(childPosition).getFromUserName()
-                        .equals("1000"))//UserInfoLab.get().getUserInfoModel().getUserName()))
+                        .equals(UserInfoLab.get().getUserInfoModel().getUserName()))
                     return false;
                 else
                     return true;
@@ -336,11 +338,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
 
             @Override
             public void onClick(View v){
-               if( momentsDetailPresenter.deleteReply(groupPos,childPos)==true)
-                    Toast.makeText(MomentsDetailView.this,"删除成功",Toast.LENGTH_SHORT).show();
-               else
-                   Toast.makeText(MomentsDetailView.this,"删除失败",Toast.LENGTH_SHORT).show();
-
+                momentsDetailPresenter.deleteReply(groupPos,childPos);
                 if (mPopWindow != null) {
                     mPopWindow.dismiss();
                 }

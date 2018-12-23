@@ -30,7 +30,7 @@ public class CommentsDetailModel {
         content = listBean.getContent();
         commentUserId = listBean.getCommentUserId();
         commentTime =listBean.getCommentTime();
-        commentUserPhoto = getCommentUserPhoto();
+        commentUserPhoto = listBean.getCommentUserPhoto();
         commentUserName =listBean.getCommentUserName();
         commentUserNickName = listBean.getCommentUserNickName();
         repliesList = new ArrayList<>();
@@ -106,6 +106,9 @@ public class CommentsDetailModel {
 
         public void setRepliesList(List<CommentsReplyModel> repliesList) {
             this.repliesList = repliesList;
+        }
+        public String getCommentUserNickName(){
+            return commentUserNickName;
         }
 
 }

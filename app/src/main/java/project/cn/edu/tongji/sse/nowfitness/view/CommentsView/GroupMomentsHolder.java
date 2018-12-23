@@ -35,15 +35,14 @@ public class GroupMomentsHolder extends BaseExHolder implements View.OnClickList
         this.momentsModel = momentsModel;
         if(momentsModel!=null){
             content.setText(momentsModel.getContent());
-            userName.setText(momentsModel.getUserName());
+            userName.setText(momentsModel.getNickName());
             String time = momentsModel.getReleaseTime();
             time = time.substring(0,19);
             time = time.replace("T"," ");
             releaseTime.setText(time);
-            if (momentsModel.getUserPhoto()!=null)
-                Glide.with(myView).load("http://47.107.167.12:8080/api/image/get?imageName="+momentsModel.getUserPhoto()).into(userPhoto);
-            if(momentsModel.getImage()!=null)
-                Glide.with(myView).load("http://47.107.167.12:8080/api/image/get?imageName="+momentsModel.getImage()).into(momentsImage);
+            Glide.with(myView).load(momentsModel.getUserPhoto()).into(userPhoto);
+            if(!momentsModel.getImage().substring(momentsModel.getImage().length()-4).equals("null"))
+                Glide.with(myView).load(momentsModel.getImage()).into(momentsImage);
             else
                 momentsImage.setVisibility(View.GONE);
             userName.setOnClickListener(this);
@@ -55,10 +54,10 @@ public class GroupMomentsHolder extends BaseExHolder implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.moments_detail_userPicture:
-                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),momentsModel.getUserName(),momentsModel.getUserPhoto());
+                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),momentsModel.getUserName(),momentsModel.getNickName(),momentsModel.getUserPhoto());
                 break;
             case R.id.moments_detail_userName:
-                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),momentsModel.getUserName(),momentsModel.getUserPhoto());
+                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),momentsModel.getUserName(),momentsModel.getNickName(),momentsModel.getUserPhoto());
                 break;
             default:
                 break;

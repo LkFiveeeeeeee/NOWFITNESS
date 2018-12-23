@@ -68,9 +68,6 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
         personPagePresenter = new PersonPagePresenter(this,this,this);
         personPagePresenter.intiView();
         personPagePresenter.quertForPersonInfo(personId);
-       // personPagePresenter.queryForInfo(personId,1);
-
-
     }
 
     public void initView() {
@@ -109,7 +106,6 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
     }
 
     public void initEvent() {
-        //followingButton.setPressedColor("#80FF0000");
         //不设置，默认3秒后关刷新
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -123,7 +119,6 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-
                 java.util.Random r= new java.util.Random();
                 if(r.nextBoolean())
                     refreshlayout.finishLoadMoreWithNoMoreData();

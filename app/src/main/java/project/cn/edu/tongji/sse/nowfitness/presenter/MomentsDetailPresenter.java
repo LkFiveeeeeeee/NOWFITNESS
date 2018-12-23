@@ -15,6 +15,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsCommentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.CommentsListViewAdapter;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.CommentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
@@ -58,15 +59,20 @@ public class MomentsDetailPresenter extends BasePresenter  {
         CommentsReplyModel replyDetailModel= new CommentsReplyModel();
         if (childPosition!=-1) {
             replyDetailModel.setToUserName(commentsList.get(groupPosition).getRepliesList().get(childPosition).getFromUserName());
+            replyDetailModel.setToUserId(commentsList.get(groupPosition).getRepliesList().get(childPosition).getToUserId());
         }
         else {
             replyDetailModel.setToUserName(commentsList.get(groupPosition).getCommentUserName());
+            replyDetailModel.setToUserId(commentsList.get(groupPosition).getCommentUserId());
         }
-        replyDetailModel.setContent(commentContent);
         replyDetailModel.setFromUserName(UserInfoLab.get().getUserInfoModel().getUserName());
+        replyDetailModel.setCommentId(commentsList.get(groupPosition).getId());
+        replyDetailModel.setFromUserId((int)UserInfoLab.get().getUserInfoModel().getId());
 
+        replyDetailModel.setContent(commentContent);
         adapter.addTheReplyData(replyDetailModel,groupPosition);
         //TODO  ADD makeNewReply
+        makeNewReply(replyDetailModel);
         commentsList = adapter.getCommentsList();
     }
 
@@ -135,31 +141,38 @@ public class MomentsDetailPresenter extends BasePresenter  {
     }
 
     public boolean deleteReply(int groupPos,int childPos){
+        deleteReply(commentsList.get(groupPos).getRepliesList().get(childPos).getId());
         if(adapter.deleteReply(groupPos, childPos)){
             //服务端请求删除回复
             //TODO add deleteReply
+            //
             return true;
         }else
             return false;
     }
 
-    public boolean deleteComments(int groupPos){
+    public void deleteComments(int groupPos){
         subscriptions.add(apiRepository.deleteComment(commentsList.get(groupPos).getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe());
-        if(adapter.deleteComments(groupPos)){
-            //请求服务端删除评论
-            return true;
-        }else
-            return false;
+       adapter.deleteComments(groupPos);
     }
-    public void jumpToPersonPage(int id,String personName,String personPhoto){
+    public void jumpToPersonPage(int id,String personName,String nickName,String personPhoto){
         Intent intent = new Intent();
         intent.putExtra("userId",id);
         intent.putExtra("name",personName);
+        intent.putExtra("nickName",nickName);
         intent.putExtra("photo",personPhoto);
         intent.setClass(momentsDetailView, PersonPageView.class);
         momentsDetailView.startActivity(intent);
+    }
+    public boolean isReplyDeletable(int groupPos,int childPos){
+        if (commentsList.get(groupPos).getRepliesList().get(childPos).getFromUserId()
+                == (int)UserInfoLab.get().getUserInfoModel().getId()
+            ||pMomentsModel.getUserId()==(int)UserInfoLab.get().getUserInfoModel().getId())
+            return true;
+        else
+            return false;
     }
 }

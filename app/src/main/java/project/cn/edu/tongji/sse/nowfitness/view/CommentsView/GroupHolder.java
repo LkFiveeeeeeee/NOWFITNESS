@@ -3,11 +3,14 @@ package project.cn.edu.tongji.sse.nowfitness.view.CommentsView;
 import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
@@ -25,6 +28,7 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
     private ImageView menu;
     private View topDivider;
     private CommentsDetailModel commentsDetailModel;
+    private View myView;
     public GroupHolder(View view, Context context, MomentsDetailPresenter momentsDetailPresenter) {
         super(context,momentsDetailPresenter);
         logo = (CircleImageView) view.findViewById(R.id.comment_item_logo);
@@ -33,6 +37,7 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
         tv_time = (TextView) view.findViewById(R.id.comment_item_time);
         topDivider = (View)view.findViewById(R.id.top_divider);
         menu = (ImageView)view.findViewById(R.id.comment_menu_bt);
+        myView =view;
     }
     public void onBindView(CommentsDetailModel commentsDetailModel){
         this.commentsDetailModel = commentsDetailModel;
@@ -42,7 +47,9 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
             time = time.replace("T", " ");
             tv_time.setText(time);
         }
-        tv_name.setText(commentsDetailModel.getCommentUserName());
+        Log.e("aaaaa", "onBindView: "+commentsDetailModel.getCommentUserPhoto());
+        Glide.with(myView).load(commentsDetailModel.getCommentUserPhoto()).into(logo);
+        tv_name.setText(commentsDetailModel.getCommentUserNickName());
         tv_name.setOnClickListener(this);
         tv_content.setText(commentsDetailModel.getContent());
         logo.setOnClickListener(this);
@@ -66,11 +73,11 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
         switch (view.getId()){
             case R.id.comment_item_logo:
                 momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getId(),commentsDetailModel.getCommentUserName(),
-                        commentsDetailModel.getCommentUserPhoto());
+                        commentsDetailModel.getCommentUserNickName(),commentsDetailModel.getCommentUserPhoto());
                 break;
             case R.id.comment_item_userName:
                 momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getId(),commentsDetailModel.getCommentUserName(),
-                        commentsDetailModel.getCommentUserPhoto());
+                        commentsDetailModel.getCommentUserNickName(), commentsDetailModel.getCommentUserPhoto());
                 break;
             case R.id.comment_menu_bt:
                 PopupMenu popup = new PopupMenu(mContext,menu);
@@ -80,10 +87,7 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.delete:
-                                if( momentsDetailPresenter.deleteComments(groupPosition))
-                                    Toast.makeText(mContext,"删除成功",Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(mContext,"删除失败",Toast.LENGTH_SHORT).show();
+                                 momentsDetailPresenter.deleteComments(groupPosition);
                         }
                         return true;
                     }

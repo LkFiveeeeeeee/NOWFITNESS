@@ -15,10 +15,6 @@ import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
 
 public class MomentsPresenter extends BaseMomentsPresenter{
     private MomentsView momentsView;
-    //private List<MomentsModel> pMomentsLab;
-   // private MomentsMethod momentsMethod;
-    //private MomentsRecyclerAdapter momentsRecyclerAdapter;
-
 
     public void initView(){
         momentsView.initView();
@@ -39,10 +35,7 @@ public class MomentsPresenter extends BaseMomentsPresenter{
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(momentsMethod::querySuccess,momentsMethod::queryError)
         );
-               /* addMomentsList(mList);
-            if(pMomentsLab.size()==0) {
-                    setAdapterStates(MomentsRecyclerAdapter.NO_CONTENT);
-                              }*/
+
     }
 
     public void resetMomentsList(List<MomentsModel> momentsModelList){

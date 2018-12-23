@@ -20,8 +20,8 @@
                 android:layout_height="48dp"
                 android:src="@drawable/add_mini"
                 android:layout_marginLeft="16dp"
-                app:civ_border_width="1dp"
-                app:civ_border_color="@android:color/white"/>
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/rightFragment"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

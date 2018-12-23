@@ -8,6 +8,7 @@ import android.widget.TextView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 
 /**
@@ -25,8 +26,8 @@ public class ChildHolder extends  BaseExHolder implements View.OnClickListener{
     }
     public void onBindView(CommentsReplyModel commentsReplyModel){
         this.commentsReplyModel = commentsReplyModel;
-        String replyUser = commentsReplyModel.getFromUserName();
-        String toUserName =commentsReplyModel.getToUserName();
+        String replyUser = commentsReplyModel.getFromUserNickName();
+        String toUserName =commentsReplyModel.getToUserNickName();
         if(!TextUtils.isEmpty(replyUser)){
             tv_toName.setText(toUserName );
             tv_fromName.setText(replyUser);
@@ -35,10 +36,10 @@ public class ChildHolder extends  BaseExHolder implements View.OnClickListener{
             tv_toName.setText("无名"+":");
         }
         tv_content.setText(commentsReplyModel.getContent());
-        if(commentsReplyModel.getFromUserId()!=1) { //
+        if(commentsReplyModel.getFromUserId()!= UserInfoLab.get().getUserInfoModel().getId()) {
             tv_fromName.setOnClickListener(this);
         }
-        if(commentsReplyModel.getToUserId()!=2){//
+        if(commentsReplyModel.getToUserId()!=UserInfoLab.get().getUserInfoModel().getId()){
             tv_toName.setOnClickListener(this);
         }
     }
@@ -47,10 +48,12 @@ public class ChildHolder extends  BaseExHolder implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.reply_item_user:
-                momentsDetailPresenter.jumpToPersonPage(commentsReplyModel.getFromUserId(),commentsReplyModel.getFromUserName(),null);
+                momentsDetailPresenter.jumpToPersonPage(commentsReplyModel.getFromUserId(),commentsReplyModel.getFromUserName(),
+                        commentsReplyModel.getFromUserNickName(),null);
                 break;
             case R.id.to_item_user:
-                momentsDetailPresenter.jumpToPersonPage(commentsReplyModel.getToUserId(),commentsReplyModel.getToUserName(),null);
+                momentsDetailPresenter.jumpToPersonPage(commentsReplyModel.getToUserId(),commentsReplyModel.getToUserName(),
+                        commentsReplyModel.getToUserNickName(),null);
                 break;
         }
     }

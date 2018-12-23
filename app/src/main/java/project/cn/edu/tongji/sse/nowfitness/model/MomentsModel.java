@@ -28,6 +28,7 @@ public class MomentsModel implements Serializable {
         likes = listBean.getLikes();
         commentsNum = listBean.getCommentsNum();
         liked = listBean.isLiked();
+        nickName = listBean.getNickName();
     }
 
     public int getMomentsId() {

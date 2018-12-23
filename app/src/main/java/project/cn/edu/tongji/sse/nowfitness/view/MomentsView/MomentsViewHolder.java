@@ -78,7 +78,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             Log.d("sssssss", "onBindMomentsData: "+moments.getUserPhoto());
             if (moments.getUserPhoto()!=null)
                 Glide.with(itemView).load(moments.getUserPhoto()).into(userPhotoImage);
-            if(moments.getImage()!=null)
+            if(!moments.getImage().substring(moments.getImage().length()-4).equals("null"))
                 Glide.with(itemView).load(moments.getImage()).into(contentPicImage);
             else
                 contentPicImage.setVisibility(View.GONE);
