@@ -30,7 +30,7 @@ public class MomentsPresenter extends BaseMomentsPresenter{
     }
 
     public void queryForInfo(int userId,int pageNum){
-        subscriptions.add(apiRepository.getStarsInfo(userId,pageNum)
+        subscriptions.add(apiRepository.getStarsMoments(userId,pageNum)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(momentsMethod::querySuccess,momentsMethod::queryError)

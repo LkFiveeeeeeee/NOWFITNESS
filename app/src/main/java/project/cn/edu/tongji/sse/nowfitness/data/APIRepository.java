@@ -23,9 +23,11 @@ public interface APIRepository {
 
     Single postUserAvatar(MultipartBody.Part file,RequestBody body);
 
-    Single getStarsInfo (int userId,int pageNum);
+    Single getStarsMoments(int userId, int pageNum);
 
-    Single getNeighborInfo(int userId, int pageNum);
+    Single getNeighborMoments(int userId, int pageNum);
+
+    Single getUserMoments(int userId, int pageNum);
 
     //omf
     Single getCommentsInfo(int momentsId);

@@ -25,8 +25,11 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
@@ -177,6 +180,18 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
 
     @Override
     public void querySuccess(ResponseModel<MomentsModelList> momentsModelListResponseModel) {
+        if(momentsModelListResponseModel.getStatus() >= 200 && momentsModelListResponseModel.getStatus() < 300){
+            //TODO momentsModelList的一些操作
+            MomentsModelList momentsModelList = momentsModelListResponseModel.getData();
+        }
+    }
+
+    @Override
+    public void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel) {
+        if(userInfoModelResponseModel.getStatus() >= 200 && userInfoModelResponseModel.getStatus() < 300){
+            //TODO userInfoModel的一些操作
+            UserInfoModel userInfoModel = userInfoModelResponseModel.getData();
+        }
     }
 
     @Override

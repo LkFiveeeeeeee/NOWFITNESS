@@ -97,6 +97,16 @@ public interface ApiInterface {
 
 
     /**
+     * GET 某个特定用户的动态
+     * @param userID 用户id
+     * @param pageNum 页码信息
+     * @return ResponseDTO ( T data is defined to be MomentsDTO )
+     */
+    @GET("user/{userId}/moments/{pageNum}")
+    Single<ResponseDTO<MomentsDTO>> getUserMoments(@Path("userId") int userID,@Path("pageNum") int pageNum);
+
+
+    /**
      * GET 某条动态的评论信息
      * @param momentsId 动态Id
      * @return ResponseDTO ( T data is defined to be CommentsDTO )
