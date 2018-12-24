@@ -78,7 +78,7 @@ public class APIRepositoryImpl implements APIRepository {
     }
 
     @Override
-    public Single<ResponseModel<MomentsModelList>> getStarsInfo(int userId, int pageNum) {
+    public Single<ResponseModel<MomentsModelList>> getStarsMoments(int userId, int pageNum) {
         ResponseModel responseModel = new ResponseModel();
 
         return api.getStarsAllMoments(userId,pageNum)
@@ -102,9 +102,32 @@ public class APIRepositoryImpl implements APIRepository {
     }
 
     @Override
-    public Single<ResponseModel<MomentsModelList>> getNeighborInfo(int userId, int pageNum) {
+    public Single<ResponseModel<MomentsModelList>> getNeighborMoments(int userId, int pageNum) {
         ResponseModel responseModel = new ResponseModel();
         return api.getNeighborMoments(userId,pageNum)
+                .map(new Function<ResponseDTO<MomentsDTO>, ResponseModel<MomentsModelList>>() {
+                    @Override
+                    public ResponseModel<MomentsModelList> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
+                        List<MomentsModel> modelList = new ArrayList<>();
+                        MomentsModelList momentsModelList = new MomentsModelList(momentsDTOResponseDTO.getData());
+                        if(momentsDTOResponseDTO.getData() != null){
+                            for(MomentsDTO.ListBean bean:momentsDTOResponseDTO.getData().getList()){
+                                modelList.add(new MomentsModel(bean));
+                            }
+                            momentsModelList.setList(modelList);
+                        }
+                        responseModel.setStatus(momentsDTOResponseDTO.getStatus());
+                        responseModel.setError(momentsDTOResponseDTO.getError());
+                        responseModel.setData(momentsModelList);
+                        return responseModel;
+                    }
+                });
+    }
+
+    @Override
+    public Single<ResponseModel<MomentsModelList>> getUserMoments(int userId, int pageNum) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.getUserMoments(userId,pageNum)
                 .map(new Function<ResponseDTO<MomentsDTO>, ResponseModel<MomentsModelList>>() {
                     @Override
                     public ResponseModel<MomentsModelList> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {

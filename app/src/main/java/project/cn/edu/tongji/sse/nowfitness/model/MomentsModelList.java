@@ -5,14 +5,14 @@ import java.util.List;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 
 public class MomentsModelList {
-    int total;
-    List<MomentsModel> list;
-    int pageNum;
-    int pageSize;
-    int size;
-    int startRow;
-    int endRow;
-    int pages;
+    private int total;
+    private List<MomentsModel> list;
+    private int pageNum;
+    private int pageSize;
+    private int size;
+    private int startRow;
+    private int endRow;
+    private int pages;
 
     public MomentsModelList(MomentsDTO momentsDTO){
         this.total = momentsDTO.getTotal();

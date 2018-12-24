@@ -10,6 +10,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsRecyclerAdapter;
@@ -30,7 +32,26 @@ public class PersonPagePresenter extends BaseMomentsPresenter{
     public void intiView(){
         personPageView.initView();
     }
-    public  void queryForInfo(int id,int i){
+
+    public void getUserMoments(int userID, int pageNum){
+        subscriptions.add(apiRepository.getUserMoments(userID,pageNum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(momentsMethod::querySuccess,momentsMethod::queryError));
+    }
+
+    public void getUserInfo(String userName){
+        subscriptions.add(apiRepository.queryUserInfo(userName)
+            .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(momentsMethod::queryInfoSuccess,momentsMethod::queryError)
+        );
+
+    }
+
+
+
+    public void queryForInfo(int id,int i){
         String momentsListJson=" [\n" +
                 "        {\n" +
                 "            \"momentsId\": 1,\n" +
