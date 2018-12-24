@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,7 +32,7 @@ public class MomentsDetailPresenter extends BasePresenter  {
     private CommentsListViewAdapter adapter;
     private MomentsCommentsModel commentsModel;
     private List<CommentsDetailModel> commentsList;
-    private MomentsModel pMomentsModel;
+    public MomentsModel pMomentsModel;
     private CommentsMethod commentsMethod;
 
     public MomentsDetailPresenter(MomentsDetailView momentsDetailView, MomentsModel momentsModel,CommentsMethod commentsMethod){
@@ -98,7 +99,10 @@ public class MomentsDetailPresenter extends BasePresenter  {
         commentModel.setCommentUserName(UserInfoLab.get().getUserInfoModel().getUserName());
         commentModel.setCommentUserId((int)UserInfoLab.get().getUserInfoModel().getId());
         commentModel.setMomentsId(pMomentsModel.getMomentsId());
+        commentModel.setCommentUserPhoto(UserInfoLab.get().getUserInfoModel().getPictureUrl());
+        commentModel.setCommentUserNickName(UserInfoLab.get().getUserInfoModel().getNickName());
         makeNewComments(commentModel);
+        pMomentsModel.setCommentsNum(pMomentsModel.getCommentsNum()+1);
         adapter.addTheCommentData(commentModel);
         commentsList = adapter.getCommentsList();
     }

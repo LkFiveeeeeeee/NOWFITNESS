@@ -44,8 +44,6 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
     private BaseMomentsPresenter baseMomentsPresenter;
     private int userId;
     private int myPosition;
-
-    private String title,message;
     private int type = DIALOG_NULL;
 
     public MomentsViewHolder(View itemView, BaseMomentsPresenter baseMomentsPresenter) {
@@ -160,7 +158,6 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                 break;
             default:
                 break;
-                //momentsPresenter.likeOrDislike();
         }
     }
 

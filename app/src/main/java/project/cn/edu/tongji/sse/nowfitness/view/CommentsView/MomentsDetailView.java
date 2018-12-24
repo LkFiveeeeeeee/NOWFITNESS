@@ -221,7 +221,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         final EditText commentText = (EditText) commentView.findViewById(R.id.moments_dialog_comment_et);
         final Button bt_comment = (Button) commentView.findViewById(R.id.moments_dialog_comment_bt);
         CommentsDetailModel commentsDetailModel;
-        String logmessage="";
         switch (commentType) {
             case COMMENT_TARGET_MOMENTS :
                 commentText.setHint("请输入评论内容");
@@ -345,5 +344,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
             }
         });
     }
+
 
 }

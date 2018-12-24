@@ -87,6 +87,7 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.delete:
+                                momentsDetailPresenter.pMomentsModel.setCommentsNum( momentsDetailPresenter.pMomentsModel.getCommentsNum()-1);
                                  momentsDetailPresenter.deleteComments(groupPosition);
                         }
                         return true;

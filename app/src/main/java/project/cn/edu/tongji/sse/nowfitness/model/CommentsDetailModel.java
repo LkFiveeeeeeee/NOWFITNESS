@@ -111,4 +111,8 @@ public class CommentsDetailModel {
             return commentUserNickName;
         }
 
+        public void setCommentUserNickName(String name){
+            this.commentUserNickName = name;
+        }
+
 }
