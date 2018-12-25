@@ -24,7 +24,11 @@ import android.view.ViewGroup;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.BookResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.BookPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LeftFragmentPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
@@ -35,7 +39,7 @@ import static android.support.constraint.Constraints.TAG;
  * Created by a on 2018/11/22.
  */
 
-public class LeftFragment extends Fragment {
+public class LeftFragment extends Fragment implements BookMethod{
 
     public static String TAB_TYPE_1= "following";
     public static String TAB_TYPE_2 = "nearBy";
@@ -56,7 +60,7 @@ public class LeftFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         leftFragmentPresenter = new LeftFragmentPresenter(this);
-        bookPresenter = new BookPresenter(this.getActivity());
+        bookPresenter = new BookPresenter(this.getActivity(),this);
     }
 
     @Nullable
@@ -64,9 +68,8 @@ public class LeftFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.left_fragment,container,false);
         mAppCompatActivity=(AppCompatActivity)getActivity();
-        //请求豆瓣api
+        bookPresenter.getBookInfo("健身",getRandomBookStart(),5);
         leftFragmentPresenter.initView();
-        //bookPresenter.initBannner();
         return myView;
     }
 
@@ -134,6 +137,25 @@ public class LeftFragment extends Fragment {
         super.onCreateOptionsMenu(menu,inflater);
     }
 
+    @Override
+    public void queryError(Throwable e) {
+            e.printStackTrace();
+    }
 
+    @Override
+    public void querySuccess(BookResponseModel bookResponseModel) {
+        bookPresenter.setBooksLab(bookResponseModel.getBooks());
+        bookPresenter.resetBanner();
+    }
+    private int getRandomBookStart(){
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int day_index = cal.get(Calendar.DAY_OF_MONTH);
+        if(day_index >= 1 )
+            return day_index;
+        else
+            return 1;
+    }
 
 }

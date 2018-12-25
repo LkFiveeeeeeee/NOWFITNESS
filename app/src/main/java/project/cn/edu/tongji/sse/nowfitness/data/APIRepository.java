@@ -61,4 +61,5 @@ public interface APIRepository {
     Single getFollowingInfo(int userId);
 
     Single putTodayStep(Map<String,RequestBody> bodyMap);
+
 }

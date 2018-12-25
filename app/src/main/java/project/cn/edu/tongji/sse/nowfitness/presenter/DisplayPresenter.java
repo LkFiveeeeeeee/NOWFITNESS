@@ -39,21 +39,7 @@ public class DisplayPresenter extends BasePresenter{
         }
     }
 
-    public void postFollowInfo(int userId,int followId){
-        subscriptions.add(apiRepository.postFollowInfo(userId,followId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
-        );
-    }
 
-    public void deleteFollowInfo(int userId,int followId){
-        subscriptions.add(apiRepository.postFollowInfo(userId,followId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
-        );
-    }
 
 
 }

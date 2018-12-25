@@ -20,6 +20,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.BaseMomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
 
 /**
  * Created by a on 2018/11/28.
@@ -44,8 +45,6 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
     private BaseMomentsPresenter baseMomentsPresenter;
     private int userId;
     private int myPosition;
-
-    private String title,message;
     private int type = DIALOG_NULL;
 
     public MomentsViewHolder(View itemView, BaseMomentsPresenter baseMomentsPresenter) {
@@ -83,7 +82,8 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             else
                 contentPicImage.setVisibility(View.GONE);
         }
-        if((baseMomentsPresenter instanceof PersonPagePresenter && userId!=0 )||baseMomentsPresenter instanceof MomentsPresenter)
+        if((baseMomentsPresenter instanceof PersonPagePresenter && userId==(int)UserInfoLab.get().getUserInfoModel().getId() )
+                ||baseMomentsPresenter instanceof MomentsPresenter && ((MomentsPresenter) baseMomentsPresenter).getMomentsType().equals(LeftFragment.TAB_TYPE_1))
             btMenu.setOnClickListener(this);
         else
             btMenu.setVisibility(View.GONE);
@@ -120,7 +120,6 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             case R.id.btnMenus:
                 PopupMenu popup = new PopupMenu(baseMomentsPresenter.getContext(),btMenu);
                 if(baseMomentsPresenter instanceof PersonPagePresenter){
-                if(userId!=(int) UserInfoLab.get().getUserInfoModel().getId()) {
                     popup.getMenuInflater().inflate(R.menu.moments_pop_menu_u, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
@@ -137,7 +136,6 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                             return true;
                         }
                     });
-                }
                 }else{
                     popup.getMenuInflater().inflate(R.menu.moments_pop_menu_f, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -160,7 +158,6 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                 break;
             default:
                 break;
-                //momentsPresenter.likeOrDislike();
         }
     }
 
@@ -173,7 +170,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(type==DIALOG_NOT_FOLLOWING) {
-
+                    baseMomentsPresenter.deleteFollowingInfo((int)UserInfoLab.get().getUserInfoModel().getId(),mMoments.getUserId());
                 }else if(type==DIALOG_DELETE){
                     ((PersonPagePresenter) baseMomentsPresenter).deleteMoments(myPosition);
                 }

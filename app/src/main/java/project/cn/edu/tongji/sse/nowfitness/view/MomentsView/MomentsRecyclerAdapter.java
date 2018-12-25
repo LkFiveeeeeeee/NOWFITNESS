@@ -76,8 +76,7 @@ public class MomentsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //请求数据加载数据
-                    baseMomentsPresenter.jumpToMomentsDetail(momentsLab.get(position));
+                    baseMomentsPresenter.jumpToMomentsDetail(momentsLab.get(position),position);
                 }
             });
         }else if(holder instanceof EmptyViewHolder){

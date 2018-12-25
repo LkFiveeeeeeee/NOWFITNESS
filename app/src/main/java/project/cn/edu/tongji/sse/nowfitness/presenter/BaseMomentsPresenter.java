@@ -28,7 +28,7 @@ public class BaseMomentsPresenter extends BasePresenter {
     protected int pageNum;
     protected int totalMoments;
     protected int currentPageSize;
-    private Context mContext;
+    protected Context mContext;
     protected MomentsMethod momentsMethod;
 
     public void  setPageNum(int pageNum){
@@ -64,12 +64,6 @@ public class BaseMomentsPresenter extends BasePresenter {
         //pMomentsLab = momentsModelList;
         momentsRecyclerAdapter = new MomentsRecyclerAdapter(pMomentsLab,this);
         momentsRecyclerView.setAdapter(momentsRecyclerAdapter);
-    }
-    public void jumpToMomentsDetail(MomentsModel momentsModel){
-        Intent intent = new Intent();
-        intent.putExtra("moments",momentsModel);
-        intent.setClass(mContext, MomentsDetailView.class);
-        mContext.startActivity(intent);
     }
     public void jumpToPersonPage(int id,String userName,String nickName,String personPhoto){
         Intent intent = new Intent();
@@ -111,6 +105,31 @@ public class BaseMomentsPresenter extends BasePresenter {
                 .subscribe()
         );
     }
+    public void resetMomentsList(List<MomentsModel> momentsModelList){
+        pMomentsLab = momentsModelList;
+        momentsRecyclerAdapter.resetMomentsModelsList(momentsModelList);
+        momentsRecyclerAdapter.notifyDataSetChanged();
+    }
+    public void postFollowingInfo(int userId,int followId){
+        subscriptions.add(apiRepository.postFollowInfo(userId,followId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        );
+    }
+    public void deleteFollowingInfo(int userId,int followId){
+        subscriptions.add(apiRepository.deleteFollowInfo(userId, followId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        );
+    }
+    public void notifyCommentsNumChange(int position,int commentsNum){
+        pMomentsLab.get(position).setCommentsNum(commentsNum);
+        momentsRecyclerAdapter.notifyItemChanged(position);
+    }
+    public void jumpToMomentsDetail(MomentsModel momentsModel,int position) {
 
+    }
 
 }

@@ -57,6 +57,4 @@ public class ChildHolder extends  BaseExHolder implements View.OnClickListener{
                 break;
         }
     }
-
-
 }

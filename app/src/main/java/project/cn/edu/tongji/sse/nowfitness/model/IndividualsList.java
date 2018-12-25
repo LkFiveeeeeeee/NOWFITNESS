@@ -21,5 +21,11 @@ public class IndividualsList {
         this.individualModels = individualModels;
     }
 
+    public void setTrueForAll(){
+        for(IndividualModel individualModel:individualModels){
+            individualModel.setStated(true);
+        }
+    }
+
     private List<IndividualModel> individualModels;
 }

@@ -13,6 +13,9 @@ import com.bumptech.glide.Glide;
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.presenter.DisplayPresenter;
+import project.cn.edu.tongji.sse.nowfitness.presenter.FollowPresenter;
 
 public class DisplayViewVHolder extends RecyclerView.ViewHolder {
     private CircleImageView avatar;
@@ -20,7 +23,7 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
     private TextView sex;
     private IndividualModel individualModel;
     private AppCompatButton switchButton;
-
+    private FollowPresenter followPresenter = new FollowPresenter();
 
     public DisplayViewVHolder(LayoutInflater inflater, ViewGroup parent){
         super(inflater.inflate(R.layout.individual_item,parent,false));
@@ -57,6 +60,11 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 individualModel.setStated(!individualModel.isStated());
                 setSwitchButton(individualModel.isStated());
+                if(individualModel.isStated()){
+                    followPresenter.postFollowInfo((int)UserInfoLab.get().getUserInfoModel().getId(),individualModel.getId());
+                }else{
+                    followPresenter.deleteFollowInfo((int)UserInfoLab.get().getUserInfoModel().getId(),individualModel.getId());
+                }
                 //TODO 更改网络方面数据
                 //TODO Toast 成功or失败信息
             }

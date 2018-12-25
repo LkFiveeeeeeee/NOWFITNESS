@@ -86,6 +86,10 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
                 displayRecyclerView.setAdapter(displayNoItemAdapter);
                 displayNoItemAdapter.notifyDataSetChanged();
             }else{
+                //如果请求的是关注列表,则将关注状态全部更改为true;
+                if(type == STARS_TYPE){
+                    modelList.getData().setTrueForAll();
+                }
                 DisplayViewAdapter displayViewAdapter = new DisplayViewAdapter(modelList.getData().getIndividualModels());
                 displayRecyclerView.setAdapter(displayViewAdapter);
                 displayViewAdapter.notifyDataSetChanged();
