@@ -1,13 +1,12 @@
 package project.cn.edu.tongji.sse.nowfitness.data.network;
 
-import org.json.JSONObject;
-
 import java.util.Map;
 
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
@@ -214,4 +213,10 @@ public interface ApiInterface {
     @PUT("user/update")
     @Headers({"Content-Type:application/json"})
     Single<ResponseDTO> putUserInfo(@Body UserInfoModel jsonObject);
+
+    @GET("user/{userId}/fans")
+    Single<ResponseDTO<IndividualsDTO>> getFansInfo(@Path("userId") int userId);
+
+    @GET("user/{userId}/following")
+    Single<ResponseDTO<IndividualsDTO>> getFollowingInfo(@Path("userId") int userId);
 }

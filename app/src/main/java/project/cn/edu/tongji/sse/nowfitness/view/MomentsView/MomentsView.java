@@ -25,6 +25,7 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
 
@@ -120,6 +121,11 @@ public class MomentsView extends Fragment implements MomentsMethod{
            }
             swipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel) {
+
     }
 
     @Override

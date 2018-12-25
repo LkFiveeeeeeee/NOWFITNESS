@@ -16,23 +16,24 @@ import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
 
 public class DisplayViewVHolder extends RecyclerView.ViewHolder {
     private CircleImageView avatar;
-    private TextView userName;
+    private TextView nickName;
     private TextView sex;
     private IndividualModel individualModel;
     private AppCompatButton switchButton;
+
 
     public DisplayViewVHolder(LayoutInflater inflater, ViewGroup parent){
         super(inflater.inflate(R.layout.individual_item,parent,false));
 
         avatar = (CircleImageView) itemView.findViewById(R.id.avatar);
-        userName = (TextView) itemView.findViewById(R.id.username);
+        nickName = (TextView) itemView.findViewById(R.id.username);
         sex = (TextView) itemView.findViewById(R.id.sex);
         switchButton = (AppCompatButton) itemView.findViewById(R.id.follow_button);
 
     }
 
     public void setSwitchButton(boolean judge){
-        if(judge == true){
+        if(judge){
             Drawable img = itemView.getContext().getResources().getDrawable(R.drawable.righticon);
             img.setBounds(0,0,img.getMinimumWidth(),img.getMinimumHeight());
             switchButton.setCompoundDrawables(img,null,null,null);
@@ -45,17 +46,17 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void bind(final IndividualModel individual){
+    void bind(final IndividualModel individual){
         this.individualModel = individual;
-        userName.setText(individualModel.getUserName());
+        nickName.setText(individualModel.getNickName());
         sex.setText(individualModel.getSex());
-        Glide.with(itemView).load(individualModel.getImageUrl()).into(avatar);
-        setSwitchButton(individualModel.getIsFollowed());
+        Glide.with(itemView).load(individualModel.getPicture()).into(avatar);
+        setSwitchButton(individualModel.isStated());
         switchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                individualModel.setIsFollowed(!individualModel.getIsFollowed());
-                setSwitchButton(individualModel.getIsFollowed());
+                individualModel.setStated(!individualModel.isStated());
+                setSwitchButton(individualModel.isStated());
                 //TODO 更改网络方面数据
                 //TODO Toast 成功or失败信息
             }

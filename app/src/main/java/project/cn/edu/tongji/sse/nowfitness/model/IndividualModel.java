@@ -1,60 +1,78 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualDTO;
 
 public class IndividualModel {
 
-    //存储另一张表的主键
-    private Long keyID;
-    private String imageUrl;
+
+    private int id;
+    private String picture;
     private String userName;
+    private String nickName;
     private String sex;
-    private boolean isFollowed;
-    public IndividualModel(Long keyID,String imageUrl,
-            String userName, String sex, boolean isFollowed) {
-        this.keyID = keyID;
-        this.imageUrl = imageUrl;
-        this.userName = userName;
-        this.sex = sex;
-        this.isFollowed = isFollowed;
+    private boolean stated;
+
+    public IndividualModel(IndividualDTO individualDTO){
+        this.id = individualDTO.getId();
+        this.picture = individualDTO.getPicture();
+        this.userName = individualDTO.getUserName();
+        this.nickName = individualDTO.getNickName();
+        this.sex = individualDTO.getSex();
+        this.stated = individualDTO.isStates();
     }
 
-    public IndividualModel() {
+    public int getId() {
+        return id;
     }
-    public String getImageUrl() {
-        return this.imageUrl;
+
+    public void setId(int id) {
+        this.id = id;
     }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+
+    public String getPicture() {
+        return picture;
     }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     public String getUserName() {
-        return this.userName;
+        return userName;
     }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    public String getSex() {
-        return this.sex;
+
+    public String getNickName() {
+        return nickName;
     }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
     public void setSex(String sex) {
         this.sex = sex;
     }
-    public boolean getIsFollowed() {
-        return this.isFollowed;
-    }
-    public void setIsFollowed(boolean isFollowed) {
-        this.isFollowed = isFollowed;
-    }
-    public Long getKeyID() {
-        return keyID;
+
+    public boolean isStated() {
+        return stated;
     }
 
-    public void setKeyID(Long keyID) {
-        this.keyID = keyID;
+    public void setStated(boolean stated) {
+        this.stated = stated;
     }
+
+
+
+
 
 
 

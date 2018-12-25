@@ -4,6 +4,8 @@ import android.net.Uri;
 
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -53,4 +55,10 @@ public interface APIRepository {
     Single deleteFollowInfo(int userId,int followId);
 
     Single deleteReply(int id);
+
+    Single getFansInfo(int userId);
+
+    Single getFollowingInfo(int userId);
+
+    Single putTodayStep(Map<String,RequestBody> bodyMap);
 }

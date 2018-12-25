@@ -35,6 +35,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepCount;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepValuePassListener;
+import project.cn.edu.tongji.sse.nowfitness.presenter.StepServicePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 
 
@@ -82,6 +83,7 @@ public class StepService extends Service implements SensorEventListener {
     //UI监听器
     private UpdateUICallBack uiCallBack;
 
+    private StepServicePresenter stepServicePresenter = new StepServicePresenter();
 
     public StepService(){
 
@@ -422,6 +424,7 @@ public class StepService extends Service implements SensorEventListener {
         StepLab.get().setStep(tempStep + "");
         Log.d(TAG, "save: " + tempStep);
         DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insertOrReplace(StepLab.get().getStepModel());
+        stepServicePresenter.putTodayStepsData(tempStep);
     }
 
     @Override

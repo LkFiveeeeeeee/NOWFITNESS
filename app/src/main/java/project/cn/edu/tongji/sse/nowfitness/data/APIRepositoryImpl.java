@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
@@ -11,6 +12,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
@@ -19,6 +22,10 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
+import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
+import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
+import project.cn.edu.tongji.sse.nowfitness.model.IndividualsList;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
@@ -331,6 +338,68 @@ public class APIRepositoryImpl implements APIRepository {
     public Single deleteFollowInfo(int userId, int followId) {
         ResponseModel responseModel = new ResponseModel();
         return api.deleteFollowInfo(userId,followId)
+                .map(new Function<ResponseDTO, ResponseModel>() {
+                    @Override
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseModel.setError(responseDTO.getError());
+                        return responseModel;
+                    }
+                });
+    }
+
+    @Override
+    public Single<ResponseModel<IndividualsList>> getFansInfo(int userId) {
+        ResponseModel responseModel = new ResponseModel();
+        List<IndividualModel>  individualModels= new ArrayList<>();
+        return api.getFansInfo(userId)
+                .map(new Function<ResponseDTO<IndividualsDTO>, ResponseModel<IndividualsList>>() {
+                    @Override
+                    public ResponseModel<IndividualsList> apply(ResponseDTO<IndividualsDTO> individualsDTOResponseDTO) throws Exception {
+                        if(individualsDTOResponseDTO.getData().getTotalNum() != 0){
+                            for(IndividualDTO individualDTO:individualsDTOResponseDTO.getData().getUsers()){
+                                individualModels.add(new IndividualModel(individualDTO));
+                            }
+                        }
+                        IndividualsList list = new IndividualsList();
+                        list.setTotalNum(individualsDTOResponseDTO.getData().getTotalNum());
+                        list.setIndividualModels(individualModels);
+                        responseModel.setStatus(individualsDTOResponseDTO.getStatus());
+                        responseModel.setError(individualsDTOResponseDTO.getError());
+                        responseModel.setData(list);
+                        return responseModel;
+                    }
+                });
+    }
+
+    @Override
+        public Single<ResponseModel<IndividualsList>> getFollowingInfo(int userId) {
+        ResponseModel responseModel = new ResponseModel();
+        List<IndividualModel>  individualModels= new ArrayList<>();
+        return api.getFollowingInfo(userId)
+                .map(new Function<ResponseDTO<IndividualsDTO>, ResponseModel<IndividualsList>>() {
+                    @Override
+                    public ResponseModel<IndividualsList> apply(ResponseDTO<IndividualsDTO> individualsDTOResponseDTO) throws Exception {
+                        if(individualsDTOResponseDTO.getData().getTotalNum() != 0){
+                            for(IndividualDTO individualDTO:individualsDTOResponseDTO.getData().getUsers()){
+                                individualModels.add(new IndividualModel(individualDTO));
+                            }
+                        }
+                        IndividualsList list = new IndividualsList();
+                        list.setTotalNum(individualsDTOResponseDTO.getData().getTotalNum());
+                        list.setIndividualModels(individualModels);
+                        responseModel.setStatus(individualsDTOResponseDTO.getStatus());
+                        responseModel.setError(individualsDTOResponseDTO.getError());
+                        responseModel.setData(list);
+                        return responseModel;
+                    }
+                });
+    }
+
+    @Override
+    public Single<ResponseModel> putTodayStep(Map<String,RequestBody> bodyMap) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.putTodayStepsData(bodyMap)
                 .map(new Function<ResponseDTO, ResponseModel>() {
                     @Override
                     public ResponseModel apply(ResponseDTO responseDTO) throws Exception {

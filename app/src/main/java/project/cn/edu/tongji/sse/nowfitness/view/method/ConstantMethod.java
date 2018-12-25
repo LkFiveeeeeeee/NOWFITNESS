@@ -62,4 +62,8 @@ public class ConstantMethod {
     public static void toastShort(Context context,String string){
         Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
     }
+
+    public static double countCalories(int steps,double weight){
+        return steps * weight * 0.70 * 1.036;
+    }
 }
