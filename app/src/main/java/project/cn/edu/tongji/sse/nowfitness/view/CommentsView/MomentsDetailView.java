@@ -1,5 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view.CommentsView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -64,6 +65,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     private PhotoView momentsImage;
     private ImageView likesImage;
     private TextView likesNum;
+    private int originPos;
 
     private SwipeRefreshLayout commentsRefreshLayout;
     private BottomSheetDialog dialog;
@@ -74,6 +76,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         super.onCreate(savedInstanceState);
         setContentView(R.layout.moments_detail_view);
         Intent intent = getIntent();
+        originPos = intent.getIntExtra("position",0);
         momentsModel = (MomentsModel) intent.getSerializableExtra("moments");
         momentsDetailPresenter = new MomentsDetailPresenter(this,momentsModel,this);
         momentsDetailPresenter.initView();
@@ -345,5 +348,12 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent();
+        intent.putExtra("position",originPos);
+        intent.putExtra("commentsNum",momentsDetailPresenter.pMomentsModel.getCommentsNum());
+        setResult(Activity.RESULT_OK,intent);
+        super.onBackPressed();
+    }
 }

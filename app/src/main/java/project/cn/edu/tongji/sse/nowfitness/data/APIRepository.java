@@ -53,4 +53,5 @@ public interface APIRepository {
     Single deleteFollowInfo(int userId,int followId);
 
     Single deleteReply(int id);
+
 }

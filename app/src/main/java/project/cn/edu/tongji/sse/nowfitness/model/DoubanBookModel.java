@@ -1,7 +1,10 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.BookDTO;
 
 /**
  * Created by a on 2018/12/21.
@@ -301,6 +304,14 @@ public class DoubanBookModel implements Serializable {
         public void setMin(int min) {
             this.min = min;
         }
+        public  RatingBean(BookDTO.BooksBean.RatingBean ratingBean){
+            this.average = ratingBean.getAverage();
+            this.numRaters = ratingBean.getNumRaters();
+        }
+        public  RatingBean(){
+
+        }
+
     }
 
     public static class ImagesBean  implements Serializable {
@@ -373,5 +384,28 @@ public class DoubanBookModel implements Serializable {
         public void setTitle(String title) {
             this.title = title;
         }
+        public TagsBean(BookDTO.BooksBean.TagsBean tagsBean){
+            this.count = tagsBean.getCount();
+            this.name = tagsBean.getName();
+            this.title = tagsBean.getTitle();
+        }
+        public TagsBean(){}
+
+    }
+    public DoubanBookModel(){
+
+    }
+    public DoubanBookModel(BookDTO.BooksBean booksBean){
+        this.setImage(booksBean.getImage());
+        this.setTitle(booksBean.getTitle());
+        this.setRating(new RatingBean(booksBean.getRating()));
+        this.setAuthor(booksBean.getAuthor());
+        this.setPubdate(booksBean.getPubdate());
+        this.setSummary(booksBean.getSummary());
+        List<TagsBean> tagsBeanList = new ArrayList<>();
+        for (BookDTO.BooksBean.TagsBean tag :booksBean.getTags()){
+            tagsBeanList.add(new TagsBean(tag));
+        }
+        this.setTags(tagsBeanList);
     }
 }

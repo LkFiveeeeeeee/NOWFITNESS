@@ -1,11 +1,14 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
+import android.content.Intent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
 
@@ -14,14 +17,13 @@ import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
  */
 
 public class MomentsPresenter extends BaseMomentsPresenter{
+    public static int RESULT_CODE = 1001;
     private MomentsView momentsView;
 
     public void initView(){
         momentsView.initView();
     }
-    public void likeOrDislike(){
 
-    }
     public MomentsPresenter(MomentsView momentsView, MomentsMethod momentsMethod){
         super(momentsMethod,momentsView.getActivity());
         this.momentsView = momentsView;
@@ -37,11 +39,12 @@ public class MomentsPresenter extends BaseMomentsPresenter{
         );
 
     }
-
-    public void resetMomentsList(List<MomentsModel> momentsModelList){
-        pMomentsLab = momentsModelList;
-        momentsRecyclerAdapter.resetMomentsModelsList(momentsModelList);
-        momentsRecyclerAdapter.notifyDataSetChanged();
+    public void queryForNearByInfo(int userId,int pageNum){
+        subscriptions.add(apiRepository.getNeighborMoments(userId,pageNum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(momentsMethod::querySuccess,momentsMethod::queryError)
+        );
     }
 
     public void addMomentsList(List<MomentsModel> momentsModelList){
@@ -50,4 +53,17 @@ public class MomentsPresenter extends BaseMomentsPresenter{
         momentsRecyclerAdapter.resetMomentsModelsList(pMomentsLab);
         momentsRecyclerAdapter.notifyDataSetChanged();
     }
+
+    public String getMomentsType(){
+        return momentsView.getType();
+    }
+
+    public void jumpToMomentsDetail(MomentsModel momentsModel,int position){
+        Intent intent = new Intent();
+        intent.putExtra("moments",momentsModel);
+        intent.putExtra("position",position);
+        intent.setClass(momentsView.getActivity(), MomentsDetailView.class);
+        momentsView.startActivityForResult(intent,RESULT_CODE);
+    }
+
 }

@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
@@ -45,6 +49,9 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
             String time = commentsDetailModel.getCommentTime();
             time = time.substring(0, 19);
             time = time.replace("T", " ");
+            tv_time.setText(time);
+        }else{
+            String time = getTimeStamp();
             tv_time.setText(time);
         }
         Log.e("aaaaa", "onBindView: "+commentsDetailModel.getCommentUserPhoto());
@@ -99,5 +106,14 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
                     break;
         }
     }
-
+    private String getTimeStamp(){
+        long time = System.currentTimeMillis();
+        String timeStamp = String.valueOf(time/1000);
+        if(timeStamp == null || timeStamp.isEmpty() || timeStamp.equals("null")){
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        return sdf.format(new Date(Long.valueOf(timeStamp+"000")));
+    }
 }

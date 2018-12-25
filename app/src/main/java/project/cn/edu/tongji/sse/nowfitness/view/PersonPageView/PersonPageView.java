@@ -1,5 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view.PersonPageView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -32,9 +34,12 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsRecyclerAdapter;
 
 public class PersonPageView extends AppCompatActivity implements MomentsMethod {
 
@@ -70,13 +75,17 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
         }
         personPagePresenter = new PersonPagePresenter(this,this,this);
         personPagePresenter.intiView();
-        personPagePresenter.quertForPersonInfo(personId);
+        if(personId!=(int)UserInfoLab.get().getUserInfoModel().getId()) {
+            personPagePresenter.getUserInfo(userName);
+        }
+        else {
+            bindPersonInfo(UserInfoLab.get().getUserInfoModel());
+        }
+        personPagePresenter.getUserMoments(personId,1);
     }
 
     public void initView() {
         refreshLayout = (RefreshLayout)findViewById(R.id.person_refreshLayout);
-        //refreshLayout.setRefreshHeader(new ClassicsHeader(this).setEnableLastTime(false));
-       // refreshLayout.setRefreshFooter(new ClassicsFooter(this).setSpinnerStyle(SpinnerStyle.Scale));
         personToolbar = (Toolbar)findViewById(R.id.person_toolbar);
         nameView = (TextView) findViewById(R.id.person_name);
         if (nickName!=null)
@@ -91,6 +100,9 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
         followingButton = (Button) findViewById(R.id.person_following);
+        if(personId==(int) UserInfoLab.get().getUserInfoModel().getId()){
+            followingButton.setVisibility(View.GONE);
+        }
         ageTab.setEnabled(false);
         sexTab.setEnabled(false);
        // personToolbar.setVisibility(View.GONE);
@@ -113,25 +125,16 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(50/*,false*/);//传入false表示刷新失败
-                //finishRefresh(delayed);
-                personPagePresenter.queryForInfo(personId,1);
-
+                personPagePresenter.getUserMoments(personId,1);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                java.util.Random r= new java.util.Random();
-                if(r.nextBoolean())
-                    refreshlayout.finishLoadMoreWithNoMoreData();
-                else {
-                    refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-                    //finishLoadMore(delayed);
-                    personPagePresenter.queryForInfo(personId,1);
+                    personPagePresenter.getUserMoments(personId,personPagePresenter.getNextPage());
                 }
-            }
         });
+
         followingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +148,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             followingButton.setText("+ 关注");
                             followingButton.setBackgroundColor(Color.parseColor("#90FF0000"));
+                            personPagePresenter.deleteFollowingInfo((int) UserInfoLab.get().getUserInfoModel().getId(),personId);
                         }
                     });
                     dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -157,6 +161,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
                     followingButton.setText("已关注");
                     followingButton.setBackgroundColor(Color.parseColor("#80D3D3D3"));
                     Toast.makeText(getApplicationContext(), "关注成功", Toast.LENGTH_SHORT).show();
+                    personPagePresenter.postFollowingInfo((int) UserInfoLab.get().getUserInfoModel().getId(),personId);
                 }
             }
         });
@@ -169,7 +174,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
                     if(nickName!=null)
                         mCollapsingToolbarLayout.setTitle(nickName);
                     else
-                        mCollapsingToolbarLayout.setTitle("刘欣然_");
+                        mCollapsingToolbarLayout.setTitle("无名氏");
                 } else {
                    // personToolbar.setVisibility(View.VISIBLE);
                     mCollapsingToolbarLayout.setTitle(" ");
@@ -180,17 +185,34 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
 
     @Override
     public void querySuccess(ResponseModel<MomentsModelList> momentsModelListResponseModel) {
-        if(momentsModelListResponseModel.getStatus() >= 200 && momentsModelListResponseModel.getStatus() < 300){
-            //TODO momentsModelList的一些操作
-            MomentsModelList momentsModelList = momentsModelListResponseModel.getData();
+        if(momentsModelListResponseModel.getStatus() >= 200 || momentsModelListResponseModel.getStatus() < 300){
+            if(momentsModelListResponseModel.getData().getTotal()==0)
+                personPagePresenter.setAdapterStates(MomentsRecyclerAdapter.NO_CONTENT);
+            else if(momentsModelListResponseModel.getData().getSize()==0) {
+                refreshLayout.finishLoadMoreWithNoMoreData();
+            }else {
+                personPagePresenter.setPages(momentsModelListResponseModel.getData().getPages());
+                personPagePresenter.setPageNum(momentsModelListResponseModel.getData().getPageNum());
+                personPagePresenter.setTotalMoments(momentsModelListResponseModel.getData().getTotal());
+                if(momentsModelListResponseModel.getData().getPageNum()==1) {
+                    personPagePresenter.resetMomentsList(momentsModelListResponseModel.getData().getList());
+                    personPagePresenter.setAdapterStates(MomentsRecyclerAdapter.NORMAL);
+                    refreshLayout.setNoMoreData(false);
+                    refreshLayout.finishRefresh();
+                }
+                else {
+                    personPagePresenter.addMomentsList(momentsModelListResponseModel.getData().getList());
+                    refreshLayout.finishLoadMore();
+                }
+
+            }
         }
     }
-
     @Override
     public void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel) {
         if(userInfoModelResponseModel.getStatus() >= 200 && userInfoModelResponseModel.getStatus() < 300){
-            //TODO userInfoModel的一些操作
             UserInfoModel userInfoModel = userInfoModelResponseModel.getData();
+            bindPersonInfo(userInfoModel);
         }
     }
 
@@ -201,9 +223,20 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
 
     public void bindPersonInfo(UserInfoModel userInfoModel){
         Glide.with(this).load(userInfoModel.getPictureUrl()).into(personPhoto);
-        followsView.setText("");
-        fansView.setText("");
-        ageTab.setText(0);
-        sexTab.setText("男");
+        followsView.setText("关注 "+String.valueOf(userInfoModel.getFollowingNum()));
+        fansView.setText("粉丝 "+String.valueOf(userInfoModel.getFansNum()));
+        ageTab.setText(String.valueOf(userInfoModel.getAge())+"岁");
+        sexTab.setText(userInfoModel.getSex());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode== MomentsPresenter.RESULT_CODE&&resultCode== Activity.RESULT_OK){
+            int position = data.getIntExtra("position",0);
+            int commentsNum = data.getIntExtra("commentsNum",0);
+            Log.d("momentsview", "onActivityResult: "+String.valueOf(position)+"  "+String.valueOf(commentsNum));
+           personPagePresenter.notifyCommentsNumChange(position,commentsNum);
+        }
     }
 }

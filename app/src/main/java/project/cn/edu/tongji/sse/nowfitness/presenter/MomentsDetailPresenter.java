@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import android.widget.ExpandableListView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +73,6 @@ public class MomentsDetailPresenter extends BasePresenter  {
 
         replyDetailModel.setContent(commentContent);
         adapter.addTheReplyData(replyDetailModel,groupPosition);
-        //TODO  ADD makeNewReply
         makeNewReply(replyDetailModel);
         commentsList = adapter.getCommentsList();
     }
@@ -107,15 +107,11 @@ public class MomentsDetailPresenter extends BasePresenter  {
         commentsList = adapter.getCommentsList();
     }
 
-    //模拟数据
     private void getAllComments(){
         commentsModel = new MomentsCommentsModel();
-       // commentsModel.setCommentsList(new ArrayList<>());
         CommentsDetailModel emptyPlacement = new CommentsDetailModel();
         commentsList.add(emptyPlacement);
     }
-
-
     public void queryForComments(int momentsId){
         subscriptions.add(apiRepository.getCommentsInfo(momentsId)
         .subscribeOn(Schedulers.io())
@@ -146,13 +142,10 @@ public class MomentsDetailPresenter extends BasePresenter  {
 
     public boolean deleteReply(int groupPos,int childPos){
         deleteReply(commentsList.get(groupPos).getRepliesList().get(childPos).getId());
-        if(adapter.deleteReply(groupPos, childPos)){
-            //服务端请求删除回复
-            //TODO add deleteReply
-            //
-            return true;
-        }else
+        if(!adapter.deleteReply(groupPos, childPos)) {
             return false;
+        }
+        return true;
     }
 
     public void deleteComments(int groupPos){
@@ -165,7 +158,7 @@ public class MomentsDetailPresenter extends BasePresenter  {
     public void jumpToPersonPage(int id,String personName,String nickName,String personPhoto){
         Intent intent = new Intent();
         intent.putExtra("userId",id);
-        intent.putExtra("name",personName);
+        intent.putExtra("userName",personName);
         intent.putExtra("nickName",nickName);
         intent.putExtra("photo",personPhoto);
         intent.setClass(momentsDetailView, PersonPageView.class);
@@ -179,4 +172,5 @@ public class MomentsDetailPresenter extends BasePresenter  {
         else
             return false;
     }
+
 }

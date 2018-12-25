@@ -7,6 +7,7 @@ import java.util.Map;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.BookDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
@@ -25,6 +26,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
     //TODO API接口函数声明
@@ -63,7 +65,7 @@ public interface ApiInterface {
      * POST 用户头像
      * @param file 照片文件
      * @param id 用户id
-     * @return ResponseDTO without data
+     * @return ResponseDTO without
      */
     @POST("user/uploadPhoto")
     @Multipart
@@ -214,4 +216,7 @@ public interface ApiInterface {
     @PUT("user/update")
     @Headers({"Content-Type:application/json"})
     Single<ResponseDTO> putUserInfo(@Body UserInfoModel jsonObject);
+
+    @GET("search")
+    Single<BookDTO> getBookInfo(@Query("tag")String tag,@Query("start")int start,@Query("count")int count);
 }
