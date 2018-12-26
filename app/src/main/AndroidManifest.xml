@@ -91,12 +91,6 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".pedometerModule.StepService.StepServiceRestartReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:label="RestartServiceWhenStopped" />
-
 
     </application>
 

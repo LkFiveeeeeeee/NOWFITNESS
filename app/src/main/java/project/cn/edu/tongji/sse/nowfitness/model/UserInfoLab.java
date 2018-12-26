@@ -1,6 +1,8 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
-public class    UserInfoLab  {
+import android.util.Log;
+
+public class UserInfoLab  {
     private static UserInfoLab userInfoLab;
 
     public UserInfoModel getUserInfoModel() {
@@ -14,8 +16,10 @@ public class    UserInfoLab  {
     private UserInfoModel userInfoModel;
     public static UserInfoLab get(){
         if(userInfoLab == null){
+            Log.d("userInfoLab", "get: userInfoLab is NULL !!!!!!!");
             userInfoLab = new UserInfoLab();
         }
+
         return userInfoLab;
     }
 }

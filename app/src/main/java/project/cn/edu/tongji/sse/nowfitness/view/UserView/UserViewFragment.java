@@ -140,7 +140,6 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             if((Math.abs(x) > 17  || Math.abs(y) > 17 || Math.abs(z)>17 )&& ! isShake){
                 Log.d("Test Sensor", "onStart: OK 加速器传感器 The event is OK");
                 isShake = true;
-                Intent intent = new Intent(getActivity(),DisplayView.class);
                 Observable.just("Success")
                         .subscribe(this::shakeSuccess,this::queryError);
             }

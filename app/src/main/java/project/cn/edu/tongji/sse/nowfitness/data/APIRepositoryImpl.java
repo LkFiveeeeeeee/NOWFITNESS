@@ -3,8 +3,11 @@ package project.cn.edu.tongji.sse.nowfitness.data;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
@@ -16,6 +19,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
@@ -28,7 +32,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualsList;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
+import project.cn.edu.tongji.sse.nowfitness.model.Response;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
+import project.cn.edu.tongji.sse.nowfitness.model.StepModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
@@ -405,6 +412,31 @@ public class APIRepositoryImpl implements APIRepository {
                     public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
                         responseModel.setStatus(responseDTO.getStatus());
                         responseModel.setError(responseDTO.getError());
+                        return responseModel;
+                    }
+                });
+    }
+
+    @Override
+    public Single<ResponseModel<StepModelList>> getStepsData(int userId, int days) {
+        ResponseModel responseModel = new ResponseModel();
+        List<StepModel> stepModels = new ArrayList<>();
+        return api.getStepsData(userId,days)
+                .map(new Function<ResponseDTO<StepDataDTO>, ResponseModel<StepModelList>>() {
+                    @Override
+                    public ResponseModel<StepModelList> apply(ResponseDTO<StepDataDTO> stepDataDTOResponseDTO) throws Exception {
+                        if(stepDataDTOResponseDTO.getData().getDays() > 0){
+                            for(StepDataDTO.StepsDataModelListBean bean:stepDataDTOResponseDTO.getData().getStepsDataModelList()){
+                                stepModels.add(new StepModel(bean));
+                            }
+                        }
+                        Collections.reverse(stepModels);
+                        StepModelList stepModelList = new StepModelList();
+                        stepModelList.setStepModels(stepModels);
+                        stepModelList.setDays(stepDataDTOResponseDTO.getData().getDays());
+                        responseModel.setStatus(stepDataDTOResponseDTO.getStatus());
+                        responseModel.setError(stepDataDTOResponseDTO.getError());
+                        responseModel.setData(stepModelList);
                         return responseModel;
                     }
                 });

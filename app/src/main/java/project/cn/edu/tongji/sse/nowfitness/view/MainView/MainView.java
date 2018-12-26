@@ -123,13 +123,13 @@ public class MainView extends AppCompatActivity {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 if(position == 0){
-                    if(wasSelected == false){
+                    if(!wasSelected){
                         getSupportFragmentManager()
                                 .popBackStack();
                     }
                 }
                 else if (position == 2){
-                    if(wasSelected == false){
+                    if(!wasSelected){
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(R.anim.right_slide_in,

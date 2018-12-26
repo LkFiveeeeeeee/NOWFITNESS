@@ -3,19 +3,17 @@ package project.cn.edu.tongji.sse.nowfitness.view.DataChartView;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -29,28 +27,32 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
-import project.cn.edu.tongji.sse.nowfitness.view.DataChartView.StepArcView.StepArcView;
+import project.cn.edu.tongji.sse.nowfitness.model.StepModelList;
+import project.cn.edu.tongji.sse.nowfitness.presenter.DataChartPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
-public class DataChartFragment extends Fragment {
+public class DataChartFragment extends Fragment implements DataChartMethod{
     public final static String DAY_NUMBER = "DAYNUMBER";
 
 
 
-    /**CommbindChart*/
+    /**CombinedChart*/
     private int dayCount;
     private CombinedChart combinedChart;
     private CombinedData combinedData;
+    private DataChartPresenter dataChartPresenter;
+    private LinearLayout dataColumn;
+    private View noDataView;
+    private View badNetworkView;
+    private TextView warningWord;
     private List<StepModel> stepModels = new ArrayList<>();
-    private List<Entry> entries = new ArrayList<Entry>();
+    private List<Entry> entries = new ArrayList<>();
     private List<BarEntry> barEntries = new ArrayList<>();
 
 
@@ -66,32 +68,43 @@ public class DataChartFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.datachart_item, container, false);
-
+        dataChartPresenter = new DataChartPresenter(this);
         initView(view);
 
         return view;
     }
 
     public void initView(View view) {
-
         combinedChart = (CombinedChart) view.findViewById(R.id.data_linechart);
-
+        dataColumn = (LinearLayout) view.findViewById(R.id.data_column);
+        noDataView = view.findViewById(R.id.no_data);
+        badNetworkView = view.findViewById(R.id.bad_network);
+        warningWord = noDataView.findViewById(R.id.warning_word);
+        warningWord.setText("暂无数据");
         getStepCount();
-        initFakeData();
     }
 
     private void getStepCount() {
         Bundle bundle = getArguments();
+        assert bundle != null;
         dayCount = bundle.getInt(DAY_NUMBER);
-        setViewGone();
+        dataChartPresenter.getStepsData(dayCount);
     }
 
-    private void setViewGone() {
-        /*if (dayCount != 1) {
-            stepContainer.setVisibility(View.GONE);
-        }*/
+    private void setWarningViewGone(){
+        noDataView.setVisibility(View.GONE);
     }
 
+    private void setChartViewGone(){
+        combinedChart.setVisibility(View.GONE);
+        dataColumn.setVisibility(View.GONE);
+    }
+
+    private void setNetworkViewGone(){
+        badNetworkView.setVisibility(View.GONE);
+    }
+
+/*
     private void initFakeData()  {
         for(int i = 1; i <= 30;i++){
             StepModel stepModel = new StepModel();
@@ -103,7 +116,7 @@ public class DataChartFragment extends Fragment {
 
         //TODO
 
-    }
+    }*/
 
     private void initChart()  {
 
@@ -116,7 +129,7 @@ public class DataChartFragment extends Fragment {
         Legend legend = combinedChart.getLegend();
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        setXdata();
+        setXAxisData();
 
         showDataOnChart();
 
@@ -146,6 +159,8 @@ public class DataChartFragment extends Fragment {
 
         combinedChart.getAxisLeft().setDrawGridLines(false);
         combinedChart.getAxisRight().setDrawGridLines(false);
+        combinedChart.getAxisLeft().setAxisMinimum(0);
+        combinedChart.getAxisRight().setAxisMinimum(0);
         combinedChart.animateX(2000);
         combinedChart.setExtraLeftOffset(10);
         combinedChart.setExtraRightOffset(10);
@@ -155,6 +170,8 @@ public class DataChartFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
         xAxis.setAxisMaximum(combinedData.getXMax() + 0.5f);
         xAxis.setAxisMinimum(combinedData.getXMin() - 0.5f);
+
+
 
     }
 
@@ -189,7 +206,7 @@ public class DataChartFragment extends Fragment {
     }
 
 
-    private void setXdata(){
+    private void setXAxisData(){
         combinedChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -203,9 +220,35 @@ public class DataChartFragment extends Fragment {
         int index = dataStr.lastIndexOf('-');
         Log.d("坐标转换", "strToDate: " + dataStr);
 
-        dataStr = dataStr.substring(index + 1);
+        dataStr = dataStr.substring(index + 1,index + 3);
         Log.d("坐标转换", "strToDate: " + dataStr);
         return Integer.valueOf(dataStr);
     }
 
+    @Override
+    public void querySuccess(ResponseModel<StepModelList> stepModelListResponseModel) {
+        if(stepModelListResponseModel.getStatus() >= 200 && stepModelListResponseModel.getStatus()< 300){
+            if(stepModelListResponseModel.getData().getDays() < 3){
+                setChartViewGone();
+                setNetworkViewGone();
+            }else{
+                stepModels = stepModelListResponseModel.getData().getStepModels();
+                setNetworkViewGone();
+                setWarningViewGone();
+                initChart();
+            }
+        }else{
+            ConstantMethod.toastShort(getContext(),stepModelListResponseModel.getError());
+            setChartViewGone();
+            setNetworkViewGone();
+            setWarningViewGone();
+        }
+    }
+
+    @Override
+    public void queryError(Throwable e) {
+        setChartViewGone();
+        setWarningViewGone();
+        e.printStackTrace();
+    }
 }

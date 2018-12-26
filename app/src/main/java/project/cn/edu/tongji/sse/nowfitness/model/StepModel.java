@@ -3,7 +3,9 @@ package project.cn.edu.tongji.sse.nowfitness.model;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Transient;
 
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
 
 
 @Entity
@@ -15,6 +17,11 @@ public class StepModel {
     private String step;
     private String today;
 
+
+
+    @Transient
+    private int calories;
+
     @Generated(hash = 2139198900)
     public StepModel(Long id, int userId, String step, String today) {
         this.id = id;
@@ -25,6 +32,12 @@ public class StepModel {
 
     @Generated(hash = 654390059)
     public StepModel() {
+    }
+
+    public StepModel(StepDataDTO.StepsDataModelListBean bean){
+        this.step = String.valueOf(bean.getSteps());
+        this.today = bean.getDate();
+        this.calories = bean.getCalories();
     }
 
     public Long getId() {
@@ -57,5 +70,13 @@ public class StepModel {
 
     public void setToday(String today) {
         this.today = today;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 }

@@ -62,4 +62,6 @@ public interface APIRepository {
 
     Single putTodayStep(Map<String,RequestBody> bodyMap);
 
+    Single getStepsData(int userId,int days);
+
 }

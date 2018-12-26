@@ -166,6 +166,11 @@ public class StepService extends Service implements SensorEventListener {
         currentDate = getTodayDate();
         //TODO 数据库相关
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+        if(userInfoModel == null){
+            Log.d(TAG, "initTodayData: userInfoModel NULL!!!!!");
+        }else{
+            Log.d(TAG, "initTodayData: userInfoModel notNull!!!!!!");
+        }
         List<StepModel> stepList = DaoMethod.queryByDate(currentDate,userInfoModel.getId());
         Log.d(TAG, "initTodayData: querySize = " + stepList.size());
         if(stepList.size() == 0){
@@ -431,8 +436,6 @@ public class StepService extends Service implements SensorEventListener {
     public void onDestroy() {
         super.onDestroy();
         stopForeground(true);
-        Intent broadcastIntent = new Intent(this,StepServiceRestartReceiver.class);
-        sendBroadcast(broadcastIntent);
         unregisterReceiver(broadcastReceiver);
     }
 

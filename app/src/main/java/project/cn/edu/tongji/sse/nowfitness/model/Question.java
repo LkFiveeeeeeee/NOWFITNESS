@@ -1,11 +1,11 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
 public class Question {
-    String[] options;
-    int[] bonus;
-    String title;
+    private String[] options;
+    private int[] bonus;
+    private String title;
 
-    public Question(String title,String[] options, int[] bonus) {
+    Question(String title, String[] options, int[] bonus) {
         this.options = options;
         this.bonus = bonus;
         this.title = title;
@@ -28,7 +28,7 @@ public class Question {
         this.options = options;
     }
 
-    public int[] getBonus() {
+    int[] getBonus() {
         return bonus;
     }
 

@@ -10,6 +10,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
@@ -221,6 +222,10 @@ public interface ApiInterface {
 
     @GET("user/{userId}/following")
     Single<ResponseDTO<IndividualsDTO>> getFollowingInfo(@Path("userId") int userId);
+
+    @GET("user/{id}/stepsData/{days}")
+    Single<ResponseDTO<StepDataDTO>> getStepsData(@Path("id") int userId,@Path("days") int days);
+
     @GET("search")
     Single<BookDTO> getBookInfo(@Query("tag")String tag,@Query("start")int start,@Query("count")int count);
 }
