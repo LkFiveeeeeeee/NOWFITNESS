@@ -89,7 +89,6 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="15dp"
                         android:text="@string/energy" />
                     <TextView
@@ -98,9 +97,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20dp"
-
                         android:layout_marginTop="20dp"
-                        android:text="13.56Kcal"
+                        android:text="13.56cal"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -122,14 +120,14 @@
                     android:text="相较昨天"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView"
+                    app:layout_constraintEnd_toStartOf="@+id/relative_step"
                     app:layout_constraintHorizontal_bias="0.973"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.523" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/relative_step"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
@@ -144,6 +142,7 @@
                     app:layout_constraintVertical_bias="1.0" />
 
                 <ImageView
+                    android:id="@+id/trend_image"
                     android:layout_width="34dp"
                     android:layout_height="42dp"
                     android:layout_marginStart="8dp"
@@ -154,7 +153,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/relative_step"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 

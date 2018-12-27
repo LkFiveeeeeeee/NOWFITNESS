@@ -22,6 +22,11 @@ public class StepModel {
     @Transient
     private int calories;
 
+
+
+    @Transient
+    private int yesterdayStep;
+
     @Generated(hash = 2139198900)
     public StepModel(Long id, int userId, String step, String today) {
         this.id = id;
@@ -78,5 +83,13 @@ public class StepModel {
 
     public void setCalories(int calories) {
         this.calories = calories;
+    }
+
+    public int getYesterdayStep() {
+        return yesterdayStep;
+    }
+
+    public void setYesterdayStep(int yesterdayStep) {
+        this.yesterdayStep = yesterdayStep;
     }
 }

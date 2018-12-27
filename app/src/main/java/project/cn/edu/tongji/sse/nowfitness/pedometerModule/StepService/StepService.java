@@ -167,7 +167,8 @@ public class StepService extends Service implements SensorEventListener {
         //TODO 数据库相关
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
         if(userInfoModel == null){
-            Log.d(TAG, "initTodayData: userInfoModel NULL!!!!!");
+            UserInfoLab.get().setUserInfoModel(DaoMethod.queryForUserInfo().get(0));
+            userInfoModel = UserInfoLab.get().getUserInfoModel();
         }else{
             Log.d(TAG, "initTodayData: userInfoModel notNull!!!!!!");
         }
@@ -419,6 +420,7 @@ public class StepService extends Service implements SensorEventListener {
         String time = "00:00";
         if(time.equals(new SimpleDateFormat("HH:mm").format(new Date()))){
             initTodayData();
+            putTodayStepsData();
         }
     }
 
@@ -429,6 +431,10 @@ public class StepService extends Service implements SensorEventListener {
         StepLab.get().setStep(tempStep + "");
         Log.d(TAG, "save: " + tempStep);
         DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insertOrReplace(StepLab.get().getStepModel());
+    }
+
+    private void putTodayStepsData(){
+        int tempStep = currentStep;
         stepServicePresenter.putTodayStepsData(tempStep);
     }
 

@@ -64,6 +64,6 @@ public class ConstantMethod {
     }
 
     public static double countCalories(int steps,double weight){
-        return steps * weight * 0.70 * 1.036;
+        return steps * weight * 0.70 * 1.036 / 1000;
     }
 }

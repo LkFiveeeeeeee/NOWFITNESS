@@ -174,14 +174,14 @@ public class MainView extends AppCompatActivity {
         };*/
         stepService = new StepService(NOWFITNESSApplication.getContext());
         serviceIntent = new Intent(this,stepService.getClass());
-        if(!isMyServiceRunning(stepService.getClass()))
+
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                 startForegroundService(serviceIntent);
             }else{
                 startService(serviceIntent);
             }
     }
-
+/*
     private boolean isMyServiceRunning(Class<?> serviceClass){
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for(ActivityManager.RunningServiceInfo serviceInfo: activityManager.getRunningServices(Integer.MAX_VALUE)){
@@ -192,7 +192,7 @@ public class MainView extends AppCompatActivity {
         }
         Log.i("isMyServiceRunning", "isMyServiceRunning: fffalse");
         return false;
-    }
+    }*/
 
 
 }
