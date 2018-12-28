@@ -1,13 +1,7 @@
 package project.cn.edu.tongji.sse.nowfitness.view;
 
-import android.app.ActivityManager;
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Build;
-import android.os.IBinder;
 import android.util.Log;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -19,16 +13,17 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
-import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
-import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
-import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepService;
+import project.cn.edu.tongji.sse.nowfitness.model.StepLab;
+import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
+import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepServiceMethod;
+import project.cn.edu.tongji.sse.nowfitness.presenter.StepServicePresenter;
 
 public class NOWFITNESSApplication extends Application {
     private final String TAG = "onApplication";
     private static Context context;
+    private StepServicePresenter stepServicePresenter = new StepServicePresenter();
    // private boolean isBind = false;
-    ServiceConnection conn;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,7 +33,6 @@ public class NOWFITNESSApplication extends Application {
             Log.d(TAG, "onCreate: context = null!!!!!!");
         }
         DaoManager.getDaoInstance();
-
       //  initIndividualMap();
     }
 
@@ -46,6 +40,14 @@ public class NOWFITNESSApplication extends Application {
         return context;
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        StepModel stepModel = StepLab.get().getStepModel();
+        if(stepModel != null){
+            stepServicePresenter.putTodayStepsData(Integer.valueOf(stepModel.getStep()));
+        }
+    }
 
     //TODO
     /**

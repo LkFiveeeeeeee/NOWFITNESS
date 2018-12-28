@@ -13,6 +13,10 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MyGlideEngine;
 
 public class ConstantMethod {
@@ -65,5 +69,12 @@ public class ConstantMethod {
 
     public static double countCalories(int steps,double weight){
         return steps * weight * 0.70 * 1.036 / 1000;
+    }
+
+    public static void checkUserInfoModel(){
+        if(UserInfoLab.get().getUserInfoModel() == null){
+            UserInfoModel userInfoModel = DaoMethod.queryForUserInfo().get(0);
+            UserInfoLab.get().setUserInfoModel(userInfoModel);
+        }
     }
 }

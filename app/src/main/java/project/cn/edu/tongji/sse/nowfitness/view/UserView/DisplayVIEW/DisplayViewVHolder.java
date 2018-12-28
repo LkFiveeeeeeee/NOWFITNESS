@@ -14,6 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.DisplayPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FollowPresenter;
 
@@ -60,10 +61,13 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 individualModel.setStated(!individualModel.isStated());
                 setSwitchButton(individualModel.isStated());
+                UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
                 if(individualModel.isStated()){
                     followPresenter.postFollowInfo((int)UserInfoLab.get().getUserInfoModel().getId(),individualModel.getId());
+           //         userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() + 1);
                 }else{
                     followPresenter.deleteFollowInfo((int)UserInfoLab.get().getUserInfoModel().getId(),individualModel.getId());
+           //         userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() - 1);
                 }
                 //TODO 更改网络方面数据
                 //TODO Toast 成功or失败信息

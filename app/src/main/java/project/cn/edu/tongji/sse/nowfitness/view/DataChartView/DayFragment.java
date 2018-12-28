@@ -37,8 +37,8 @@ public class DayFragment extends Fragment implements DataChartMethod {
     /**CardView For Day*/
     private View dayView;
     private CardView stepContainer;
-    private TextView stepView;
     private int dayCount;
+    private int yesterdayCount = 0;
     private StepArcView stepChart;
     private boolean isBind = false;
     private ServiceConnection serviceConnection;
@@ -54,6 +54,8 @@ public class DayFragment extends Fragment implements DataChartMethod {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         dayView  = inflater.inflate(R.layout.daychart_item,container,false);
         dataChartPresenter.getStepsData(1);
+       // StepLab.get().getStepModel().setYesterdayStep(0);
+        initView(dayView);
 
         return dayView;
     }
@@ -61,19 +63,23 @@ public class DayFragment extends Fragment implements DataChartMethod {
     public void initView(View view){
         stepContainer = (CardView) view.findViewById(R.id.step_cardview);
         stepChart = (StepArcView) view.findViewById(R.id.step_chart);
-        stepView = (TextView) view.findViewById(R.id.step_text);
         stepText = (TextView) view.findViewById(R.id.step_text);
         stepKm = (TextView) view.findViewById(R.id.step_km);
         stepEnergy = (TextView) view.findViewById(R.id.step_energy);
         relativeStep = (TextView) view.findViewById(R.id.relative_step);
         trendImage = (ImageView) view.findViewById(R.id.trend_image);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         setServiceConnection();
     }
 
-
-
     public void setServiceConnection(){
         Intent intent = new Intent(getContext(),StepService.class);
+        initView(dayView);
         serviceConnection = new ServiceConnection() {
 
             @SuppressLint("SetTextI18n")
@@ -81,13 +87,13 @@ public class DayFragment extends Fragment implements DataChartMethod {
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 StepService stepService = ((StepService.StepBinder) iBinder).getService();
                 stepChart.setCurrentCount(7000,stepService.getStepCount());
-                StepModel stepModel = StepLab.get().getStepModel();
+                dayCount = stepService.getStepCount();
                 UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
-                stepText.setText(stepModel.getStep());
-                stepKm.setText((int) (Double.valueOf(stepModel.getStep()) * 0.75) + "m");
+                stepText.setText(String.valueOf(stepService.getStepCount()));
+                stepKm.setText((int) ((double) stepService.getStepCount() * 0.75) + "m");
                 stepEnergy.setText(String.valueOf((int) ConstantMethod.countCalories(
-                        Integer.valueOf(stepModel.getStep()),userInfoModel.getWeight())) + "Kcal");
-                setRelativeStep(stepModel,Integer.valueOf(stepModel.getStep()));
+                        stepService.getStepCount(),userInfoModel.getWeight())) + "Kcal");
+
                 stepService.registerCallBack(new UpdateUICallBack() {
                     @Override
                     public void updateUI(int stepCounts) {
@@ -96,7 +102,7 @@ public class DayFragment extends Fragment implements DataChartMethod {
                         stepKm.setText((int) (stepCounts * 0.75) + "m");
                         stepEnergy.setText(String.valueOf((int) ConstantMethod.countCalories(
                                 stepCounts,userInfoModel.getWeight())) + "Kcal");
-                        setRelativeStep(stepModel,stepCounts);
+                        setRelativeStep(stepCounts);
                     }
                 });
             }
@@ -115,41 +121,55 @@ public class DayFragment extends Fragment implements DataChartMethod {
         }
     }
 
-    public void setRelativeStep(StepModel step,int stepCount){
-        if(stepCount - step.getYesterdayStep() >= 0){
-            relativeStep.setTextColor(getResources().getColor(R.color.red));
+    public void setRelativeStep(int stepCount){
+        if(stepCount - yesterdayCount >= 0){
+            if(isAdded()){
+                relativeStep.setTextColor(getResources().getColor(R.color.red));
+            }
             trendImage.setImageResource(R.drawable.arrowup);
         }else{
             trendImage.setImageResource(R.drawable.arrowdown);
-            relativeStep.setTextColor(getResources().getColor(R.color.colorSecondary));
+            if(isAdded()){
+                relativeStep.setTextColor(getResources().getColor(R.color.colorSecondary));
+            }
+
         }
         relativeStep.setText(String.valueOf(
-                stepCount - step.getYesterdayStep()
+                stepCount - yesterdayCount
         ));
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         if(isBind){
             Objects.requireNonNull(this.getActivity()).unbindService(serviceConnection);
         }
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
     public void querySuccess(ResponseModel<StepModelList> stepModelListResponseModel) {
         if(stepModelListResponseModel.getStatus() >= 200 && stepModelListResponseModel.getStatus() < 300){
-            StepLab.get().getStepModel().setYesterdayStep(Integer.
-                    valueOf(stepModelListResponseModel.getData().getStepModels().get(0).getStep()));
+            yesterdayCount = Integer.
+                    valueOf(stepModelListResponseModel.getData().getStepModels().get(0).getStep());
         }else{
-            StepLab.get().getStepModel().setYesterdayStep(0);
+            yesterdayCount = 0;
         }
-        initView(dayView);
+
+        setRelativeStep(dayCount);
     }
 
     @Override
     public void queryError(Throwable e) {
-        StepLab.get().getStepModel().setYesterdayStep(0);
+        yesterdayCount = 0;
+        setRelativeStep(dayCount);
         e.printStackTrace();
+        ConstantMethod.toastShort(getContext(),"网络连接错误");
     }
 }

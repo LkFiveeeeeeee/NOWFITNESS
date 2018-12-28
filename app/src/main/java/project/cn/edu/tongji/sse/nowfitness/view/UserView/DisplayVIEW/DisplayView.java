@@ -8,7 +8,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
@@ -21,6 +24,7 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
     public static final int STARS_TYPE = 1;
     public static final int FANS_TYPE = 0;
 
+    private Toolbar myToolbar;
     private RecyclerView displayRecyclerView;
     private DisplayPresenter displayPresenter;
     private TextView displayText;
@@ -42,6 +46,7 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
 
         displayPresenter = new DisplayPresenter(this,this);
         displayPresenter.initView();
+
         onRefresh();
         //TODO 本地数据库信息获取
 
@@ -49,12 +54,20 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
 
 
     public void initView(){
+        setToolbar();
         displayRecyclerView = findViewById(R.id.individual_recyclerView);
         swipeRefreshLayout = findViewById(R.id.swipe_layout);
         LinearLayoutManager manager = new LinearLayoutManager(getApplication());
         displayRecyclerView.setLayoutManager(manager);
         setDisplayText();
         initSwipeLayout();
+    }
+
+    private void setToolbar(){
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setDisplayText(){
@@ -119,5 +132,13 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
             swipeRefreshLayout.setRefreshing(true);
             displayPresenter.queryForFollowingOrFansInfo(type);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return true;
     }
 }

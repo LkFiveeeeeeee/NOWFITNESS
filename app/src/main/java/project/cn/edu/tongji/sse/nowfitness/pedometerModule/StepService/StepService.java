@@ -29,6 +29,7 @@ import java.util.List;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepLab;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
@@ -37,9 +38,10 @@ import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepCo
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepValuePassListener;
 import project.cn.edu.tongji.sse.nowfitness.presenter.StepServicePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 
-public class StepService extends Service implements SensorEventListener {
+public class StepService extends Service implements SensorEventListener,StepServiceMethod{
     private String TAG = "StepService Debug";
 
     //30s进行一次存储
@@ -76,6 +78,9 @@ public class StepService extends Service implements SensorEventListener {
 
     //计步notification ID
     int notifyID = 100;
+
+    //
+    int countTime = 0;
 
     //频道ID
     String channelID;
@@ -163,6 +168,7 @@ public class StepService extends Service implements SensorEventListener {
     }
 
     private void initTodayData(){
+        countTime = 0;
         currentDate = getTodayDate();
         //TODO 数据库相关
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
@@ -280,6 +286,19 @@ public class StepService extends Service implements SensorEventListener {
     //注册UI监听器
     public void registerCallBack(UpdateUICallBack updateUICallBack){
         this.uiCallBack = updateUICallBack;
+    }
+
+    @Override
+    public void putSuccess(ResponseModel responseModel) {
+        if(!(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300)){
+            ConstantMethod.toastShort(getApplicationContext(),responseModel.getMessage());
+        }
+    }
+
+    @Override
+    public void putError(Throwable e) {
+        e.printStackTrace();
+        ConstantMethod.toastShort(getApplicationContext(),"网络连接错误");
     }
 
 
@@ -431,6 +450,11 @@ public class StepService extends Service implements SensorEventListener {
         StepLab.get().setStep(tempStep + "");
         Log.d(TAG, "save: " + tempStep);
         DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insertOrReplace(StepLab.get().getStepModel());
+        countTime++;
+        if(countTime == 10){
+      //      putTodayStepsData();
+            countTime = 0;
+        }
     }
 
     private void putTodayStepsData(){

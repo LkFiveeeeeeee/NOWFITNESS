@@ -65,6 +65,10 @@ public class WelcomeView extends AppCompatActivity implements WelcomeViewMethod,
     @Override
     public void queryError(Throwable e) {
         e.printStackTrace();
+        UserInfoModel userInfoModel = DaoMethod.queryForUserInfo().get(0);
+        UserInfoLab.get().setUserInfoModel(userInfoModel);
+        Intent intent = new Intent(WelcomeView.this,MainView.class);
+        startActivity(intent);
     }
 
     @Override
@@ -109,7 +113,7 @@ public class WelcomeView extends AppCompatActivity implements WelcomeViewMethod,
     }
 
     public void checkPageJump(){
-        //TODO 监听TOKEN跳转
+
         List<Token> tokenList = DaoMethod.queryForToken();
         if(tokenList.size() != 0){
             //查询个人信息

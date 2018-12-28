@@ -229,22 +229,25 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
         Map<String, Calendar> map = new HashMap<>();
 
-        for(int i = 0;i < userInfoModel.getDateCheckList().size();i++){
-            Date date = StringConvertToDate(userInfoModel.getDateCheckList().get(i));
-            java.util.Calendar calendar = new GregorianCalendar();
-            calendar.setTime(date);
+        if(userInfoModel.getDateCheckList() != null){
+            for(int i = 0;i < userInfoModel.getDateCheckList().size();i++){
+                Date date = StringConvertToDate(userInfoModel.getDateCheckList().get(i));
+                java.util.Calendar calendar = new GregorianCalendar();
+                calendar.setTime(date);
 
-            Log.d("111111111", "setInitView: " + date.toString());
-            Log.d("111111111", "setInitView: " + date.getYear());
-            Log.d("111111111", "setInitView: " + date.getMonth());
-            Log.d("111111111", "setInitView: " + date.getDay());
-            map.put(getSchemeCalendar(calendar.get(java.util.Calendar.YEAR)
-                    ,calendar.get(java.util.Calendar.MONTH) + 1,
-                    calendar.get(java.util.Calendar.DAY_OF_MONTH)," ").toString(),
-                    getSchemeCalendar(calendar.get(java.util.Calendar.YEAR)
-                            ,calendar.get(java.util.Calendar.MONTH) + 1,
-                            calendar.get(java.util.Calendar.DAY_OF_MONTH)," "));
+                Log.d("111111111", "setInitView: " + date.toString());
+                Log.d("111111111", "setInitView: " + date.getYear());
+                Log.d("111111111", "setInitView: " + date.getMonth());
+                Log.d("111111111", "setInitView: " + date.getDay());
+                map.put(getSchemeCalendar(calendar.get(java.util.Calendar.YEAR)
+                        ,calendar.get(java.util.Calendar.MONTH) + 1,
+                        calendar.get(java.util.Calendar.DAY_OF_MONTH)," ").toString(),
+                        getSchemeCalendar(calendar.get(java.util.Calendar.YEAR)
+                                ,calendar.get(java.util.Calendar.MONTH) + 1,
+                                calendar.get(java.util.Calendar.DAY_OF_MONTH)," "));
+            }
         }
+
 
     /*    map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 3, " ").toString(),
                 getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 3, " "));
