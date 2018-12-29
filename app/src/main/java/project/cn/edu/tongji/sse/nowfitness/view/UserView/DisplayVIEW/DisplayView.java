@@ -18,9 +18,11 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualsList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.DisplayPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
-public class DisplayView extends AppCompatActivity implements DisplayViewMethod,SwipeRefreshLayout.OnRefreshListener{
+public class DisplayView extends AppCompatActivity implements DisplayViewMethod,SwipeRefreshLayout.OnRefreshListener,ToPersonPageView {
     public static final int STARS_TYPE = 1;
     public static final int FANS_TYPE = 0;
 
@@ -103,7 +105,7 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
                 if(type == STARS_TYPE){
                     modelList.getData().setTrueForAll();
                 }
-                DisplayViewAdapter displayViewAdapter = new DisplayViewAdapter(modelList.getData().getIndividualModels());
+                DisplayViewAdapter displayViewAdapter = new DisplayViewAdapter(modelList.getData().getIndividualModels(),displayPresenter);
                 displayRecyclerView.setAdapter(displayViewAdapter);
                 displayViewAdapter.notifyDataSetChanged();
             }
@@ -140,5 +142,16 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
             finish();
         }
         return true;
+    }
+
+    @Override
+    public void jumpToPersonPage(int id, String userName, String nickName, String personPhoto) {
+        Intent intent = new Intent();
+        intent.putExtra("userId",id);
+        intent.putExtra("nickName",nickName);
+        intent.putExtra("photo",personPhoto);
+        intent.putExtra("userName",userName);
+        intent.setClass(this, PersonPageView.class);
+        startActivity(intent);
     }
 }

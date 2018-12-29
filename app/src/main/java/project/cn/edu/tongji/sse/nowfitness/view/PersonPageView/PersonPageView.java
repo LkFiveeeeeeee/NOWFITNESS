@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -57,6 +58,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
 
     private TextView nameView, followsView, fansView;
     private ButtonStyle ageTab, sexTab;
+
     private Button followingButton;
     private CircleImageView personPhoto;
     private LinearLayout headLayout;
@@ -97,6 +99,9 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
     public void initView() {
         refreshLayout = (RefreshLayout)findViewById(R.id.person_refreshLayout);
         personToolbar = (Toolbar)findViewById(R.id.person_toolbar);
+        setSupportActionBar(personToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         nameView = (TextView) findViewById(R.id.person_name);
         if (nickName!=null)
             nameView.setText(nickName);
@@ -255,12 +260,6 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
            personPagePresenter.notifyCommentsNumChange(position,commentsNum);
         }
         Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
-        /*if (requestCode == Constants.REQUEST_API) {
-            if (resultCode == Constants.REQUEST_QQ_SHARE || resultCode == Constants.REQUEST_QZONE_SHARE || resultCode == Constants.REQUEST_OLD_SHARE) {
-                Tencent.handleResultData(data, mIUiListener);
-            }
-        }*/
-
     }
     QQIUiListener mIUiListener = new QQIUiListener();
 
@@ -294,4 +293,12 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
             }
         }
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

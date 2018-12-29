@@ -31,7 +31,6 @@ public class MomentsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 
     private List<MomentsModel> momentsLab;
-    private Context mContext;
     private BaseMomentsPresenter baseMomentsPresenter;
     private int viewStates;
 
