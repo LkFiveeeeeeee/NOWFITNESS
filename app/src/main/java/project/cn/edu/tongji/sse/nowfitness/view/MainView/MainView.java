@@ -189,7 +189,7 @@ public class MainView extends AppCompatActivity {
         super.onPause();
        StepModel stepModel = StepLab.get().getStepModel();
         if(stepModel != null){
-            stepServicePresenter.putTodayStepsData(Integer.valueOf(stepModel.getStep()));
+ //           stepServicePresenter.putTodayStepsData(Integer.valueOf(stepModel.getStep()));
         }
     }
 

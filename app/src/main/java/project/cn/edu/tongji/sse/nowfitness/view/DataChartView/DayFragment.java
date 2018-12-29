@@ -37,7 +37,6 @@ public class DayFragment extends Fragment implements DataChartMethod {
     /**CardView For Day*/
     private View dayView;
     private CardView stepContainer;
-    private int dayCount;
     private int yesterdayCount = 0;
     private StepArcView stepChart;
     private boolean isBind = false;
@@ -87,7 +86,6 @@ public class DayFragment extends Fragment implements DataChartMethod {
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 StepService stepService = ((StepService.StepBinder) iBinder).getService();
                 stepChart.setCurrentCount(7000,stepService.getStepCount());
-                dayCount = stepService.getStepCount();
                 UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
                 stepText.setText(String.valueOf(stepService.getStepCount()));
                 stepKm.setText((int) ((double) stepService.getStepCount() * 0.75) + "m");
@@ -162,13 +160,13 @@ public class DayFragment extends Fragment implements DataChartMethod {
             yesterdayCount = 0;
         }
 
-        setRelativeStep(dayCount);
+        setRelativeStep(Integer.valueOf(StepLab.get().getStepModel().getStep()));
     }
 
     @Override
     public void queryError(Throwable e) {
         yesterdayCount = 0;
-        setRelativeStep(dayCount);
+        setRelativeStep(Integer.valueOf(StepLab.get().getStepModel().getStep()));
         e.printStackTrace();
         ConstantMethod.toastShort(getContext(),"网络连接错误");
     }

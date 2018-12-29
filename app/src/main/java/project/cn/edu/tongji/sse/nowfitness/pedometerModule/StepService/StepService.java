@@ -303,7 +303,7 @@ public class StepService extends Service implements SensorEventListener,StepServ
 
 
     class TimeCount extends CountDownTimer{
-        public TimeCount(long millisInFuture,long countDownInterval){
+        TimeCount(long millisInFuture, long countDownInterval){
             super(millisInFuture,countDownInterval);
         }
 
@@ -451,8 +451,10 @@ public class StepService extends Service implements SensorEventListener,StepServ
         Log.d(TAG, "save: " + tempStep);
         DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insertOrReplace(StepLab.get().getStepModel());
         countTime++;
+        Log.d(TAG, "save: putTodayStepsData"  + countTime);
         if(countTime == 10){
-      //      putTodayStepsData();
+            putTodayStepsData();
+            Log.d(TAG, "save: putTodayStepsData" + "success");
             countTime = 0;
         }
     }

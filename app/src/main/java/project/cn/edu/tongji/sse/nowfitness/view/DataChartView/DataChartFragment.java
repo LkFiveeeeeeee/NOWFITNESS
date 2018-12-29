@@ -42,12 +42,14 @@ public class DataChartFragment extends Fragment implements DataChartMethod{
 
 
 
-    /**CombinedChart*/
+
     private int dayCount;
     private CombinedChart combinedChart;
     private CombinedData combinedData;
     private DataChartPresenter dataChartPresenter;
     private LinearLayout dataColumn;
+    private TextView stepText;
+    
     private View noDataView;
     private View badNetworkView;
     private TextView warningWord;
