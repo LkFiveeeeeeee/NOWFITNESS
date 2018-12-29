@@ -2,8 +2,6 @@ package project.cn.edu.tongji.sse.nowfitness.view.MainView;
 
 
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Color;
@@ -13,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -21,9 +18,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.StepLab;
+import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepService;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
 
+import project.cn.edu.tongji.sse.nowfitness.presenter.StepServicePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 
 import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
@@ -43,8 +43,9 @@ public class MainView extends AppCompatActivity {
     private FloatingActionButton addButton;
     private AHBottomNavigation bottomNavigation;
 
-    private Intent serviceIntent;
-    private StepService stepService;
+    private Intent serviceIntent = null;
+    private StepService stepService = null;
+    private StepServicePresenter stepServicePresenter;
 
 
 
@@ -54,6 +55,7 @@ public class MainView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_view);
         mainViewPresenter = new MainViewPresenter(this);
+        stepServicePresenter = new StepServicePresenter();
         setupService();
     /*    Intent intent = getIntent();
         Log.d("11111111", "onCreate: " + intent.getStringExtra(ConstantMethod.userName_Key));
@@ -123,13 +125,13 @@ public class MainView extends AppCompatActivity {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 if(position == 0){
-                    if(wasSelected == false){
+                    if(!wasSelected){
                         getSupportFragmentManager()
                                 .popBackStack();
                     }
                 }
                 else if (position == 2){
-                    if(wasSelected == false){
+                    if(!wasSelected){
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(R.anim.right_slide_in,
@@ -174,7 +176,7 @@ public class MainView extends AppCompatActivity {
         };*/
         stepService = new StepService(NOWFITNESSApplication.getContext());
         serviceIntent = new Intent(this,stepService.getClass());
-        if(!isMyServiceRunning(stepService.getClass()))
+
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                 startForegroundService(serviceIntent);
             }else{
@@ -182,6 +184,16 @@ public class MainView extends AppCompatActivity {
             }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+       StepModel stepModel = StepLab.get().getStepModel();
+        if(stepModel != null){
+ //           stepServicePresenter.putTodayStepsData(Integer.valueOf(stepModel.getStep()));
+        }
+    }
+
+    /*
     private boolean isMyServiceRunning(Class<?> serviceClass){
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for(ActivityManager.RunningServiceInfo serviceInfo: activityManager.getRunningServices(Integer.MAX_VALUE)){
@@ -192,7 +204,7 @@ public class MainView extends AppCompatActivity {
         }
         Log.i("isMyServiceRunning", "isMyServiceRunning: fffalse");
         return false;
-    }
+    }*/
 
 
 }

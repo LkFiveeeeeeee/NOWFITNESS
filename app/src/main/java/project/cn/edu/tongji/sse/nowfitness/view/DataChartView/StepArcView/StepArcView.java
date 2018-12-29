@@ -69,9 +69,10 @@ public class StepArcView extends View {
 
         /**【第一步】绘制整体的黄色圆弧*/
         drawArcYellow(canvas, rectF);
-        /**【第二步】绘制当前进度的红色圆弧*/
+        /**
+        *【第二步】绘制当前进度的红色圆弧*/
         drawArcRed(canvas, rectF);
-        /**【第三步】绘制当前进度的红色数字*/
+        /*【第三步】绘制当前进度的红色数字*/
         drawTextNumber(canvas, centerX);
         /**【第四步】绘制"步数"的红色数字*/
         drawTextStepString(canvas, centerX);
@@ -254,11 +255,11 @@ public class StepArcView extends View {
         int length = s.length();
         if (length <= 4) {
             numberTextSize = dipToPx(50);
-        } else if (length > 4 && length <= 6) {
+        } else if (length <= 6) {
             numberTextSize = dipToPx(40);
-        } else if (length > 6 && length <= 8) {
+        } else if (length <= 8) {
             numberTextSize = dipToPx(30);
-        } else if (length > 8) {
+        } else {
             numberTextSize = dipToPx(25);
         }
     }

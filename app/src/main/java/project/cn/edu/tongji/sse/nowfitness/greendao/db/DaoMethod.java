@@ -8,6 +8,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
 public class DaoMethod {
 
@@ -28,6 +29,11 @@ public class DaoMethod {
     public static void deleteToken(){
         DaoManager.getDaoInstance().getDaoSession().getTokenDao()
                 .deleteAll();
+    }
+
+    public static List<UserInfoModel> queryForUserInfo(){
+        return DaoManager.getDaoInstance().getDaoSession().getUserInfoModelDao()
+                .queryBuilder().list();
     }
 
     public static List<Token> queryForToken(){

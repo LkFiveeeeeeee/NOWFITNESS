@@ -93,12 +93,6 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".pedometerModule.StepService.StepServiceRestartReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:label="RestartServiceWhenStopped" />
-
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:noHistory="true"
@@ -115,7 +109,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
-
+        
 
     </application>
 

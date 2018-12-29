@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
@@ -228,6 +229,7 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
             UserInfoLab.get().getUserInfoModel().setAge(Integer.valueOf(ageInfo.getText().toString()));
             UserInfoLab.get().getUserInfoModel().setNickName(nickNameText.getText().toString());
             UserInfoLab.get().getUserInfoModel().setSex(sex);
+            DaoManager.getDaoInstance().getDaoSession().getUserInfoModelDao().insertOrReplace(UserInfoLab.get().getUserInfoModel());
         }else{
             ConstantMethod.toastShort(UserSettingView.this,responseModel.getError());
         }

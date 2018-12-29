@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
@@ -277,6 +278,8 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
     public void querySuccess(ResponseModel<UserInfoModel> responseModel) {
         if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
             UserInfoLab.get().setUserInfoModel(responseModel.getData());
+            DaoManager.getDaoInstance().getDaoSession().getUserInfoModelDao().deleteAll();
+            DaoManager.getDaoInstance().getDaoSession().getUserInfoModelDao().insertOrReplace(responseModel.getData());
             Intent intent = new Intent(RegisterView.this,MainView.class);
             startActivity(intent);
             finish();

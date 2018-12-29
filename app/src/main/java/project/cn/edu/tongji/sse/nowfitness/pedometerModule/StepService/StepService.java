@@ -29,16 +29,19 @@ import java.util.List;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepLab;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepCount;
 import project.cn.edu.tongji.sse.nowfitness.pedometerModule.accelerometer.StepValuePassListener;
+import project.cn.edu.tongji.sse.nowfitness.presenter.StepServicePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 
-public class StepService extends Service implements SensorEventListener {
+public class StepService extends Service implements SensorEventListener,StepServiceMethod{
     private String TAG = "StepService Debug";
 
     //30s进行一次存储
@@ -76,12 +79,16 @@ public class StepService extends Service implements SensorEventListener {
     //计步notification ID
     int notifyID = 100;
 
+    //
+    int countTime = 0;
+
     //频道ID
     String channelID;
 
     //UI监听器
     private UpdateUICallBack uiCallBack;
 
+    private StepServicePresenter stepServicePresenter = new StepServicePresenter();
 
     public StepService(){
 
@@ -161,9 +168,16 @@ public class StepService extends Service implements SensorEventListener {
     }
 
     private void initTodayData(){
+        countTime = 0;
         currentDate = getTodayDate();
         //TODO 数据库相关
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+        if(userInfoModel == null){
+            UserInfoLab.get().setUserInfoModel(DaoMethod.queryForUserInfo().get(0));
+            userInfoModel = UserInfoLab.get().getUserInfoModel();
+        }else{
+            Log.d(TAG, "initTodayData: userInfoModel notNull!!!!!!");
+        }
         List<StepModel> stepList = DaoMethod.queryByDate(currentDate,userInfoModel.getId());
         Log.d(TAG, "initTodayData: querySize = " + stepList.size());
         if(stepList.size() == 0){
@@ -274,9 +288,22 @@ public class StepService extends Service implements SensorEventListener {
         this.uiCallBack = updateUICallBack;
     }
 
+    @Override
+    public void putSuccess(ResponseModel responseModel) {
+        if(!(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300)){
+            ConstantMethod.toastShort(getApplicationContext(),responseModel.getMessage());
+        }
+    }
+
+    @Override
+    public void putError(Throwable e) {
+        e.printStackTrace();
+        ConstantMethod.toastShort(getApplicationContext(),"网络连接错误");
+    }
+
 
     class TimeCount extends CountDownTimer{
-        public TimeCount(long millisInFuture,long countDownInterval){
+        TimeCount(long millisInFuture, long countDownInterval){
             super(millisInFuture,countDownInterval);
         }
 
@@ -412,6 +439,7 @@ public class StepService extends Service implements SensorEventListener {
         String time = "00:00";
         if(time.equals(new SimpleDateFormat("HH:mm").format(new Date()))){
             initTodayData();
+            putTodayStepsData();
         }
     }
 
@@ -422,14 +450,24 @@ public class StepService extends Service implements SensorEventListener {
         StepLab.get().setStep(tempStep + "");
         Log.d(TAG, "save: " + tempStep);
         DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insertOrReplace(StepLab.get().getStepModel());
+        countTime++;
+        Log.d(TAG, "save: putTodayStepsData"  + countTime);
+        if(countTime == 10){
+            putTodayStepsData();
+            Log.d(TAG, "save: putTodayStepsData" + "success");
+            countTime = 0;
+        }
+    }
+
+    private void putTodayStepsData(){
+        int tempStep = currentStep;
+        stepServicePresenter.putTodayStepsData(tempStep);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         stopForeground(true);
-        Intent broadcastIntent = new Intent(this,StepServiceRestartReceiver.class);
-        sendBroadcast(broadcastIntent);
         unregisterReceiver(broadcastReceiver);
     }
 

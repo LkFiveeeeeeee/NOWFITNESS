@@ -5,7 +5,7 @@ import org.greenrobot.greendao.converter.PropertyConverter;
 import java.util.Arrays;
 import java.util.List;
 
-public class StrinrgAndListConvertMethod implements PropertyConverter<List<String>,String> {
+public class StringAndListConvertMethod implements PropertyConverter<List<String>,String> {
     @Override
     public List<String> convertToEntityProperty(String databaseValue) {
         if(databaseValue == null){

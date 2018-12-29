@@ -137,6 +137,11 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
     }
 
     @Override
+    public void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel) {
+
+    }
+
+    @Override
     public void queryError(Throwable e) {
         if(momentsPresenter.getTotal()==0)
             momentsPresenter.setAdapterStates(MomentsRecyclerAdapter.NO_NETWORK);
@@ -159,10 +164,7 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
         }
     }
 
-    @Override
-    public void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel) {
 
-    }
     private void queryDifferentMoments(int queryType){
         int page = 1;
         if(queryType==LOAD){

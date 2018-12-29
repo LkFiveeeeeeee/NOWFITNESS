@@ -25,6 +25,7 @@
                 android:layout_height="300dp"
                 android:layout_margin="20dp"/>
             <LinearLayout
+                android:id="@+id/data_column"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -100,6 +101,17 @@
                         />
                 </LinearLayout>
             </LinearLayout>
+            <include
+                android:id="@+id/no_data"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                layout="@layout/display_no_item"/>
+            <include
+                android:id="@+id/bad_network"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                layout="@layout/network_error"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"

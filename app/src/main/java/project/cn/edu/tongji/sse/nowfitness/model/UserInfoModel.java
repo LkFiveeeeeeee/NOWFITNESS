@@ -35,7 +35,7 @@ public class UserInfoModel {
 
 
     @Transient
-    private StrinrgAndListConvertMethod convert = new StrinrgAndListConvertMethod();
+    private StringAndListConvertMethod convert = new StringAndListConvertMethod();
     public UserInfoModel(int id, String userName, String password, double height,
                          double weight, String sex, int age, String pictureUrl,
                          int followingNum, int fansNum, int momentsNum, List<String> dateCheckList) {

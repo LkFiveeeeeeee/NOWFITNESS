@@ -13,10 +13,10 @@ public class Token {
     public static int TOKEN_ID = 1;
 
     @Id
-    long id;
+    private long id;
     
-    String tokenValue;
-    String userName;
+    private String tokenValue;
+    private String userName;
 
 
     @Generated(hash = 1396497195)
