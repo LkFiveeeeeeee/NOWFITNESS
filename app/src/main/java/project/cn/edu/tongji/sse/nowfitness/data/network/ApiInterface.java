@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.BookDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RelationDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
@@ -219,4 +220,7 @@ public interface ApiInterface {
 
     @GET("search")
     Single<BookDTO> getBookInfo(@Query("tag")String tag,@Query("start")int start,@Query("count")int count);
+
+    @GET("user/{userId}/anotherUser/{anotherUserId}")
+    Single<ResponseDTO<RelationDTO>> getUserRelation(@Path("userId") int userID, @Path("anotherUserId") int anotherUserId);
 }

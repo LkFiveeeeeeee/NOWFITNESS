@@ -12,6 +12,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface APIRepository {
 
@@ -53,5 +54,7 @@ public interface APIRepository {
     Single deleteFollowInfo(int userId,int followId);
 
     Single deleteReply(int id);
+
+    Single getUserRelation(int userID, int anotherUserId);
 
 }

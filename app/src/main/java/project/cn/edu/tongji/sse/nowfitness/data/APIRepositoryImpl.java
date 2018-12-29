@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RelationDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
@@ -19,6 +20,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
+import project.cn.edu.tongji.sse.nowfitness.model.FollowingRelation;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
@@ -336,6 +338,21 @@ public class APIRepositoryImpl implements APIRepository {
                     public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
                         responseModel.setStatus(responseDTO.getStatus());
                         responseModel.setError(responseDTO.getError());
+                        return responseModel;
+                    }
+                });
+    }
+
+    @Override
+    public Single<ResponseModel<FollowingRelation>> getUserRelation(int userID, int anotherUserId) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.getUserRelation(userID,anotherUserId)
+                .map(new Function<ResponseDTO<RelationDTO>, ResponseModel<FollowingRelation>>() {
+                    @Override
+                    public ResponseModel<FollowingRelation> apply(ResponseDTO<RelationDTO> relationDTOResponseDTO) throws Exception {
+                        responseModel.setError(relationDTOResponseDTO.getError());
+                        responseModel.setStatus(relationDTOResponseDTO.getStatus());
+                        responseModel.setData(new FollowingRelation(relationDTOResponseDTO.getData()));
                         return responseModel;
                     }
                 });

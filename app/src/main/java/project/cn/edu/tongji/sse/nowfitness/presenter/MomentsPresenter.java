@@ -65,5 +65,8 @@ public class MomentsPresenter extends BaseMomentsPresenter{
         intent.setClass(momentsView.getActivity(), MomentsDetailView.class);
         momentsView.startActivityForResult(intent,RESULT_CODE);
     }
+    public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){
+        momentsView.shareToQZone(this.setShareContent(title,summary,contentUrl,imageUrl));
+    }
 
 }

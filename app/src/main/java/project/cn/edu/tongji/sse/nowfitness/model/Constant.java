@@ -18,4 +18,5 @@ public class Constant {
     public static final String ERROR_PASSWORD ="error password";
     public static final String COMMENT_IMFORMATION_LACK ="comment information lack";
     public static final String MAKE_COMMENT_SUCCESS ="make comment success";
+    public static final String APP_ID = "1108077260";
 }

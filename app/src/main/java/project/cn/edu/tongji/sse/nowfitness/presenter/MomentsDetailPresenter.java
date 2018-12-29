@@ -172,5 +172,8 @@ public class MomentsDetailPresenter extends BasePresenter  {
         else
             return false;
     }
+    public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){
+        momentsDetailView.shareToQZone(BaseMomentsPresenter.setShareContent(title,summary,contentUrl,imageUrl));
+    }
 
 }

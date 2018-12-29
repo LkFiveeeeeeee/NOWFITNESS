@@ -130,7 +130,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                                             DIALOG_DELETE );
                                     break;
                                 case R.id.share:
-
+                                    baseMomentsPresenter.shareToQzone(mMoments.getNickName(),mMoments.getContent(),mMoments.getImage(),mMoments.getUserPhoto());
                                     break;
                             }
                             return true;
@@ -147,7 +147,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                                     ,DIALOG_NOT_FOLLOWING);
                                     break;
                                 case R.id.share:
-
+                                    baseMomentsPresenter.shareToQzone(mMoments.getNickName(),mMoments.getContent(),mMoments.getImage(),mMoments.getUserPhoto());
                                     break;
                             }
                             return true;
@@ -170,6 +170,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(type==DIALOG_NOT_FOLLOWING) {
+                    UserInfoLab.get().getUserInfoModel().setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()-1);
                     baseMomentsPresenter.deleteFollowingInfo((int)UserInfoLab.get().getUserInfoModel().getId(),mMoments.getUserId());
                 }else if(type==DIALOG_DELETE){
                     ((PersonPagePresenter) baseMomentsPresenter).deleteMoments(myPosition);

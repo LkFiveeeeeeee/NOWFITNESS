@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 
 import java.util.List;
@@ -29,6 +30,20 @@ public class BooksDetailView extends AppCompatActivity {
         booksViewPager = (ViewPager)findViewById(R.id.book_viewpager);
         booksViewPager.setAdapter(new BookViewPagerAdapter(bookList,this));
         booksViewPager.setCurrentItem(initPos);
+        setToolbar();
+
     }
 
+    private void setToolbar(){
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return true;
+    }
 }

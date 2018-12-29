@@ -64,6 +64,5 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.brucetoo.pickview:library:1.2.3'
     implementation 'me.wangyuwei:ParticleView:1.0.4'
-
-
+    implementation files('libs/open_sdk_r6008_lite.jar')
 }

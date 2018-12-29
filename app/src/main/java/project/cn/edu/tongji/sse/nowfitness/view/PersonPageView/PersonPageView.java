@@ -26,12 +26,17 @@ import com.lai.library.ButtonStyle;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.tencent.connect.common.Constants;
+import com.tencent.connect.share.QzoneShare;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
-import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
+import project.cn.edu.tongji.sse.nowfitness.model.FollowingRelation;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
@@ -40,8 +45,10 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsRecyclerAdapter;
+import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MyQzoneShare;
 
-public class PersonPageView extends AppCompatActivity implements MomentsMethod {
+public class PersonPageView extends AppCompatActivity implements MomentsMethod, MyQzoneShare,PersonPageViewMethod {
+
 
     private int personId;
     private String nickName;
@@ -59,6 +66,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
     private RecyclerView momentsRecyclerView;
     private NestedScrollView nestedScrollView;
     private RefreshLayout refreshLayout;
+    private Tencent mTencent;
 
     private PersonPagePresenter personPagePresenter;
 
@@ -73,15 +81,17 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
             userName = intent.getStringExtra("userName");
             photo = intent.getStringExtra("photo");
         }
-        personPagePresenter = new PersonPagePresenter(this,this,this);
+        personPagePresenter = new PersonPagePresenter(this,this,this,this);
         personPagePresenter.intiView();
         if(personId!=(int)UserInfoLab.get().getUserInfoModel().getId()) {
             personPagePresenter.getUserInfo(userName);
+            personPagePresenter.getFollowingInfo(personId);
         }
         else {
             bindPersonInfo(UserInfoLab.get().getUserInfoModel());
         }
         personPagePresenter.getUserMoments(personId,1);
+        mTencent = Tencent.createInstance(Constant.APP_ID, this.getApplicationContext());
     }
 
     public void initView() {
@@ -126,6 +136,10 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 personPagePresenter.getUserMoments(personId,1);
+                if(personId!=(int)UserInfoLab.get().getUserInfoModel().getId()){
+                    personPagePresenter.getUserInfo(userName);
+                    personPagePresenter.getFollowingInfo(personId);
+                }
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -148,6 +162,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             followingButton.setText("+ 关注");
                             followingButton.setBackgroundColor(Color.parseColor("#90FF0000"));
+                            UserInfoLab.get().getUserInfoModel().setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()-1);
                             personPagePresenter.deleteFollowingInfo((int) UserInfoLab.get().getUserInfoModel().getId(),personId);
                         }
                     });
@@ -161,6 +176,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
                     followingButton.setText("已关注");
                     followingButton.setBackgroundColor(Color.parseColor("#80D3D3D3"));
                     Toast.makeText(getApplicationContext(), "关注成功", Toast.LENGTH_SHORT).show();
+                    UserInfoLab.get().getUserInfoModel().setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()+1);
                     personPagePresenter.postFollowingInfo((int) UserInfoLab.get().getUserInfoModel().getId(),personId);
                 }
             }
@@ -237,6 +253,45 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod {
             int commentsNum = data.getIntExtra("commentsNum",0);
             Log.d("momentsview", "onActivityResult: "+String.valueOf(position)+"  "+String.valueOf(commentsNum));
            personPagePresenter.notifyCommentsNumChange(position,commentsNum);
+        }
+        Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
+        /*if (requestCode == Constants.REQUEST_API) {
+            if (resultCode == Constants.REQUEST_QQ_SHARE || resultCode == Constants.REQUEST_QZONE_SHARE || resultCode == Constants.REQUEST_OLD_SHARE) {
+                Tencent.handleResultData(data, mIUiListener);
+            }
+        }*/
+
+    }
+    QQIUiListener mIUiListener = new QQIUiListener();
+
+    @Override
+    public void shareToQZone(Bundle params) {
+        mTencent.shareToQzone(PersonPageView.this, params,mIUiListener);
+    }
+    class QQIUiListener implements IUiListener {
+        @Override
+        public void onComplete(Object o) {
+        }
+        @Override
+        public void onError(UiError uiError) {
+            // 分享异常
+        }
+        @Override
+        public void onCancel() {
+            // 取消分享
+        }
+    }
+
+    @Override
+    public void queryRelationSuccess(ResponseModel<FollowingRelation> followingRelationResponseModel) {
+        if(followingRelationResponseModel.getStatus() >= 200 && followingRelationResponseModel.getStatus() < 300) {
+            if(followingRelationResponseModel.getData().getStates()) {
+                followingButton.setText("已关注");
+                followingButton.setBackgroundColor(Color.parseColor("#80D3D3D3"));
+            }else{
+                followingButton.setText("+ 关注");
+                followingButton.setBackgroundColor(Color.parseColor("#90FF0000"));
+            }
         }
     }
 }
