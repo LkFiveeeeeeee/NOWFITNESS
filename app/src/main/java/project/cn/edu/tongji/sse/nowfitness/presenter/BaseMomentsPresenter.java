@@ -58,12 +58,15 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
         currentPageSize = 0;
         pageSize = 10;
     }
+
     public Context getContext(){
         return mContext;
     }
+
     public void setMomentsRecyclerView(RecyclerView recyclerView){
         this.momentsRecyclerView=recyclerView;
     }
+
     public void setAdapter(){
         //pMomentsLab = momentsModelList;
         momentsRecyclerAdapter = new MomentsRecyclerAdapter(pMomentsLab,this);
@@ -82,6 +85,7 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
             else
                 return pageNum+1;
     }
+
     public int getTotal(){
         return totalMoments;
     }
@@ -101,11 +105,7 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
                 .subscribe()
         );
     }
-    public void resetMomentsList(List<MomentsModel> momentsModelList){
-        pMomentsLab = momentsModelList;
-        momentsRecyclerAdapter.resetMomentsModelsList(momentsModelList);
-        momentsRecyclerAdapter.notifyDataSetChanged();
-    }
+
     public void postFollowingInfo(int userId,int followId){
         subscriptions.add(apiRepository.postFollowInfo(userId,followId)
                 .subscribeOn(Schedulers.io())
@@ -120,13 +120,22 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
                 .subscribe()
         );
     }
+
+    public void resetMomentsList(List<MomentsModel> momentsModelList){
+        pMomentsLab = momentsModelList;
+        momentsRecyclerAdapter.resetMomentsModelsList(momentsModelList);
+        momentsRecyclerAdapter.notifyDataSetChanged();
+    }
+
     public void notifyCommentsNumChange(int position,int commentsNum){
         pMomentsLab.get(position).setCommentsNum(commentsNum);
         momentsRecyclerAdapter.notifyItemChanged(position);
     }
+
     public void jumpToMomentsDetail(MomentsModel momentsModel,int position) {
 
     }
+
     public static Bundle setShareContent(String title,String summary,String contentUrl,String imageUrl) {
         Bundle params;
         params = new Bundle();
@@ -141,6 +150,7 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
         // TODO Auto-generated method stub
         return params;
     }
+
     public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){
     }
 

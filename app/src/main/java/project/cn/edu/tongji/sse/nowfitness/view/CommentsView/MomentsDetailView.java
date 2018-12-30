@@ -57,10 +57,11 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MyQzoneShare;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 
-public class MomentsDetailView extends AppCompatActivity implements CommentsMethod,MyQzoneShare {
+public class MomentsDetailView extends AppCompatActivity implements CommentsMethod,MyQzoneShare,ToPersonPageView {
     private MomentsModel momentsModel;
 
     public static final int COMMENT_TARGET_MOMENTS=1001;
@@ -192,7 +193,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         });
         expandableListView.setGroupIndicator(null);
         //默认展开所有回复
-
         for(int i = 1; i<commentList.size(); i++){
             expandableListView.expandGroup(i);
         }
@@ -237,8 +237,9 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     }
 
     private void showCommentDialog( List<CommentsDetailModel> commentsList,final int commentType, final int groupPosition, final int childPosition){
-        if(!isCommentable(commentsList, commentType, groupPosition, childPosition))
+        if(!isCommentable(commentsList, commentType, groupPosition, childPosition)) {
             return;
+        }
         dialog = new BottomSheetDialog(this,R.style.BottomSheetEdit);
         View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
         final EditText commentText = (EditText) commentView.findViewById(R.id.moments_dialog_comment_et);
@@ -335,22 +336,20 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                 return true;
         }
     }
-    private void showPopWindows(View v,int childPos,int groupPos) {
 
-        /** pop view */
+    private void showPopWindows(View v,int childPos,int groupPos) {
         View mPopView = LayoutInflater.from(this).inflate(R.layout.menu_popup, null);
         final PopupWindow mPopWindow = new PopupWindow(mPopView, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        /** set */
         mPopWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        /** 这个很重要 ,获取弹窗的长宽度 */
+        //这个很重要 ,获取弹窗的长宽度
         mPopView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int popupWidth = mPopView.getMeasuredWidth();
         int popupHeight = mPopView.getMeasuredHeight();
-        /** 获取父控件的位置 */
+        //获取父控件的位置
         int[] location = new int[2];
         v.getLocationOnScreen(location);
-        /** 显示位置 */
+        //显示位置
         mPopWindow.showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - popupWidth / 2, location[1]
                 +popupHeight/2);
         mPopWindow.update();
@@ -391,26 +390,38 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
 
     @Override
     public void shareToQZone(Bundle params) {
-        mTencent.shareToQzone(MomentsDetailView.this, params,mIUiListener);
+        mTencent.shareToQzone(MomentsDetailView.this, params,null);
     }
-    QQIUiListener mIUiListener = new QQIUiListener();
-    class QQIUiListener implements IUiListener {
-        @Override
-        public void onComplete(Object o) {
-        }
-        @Override
-        public void onError(UiError uiError) {
-            // 分享异常
-        }
-        @Override
-        public void onCancel() {
-            // 取消分享
-        }
+
+    @Override
+    public void jumpToPersonPage(int id, String userName, String nickName, String personPhoto) {
+        Intent intent = new Intent();
+        intent.putExtra("userId",id);
+        intent.putExtra("nickName",nickName);
+        intent.putExtra("photo",personPhoto);
+        intent.putExtra("userName",userName);
+        intent.setClass(this, PersonPageView.class);
+        startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
+        Tencent.onActivityResultData(requestCode, resultCode, data, new IUiListener() {
+            @Override
+            public void onComplete(Object o) {
+                Toast.makeText(getApplicationContext(),"分享成功",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(UiError uiError) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
     }
 }

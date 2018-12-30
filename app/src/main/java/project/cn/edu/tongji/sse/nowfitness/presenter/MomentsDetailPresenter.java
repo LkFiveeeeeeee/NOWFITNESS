@@ -22,16 +22,17 @@ import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.CommentsListViewAd
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.CommentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 
 /**
  * Created by a on 2018/11/25.
  */
 
-public class MomentsDetailPresenter extends BasePresenter  {
+public class MomentsDetailPresenter extends BasePresenter {
     private MomentsDetailView momentsDetailView;
     private ExpandableListView expandableListView;
     private CommentsListViewAdapter adapter;
-    private MomentsCommentsModel commentsModel;
+    //private MomentsCommentsModel commentsModel;
     private List<CommentsDetailModel> commentsList;
     public MomentsModel pMomentsModel;
     private CommentsMethod commentsMethod;
@@ -44,9 +45,11 @@ public class MomentsDetailPresenter extends BasePresenter  {
         getAllComments();
 
     }
+
     public void initView(){
         momentsDetailView.initView(commentsList);
     }
+
     public void setExpandableListView(ExpandableListView expandableListView){
         this.expandableListView= expandableListView;
     }
@@ -84,13 +87,36 @@ public class MomentsDetailPresenter extends BasePresenter  {
                 .subscribe());
     }
 
-    //TODO ? 我把ID当做replyId的,不知道是不是,不是直接改一下传的参数就行了,反正都是int类型
+    public boolean deleteReply(int groupPos,int childPos){
+        deleteReply(commentsList.get(groupPos).getRepliesList().get(childPos).getId());
+        if(!adapter.deleteReply(groupPos, childPos)) {
+            return false;
+        }
+        return true;
+    }
+
     private void deleteReply(int replyId){
         subscriptions.add(apiRepository.deleteReply(replyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         );
+    }
+
+
+    private void getAllComments(){
+        //commentsModel = new MomentsCommentsModel();
+        CommentsDetailModel emptyPlacement = new CommentsDetailModel();
+        commentsList.add(emptyPlacement);
+    }
+
+    public void queryForComments(int momentsId){
+        subscriptions.add(apiRepository.getCommentsInfo(momentsId)
+        .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(commentsMethod::querySuccess,commentsMethod::queryError)
+        );
+
     }
 
     public void addCommentData(String commentContent){
@@ -105,20 +131,6 @@ public class MomentsDetailPresenter extends BasePresenter  {
         pMomentsModel.setCommentsNum(pMomentsModel.getCommentsNum()+1);
         adapter.addTheCommentData(commentModel);
         commentsList = adapter.getCommentsList();
-    }
-
-    private void getAllComments(){
-        commentsModel = new MomentsCommentsModel();
-        CommentsDetailModel emptyPlacement = new CommentsDetailModel();
-        commentsList.add(emptyPlacement);
-    }
-    public void queryForComments(int momentsId){
-        subscriptions.add(apiRepository.getCommentsInfo(momentsId)
-        .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(commentsMethod::querySuccess,commentsMethod::queryError)
-        );
-
     }
 
     private void makeNewComments(CommentsDetailModel commentsDetailModel){
@@ -140,14 +152,6 @@ public class MomentsDetailPresenter extends BasePresenter  {
         momentsDetailView.initExpandableListView(commentsList);
     }
 
-    public boolean deleteReply(int groupPos,int childPos){
-        deleteReply(commentsList.get(groupPos).getRepliesList().get(childPos).getId());
-        if(!adapter.deleteReply(groupPos, childPos)) {
-            return false;
-        }
-        return true;
-    }
-
     public void deleteComments(int groupPos){
         subscriptions.add(apiRepository.deleteComment(commentsList.get(groupPos).getId())
                 .subscribeOn(Schedulers.io())
@@ -155,15 +159,7 @@ public class MomentsDetailPresenter extends BasePresenter  {
                 .subscribe());
        adapter.deleteComments(groupPos);
     }
-    public void jumpToPersonPage(int id,String personName,String nickName,String personPhoto){
-        Intent intent = new Intent();
-        intent.putExtra("userId",id);
-        intent.putExtra("userName",personName);
-        intent.putExtra("nickName",nickName);
-        intent.putExtra("photo",personPhoto);
-        intent.setClass(momentsDetailView, PersonPageView.class);
-        momentsDetailView.startActivity(intent);
-    }
+
     public boolean isReplyDeletable(int groupPos,int childPos){
         if (commentsList.get(groupPos).getRepliesList().get(childPos).getFromUserId()
                 == (int)UserInfoLab.get().getUserInfoModel().getId()
@@ -172,8 +168,13 @@ public class MomentsDetailPresenter extends BasePresenter  {
         else
             return false;
     }
+
     public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){
         momentsDetailView.shareToQZone(BaseMomentsPresenter.setShareContent(title,summary,contentUrl,imageUrl));
+    }
+
+    public void jumpToPersonPage(int id,String personName,String nickName,String personPhoto){
+        momentsDetailView.jumpToPersonPage(id,personName,nickName,personPhoto);
     }
 
 }
