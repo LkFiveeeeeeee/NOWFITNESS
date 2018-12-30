@@ -9,6 +9,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.BookDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RelationDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.SaltDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
@@ -282,6 +283,7 @@ public interface ApiInterface {
     @GET("search")
     Single<BookDTO> getBookInfo(@Query("tag")String tag,@Query("start")int start,@Query("count")int count);
 
+
     /**
      * 更换用户密码
      * @param userId 用户id
@@ -291,4 +293,7 @@ public interface ApiInterface {
     @POST("user/password")
     @Multipart
     Single<ResponseDTO<SaltDTO>> changePassword(@Part("userId") RequestBody userId, @Part("password") RequestBody password);
+
+    @GET("user/{userId}/anotherUser/{anotherUserId}")
+    Single<ResponseDTO<RelationDTO>> getUserRelation(@Path("userId") int userID, @Path("anotherUserId") int anotherUserId);
 }

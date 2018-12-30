@@ -39,7 +39,9 @@ public class DisplayPresenter extends BasePresenter{
         }
     }
 
-
+    public void jumpToPersonPage(int id, String userName, String nickName, String personPhoto) {
+        displayView.jumpToPersonPage(id, userName, nickName, personPhoto);
+    }
 
 
 }

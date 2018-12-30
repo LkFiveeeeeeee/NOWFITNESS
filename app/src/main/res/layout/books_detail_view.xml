@@ -17,6 +17,8 @@
         android:background="@color/colorPrimaryDark"
         app:title="运动书籍"
         app:layout_scrollFlags="scroll"
+        android:theme="@style/AppTheme.ToolBarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
        />
     </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.NestedScrollView

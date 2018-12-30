@@ -56,6 +56,8 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FileHelper;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.DataChartView.DataChartView;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.PlanQuestionView;
 import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingView;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
@@ -65,7 +67,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarC
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.ConstantColor;
 
 
-public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,SensorEventListener{
+public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,SensorEventListener,ToPersonPageView {
     /*temp para*/
     private List<Uri> imageUri;
 
@@ -351,6 +353,8 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             @Override
             public void onClick(View view) {
                 //TODO Intent
+                UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+                jumpToPersonPage((int)userInfoModel.getId(),userInfoModel.getUserName(),userInfoModel.getNickName(),userInfoModel.getPictureUrl());
 
             }
         });
@@ -503,5 +507,14 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     }
 
 
-
+    @Override
+    public void jumpToPersonPage(int id, String userName, String nickName, String personPhoto) {
+        Intent intent = new Intent();
+        intent.putExtra("userId",id);
+        intent.putExtra("nickName",nickName);
+        intent.putExtra("photo",personPhoto);
+        intent.putExtra("userName",userName);
+        intent.setClass(getActivity(), PersonPageView.class);
+        startActivity(intent);
+    }
 }

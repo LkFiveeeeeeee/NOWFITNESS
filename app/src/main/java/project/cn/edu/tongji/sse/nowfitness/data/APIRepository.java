@@ -14,6 +14,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface APIRepository {
 
@@ -64,7 +65,11 @@ public interface APIRepository {
 
     Single getStepsData(int userId,int days);
 
+
     Single postDailyCheck(int userId);
 
     Single changePassword(RequestBody userId,RequestBody password);
+
+    Single getUserRelation(int userID, int anotherUserId);
+
 }

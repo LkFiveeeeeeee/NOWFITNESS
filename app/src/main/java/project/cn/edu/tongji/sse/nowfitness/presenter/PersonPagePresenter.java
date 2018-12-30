@@ -14,10 +14,12 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsRecyclerAdapter;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageViewMethod;
 
 /**
  * Created by a on 2018/12/13.
@@ -25,10 +27,12 @@ import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 
 public class PersonPagePresenter extends BaseMomentsPresenter{
     private PersonPageView personPageView;
+    private PersonPageViewMethod personPageViewMethod;
 
-    public PersonPagePresenter(Context context, MomentsMethod momentsMethod,PersonPageView personPageView){
+    public PersonPagePresenter(Context context, MomentsMethod momentsMethod,PersonPageView personPageView,PersonPageViewMethod personPageViewMethod){
        super(momentsMethod, context);
        this.personPageView = personPageView;
+       this.personPageViewMethod =personPageViewMethod;
     }
     public void intiView(){
         personPageView.initView();
@@ -49,6 +53,13 @@ public class PersonPagePresenter extends BaseMomentsPresenter{
         );
 
     }
+    public void getFollowingInfo(int anotherUserId){
+        subscriptions.add(apiRepository.getUserRelation((int)UserInfoLab.get().getUserInfoModel().getId(),anotherUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(personPageViewMethod::queryRelationSuccess,personPageViewMethod::queryError)
+        );
+    }
 
     public void addMomentsList(List<MomentsModel> momentsModelList){
         for(MomentsModel e:momentsModelList)
@@ -67,6 +78,9 @@ public class PersonPagePresenter extends BaseMomentsPresenter{
         intent.putExtra("moments",momentsModel);
         intent.setClass(mContext, MomentsDetailView.class);
         personPageView.startActivityForResult(intent,1001);
+    }
+    public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){
+        personPageView.shareToQZone(this.setShareContent(title,summary,contentUrl,imageUrl));
     }
 
 }

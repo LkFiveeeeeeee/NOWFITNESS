@@ -10,12 +10,14 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -28,7 +30,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.github.chrisbanes.photoview.PhotoView;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
 import java.util.List;
 
@@ -39,6 +45,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
 
 
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 
 
@@ -48,10 +55,13 @@ import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MyQzoneShare;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 
-public class MomentsDetailView extends AppCompatActivity implements CommentsMethod{
+public class MomentsDetailView extends AppCompatActivity implements CommentsMethod,MyQzoneShare,ToPersonPageView {
     private MomentsModel momentsModel;
 
     public static final int COMMENT_TARGET_MOMENTS=1001;
@@ -63,9 +73,10 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     private TextView momentsTimeText;
     private TextView momentsContentText;
     private PhotoView momentsImage;
-    private ImageView likesImage;
-    private TextView likesNum;
+    private ImageView shareImage;
     private int originPos;
+    private Toolbar toolbar;
+    private Tencent mTencent;
 
     private SwipeRefreshLayout commentsRefreshLayout;
     private BottomSheetDialog dialog;
@@ -83,6 +94,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         momentsDetailPresenter.setExpandableListView(expandableListView);
         momentsDetailPresenter.initExpandableList();
         momentsDetailPresenter.queryForComments(momentsModel.getMomentsId());
+        mTencent = Tencent.createInstance(Constant.APP_ID, this.getApplicationContext());
     }
 
     @Override
@@ -112,12 +124,14 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         }else{
             ConstantMethod.toastShort(MomentsDetailView.this,commentsDetailModelsList.getError());
         }
-
+        commentsRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void queryError(Throwable e) {
+        Toast.makeText(this,"网络出错了...",Toast.LENGTH_SHORT).show();
         e.printStackTrace();
+        commentsRefreshLayout.setRefreshing(false);
     }
 
     public void initView(List<CommentsDetailModel> commentsList){
@@ -128,11 +142,12 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         momentsContentText = (TextView)findViewById(R.id.moments_detail_detail);
         expandableListView = ( ExpandableListView) findViewById(R.id.moments_detail_comments_listView);
         commentTextView = (TextView) findViewById(R.id.moments_detail_do_comment);
-        likesImage = (ImageView)findViewById(R.id.detail_likes_image);
-        likesNum = (TextView)findViewById(R.id.detail_likes_num);
-        likesImage.setSelected(momentsModel.isLiked());
-        likesNum.setText(String.valueOf(momentsModel.getLikes()));
+        shareImage = (ImageView)findViewById(R.id.detail_share_image);
         commentsRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.comments_refresh);
+        toolbar = (Toolbar) findViewById(R.id.moments_detail_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         initEvent();
     }
 
@@ -160,6 +175,12 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                 momentsDetailPresenter.queryForComments(momentsModel.getMomentsId());
             }
         });
+        shareImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                momentsDetailPresenter.shareToQzone(momentsModel.getNickName(),momentsModel.getContent(),momentsModel.getImage(),momentsModel.getUserPhoto());
+            }
+        });
     }
 
 
@@ -172,7 +193,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         });
         expandableListView.setGroupIndicator(null);
         //默认展开所有回复
-
         for(int i = 1; i<commentList.size(); i++){
             expandableListView.expandGroup(i);
         }
@@ -217,8 +237,9 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     }
 
     private void showCommentDialog( List<CommentsDetailModel> commentsList,final int commentType, final int groupPosition, final int childPosition){
-        if(!isCommentable(commentsList, commentType, groupPosition, childPosition))
+        if(!isCommentable(commentsList, commentType, groupPosition, childPosition)) {
             return;
+        }
         dialog = new BottomSheetDialog(this,R.style.BottomSheetEdit);
         View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
         final EditText commentText = (EditText) commentView.findViewById(R.id.moments_dialog_comment_et);
@@ -315,22 +336,20 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                 return true;
         }
     }
-    private void showPopWindows(View v,int childPos,int groupPos) {
 
-        /** pop view */
+    private void showPopWindows(View v,int childPos,int groupPos) {
         View mPopView = LayoutInflater.from(this).inflate(R.layout.menu_popup, null);
         final PopupWindow mPopWindow = new PopupWindow(mPopView, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        /** set */
         mPopWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        /** 这个很重要 ,获取弹窗的长宽度 */
+        //这个很重要 ,获取弹窗的长宽度
         mPopView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int popupWidth = mPopView.getMeasuredWidth();
         int popupHeight = mPopView.getMeasuredHeight();
-        /** 获取父控件的位置 */
+        //获取父控件的位置
         int[] location = new int[2];
         v.getLocationOnScreen(location);
-        /** 显示位置 */
+        //显示位置
         mPopWindow.showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - popupWidth / 2, location[1]
                 +popupHeight/2);
         mPopWindow.update();
@@ -350,10 +369,59 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
 
     @Override
     public void onBackPressed() {
+        resultBack();
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== android.R.id.home) {
+            resultBack();
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void resultBack(){
         Intent intent=new Intent();
         intent.putExtra("position",originPos);
         intent.putExtra("commentsNum",momentsDetailPresenter.pMomentsModel.getCommentsNum());
         setResult(Activity.RESULT_OK,intent);
-        super.onBackPressed();
+    }
+
+    @Override
+    public void shareToQZone(Bundle params) {
+        mTencent.shareToQzone(MomentsDetailView.this, params,null);
+    }
+
+    @Override
+    public void jumpToPersonPage(int id, String userName, String nickName, String personPhoto) {
+        Intent intent = new Intent();
+        intent.putExtra("userId",id);
+        intent.putExtra("nickName",nickName);
+        intent.putExtra("photo",personPhoto);
+        intent.putExtra("userName",userName);
+        intent.setClass(this, PersonPageView.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Tencent.onActivityResultData(requestCode, resultCode, data, new IUiListener() {
+            @Override
+            public void onComplete(Object o) {
+                Toast.makeText(getApplicationContext(),"分享成功",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(UiError uiError) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
     }
 }

@@ -18,6 +18,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RelationDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.SaltDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
@@ -27,6 +28,8 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
+
+import project.cn.edu.tongji.sse.nowfitness.model.FollowingRelation;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
@@ -357,6 +360,20 @@ public class APIRepositoryImpl implements APIRepository {
                 });
     }
 
+    @Override
+    public Single<ResponseModel<FollowingRelation>> getUserRelation(int userID, int anotherUserId) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.getUserRelation(userID, anotherUserId)
+                .map(new Function<ResponseDTO<RelationDTO>, ResponseModel<FollowingRelation>>() {
+                    @Override
+                    public ResponseModel<FollowingRelation> apply(ResponseDTO<RelationDTO> relationDTOResponseDTO) throws Exception {
+                        responseModel.setError(relationDTOResponseDTO.getError());
+                        responseModel.setStatus(relationDTOResponseDTO.getStatus());
+                        responseModel.setData(new FollowingRelation(relationDTOResponseDTO.getData()));
+                        return responseModel;
+                    }
+                });
+    }
     @Override
     public Single<ResponseModel<IndividualsList>> getFansInfo(int userId) {
         ResponseModel responseModel = new ResponseModel();

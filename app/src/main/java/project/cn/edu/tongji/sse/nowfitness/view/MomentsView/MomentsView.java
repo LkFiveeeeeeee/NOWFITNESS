@@ -21,10 +21,14 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 
 
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
@@ -36,7 +40,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
  * Created by a on 2018/11/23.
  */
 
-public class MomentsView extends Fragment implements MomentsMethod{
+public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
     private View myView;
     private String type;
     private RecyclerView momentsRecyclerView;
@@ -45,6 +49,8 @@ public class MomentsView extends Fragment implements MomentsMethod{
     private SmartRefreshLayout refreshLayout;
     private final int LOAD = 1;
     private final int REFRESH = 2;
+
+    private Tencent mTencent;
 
     public static MomentsView newInstance(String type){
         Bundle args = new Bundle();
@@ -71,6 +77,7 @@ public class MomentsView extends Fragment implements MomentsMethod{
         else{
             momentsPresenter.queryForNearByInfo((int) UserInfoLab.get().getUserInfoModel().getId(),1);
         }
+        mTencent = Tencent.createInstance(Constant.APP_ID, this.getActivity().getApplicationContext());
         momentsPresenter.initView();
         return myView;
     }
@@ -144,7 +151,6 @@ public class MomentsView extends Fragment implements MomentsMethod{
         e.printStackTrace();
     }
 
-
     public class MomentsItemDecoration extends RecyclerView.ItemDecoration {
 
         @Override
@@ -176,32 +182,6 @@ public class MomentsView extends Fragment implements MomentsMethod{
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        Log.d("momentsview","onStart");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Log.d("momentsview","onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("momentsview","onPause");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("momentsview","onDestroyView");
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==MomentsPresenter.RESULT_CODE&&resultCode== Activity.RESULT_OK){
@@ -209,6 +189,26 @@ public class MomentsView extends Fragment implements MomentsMethod{
             int commentsNum = data.getIntExtra("commentsNum",0);
             Log.d("momentsview", "onActivityResult: "+String.valueOf(position)+"  "+String.valueOf(commentsNum));
             momentsPresenter.notifyCommentsNumChange(position,commentsNum);
+        }
+        Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
+    }
+    QQIUiListener mIUiListener = new QQIUiListener();
+
+    @Override
+    public void shareToQZone(Bundle params) {
+        mTencent.shareToQzone(this.getActivity(), params,mIUiListener);
+    }
+    class QQIUiListener implements IUiListener {
+        @Override
+        public void onComplete(Object o) {
+        }
+        @Override
+        public void onError(UiError uiError) {
+            // 分享异常
+        }
+        @Override
+        public void onCancel() {
+            // 取消分享
         }
     }
 }

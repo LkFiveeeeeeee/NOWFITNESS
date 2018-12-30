@@ -21,17 +21,20 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.BaseMomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
+import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 
 /**
  * Created by a on 2018/11/28.
  */
 
 public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private int DIALOG_NULL = 0;
+
     private int DIALOG_DELETE = 1;
     private int DIALOG_NOT_FOLLOWING = 2;
+    private int PERSONPAGE = 0;
+    private int LEFTFRAGMENT = 1;
 
-
+    private int type ;
     private CircleImageView userPhotoImage;
     private ImageView contentPicImage;
     private TextView nickNameTextView;
@@ -45,7 +48,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
     private BaseMomentsPresenter baseMomentsPresenter;
     private int userId;
     private int myPosition;
-    private int type = DIALOG_NULL;
+
 
     public MomentsViewHolder(View itemView, BaseMomentsPresenter baseMomentsPresenter) {
         super(itemView);
@@ -59,6 +62,12 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
         like = (ImageView) itemView.findViewById(R.id.image_like);
         btMenu = (ImageView) itemView.findViewById(R.id.btnMenus);
         this.baseMomentsPresenter = baseMomentsPresenter;
+        if(baseMomentsPresenter instanceof PersonPagePresenter){
+            type = PERSONPAGE;
+        }else{
+            type = LEFTFRAGMENT;
+        }
+
     }
     public void onBindMomentsData(MomentsModel moments,int pos){
         mMoments = moments;
@@ -82,8 +91,8 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             else
                 contentPicImage.setVisibility(View.GONE);
         }
-        if((baseMomentsPresenter instanceof PersonPagePresenter && userId==(int)UserInfoLab.get().getUserInfoModel().getId() )
-                ||baseMomentsPresenter instanceof MomentsPresenter && ((MomentsPresenter) baseMomentsPresenter).getMomentsType().equals(LeftFragment.TAB_TYPE_1))
+        if((type == PERSONPAGE&& userId==(int)UserInfoLab.get().getUserInfoModel().getId() )
+                ||type == LEFTFRAGMENT && ((MomentsPresenter) baseMomentsPresenter).getMomentsType().equals(LeftFragment.TAB_TYPE_1))
             btMenu.setOnClickListener(this);
         else
             btMenu.setVisibility(View.GONE);
@@ -108,18 +117,22 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                     mMoments.setLikes(mMoments.getLikes()-1);
                     likeNum.setText(String.valueOf(mMoments.getLikes())+"人点赞");
                     baseMomentsPresenter.deleteLikeInfo(mMoments.getMomentsId(),(int) userInfoModel.getId());
-                    //删除点赞请求?
+                    //删除点赞请求
                 }
                 break;
             case R.id.moments_user_photo :
-                baseMomentsPresenter.jumpToPersonPage(userId,mMoments.getUserName(),mMoments.getNickName(),mMoments.getUserPhoto());
+                if(type == LEFTFRAGMENT) {
+                    baseMomentsPresenter.jumpToPersonPage(userId, mMoments.getUserName(), mMoments.getNickName(), mMoments.getUserPhoto());
+                }
                 break;
             case R.id.moments_user_name:
-                baseMomentsPresenter.jumpToPersonPage(userId,mMoments.getUserName(),mMoments.getNickName(),mMoments.getUserPhoto());
+                if(type == LEFTFRAGMENT) {
+                    baseMomentsPresenter.jumpToPersonPage(userId, mMoments.getUserName(), mMoments.getNickName(), mMoments.getUserPhoto());
+                }
                 break;
             case R.id.btnMenus:
                 PopupMenu popup = new PopupMenu(baseMomentsPresenter.getContext(),btMenu);
-                if(baseMomentsPresenter instanceof PersonPagePresenter){
+                if(type == PERSONPAGE){
                     popup.getMenuInflater().inflate(R.menu.moments_pop_menu_u, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
@@ -130,7 +143,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                                             DIALOG_DELETE );
                                     break;
                                 case R.id.share:
-
+                                    baseMomentsPresenter.shareToQzone(mMoments.getNickName(),mMoments.getContent(),mMoments.getImage(),mMoments.getUserPhoto());
                                     break;
                             }
                             return true;
@@ -147,7 +160,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                                     ,DIALOG_NOT_FOLLOWING);
                                     break;
                                 case R.id.share:
-
+                                    baseMomentsPresenter.shareToQzone(mMoments.getNickName(),mMoments.getContent(),mMoments.getImage(),mMoments.getUserPhoto());
                                     break;
                             }
                             return true;
@@ -170,6 +183,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(type==DIALOG_NOT_FOLLOWING) {
+                    UserInfoLab.get().getUserInfoModel().setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()-1);
                     baseMomentsPresenter.deleteFollowingInfo((int)UserInfoLab.get().getUserInfoModel().getId(),mMoments.getUserId());
                 }else if(type==DIALOG_DELETE){
                     ((PersonPagePresenter) baseMomentsPresenter).deleteMoments(myPosition);

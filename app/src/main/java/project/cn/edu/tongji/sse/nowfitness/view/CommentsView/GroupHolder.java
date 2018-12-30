@@ -79,11 +79,11 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.comment_item_logo:
-                momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getId(),commentsDetailModel.getCommentUserName(),
+                momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getCommentUserId(),commentsDetailModel.getCommentUserName(),
                         commentsDetailModel.getCommentUserNickName(),commentsDetailModel.getCommentUserPhoto());
                 break;
             case R.id.comment_item_userName:
-                momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getId(),commentsDetailModel.getCommentUserName(),
+                momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getCommentUserId(),commentsDetailModel.getCommentUserName(),
                         commentsDetailModel.getCommentUserNickName(), commentsDetailModel.getCommentUserPhoto());
                 break;
             case R.id.comment_menu_bt:
