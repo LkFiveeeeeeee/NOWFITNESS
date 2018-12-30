@@ -1,6 +1,5 @@
 package project.cn.edu.tongji.sse.nowfitness.view.WelcomeView;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -73,22 +72,22 @@ public class WelcomeView extends AppCompatActivity implements WelcomeViewMethod,
 
     @Override
     public boolean checkPermission() {
-        if(ContextCompat.checkSelfPermission(WelcomeView.this,ConstantMethod.PERMISSIONS_STROAGE[0])
+        if(ContextCompat.checkSelfPermission(WelcomeView.this,ConstantMethod.PERMISSIONS_STORAGE[0])
                 != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(WelcomeView.this,ConstantMethod.PERMISSIONS_STROAGE[1])
+                ContextCompat.checkSelfPermission(WelcomeView.this,ConstantMethod.PERMISSIONS_STORAGE[1])
                     != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(WelcomeView.this,
-                    ConstantMethod.PERMISSIONS_STROAGE[0]) &&
+                    ConstantMethod.PERMISSIONS_STORAGE[0]) &&
                     ActivityCompat.shouldShowRequestPermissionRationale
-                    (WelcomeView.this, ConstantMethod.PERMISSIONS_STROAGE[1])){
+                    (WelcomeView.this, ConstantMethod.PERMISSIONS_STORAGE[1])){
                     ActivityCompat.requestPermissions(WelcomeView.this,
-                        ConstantMethod.PERMISSIONS_STROAGE,ConstantMethod.REQUEST_PERMISSION_CODE
+                        ConstantMethod.PERMISSIONS_STORAGE,ConstantMethod.REQUEST_PERMISSION_CODE
                 );
              /*   ConstantMethod.toastShort(WelcomeView.this,"缺少读写权限");
                 finish();*/
             }else{
                 ActivityCompat.requestPermissions(WelcomeView.this,
-                        ConstantMethod.PERMISSIONS_STROAGE,ConstantMethod.REQUEST_PERMISSION_CODE
+                        ConstantMethod.PERMISSIONS_STORAGE,ConstantMethod.REQUEST_PERMISSION_CODE
                         );
             }
             return false;

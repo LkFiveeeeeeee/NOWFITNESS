@@ -64,10 +64,10 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
                 UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
                 if(individualModel.isStated()){
                     followPresenter.postFollowInfo((int)UserInfoLab.get().getUserInfoModel().getId(),individualModel.getId());
-           //         userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() + 1);
+                    userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() + 1);
                 }else{
                     followPresenter.deleteFollowInfo((int)UserInfoLab.get().getUserInfoModel().getId(),individualModel.getId());
-           //         userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() - 1);
+                    userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() - 1);
                 }
                 //TODO 更改网络方面数据
                 //TODO Toast 成功or失败信息

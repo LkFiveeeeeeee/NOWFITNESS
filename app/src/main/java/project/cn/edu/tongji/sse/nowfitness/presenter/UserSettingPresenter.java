@@ -1,7 +1,12 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
+import java.nio.channels.ShutdownChannelGroupException;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingView;
@@ -16,24 +21,21 @@ public class UserSettingPresenter extends BasePresenter {
     }
 
     public void putUserInfo(UserInfoModel userInfoModel){
-
-      //  JSONObject object = new JSONObject();
-   /*     try{
-            object.put("userName",userInfoModel.getUserName());
-            object.put("password",userInfoModel.getPassword());
-            object.put("sex",userInfoModel.getSex());
-            object.put("nickName",userInfoModel.getNickName());
-            object.put("age",userInfoModel.getAge());
-        }catch (JSONException e){
-            e.printStackTrace();
-            Log.d("PUT UserInfo", "putUserInfo: error!!" );
-            return;
-        }*/
-
         subscriptions.add(apiRepository.putUserInfo(userInfoModel)
             .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userSettingMethod::putSuccess,userSettingMethod::putError)
+        );
+    }
+
+    public void changePassword(String newPassword){
+        UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+        RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(userInfoModel.getId()));
+        RequestBody passWordBody = RequestBody.create(MediaType.parse("text/plain"),newPassword);
+        subscriptions.add(apiRepository.changePassword(userIdBody,passWordBody)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(userSettingMethod::changeSuccess,userSettingMethod::putError)
         );
 
     }

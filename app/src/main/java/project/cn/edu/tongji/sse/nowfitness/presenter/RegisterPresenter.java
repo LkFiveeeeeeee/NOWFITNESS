@@ -27,7 +27,7 @@ public class RegisterPresenter extends BasePresenter{
         registerView.initView();
     }
 
-    public boolean vertifyUserName(String userName){
+    public boolean verifyUserName(String userName){
         if(userName.length() < 6){
             registerView.userNameSetError("用户名过短");
             return false;
@@ -37,7 +37,7 @@ public class RegisterPresenter extends BasePresenter{
     }
 
     public boolean verifyPassWord(String passWord){
-        if(passWord.length() < 8){
+        if(passWord.length() < 6){
             registerView.passWordSetError("密码过短");
             return false;
         }

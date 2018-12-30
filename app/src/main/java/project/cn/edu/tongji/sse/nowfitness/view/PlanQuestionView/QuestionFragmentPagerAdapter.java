@@ -17,7 +17,7 @@ public class QuestionFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private List<Question> questionModelList;
     private List<BaseFragment> fragments = new ArrayList<>();
     private FragmentManager fragmentManager;
-    public QuestionFragmentPagerAdapter(FragmentManager fragmentManager,List<Question> questionModels){
+    QuestionFragmentPagerAdapter(FragmentManager fragmentManager, List<Question> questionModels){
         super(fragmentManager);
         this.fragmentManager = fragmentManager;
         questionModelList = questionModels;

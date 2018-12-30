@@ -8,10 +8,13 @@ public class QuestionList {
 
 
     private List<Question> questions;
-    int score = 0;
 
 
-    int[] bonusIndex = new int[10];
+
+    private int score = 0;
+
+
+    private int[] bonusIndex = new int[10];
 
 
     public int[] getBonusIndex() {
@@ -20,6 +23,7 @@ public class QuestionList {
 
     public QuestionList(){
         initList();
+        initBonus();
     }
 
     public static QuestionList get(){
@@ -59,10 +63,29 @@ public class QuestionList {
             "休闲娱乐","调节身心"},new int[]{10,10,8,6,4}));
     }
 
-    public void culculateScore(){
+    private void initBonus(){
+        for(int i = 0;i < 10;i++){
+            bonusIndex[i] = -1;
+        }
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public boolean calculateScore(){
         for(int i = 0;i < bonusIndex.length;i++){
+            if(bonusIndex[i] == -1){
+                score = 0;
+                return false;
+            }
             score += questions.get(i).getBonus()[bonusIndex[i]];
         }
+        return true;
     }
 
 }

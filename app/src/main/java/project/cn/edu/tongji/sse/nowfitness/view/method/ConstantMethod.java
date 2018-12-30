@@ -20,11 +20,12 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MyGlideEngine;
 
 public class ConstantMethod {
-    public static String[] PERMISSIONS_STROAGE={
+    public static String[] PERMISSIONS_STORAGE ={
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
+    public static final String result_Integer = "result";
     public static final int REQUEST_PERMISSION_CODE = 55;
     public static int REQUEST_IMAGE_CODE = 188;
     public static String userName_Key = "userName";

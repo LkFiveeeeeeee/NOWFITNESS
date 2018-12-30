@@ -37,6 +37,10 @@ public class UserInfoDTO {
     private int momentsNum;
     private List<String> dailyCheckList;
 
+
+
+    private String salt;
+
     public int getId() {
         return id;
     }
@@ -143,5 +147,13 @@ public class UserInfoDTO {
 
     public List<String> getDateCheckList() {
         return dailyCheckList;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

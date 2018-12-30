@@ -98,15 +98,4 @@ public class UserViewPresenter extends BasePresenter{
             .subscribe(userViewMethod::applyForImageChange,userViewMethod::queryError));
     }
 
-    public void queryMyMoments() {
-
-    }
-
-    public void queryMyFans(){
-
-    }
-
-    public void queryMyStars(){
-
-    }
 }

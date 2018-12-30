@@ -10,7 +10,7 @@
     <string name="BMINumber">BMI</string>
     <string name="follow">我的关注</string>
     <string name="nearby">附近的人</string>
-    <string name="momenthint">分享新鲜事儿...</string>
+    <string name="momentHint">分享新鲜事儿...</string>
     <string name="photo">照片</string>
     <string name="publish">发布</string>
     <string name="zeroNum">这里空空如也,快去和他人互动吧~</string>
@@ -19,4 +19,5 @@
     <string name="energy">消耗能量</string>
     <string name="todayLength">今日里程</string>
     <string name="countLength">共计里程</string>
+    <string name="checkAndFinish">完成并打卡</string>
 </resources>

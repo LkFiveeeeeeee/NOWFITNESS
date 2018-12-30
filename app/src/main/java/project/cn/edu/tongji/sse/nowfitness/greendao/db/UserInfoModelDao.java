@@ -37,6 +37,7 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
         public final static Property FansNum = new Property(10, int.class, "fansNum", false, "FANS_NUM");
         public final static Property MomentsNum = new Property(11, int.class, "momentsNum", false, "MOMENTS_NUM");
         public final static Property DateCheckString = new Property(12, String.class, "dateCheckString", false, "DATE_CHECK_STRING");
+        public final static Property Salt = new Property(13, String.class, "salt", false, "SALT");
     }
 
 
@@ -64,7 +65,8 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
                 "\"FOLLOWING_NUM\" INTEGER NOT NULL ," + // 9: followingNum
                 "\"FANS_NUM\" INTEGER NOT NULL ," + // 10: fansNum
                 "\"MOMENTS_NUM\" INTEGER NOT NULL ," + // 11: momentsNum
-                "\"DATE_CHECK_STRING\" TEXT);"); // 12: dateCheckString
+                "\"DATE_CHECK_STRING\" TEXT," + // 12: dateCheckString
+                "\"SALT\" TEXT);"); // 13: salt
     }
 
     /** Drops the underlying database table. */
@@ -113,6 +115,11 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
         if (dateCheckString != null) {
             stmt.bindString(13, dateCheckString);
         }
+ 
+        String salt = entity.getSalt();
+        if (salt != null) {
+            stmt.bindString(14, salt);
+        }
     }
 
     @Override
@@ -155,6 +162,11 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
         if (dateCheckString != null) {
             stmt.bindString(13, dateCheckString);
         }
+ 
+        String salt = entity.getSalt();
+        if (salt != null) {
+            stmt.bindString(14, salt);
+        }
     }
 
     @Override
@@ -177,7 +189,8 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
             cursor.getInt(offset + 9), // followingNum
             cursor.getInt(offset + 10), // fansNum
             cursor.getInt(offset + 11), // momentsNum
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // dateCheckString
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // dateCheckString
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // salt
         );
         return entity;
     }
@@ -197,6 +210,7 @@ public class UserInfoModelDao extends AbstractDao<UserInfoModel, Long> {
         entity.setFansNum(cursor.getInt(offset + 10));
         entity.setMomentsNum(cursor.getInt(offset + 11));
         entity.setDateCheckString(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setSalt(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
      }
     
     @Override

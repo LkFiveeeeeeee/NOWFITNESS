@@ -19,6 +19,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.SaltDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
@@ -34,6 +35,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.Response;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.SaltModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
@@ -430,7 +432,6 @@ public class APIRepositoryImpl implements APIRepository {
                                 stepModels.add(new StepModel(bean));
                             }
                         }
-                        Collections.reverse(stepModels);
                         StepModelList stepModelList = new StepModelList();
                         stepModelList.setStepModels(stepModels);
                         stepModelList.setDays(stepDataDTOResponseDTO.getData().getDays());
@@ -440,5 +441,39 @@ public class APIRepositoryImpl implements APIRepository {
                         return responseModel;
                     }
                 });
+    }
+
+
+    @Override
+    public Single<ResponseModel> postDailyCheck(int userId) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.postDailyCheck(userId)
+                .map(new Function<ResponseDTO, ResponseModel>() {
+                    @Override
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseModel.setError(responseDTO.getError());
+                        return responseModel;
+                    }
+                });
+    }
+
+    @Override
+    public Single<ResponseModel<SaltModel>> changePassword(RequestBody userId, RequestBody password) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.changePassword(userId,password)
+                .map(new Function<ResponseDTO<SaltDTO>, ResponseModel<SaltModel>>() {
+                    @Override
+                    public ResponseModel<SaltModel> apply(ResponseDTO<SaltDTO> saltDTOResponseDTO) throws Exception {
+                        responseModel.setStatus(saltDTOResponseDTO.getStatus());
+                        responseModel.setError(saltDTOResponseDTO.getError());
+                        SaltModel saltModel = new SaltModel();
+                        saltModel.setSalt(saltDTOResponseDTO.getData().getSalt());
+                        responseModel.setData(saltModel);
+                        return responseModel;
+                    }
+                });
+
+
     }
 }

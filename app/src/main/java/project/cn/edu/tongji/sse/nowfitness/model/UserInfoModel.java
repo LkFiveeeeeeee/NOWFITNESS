@@ -27,6 +27,9 @@ public class UserInfoModel {
     private String dateCheckString;
 
 
+
+    private String salt;
+
     @Transient
     private List<String> dateCheckList;
 
@@ -62,6 +65,7 @@ public class UserInfoModel {
         this.weight = userInfoDTO.getWeight();
         this.sex = userInfoDTO.getSex();
         this.age = userInfoDTO.getAge();
+        this.salt = userInfoDTO.getSalt();
         this.pictureUrl = userInfoDTO.getPicture();
         this.followingNum = userInfoDTO.getFollowing();
         this.fansNum = userInfoDTO.getFans();
@@ -87,16 +91,10 @@ public class UserInfoModel {
         this.dateCheckString = convert.convertToDatabaseValue(this.dateCheckList);
     }
 
-    
-
-    @Generated(hash = 886444478)
-    public UserInfoModel() {
-    }
-
-    @Generated(hash = 345454430)
+    @Generated(hash = 204096738)
     public UserInfoModel(long id, String userName, String nickName, String password, double height,
             double weight, String sex, int age, String pictureUrl, int followingNum, int fansNum,
-            int momentsNum, String dateCheckString) {
+            int momentsNum, String dateCheckString, String salt) {
         this.id = id;
         this.userName = userName;
         this.nickName = nickName;
@@ -110,7 +108,16 @@ public class UserInfoModel {
         this.fansNum = fansNum;
         this.momentsNum = momentsNum;
         this.dateCheckString = dateCheckString;
+        this.salt = salt;
     }
+
+    @Generated(hash = 886444478)
+    public UserInfoModel() {
+    }
+
+    
+
+   
 
 
 
@@ -230,5 +237,12 @@ public class UserInfoModel {
         this.nickName = nickName;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
 }

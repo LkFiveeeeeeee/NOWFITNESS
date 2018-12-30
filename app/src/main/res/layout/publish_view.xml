@@ -30,7 +30,7 @@
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:hint="@string/momenthint"
+            android:hint="@string/momentHint"
             android:inputType="textMultiLine"
             android:gravity="top"
             android:textColorHint="@color/textColor"
