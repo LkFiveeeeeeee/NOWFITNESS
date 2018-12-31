@@ -5,12 +5,12 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.TokenDTO;
 
 @Entity
 public class Token {
     @Transient
-    public static int TOKEN_ID = 1;
+    public static final int TOKEN_ID = 1;
 
     @Id
     private long id;

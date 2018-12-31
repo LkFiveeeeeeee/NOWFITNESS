@@ -4,8 +4,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
-import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.loginandregisterview.LoginView;
+import project.cn.edu.tongji.sse.nowfitness.view.loginandregisterview.LoginMethod;
 
 public class LoginPresenter extends BasePresenter{
     private LoginView loginView;

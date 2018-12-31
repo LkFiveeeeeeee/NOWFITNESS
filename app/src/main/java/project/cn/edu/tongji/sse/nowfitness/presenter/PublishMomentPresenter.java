@@ -11,8 +11,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentView;
+import project.cn.edu.tongji.sse.nowfitness.view.publishmomentview.PublishMomentMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.publishmomentview.PublishMomentView;
 
 import static project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication.getContext;
 

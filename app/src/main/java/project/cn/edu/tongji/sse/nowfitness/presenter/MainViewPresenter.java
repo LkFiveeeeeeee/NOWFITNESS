@@ -2,8 +2,8 @@ package project.cn.edu.tongji.sse.nowfitness.presenter;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
-import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainViewMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.mainview.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.mainview.MainViewMethod;
 
 public class MainViewPresenter extends BasePresenter {
     private MainView mainView;

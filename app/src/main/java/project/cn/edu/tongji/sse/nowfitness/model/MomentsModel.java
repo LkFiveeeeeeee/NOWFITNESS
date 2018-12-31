@@ -2,7 +2,7 @@ package project.cn.edu.tongji.sse.nowfitness.model;
 
 import java.io.Serializable;
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.MomentsDTO;
 
 public class MomentsModel implements Serializable {
     private int momentsId;

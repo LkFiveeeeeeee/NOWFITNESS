@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.BookDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.BookDTO;
 
 /**
  * Created by a on 2018/12/21.

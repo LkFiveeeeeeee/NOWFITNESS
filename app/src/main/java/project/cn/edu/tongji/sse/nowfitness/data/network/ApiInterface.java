@@ -5,16 +5,16 @@ import java.util.Map;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.BookDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RelationDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.SaltDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.BookDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.CommentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.IndividualsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.RelationDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.SaltDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.TokenDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
@@ -31,7 +31,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-    //TODO API接口函数声明
 
 
     /**

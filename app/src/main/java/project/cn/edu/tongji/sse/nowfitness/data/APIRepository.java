@@ -1,20 +1,14 @@
 package project.cn.edu.tongji.sse.nowfitness.data;
 
-import android.net.Uri;
 
-import org.json.JSONObject;
 
 import java.util.Map;
-
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public interface APIRepository {
 

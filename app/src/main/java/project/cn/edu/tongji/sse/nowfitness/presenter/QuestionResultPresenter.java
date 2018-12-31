@@ -3,9 +3,8 @@ package project.cn.edu.tongji.sse.nowfitness.presenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
-import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.QuestionResultMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.QuestionResultView;
+import project.cn.edu.tongji.sse.nowfitness.view.planquestionview.QuestionResultMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.planquestionview.QuestionResultView;
 
 public class QuestionResultPresenter extends BasePresenter{
     private QuestionResultView questionResultView;

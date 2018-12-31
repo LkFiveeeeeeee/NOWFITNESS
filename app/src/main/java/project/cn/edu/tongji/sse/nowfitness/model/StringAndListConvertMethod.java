@@ -2,17 +2,19 @@ package project.cn.edu.tongji.sse.nowfitness.model;
 
 import org.greenrobot.greendao.converter.PropertyConverter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static java.util.Arrays.*;
 
 public class StringAndListConvertMethod implements PropertyConverter<List<String>,String> {
     @Override
     public List<String> convertToEntityProperty(String databaseValue) {
         if(databaseValue == null){
-            return null;
+            return new ArrayList<>();
         }else{
-            List<String> list = Arrays.asList(databaseValue.split(","));
-            return list;
+            return asList(",".split(databaseValue));
         }
     }
 

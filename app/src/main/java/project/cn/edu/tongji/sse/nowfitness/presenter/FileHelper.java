@@ -10,6 +10,8 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
 public class FileHelper {
+    private FileHelper(){}
+
     public static String getFilePath(Context context, Uri uri) {
 
         if ("content".equalsIgnoreCase(uri.getScheme())) {
@@ -24,9 +26,9 @@ public class FileHelper {
 
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
+        }else{
+            return null;
         }
-
-        return null;
     }
 
     private static String getRealPathFromUriBelowAPI19(Context context, Uri uri) {

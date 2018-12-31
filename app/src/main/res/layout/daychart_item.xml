@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-            <project.cn.edu.tongji.sse.nowfitness.view.DataChartView.StepArcView.StepArcView
+            <project.cn.edu.tongji.sse.nowfitness.view.datachartview.StepArcView.StepArcView
                 android:id="@+id/step_chart"
                 android:layout_width="200dp"
                 android:layout_height="200dp"

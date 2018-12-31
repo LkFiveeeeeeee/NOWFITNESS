@@ -1,13 +1,12 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import android.support.annotation.MainThread;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
-import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayViewMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.userview.DisplayVIEW.DisplayView;
+import project.cn.edu.tongji.sse.nowfitness.view.userview.DisplayVIEW.DisplayViewMethod;
 
 public class DisplayPresenter extends BasePresenter{
     private DisplayView displayView;
@@ -30,7 +29,7 @@ public class DisplayPresenter extends BasePresenter{
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(displayViewMethod::queryForSuccess,displayViewMethod::queryError)
             );
-        }else if(type == DisplayView.FANS_TYPE){
+        }else{
             subscriptions.add(apiRepository.getFansInfo((int) userInfoModel.getId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

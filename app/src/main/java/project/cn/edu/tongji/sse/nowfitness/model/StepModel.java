@@ -5,7 +5,7 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Transient;
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataDTO;
 
 
 @Entity

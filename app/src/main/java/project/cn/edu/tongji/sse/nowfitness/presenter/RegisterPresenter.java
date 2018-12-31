@@ -7,8 +7,8 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.APIRepositoryImpl;
-import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterView;
+import project.cn.edu.tongji.sse.nowfitness.view.loginandregisterview.RegisterMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.loginandregisterview.RegisterView;
 
 public class RegisterPresenter extends BasePresenter{
     private RegisterView registerView;

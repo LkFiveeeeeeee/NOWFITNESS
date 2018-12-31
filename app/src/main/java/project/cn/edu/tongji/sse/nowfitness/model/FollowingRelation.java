@@ -1,6 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RelationDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.RelationDTO;
 
 public class FollowingRelation {
     private boolean states;

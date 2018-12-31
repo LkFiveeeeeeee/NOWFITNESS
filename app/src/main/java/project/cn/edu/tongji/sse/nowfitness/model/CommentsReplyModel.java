@@ -1,10 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.CommentsDTO;
 
 /**
  * Created by a on 2018/11/26.

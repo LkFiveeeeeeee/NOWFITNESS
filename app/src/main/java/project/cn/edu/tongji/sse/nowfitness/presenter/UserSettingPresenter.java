@@ -1,6 +1,5 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import java.nio.channels.ShutdownChannelGroupException;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -8,14 +7,12 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingView;
+import project.cn.edu.tongji.sse.nowfitness.view.usersettingview.UserSettingMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.usersettingview.UserSettingView;
 
 public class UserSettingPresenter extends BasePresenter {
-    private UserSettingView userSettingView;
     private UserSettingMethod userSettingMethod;
-    public UserSettingPresenter(UserSettingView userSettingView,UserSettingMethod userSettingMethod){
-        this.userSettingView = userSettingView;
+    public UserSettingPresenter(UserSettingMethod userSettingMethod){
         this.userSettingMethod = userSettingMethod;
 
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.QuestionResultView">
+    tools:context="project.cn.edu.tongji.sse.nowfitness.view.planquestionview.QuestionResultView">
     <ImageView
         android:layout_marginTop="50dp"
         android:id="@+id/heart_image"

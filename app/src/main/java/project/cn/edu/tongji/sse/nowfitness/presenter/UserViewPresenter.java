@@ -12,8 +12,8 @@ import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
-import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.userview.UserViewFragment;
+import project.cn.edu.tongji.sse.nowfitness.view.userview.UserViewMethod;
 
 public class UserViewPresenter extends BasePresenter{
     private boolean ableRead = false;
@@ -87,11 +87,6 @@ public class UserViewPresenter extends BasePresenter{
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file);
         MultipartBody.Part part = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
         RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(userId));
-     /*   RequestBody body = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("id",String.valueOf(userId)    )
-                .addFormDataPart("file",file.getName(),requestFile)
-                .build();*/
         subscriptions.add(apiRepository.postUserAvatar(part,requestId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

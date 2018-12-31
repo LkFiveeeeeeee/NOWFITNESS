@@ -1,8 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.greendao.db;
 
-import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
@@ -11,18 +9,13 @@ import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 
 
 public class DaoManager {
-    private final String TAG="OnDaoManager";
     private static final String DB_NAME="greendao";
     private static DaoManager daoInstance;
     private DaoMaster daoMaster;
     private DaoSession daoSession;
     public static DaoManager getDaoInstance(){
-        if(daoInstance == null){
-            synchronized (DaoManager.class){
-                if(daoInstance == null){
-                    daoInstance = new DaoManager();
-                }
-            }
+        if(null == daoInstance){
+            daoInstance = new DaoManager();
         }
         return daoInstance;
     }
@@ -30,6 +23,7 @@ public class DaoManager {
     private DaoManager(){
         if(daoInstance == null){
             if(NOWFITNESSApplication.getContext() == null){
+                String TAG = "OnDaoManager";
                 Log.d(TAG, "DaoManager: context is null!!!!!!");
             }
             MySqliteOpenHelper helper
