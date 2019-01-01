@@ -119,6 +119,9 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
     public void queryError(Throwable e) {
         Log.d("DisplayView", "queryError: ");
         isRefresh = false;
+        swipeRefreshLayout.setRefreshing(false);
+    //    ConstantMethod.toastShort(DisplayView.this,"网络连接出错!");
+    //TODO 切换成网络连接出错的样式
         e.printStackTrace();
     }
 

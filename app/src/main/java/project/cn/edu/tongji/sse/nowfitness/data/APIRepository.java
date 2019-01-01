@@ -65,6 +65,11 @@ public interface APIRepository {
 
     Single getStepsData(int userId,int days);
 
+
+    Single postDailyCheck(int userId);
+
+    Single changePassword(RequestBody userId,RequestBody password);
+
     Single getUserRelation(int userID, int anotherUserId);
 
 }

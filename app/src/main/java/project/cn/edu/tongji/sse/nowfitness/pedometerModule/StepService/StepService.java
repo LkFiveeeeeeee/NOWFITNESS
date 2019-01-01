@@ -129,9 +129,12 @@ public class StepService extends Service implements SensorEventListener,StepServ
                     .setContentIntent(getDefaultIntent(Notification.FLAG_ONGOING_EVENT))
                     //        .setContentIntent(getDe)
                     .setWhen(System.currentTimeMillis())
-                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .setPriority(Notification.VISIBILITY_PUBLIC)
+                    .setVibrate(new long[]{0L})
+                    .setSound(null)
                     .setAutoCancel(false)
                     .setOngoing(true)
+                    .setOnlyAlertOnce(true)
                     .setSmallIcon(R.drawable.fitnesslogo);
         }else{
             builder = new NotificationCompat.Builder(this);
@@ -141,8 +144,11 @@ public class StepService extends Service implements SensorEventListener,StepServ
                     //        .setContentIntent(getDe)
                     .setWhen(System.currentTimeMillis())
                     .setPriority(Notification.PRIORITY_DEFAULT)
+                    .setVibrate(new long[]{0L})
                     .setAutoCancel(false)
+                    .setSound(null)
                     .setOngoing(true)
+                    .setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE)
                     .setSmallIcon(R.drawable.fitnesslogo);
         }
   /*      builder = new NotificationCompat.Builder(this,channelID);

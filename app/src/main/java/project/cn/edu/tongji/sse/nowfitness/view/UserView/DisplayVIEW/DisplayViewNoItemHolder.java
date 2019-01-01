@@ -9,8 +9,8 @@ import java.util.zip.Inflater;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 
-public class DisplayViewNoItemHolder extends RecyclerView.ViewHolder {
-    public DisplayViewNoItemHolder(LayoutInflater inflater, ViewGroup parent){
+class DisplayViewNoItemHolder extends RecyclerView.ViewHolder {
+    DisplayViewNoItemHolder(LayoutInflater inflater, ViewGroup parent){
         super(inflater.inflate(R.layout.display_no_item,parent,false));
     }
 }

@@ -19,4 +19,5 @@
     <string name="energy">消耗能量</string>
     <string name="todayLength">今日里程</string>
     <string name="countLength">共计里程</string>
+    <string name="checkAndFinish">完成并打卡</string>
 </resources>

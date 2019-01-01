@@ -89,7 +89,7 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                registerPresenter.vertifyUserName(userName.getText().toString());
+                registerPresenter.verifyUserName(userName.getText().toString());
             }
         });
 
@@ -135,7 +135,7 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
             @Override
             public void onClick(View view) {
                 //TODO
-                if(registerPresenter.vertifyUserName(userName.getText().toString())
+                if(registerPresenter.verifyUserName(userName.getText().toString())
                         && registerPresenter.verifyPassWord(passWord.getText().toString())
                         &&registerPresenter.verifyPassWordAgain(passWord.getText().toString(),
                                                     repeatPassWord.getText().toString())){

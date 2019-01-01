@@ -26,11 +26,13 @@ import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.SaltModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserSettingPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.method.Encryption;
 
 public class UserSettingView extends AppCompatActivity implements UserSettingMethod{
     /**
@@ -49,6 +51,9 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
     private AppCompatButton logoutButton;
     private EditText ageInfo;
     private TextInputEditText nickNameText;
+    private TextInputEditText oldPassword;
+    private TextInputEditText newPassword;
+    private TextInputEditText repeatPassword;
 
 
 
@@ -78,6 +83,9 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
         LayoutInflater inflater = getLayoutInflater();
         View passWordView = inflater.inflate(R.layout.changepassword_view,(ViewGroup) findViewById(R.id.password_dialog));
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        oldPassword = (TextInputEditText) passWordView.findViewById(R.id.old_password);
+        newPassword = (TextInputEditText) passWordView.findViewById(R.id.new_password);
+        repeatPassword = (TextInputEditText) passWordView.findViewById(R.id.repeat_password);
         passWordDialog = builder.setTitle("修改密码")
             .setView(passWordView)
             .setIcon(R.drawable.password)
@@ -87,14 +95,25 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
                     passWordDialog.hide();
                 }
             })
-            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    //TODO
-                    //确定之后的网络与验证操作
-                }
-            })
+            .setPositiveButton("确定",null)
             .create();
+        passWordDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Button positive = passWordDialog.getButton(dialogInterface.BUTTON_POSITIVE);
+                positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(verifyPassword(oldPassword.getText().toString(),
+                                newPassword.getText().toString(),
+                                repeatPassword.getText().toString())){
+                            userSettingPresenter.changePassword(newPassword.getText().toString());
+                        }
+                    }
+                });
+            }
+        });
+
     }
 
     private void setUpUserInfoDialog(){
@@ -216,6 +235,25 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
         return true;
     }
 
+    private boolean verifyPassword(String oldPassword,String newPassword,String repeatWord){
+        UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+        if((oldPassword.length() < 6 || oldPassword.length() > 15)
+               || (newPassword.length() < 6 || newPassword.length() > 15)
+               || (repeatWord.length() < 6 || repeatWord.length() > 15) ){
+            ConstantMethod.toastShort(getApplicationContext(),"密码长度应在6-15位之间");
+            return false;
+        }
+        if(!userInfoModel.getPassword().equals(Encryption.MD5(oldPassword+userInfoModel.getSalt()))){
+            ConstantMethod.toastShort(getApplicationContext(),"原密码错误");
+            return false;
+        }
+        if(!newPassword.equals(repeatWord)){
+            ConstantMethod.toastShort(getApplicationContext(),"两次输入的密码不一致");
+            return false;
+        }
+        return true;
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -230,6 +268,7 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
             UserInfoLab.get().getUserInfoModel().setNickName(nickNameText.getText().toString());
             UserInfoLab.get().getUserInfoModel().setSex(sex);
             DaoManager.getDaoInstance().getDaoSession().getUserInfoModelDao().insertOrReplace(UserInfoLab.get().getUserInfoModel());
+            ConstantMethod.toastShort(UserSettingView.this,"更改成功!");
         }else{
             ConstantMethod.toastShort(UserSettingView.this,responseModel.getError());
         }
@@ -238,6 +277,23 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
     @Override
     public void putError(Throwable e) {
         e.printStackTrace();
-        ConstantMethod.toastShort(UserSettingView.this,"出现了未知的网络错误");
+        ConstantMethod.toastShort(getApplicationContext(),"网络错误!");
+    }
+
+    @Override
+    public void changeSuccess(ResponseModel<SaltModel> saltModelResponseModel) {
+        if(saltModelResponseModel.getStatus() >= 200 && saltModelResponseModel.getStatus() < 300){
+            UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+            userInfoModel.setSalt(saltModelResponseModel.getData().getSalt());
+            userInfoModel.setPassword(Encryption.MD5(newPassword.getText().toString()+userInfoModel.getSalt()));
+            DaoManager.getDaoInstance().getDaoSession().getUserInfoModelDao().insertOrReplace(UserInfoLab.get().getUserInfoModel());
+            oldPassword.setText("");
+            newPassword.setText("");
+            repeatPassword.setText("");
+            passWordDialog.dismiss();
+            ConstantMethod.toastShort(getApplicationContext(),"更改成功!");
+        }else{
+            ConstantMethod.toastShort(getApplicationContext(),"网络错误!");
+        }
     }
 }

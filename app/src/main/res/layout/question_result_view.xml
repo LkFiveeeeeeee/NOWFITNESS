@@ -42,5 +42,15 @@
         android:textSize="14sp"
         android:layout_gravity="center_horizontal"/>
 
+    <Button
+        android:layout_marginTop="30dp"
+        android:id="@+id/finish_button"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_enable"
+        android:text="@string/checkAndFinish"
+        />
+
 
 </LinearLayout>

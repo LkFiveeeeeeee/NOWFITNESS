@@ -14,7 +14,7 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.DisplayPresenter;
 public class DisplayViewAdapter extends RecyclerView.Adapter<DisplayViewVHolder> {
     private List<IndividualModel> individualModels;
     private DisplayPresenter displayPresenter;
-    public DisplayViewAdapter(List<IndividualModel> list, DisplayPresenter displayPresenter){
+    DisplayViewAdapter(List<IndividualModel> list, DisplayPresenter displayPresenter){
         individualModels = list;
         this.displayPresenter = displayPresenter;
     }

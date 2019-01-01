@@ -1,6 +1,7 @@
 package project.cn.edu.tongji.sse.nowfitness.view.DataChartView;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -49,7 +50,8 @@ public class DataChartFragment extends Fragment implements DataChartMethod{
     private DataChartPresenter dataChartPresenter;
     private LinearLayout dataColumn;
     private TextView stepText;
-    
+    private TextView stepEnergy;
+    private TextView stepKm;
     private View noDataView;
     private View badNetworkView;
     private TextView warningWord;
@@ -81,7 +83,10 @@ public class DataChartFragment extends Fragment implements DataChartMethod{
         dataColumn = (LinearLayout) view.findViewById(R.id.data_column);
         noDataView = view.findViewById(R.id.no_data);
         badNetworkView = view.findViewById(R.id.bad_network);
-        warningWord = noDataView.findViewById(R.id.warning_word);
+        warningWord = (TextView) noDataView.findViewById(R.id.warning_word);
+        stepEnergy = (TextView) view.findViewById(R.id.step_energy);
+        stepKm = (TextView) view.findViewById(R.id.step_km);
+        stepText = (TextView) view.findViewById(R.id.step_text);
         warningWord.setText("暂无数据");
         getStepCount();
     }
@@ -105,6 +110,22 @@ public class DataChartFragment extends Fragment implements DataChartMethod{
     private void setNetworkViewGone(){
         badNetworkView.setVisibility(View.GONE);
     }
+
+    @SuppressLint("SetTextI18n")
+    private void setDataColumn(){
+        int countStep = 0;
+        int calories = 0;
+        for(StepModel stepModel:stepModels){
+            countStep += Integer.valueOf(stepModel.getStep());
+            calories += stepModel.getCalories();
+        }
+        int km = (int) (countStep * 0.75 / 1000);
+        stepText.setText(countStep + "步");
+        stepEnergy.setText(calories + "KCal");
+        stepKm.setText(km + "Km");
+    }
+
+
 
 /*
     private void initFakeData()  {
@@ -237,6 +258,7 @@ public class DataChartFragment extends Fragment implements DataChartMethod{
                 stepModels = stepModelListResponseModel.getData().getStepModels();
                 setNetworkViewGone();
                 setWarningViewGone();
+                setDataColumn();
                 initChart();
             }
         }else{

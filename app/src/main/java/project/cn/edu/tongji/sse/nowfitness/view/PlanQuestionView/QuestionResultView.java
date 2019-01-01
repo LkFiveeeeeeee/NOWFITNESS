@@ -4,30 +4,46 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
+import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.presenter.QuestionResultPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
-public class QuestionResultView extends AppCompatActivity {
+public class QuestionResultView extends AppCompatActivity implements QuestionResultMethod{
 
     private int type;
-    private List<String> sportsExamples;
-    private List<String> functions;
-    private List<String> people;
+    private List<String> sportsExamples = new ArrayList<>();
+    private List<String> functions = new ArrayList<>();
+    private List<String> people = new ArrayList<>();
     private int []  image;
+    private QuestionResultPresenter questionResultPresenter;
     private TextView sportsExa,sportsFun,sportsPeo;
     private ImageView heartImage;
+    private Button finishButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        //type = intent.getIntExtra()
+        type = intent.getIntExtra(ConstantMethod.result_Integer,0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_result_view);
+        questionResultPresenter = new QuestionResultPresenter(this,this);
         initData();
         initView();
     }
@@ -36,10 +52,12 @@ public class QuestionResultView extends AppCompatActivity {
         sportsFun = (TextView)findViewById(R.id.sports_function);
         sportsPeo = (TextView)findViewById(R.id.who_need);
         heartImage = (ImageView)findViewById(R.id.heart_image);
+        finishButton = (Button) findViewById(R.id.finish_button);
         heartImage.setImageResource(image[type]);
         sportsExa.setText(sportsExamples.get(type));
         sportsFun.setText(functions.get(type));
         sportsPeo.setText(people.get(type));
+        setListener();
     }
     public void initData(){
         sportsExamples.add("举重、短跑、拳击、格斗");
@@ -63,5 +81,37 @@ public class QuestionResultView extends AppCompatActivity {
         image[2] = R.drawable.yel;
         image[3] = R.drawable.gre;
         image[4] = R.drawable.gra;
+    }
+
+    private void setListener(){
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                questionResultPresenter.postDailyCheck();
+            }
+        });
+    }
+
+
+    @Override
+    public void postSuccess(ResponseModel responseModel) {
+        if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String dateStr = sdf.format(date);
+            Log.d("QuestionResultView", "postSuccess: " + dateStr);
+            UserInfoLab.get().getUserInfoModel().getDateCheckList().add(dateStr);
+            Intent intent = new Intent(QuestionResultView.this,MainView.class);
+            startActivity(intent);
+            finish();
+        }else{
+            ConstantMethod.toastShort(QuestionResultView.this,"网络连接出错,请检查网络");
+        }
+    }
+
+    @Override
+    public void postError(Throwable e) {
+        ConstantMethod.toastShort(QuestionResultView.this,"网络连接出错,请检查网络");
+        e.printStackTrace();
     }
 }
