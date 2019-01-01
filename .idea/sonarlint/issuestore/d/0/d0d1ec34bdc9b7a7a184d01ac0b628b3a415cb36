@@ -1,0 +1,21 @@
+
+q
+AWgCmhbKx5JDG4YppcArsquid:UselessImportCheck"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8èöõ£õ,
+R
+AWgCmhbKx5JDG4YppcAwsquid:S1451"&Add or update the header of this file.8ĞÑÑÿ,
+
+AWgCmhbKx5JDG4YppcAq"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ø¡²›ÿÿÿÿÿ8¨Û©ô,
+j
+AWgCmhbKx5JDG4YppcAtsquid:UselessImportCheck"+Remove this unused import 'java.sql.Array'.(Õø‹ù8èöõ£õ,
+^
+AWgCmhbKx5JDG4YppcApsquid:IndentationCheck"!Make this line start at column 3.(éå›Ò8¨Û©ô,
+”
+AWgCmhbKx5JDG4YppcAssquid:UselessImportCheck"PRemove this unused import 'org.greenrobot.greendao.converter.PropertyConverter'.(ÔÜá¨şÿÿÿÿ8èöõ£õ,
+o
+AWgCmhbKx5JDG4YppcAusquid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8èöõ£õ,
+‚
+AWgCmhbKx5JDG4YppcAvsquid:UselessImportCheck">Remove this unused import 'java.beans.PropertyChangeListener'.(ş¼ÃÀùÿÿÿÿ8èöõ£õ,
+
+AWgCmhbKx5JDG4YppcAysquid:S2068"V'PASSWORD' detected in this expression, review this potentially hard-coded credential.(È¢šÖÿÿÿÿÿ8¨Û©ô,
+q
+AWgCmhbKx5JDG4YppcAxsquid:S1118":Add a private constructor to hide the implicit public one.(Ø¡²›ÿÿÿÿÿ8¨Û©ô,

@@ -17,7 +17,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
  */
 
 public class MomentsPresenter extends BaseMomentsPresenter{
-    public static int RESULT_CODE = 1001;
+    public static final int RESULT_CODE = 1001;
     private MomentsView momentsView;
 
     public void initView(){
@@ -48,8 +48,9 @@ public class MomentsPresenter extends BaseMomentsPresenter{
     }
 
     public void addMomentsList(List<MomentsModel> momentsModelList){
-        for(MomentsModel e:momentsModelList)
+        for(MomentsModel e:momentsModelList) {
             pMomentsLab.add(e);
+        }
         momentsRecyclerAdapter.resetMomentsModelsList(pMomentsLab);
         momentsRecyclerAdapter.notifyDataSetChanged();
     }
@@ -58,6 +59,7 @@ public class MomentsPresenter extends BaseMomentsPresenter{
         return momentsView.getType();
     }
 
+    @Override
     public void jumpToMomentsDetail(MomentsModel momentsModel,int position){
         Intent intent = new Intent();
         intent.putExtra("moments",momentsModel);
@@ -65,8 +67,9 @@ public class MomentsPresenter extends BaseMomentsPresenter{
         intent.setClass(momentsView.getActivity(), MomentsDetailView.class);
         momentsView.startActivityForResult(intent,RESULT_CODE);
     }
+    @Override
     public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){
-        momentsView.shareToQZone(this.setShareContent(title,summary,contentUrl,imageUrl));
+        momentsView.shareToQZone(BaseMomentsPresenter.setShareContent(title,summary,contentUrl,imageUrl));
     }
 
 }

@@ -32,12 +32,12 @@ public class MomentsDetailPresenter extends BasePresenter {
     private MomentsDetailView momentsDetailView;
     private ExpandableListView expandableListView;
     private CommentsListViewAdapter adapter;
-    //private MomentsCommentsModel commentsModel;
     private List<CommentsDetailModel> commentsList;
     public MomentsModel pMomentsModel;
     private CommentsMethod commentsMethod;
 
-    public MomentsDetailPresenter(MomentsDetailView momentsDetailView, MomentsModel momentsModel,CommentsMethod commentsMethod){
+    public MomentsDetailPresenter(MomentsDetailView momentsDetailView, MomentsModel momentsModel,
+                                  CommentsMethod commentsMethod){
         this.momentsDetailView=momentsDetailView;
         commentsList = new ArrayList<>();
         this.pMomentsModel = momentsModel;
@@ -63,8 +63,10 @@ public class MomentsDetailPresenter extends BasePresenter {
     public void addReplyData(int childPosition,int groupPosition,String commentContent){
         CommentsReplyModel replyDetailModel= new CommentsReplyModel();
         if (childPosition!=-1) {
-            replyDetailModel.setToUserName(commentsList.get(groupPosition).getRepliesList().get(childPosition).getFromUserName());
-            replyDetailModel.setToUserId(commentsList.get(groupPosition).getRepliesList().get(childPosition).getToUserId());
+            replyDetailModel.setToUserName(commentsList.get(groupPosition).
+                    getRepliesList().get(childPosition).getFromUserName());
+            replyDetailModel.setToUserId(commentsList.get(groupPosition).
+                    getRepliesList().get(childPosition).getToUserId());
         }
         else {
             replyDetailModel.setToUserName(commentsList.get(groupPosition).getCommentUserName());
@@ -105,7 +107,6 @@ public class MomentsDetailPresenter extends BasePresenter {
 
 
     private void getAllComments(){
-        //commentsModel = new MomentsCommentsModel();
         CommentsDetailModel emptyPlacement = new CommentsDetailModel();
         commentsList.add(emptyPlacement);
     }
@@ -163,10 +164,12 @@ public class MomentsDetailPresenter extends BasePresenter {
     public boolean isReplyDeletable(int groupPos,int childPos){
         if (commentsList.get(groupPos).getRepliesList().get(childPos).getFromUserId()
                 == (int)UserInfoLab.get().getUserInfoModel().getId()
-            ||pMomentsModel.getUserId()==(int)UserInfoLab.get().getUserInfoModel().getId())
+            ||pMomentsModel.getUserId()==(int)UserInfoLab.get().getUserInfoModel().getId()) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){

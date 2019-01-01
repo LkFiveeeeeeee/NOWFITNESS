@@ -41,10 +41,12 @@ public class GroupMomentsHolder extends BaseExHolder implements View.OnClickList
             time = time.replace("T"," ");
             releaseTime.setText(time);
             Glide.with(myView).load(momentsModel.getUserPhoto()).into(userPhoto);
-            if(!momentsModel.getImage().substring(momentsModel.getImage().length()-4).equals("null"))
+            if(!momentsModel.getImage().substring(momentsModel.getImage().length()-4).equals("null")) {
                 Glide.with(myView).load(momentsModel.getImage()).into(momentsImage);
-            else
+            }
+            else {
                 momentsImage.setVisibility(View.GONE);
+            }
             userName.setOnClickListener(this);
             userPhoto.setOnClickListener(this);
         }
@@ -54,10 +56,12 @@ public class GroupMomentsHolder extends BaseExHolder implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.moments_detail_userPicture:
-                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),momentsModel.getUserName(),momentsModel.getNickName(),momentsModel.getUserPhoto());
+                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),
+                        momentsModel.getUserName(),momentsModel.getNickName(),momentsModel.getUserPhoto());
                 break;
             case R.id.moments_detail_userName:
-                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),momentsModel.getUserName(),momentsModel.getNickName(),momentsModel.getUserPhoto());
+                momentsDetailPresenter.jumpToPersonPage(momentsModel.getUserId(),
+                        momentsModel.getUserName(),momentsModel.getNickName(),momentsModel.getUserPhoto());
                 break;
             default:
                 break;

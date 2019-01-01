@@ -1,0 +1,95 @@
+
+Š
+AWgCmiEWx5JDG4Yppcrh2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8ĞßÎÖü,
+Š
+AWgCmiEWx5JDG4YppcrG"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(É¬¹İ8ĞßÎÖü,
+T
+AWgCmiEWx5JDG4YppcrVsquid:S00113"'Add a new line at the end of this file.8€§ÈŸş,
+]
+AWgCmiEWx5JDG4YppcrDsquid:IndentationCheck"!Make this line start at column 5.(ÀûĞk8ĞßÎÖü,
+
+AWgCmiEWx5JDG4YppcrJ"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÿ¶°Øüÿÿÿÿ8ĞßÎÖü,
+“
+AWgCmiEWx5JDG4YppcrXsquid:UselessImportCheck"TRemove this unnecessary import: same package classes are always implicitly imported.(üñÄµ8ĞßÎÖü,
+R
+AWgCmiEWx5JDG4Yppcrcsquid:S1451"&Add or update the header of this file.8€§ÈŸş,
+
+AWgCmiEWx5JDG4YppcrR"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Õ»­ëüÿÿÿÿ8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4Yppcq8squid:IndentationCheck"!Make this line start at column 9.(¥¹ï8ĞßÎÖü,
+[
+AWgCmiEWx5JDG4YppcrTsquid:S2384"$Store a copy of "momentsModelsList".(‚ıËúÿÿÿÿ8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4Yppcq7squid:IndentationCheck"!Make this line start at column 9.(ÿÈ÷İ8ĞßÎÖü,
+c
+AWgCmiEWx5JDG4Yppcq9squid:IndentationCheck"!Make this line start at column 5.(¢Êüÿÿÿÿ8ĞßÎÖü,
+Š
+AWgCmiEWx5JDG4YppcrN"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ö¹™º8ĞßÎÖü,
+š
+AWgCmiEWx5JDG4YppcrZsquid:UselessImportCheck"\Remove this unused import 'project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter'.(´…ş-8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4Yppcq4squid:IndentationCheck"!Make this line start at column 9.(âè¤ı8ĞßÎÖü,
+p
+AWgCmiEWx5JDG4Yppcrbsquid:S1155">Use isEmpty() to check whether the collection is empty or not.(úø†´8ĞßÎÖü,
+c
+AWgCmiEWx5JDG4Yppcq1squid:IndentationCheck"!Make this line start at column 5.(‚ıËúÿÿÿÿ8ĞßÎÖü,
+c
+AWgCmiEWx5JDG4Yppcq2squid:IndentationCheck"!Make this line start at column 5.(êçÓÃøÿÿÿÿ8ĞßÎÖü,
+Š
+AWgCmiEWx5JDG4Yppcrg2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(¯ôê8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4YppcrCsquid:IndentationCheck"!Make this line start at column 5.(úø†´8ĞßÎÖü,
+Š
+AWgCmiEWx5JDG4YppcrP"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¯ôê8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4Yppcq0squid:IndentationCheck"!Make this line start at column 5.(³Ìù«8ĞßÎÖü,
+
+AWgCmiEWx5JDG4YppcrE"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(£Úí›şÿÿÿÿ8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4Yppcq3squid:IndentationCheck"!Make this line start at column 5.(Ô½İâ8ĞßÎÖü,
+d
+AWgCmiEWx5JDG4Yppcq_squid:IndentationCheck""Make this line start at column 15.(Ğ¸™áúÿÿÿÿ8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4Yppcq5squid:IndentationCheck"!Make this line start at column 9.(Ãö±8ĞßÎÖü,
+
+AWgCmiEWx5JDG4YppcrF"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(‹Èµìüÿÿÿÿ8ĞßÎÖü,
+s
+AWgCmiEWx5JDG4YppcrYsquid:UselessImportCheck"4Remove this unused import 'android.content.Context'.(©Ê‰è8ĞßÎÖü,
+’
+AWgCmiEWx5JDG4YppcrWsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÕŒ£ûûÿÿÿÿ8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4Yppcqzsquid:IndentationCheck"!Make this line start at column 3.(ı¾¨ñ8ĞßÎÖü,
+Š
+AWgCmiEWx5JDG4YppcrH"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Æ‰°ß8ĞßÎÖü,
+‰
+AWgCmiEWx5JDG4YppcrI"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ô“Ò8ĞßÎÖü,
+_
+AWgCmiEWx5JDG4YppcrAsquid:IndentationCheck""Make this line start at column 17.(‚‹‚Ë8€§ÈŸş,
+
+AWgCmiEWx5JDG4YppcrL"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ãÌ©Æıÿÿÿÿ8ĞßÎÖü,
+Š
+AWgCmiEWx5JDG4YppcrS"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ù«Œ8ĞßÎÖü,
+~
+AWgCmiEWx5JDG4Yppcrdsquid:S1142"MReduce the number of returns of this method 5, down to the maximum allowed 3.(Ô“Ò8ĞßÎÖü,
+u
+AWgCmiEWx5JDG4Yppcrasquid:S1155">Use isEmpty() to check whether the collection is empty or not.(¢Êüÿÿÿÿ8ĞßÎÖü,
+c
+AWgCmiEWx5JDG4YppcrBsquid:IndentationCheck"!Make this line start at column 7.(¥‚Âñıÿÿÿÿ8ĞßÎÖü,
+Š
+AWgCmiEWx5JDG4YppcrQ"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8ĞßÎÖü,
+^
+AWgCmiEWx5JDG4Yppcq6squid:IndentationCheck"!Make this line start at column 9.(èûë8ĞßÎÖü,
+[
+AWgCmiEWx5JDG4YppcrUsquid:S2384"$Store a copy of "momentsModelsList".(‚ıËúÿÿÿÿ8ĞßÎÖü,
+Msquid:IndentationCheck"!Make this line start at column 7.(—Ñ¼Ğúÿÿÿÿ8¼ÏÉÏ€-
+Hsquid:IndentationCheck"!Make this line start at column 9.(–ş¾è8¼ÏÉÏ€-
+Hsquid:IndentationCheck"!Make this line start at column 7.(È¸å8¼ÏÉÏ€-
+Gsquid:IndentationCheck"!Make this line start at column 7.(í³Ìf8¼ÏÉÏ€-
+{squid:S2637"_This method's return value is marked "android.support.annotation.NonNull" but null is returned.(¥¹ï8¼ÏÉÏ€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¢Êüÿÿÿÿ8¼ÏÉÏ€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(—Ñ¼Ğúÿÿÿÿ8¼ÏÉÏ€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ğ¸™áúÿÿÿÿ8¼ÏÉÏ€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(úø†´8¼ÏÉÏ€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8¼ÏÉÏ€-
+_squid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8¼ÏÉÏ€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8¼ÏÉÏ€-

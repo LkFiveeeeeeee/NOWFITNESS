@@ -29,10 +29,10 @@ import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 
 public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private int DIALOG_DELETE = 1;
-    private int DIALOG_NOT_FOLLOWING = 2;
-    private int PERSONPAGE = 0;
-    private int LEFTFRAGMENT = 1;
+    private final int DIALOG_DELETE = 1;
+    private final int DIALOG_NOT_FOLLOWING = 2;
+    private final int PERSONPAGE = 0;
+    private final int LEFTFRAGMENT = 1;
 
     private int type ;
     private CircleImageView userPhotoImage;
@@ -83,19 +83,24 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             commentsNum.setText(String.valueOf(moments.getCommentsNum())+"人评论");
             timeTextView.setText(time);
             like.setSelected(moments.isLiked());
-            Log.d("sssssss", "onBindMomentsData: "+moments.getUserPhoto());
-            if (moments.getUserPhoto()!=null)
+            if (moments.getUserPhoto()!=null) {
                 Glide.with(itemView).load(moments.getUserPhoto()).into(userPhotoImage);
-            if(!moments.getImage().substring(moments.getImage().length()-4).equals("null"))
+            }
+            if(!moments.getImage().substring(moments.getImage().length()-4).equals("null")) {
                 Glide.with(itemView).load(moments.getImage()).into(contentPicImage);
-            else
+            }
+            else {
                 contentPicImage.setVisibility(View.GONE);
+            }
         }
         if((type == PERSONPAGE&& userId==(int)UserInfoLab.get().getUserInfoModel().getId() )
-                ||type == LEFTFRAGMENT && ((MomentsPresenter) baseMomentsPresenter).getMomentsType().equals(LeftFragment.TAB_TYPE_1))
+                ||(type == LEFTFRAGMENT && ((MomentsPresenter) baseMomentsPresenter).getMomentsType()
+                .equals(LeftFragment.TAB_TYPE_1))){
             btMenu.setOnClickListener(this);
-        else
+        }
+        else{
             btMenu.setVisibility(View.GONE);
+        }
         like.setOnClickListener(this);
         userPhotoImage.setOnClickListener(this);
         nickNameTextView.setOnClickListener(this);
@@ -106,68 +111,22 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
         switch (view.getId()) {
             case R.id.image_like :
-                if (!view.isSelected()) {
-                    view.setSelected(true);
-                    mMoments.setLikes(mMoments.getLikes()+1);
-                    likeNum.setText(String.valueOf(mMoments.getLikes())+"人点赞");
-                    baseMomentsPresenter.postLikeInfo(mMoments.getMomentsId(),(int)userInfoModel.getId());
-                    //发送点赞请求
-                } else {
-                    view.setSelected(false);
-                    mMoments.setLikes(mMoments.getLikes()-1);
-                    likeNum.setText(String.valueOf(mMoments.getLikes())+"人点赞");
-                    baseMomentsPresenter.deleteLikeInfo(mMoments.getMomentsId(),(int) userInfoModel.getId());
-                    //删除点赞请求
-                }
+                imageLikeClickEvent(view,userInfoModel);
                 break;
             case R.id.moments_user_photo :
                 if(type == LEFTFRAGMENT) {
-                    baseMomentsPresenter.jumpToPersonPage(userId, mMoments.getUserName(), mMoments.getNickName(), mMoments.getUserPhoto());
+                    baseMomentsPresenter.jumpToPersonPage(userId, mMoments.getUserName(),
+                            mMoments.getNickName(), mMoments.getUserPhoto());
                 }
                 break;
             case R.id.moments_user_name:
                 if(type == LEFTFRAGMENT) {
-                    baseMomentsPresenter.jumpToPersonPage(userId, mMoments.getUserName(), mMoments.getNickName(), mMoments.getUserPhoto());
+                    baseMomentsPresenter.jumpToPersonPage(userId, mMoments.getUserName(),
+                             mMoments.getNickName(), mMoments.getUserPhoto());
                 }
                 break;
             case R.id.btnMenus:
-                PopupMenu popup = new PopupMenu(baseMomentsPresenter.getContext(),btMenu);
-                if(type == PERSONPAGE){
-                    popup.getMenuInflater().inflate(R.menu.moments_pop_menu_u, popup.getMenu());
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()){
-                                case R.id.delete:
-                                    showDialog("确认删除这条动态？","你将会永远失去一条美好的回忆！！",
-                                            DIALOG_DELETE );
-                                    break;
-                                case R.id.share:
-                                    baseMomentsPresenter.shareToQzone(mMoments.getNickName(),mMoments.getContent(),mMoments.getImage(),mMoments.getUserPhoto());
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                }else{
-                    popup.getMenuInflater().inflate(R.menu.moments_pop_menu_f, popup.getMenu());
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()){
-                                case R.id.not_following:
-                                    showDialog("确认不再关注该用户？","取关后该用户的所有动态将不会出现在你的好友动态中"
-                                    ,DIALOG_NOT_FOLLOWING);
-                                    break;
-                                case R.id.share:
-                                    baseMomentsPresenter.shareToQzone(mMoments.getNickName(),mMoments.getContent(),mMoments.getImage(),mMoments.getUserPhoto());
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                }
-                popup.show();
+                menuClickEvent();
                 break;
             default:
                 break;
@@ -183,20 +142,91 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(type==DIALOG_NOT_FOLLOWING) {
-                    UserInfoLab.get().getUserInfoModel().setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()-1);
-                    baseMomentsPresenter.deleteFollowingInfo((int)UserInfoLab.get().getUserInfoModel().getId(),mMoments.getUserId());
+                    UserInfoLab.get().getUserInfoModel().
+                            setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()-1);
+                    baseMomentsPresenter.deleteFollowingInfo((int)UserInfoLab.get().getUserInfoModel().getId(),
+                            mMoments.getUserId());
                 }else if(type==DIALOG_DELETE){
                     ((PersonPagePresenter) baseMomentsPresenter).deleteMoments(myPosition);
+                    UserInfoLab.get().getUserInfoModel().
+                            setMomentsNum(UserInfoLab.get().getUserInfoModel().getMomentsNum()-1);
+                }else{
+                    //nothing to do
                 }
             }
         });
         dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                //back to view (nothing to do )
             }
         });
         dialog.show();
     }
 
+    private void imageLikeClickEvent(View view,UserInfoModel userInfoModel){
+        if (!view.isSelected()) {
+            view.setSelected(true);
+            mMoments.setLikes(mMoments.getLikes()+1);
+            likeNum.setText(String.valueOf(mMoments.getLikes())+"人点赞");
+            baseMomentsPresenter.postLikeInfo(mMoments.getMomentsId(),(int)userInfoModel.getId());
+            //发送点赞请求
+        } else {
+            view.setSelected(false);
+            mMoments.setLikes(mMoments.getLikes()-1);
+            likeNum.setText(String.valueOf(mMoments.getLikes())+"人点赞");
+            baseMomentsPresenter.deleteLikeInfo(mMoments.getMomentsId(),(int) userInfoModel.getId());
+            //删除点赞请求
+        }
+    }
+    private void menuClickEvent(){
+        PopupMenu popup = new PopupMenu(baseMomentsPresenter.getContext(),btMenu);
+        if(type == PERSONPAGE){
+            popup.getMenuInflater().inflate(R.menu.moments_pop_menu_u, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.delete:
+                            showDialog("确认删除这条动态？","你将会永远失去一条美好的回忆！！",
+                                    DIALOG_DELETE );
+                            break;
+                        case R.id.share:
+                            baseMomentsPresenter.shareToQzone(mMoments.getNickName(),
+                                    mMoments.getContent(),
+                                    mMoments.getImage(),
+                                    mMoments.getUserPhoto());
+                            break;
+                        default:
+                            break;
+                    }
+                    return true;
+                }
+            });
+        }else{
+            popup.getMenuInflater().inflate(R.menu.moments_pop_menu_f, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.not_following:
+                            showDialog("确认不再关注该用户？","取关后该用户的所有动态将不会出现在你的好友动态中"
+                                    ,DIALOG_NOT_FOLLOWING);
+                            break;
+                        case R.id.share:
+                            baseMomentsPresenter.shareToQzone(mMoments.getNickName(),
+                                    mMoments.getContent(),
+                                    mMoments.getImage(),
+                                    mMoments.getUserPhoto());
+                            break;
+                        default:
+                            break;
+                    }
+                    return true;
+                }
+            });
+        }
+        popup.show();
+    }
 }
 

@@ -64,8 +64,9 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
             menu.setVisibility(View.VISIBLE);
             menu.setOnClickListener(this);
         }
-        else
+        else {
             menu.setVisibility(View.GONE);
+        }
     }
     public void setTopDivider(int groupPostion) {
         if (groupPostion <= 1) {
@@ -79,28 +80,17 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.comment_item_logo:
-                momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getCommentUserId(),commentsDetailModel.getCommentUserName(),
+                momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getCommentUserId(),
+                        commentsDetailModel.getCommentUserName(),
                         commentsDetailModel.getCommentUserNickName(),commentsDetailModel.getCommentUserPhoto());
                 break;
             case R.id.comment_item_userName:
-                momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getCommentUserId(),commentsDetailModel.getCommentUserName(),
+                momentsDetailPresenter.jumpToPersonPage(commentsDetailModel.getCommentUserId(),
+                        commentsDetailModel.getCommentUserName(),
                         commentsDetailModel.getCommentUserNickName(), commentsDetailModel.getCommentUserPhoto());
                 break;
             case R.id.comment_menu_bt:
-                PopupMenu popup = new PopupMenu(mContext,menu);
-                popup.getMenuInflater().inflate(R.menu.comments_pop_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.delete:
-                                momentsDetailPresenter.pMomentsModel.setCommentsNum( momentsDetailPresenter.pMomentsModel.getCommentsNum()-1);
-                                 momentsDetailPresenter.deleteComments(groupPosition);
-                        }
-                        return true;
-                    }
-                });
-                popup.show();
+                commentMenuClickEvent();
                 break;
                 default:
                     break;
@@ -115,5 +105,25 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         return sdf.format(new Date(Long.valueOf(timeStamp+"000")));
+    }
+    private void commentMenuClickEvent(){
+        PopupMenu popup = new PopupMenu(mContext,menu);
+        popup.getMenuInflater().inflate(R.menu.comments_pop_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.delete:
+                        momentsDetailPresenter.pMomentsModel.
+                                setCommentsNum( momentsDetailPresenter.pMomentsModel.getCommentsNum()-1);
+                        momentsDetailPresenter.deleteComments(groupPosition);
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+        popup.show();
     }
 }

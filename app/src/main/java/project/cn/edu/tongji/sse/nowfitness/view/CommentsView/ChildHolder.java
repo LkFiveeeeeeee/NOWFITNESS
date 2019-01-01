@@ -48,12 +48,16 @@ public class ChildHolder extends  BaseExHolder implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.reply_item_user:
-                momentsDetailPresenter.jumpToPersonPage(commentsReplyModel.getFromUserId(),commentsReplyModel.getFromUserName(),
+                momentsDetailPresenter.jumpToPersonPage(commentsReplyModel.getFromUserId(),
+                        commentsReplyModel.getFromUserName(),
                         commentsReplyModel.getFromUserNickName(),null);
                 break;
             case R.id.to_item_user:
-                momentsDetailPresenter.jumpToPersonPage(commentsReplyModel.getToUserId(),commentsReplyModel.getToUserName(),
+                momentsDetailPresenter.jumpToPersonPage(commentsReplyModel.getToUserId(),
+                        commentsReplyModel.getToUserName(),
                         commentsReplyModel.getToUserNickName(),null);
+                break;
+            default:
                 break;
         }
     }

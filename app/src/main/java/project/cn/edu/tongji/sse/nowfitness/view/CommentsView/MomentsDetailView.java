@@ -68,11 +68,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     public static final int COMMENT_TARGET_COMMENTS=1002;
     public static final int COMMENT_TARGET_REPLYS=1003;
     private ExpandableListView expandableListView;
-    private CircleImageView momentsUserImage;
-    private TextView momentsUserNameText;
-    private TextView momentsTimeText;
-    private TextView momentsContentText;
-    private PhotoView momentsImage;
     private ImageView shareImage;
     private int originPos;
     private Toolbar toolbar;
@@ -100,8 +95,9 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     @Override
     public void makeCommentsSuccess(ResponseModel responseModel) {
 
-        if(responseModel.getStatus() == 200 || responseModel.getStatus() == 201)
+        if(responseModel.getStatus() == Constant.NET_CODE_200 || responseModel.getStatus() == 201) {
             momentsDetailPresenter.queryForComments(momentsModel.getMomentsId());
+        }
         else{
             Toast.makeText(MomentsDetailView.this,responseModel.getError(),Toast.LENGTH_SHORT).show();
         }
@@ -109,14 +105,13 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
 
     @Override
     public void makeCommentsError(Throwable e) {
-        Log.d("getComment", "querySuccess: ");
         e.printStackTrace();
     }
 
     @Override
     public void querySuccess(ResponseModel<CommentsDetailModelList> commentsDetailModelsList) {
-        Log.d("getComment", "querySuccess: ");
-        if(commentsDetailModelsList.getStatus() >= 200 && commentsDetailModelsList.getStatus() < 300){
+        if(commentsDetailModelsList.getStatus() >= Constant.NET_CODE_200
+                && commentsDetailModelsList.getStatus() < Constant.NET_CODE_300){
             Log.d("getComment", "querySuccess: " + commentsDetailModelsList.getData().getCommentsDetailModels().size());
             if(commentsDetailModelsList.getData().getCommentsDetailModels().size()>0){
                 momentsDetailPresenter.resetCommentsList(commentsDetailModelsList.getData().getCommentsDetailModels());
@@ -135,11 +130,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     }
 
     public void initView(List<CommentsDetailModel> commentsList){
-        momentsImage =(PhotoView) findViewById(R.id.moments_detail_image);
-        momentsUserImage = (CircleImageView)findViewById(R.id.moments_detail_userPicture);
-        momentsUserNameText = (TextView)findViewById(R.id.moments_detail_userName);
-        momentsTimeText =(TextView)findViewById(R.id.moments_detail_time);
-        momentsContentText = (TextView)findViewById(R.id.moments_detail_detail);
         expandableListView = ( ExpandableListView) findViewById(R.id.moments_detail_comments_listView);
         commentTextView = (TextView) findViewById(R.id.moments_detail_do_comment);
         shareImage = (ImageView)findViewById(R.id.detail_share_image);
@@ -155,18 +145,23 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         expandableListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
+                //nothing to do
             }
             @Override
-            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onScroll(AbsListView absListView, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
                 if (firstVisibleItem == 0) {
                     View firstVisibleItemView = expandableListView.getChildAt(0);
-                    if (firstVisibleItemView != null && firstVisibleItemView.getTop() == 0)
+                    if (firstVisibleItemView != null && firstVisibleItemView.getTop() == 0) {
                         commentsRefreshLayout.setEnabled(true);
-                    else
+                    }
+                    else {
                         commentsRefreshLayout.setEnabled(false);
+                    }
                 }
-                else
+                else {
                     commentsRefreshLayout.setEnabled(false);
+                }
             }
         });
         commentsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -178,7 +173,8 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         shareImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                momentsDetailPresenter.shareToQzone(momentsModel.getNickName(),momentsModel.getContent(),momentsModel.getImage(),momentsModel.getUserPhoto());
+                momentsDetailPresenter.shareToQzone(momentsModel.getNickName(),
+                        momentsModel.getContent(),momentsModel.getImage(),momentsModel.getUserPhoto());
             }
         });
     }
@@ -203,9 +199,8 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                 final int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
                 final int childPosition = ExpandableListView.getPackedPositionChild(packedPosition);
                 //长按的是group的时候，childPosition = -1
-                if (childPosition!= -1) {
-                    if(momentsDetailPresenter.isReplyDeletable(groupPosition,childPosition))
-                        showPopWindows(view,childPosition,groupPosition);
+                if (childPosition!= -1 &&momentsDetailPresenter.isReplyDeletable(groupPosition,childPosition)){
+                    showPopWindows(view, childPosition, groupPosition);
                 }
                 return true;
             }
@@ -223,7 +218,8 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         });
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
+            public boolean onChildClick(ExpandableListView expandableListView, View view,
+                                        int groupPosition, int childPosition, long l) {
                 showCommentDialog(commentList,COMMENT_TARGET_REPLYS,groupPosition,childPosition);
                 return true;
             }
@@ -231,12 +227,13 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                //toast("展开第"+groupPosition+"个分组");
+                //展开第"+groupPosition+"个分组
             }
         });
     }
 
-    private void showCommentDialog( List<CommentsDetailModel> commentsList,final int commentType, final int groupPosition, final int childPosition){
+    private void showCommentDialog( List<CommentsDetailModel> commentsList,final int commentType,
+                                    final int groupPosition, final int childPosition){
         if(!isCommentable(commentsList, commentType, groupPosition, childPosition)) {
             return;
         }
@@ -255,7 +252,8 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                 break;
             case COMMENT_TARGET_REPLYS:
                 commentsDetailModel = commentsList.get(groupPosition);
-                commentText.setHint("回复"+commentsDetailModel.getRepliesList().get(childPosition).getFromUserName() + "的评论");
+                commentText.setHint("回复"+commentsDetailModel.getRepliesList().get(childPosition).getFromUserName()
+                        + "的评论");
                 break;
             default:
                 break;
@@ -267,7 +265,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
             commentView.measure(0,0);
             behavior.setPeekHeight(commentView.getMeasuredHeight());
         }
-
         bt_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -280,9 +277,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                             break;
                         case COMMENT_TARGET_COMMENTS:
                            momentsDetailPresenter.addReplyData(childPosition,groupPosition-0,commentContent);
-
-                            expandableListView.expandGroup(groupPosition);
-                            //Toast.makeText(MainActivity.this,"回复成功",Toast.LENGTH_SHORT).show();
+                           expandableListView.expandGroup(groupPosition);
                             break;
                         case COMMENT_TARGET_REPLYS:
                             momentsDetailPresenter.addReplyData(childPosition,groupPosition-0,commentContent);
@@ -291,16 +286,15 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                         default:
                             break;
                     }
-
                 }else {
                     Toast.makeText(MomentsDetailView.this,"回复内容不能为空",Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
         commentText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //NOTHING TO DO
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -312,29 +306,40 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
             }
             @Override
             public void afterTextChanged(Editable editable) {
+                //NOTHING TO DO
             }
         });
         dialog.show();
     }
 
-    private boolean isCommentable(List<CommentsDetailModel> commentsList,final int commentType, final int groupPosition, final int childPosition){
+    private boolean isCommentable(List<CommentsDetailModel> commentsList,final int commentType,
+                                  final int groupPosition, final int childPosition){
+        boolean result;
         switch (commentType){
             case COMMENT_TARGET_MOMENTS :
-                return true;
+               result =  true;
+               break;
             case COMMENT_TARGET_COMMENTS:
-                if(commentsList.get(groupPosition).getCommentUserName().equals(UserInfoLab.get().getUserInfoModel().getUserName())){
-                    return false;
-                 }else
-                    return true;
+                if(commentsList.get(groupPosition).getCommentUserName()
+                        .equals(UserInfoLab.get().getUserInfoModel().getUserName())){
+                    result = false;
+                 }else {
+                    result = true;
+                }
+                break;
             case COMMENT_TARGET_REPLYS:
                 if(commentsList.get(groupPosition).getRepliesList().get(childPosition).getFromUserName()
-                        .equals(UserInfoLab.get().getUserInfoModel().getUserName()))
-                    return false;
-                else
-                    return true;
+                        .equals(UserInfoLab.get().getUserInfoModel().getUserName())) {
+                    result = false;
+                }else {
+                    result = true;
+                }
+                break;
             default:
-                return true;
+                result = true;
+                break;
         }
+        return result;
     }
 
     private void showPopWindows(View v,int childPos,int groupPos) {
@@ -353,8 +358,6 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         mPopWindow.showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - popupWidth / 2, location[1]
                 +popupHeight/2);
         mPopWindow.update();
-
-        final String copyTxt = (String) v.getTag();
         mPopView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -415,12 +418,12 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
 
             @Override
             public void onError(UiError uiError) {
-
+                //分享错误
             }
 
             @Override
             public void onCancel() {
-
+                //取消分享
             }
         });
     }

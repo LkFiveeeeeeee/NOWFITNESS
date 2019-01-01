@@ -23,7 +23,6 @@ public class BookViewPagerAdapter extends PagerAdapter {
     private Context mContext ;
     private LayoutInflater mLayoutInflater = null;
     private  List<DoubanBookModel> bookModelList;
-    private int initPos;
     public BookViewPagerAdapter(List<DoubanBookModel> bookModelList, Context context){
         super();
         this.mContext = context ;
@@ -60,7 +59,7 @@ public class BookViewPagerAdapter extends PagerAdapter {
         View convertView = null;
         if(mViewCache.size() == 0){
             convertView = this.mLayoutInflater.inflate(R.layout.book_detai_item ,
-                    null ,false);
+                        null ,false);
             viewHolder = new BookDetailViewHolder(mContext,convertView);
             convertView.setTag(viewHolder);
         }else {

@@ -1,0 +1,36 @@
+
+osquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(ÄÓÒšþÿÿÿÿ8ÂÀÔ–€-
+c
+AWgCmh--x5JDG4Yppcjbsquid:IndentationCheck"!Make this line start at column 5.(ÀÙ›²øÿÿÿÿ8ÐÑÑÿ,
+R
+AWgCmh--x5JDG4Yppcjjsquid:S1451"&Add or update the header of this file.8ÐÑÑÿ,
+”
+AWgCmh--x5JDG4Yppcjlsquid:S1450"]Remove the "booksViewPager" field and declare it as a local variable in the relevant methods.(ÐÐ•¦úÿÿÿÿ8ÈÆÖ³ý,
+c
+AWgCmh--x5JDG4YppcjYsquid:IndentationCheck"!Make this line start at column 3.(Û‚¦ÿÿÿÿÿ8ÈÆÖ³ý,
+^
+AWgCmh--x5JDG4Yppcjasquid:IndentationCheck"!Make this line start at column 5.(æŠ¦Ú8ÐÑÑÿ,
+Š
+AWgCmh--x5JDG4Yppcjg"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ñ”Ò8ÐÑÑÿ,
+Ž
+AWgCmh--x5JDG4Yppcjksquid:S1450"WRemove the "bookList" field and declare it as a local variable in the relevant methods.(Û‚¦ÿÿÿÿÿ8ÈÆÖ³ý,
+Msquid:S1905",Remove this unnecessary cast to "ViewPager".(Õßãáøÿÿÿÿ8ÂÀÔ–€-
+c
+AWgCmh--x5JDG4Yppcjcsquid:IndentationCheck"!Make this line start at column 7.(¯½Üùÿÿÿÿ8ÐÑÑÿ,
+
+AWgCmh--x5JDG4Yppcje"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ž¨Œþÿÿÿÿ8ÈÆÖ³ý,
+^
+AWgCmh--x5JDG4YppcjZsquid:IndentationCheck"!Make this line start at column 5.(å¯Ô«8ÈÆÖ³ý,
+
+AWgCmh--x5JDG4Yppcjf"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(è…Æ²ýÿÿÿÿ8ÐÑÑÿ,
+’
+AWgCmh--x5JDG4Yppcjisquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(É‚Þüÿÿÿÿ8ÈÆÖ³ý,
+Fsquid:S1905"*Remove this unnecessary cast to "Toolbar".(ú‘†í8ÂÀÔ–€-
+q
+AWgCmh--x5JDG4Yppcjnsquid:S1258":Add a constructor to the class, or provide default values.(ÄÓÒšþÿÿÿÿ8ÈÆÖ³ý,
+
+AWgCmh--x5JDG4Yppcjmsquid:S1450"VRemove the "initPos" field and declare it as a local variable in the relevant methods.(ôèÎ©ùÿÿÿÿ8ÈÆÖ³ý,
+
+AWgCmh--x5JDG4Yppcjd"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÄÓÒšþÿÿÿÿ8ÈÆÖ³ý,
+
+AWgCmh--x5JDG4Yppcjh"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÀÙ›²øÿÿÿÿ8ÐÑÑÿ,
