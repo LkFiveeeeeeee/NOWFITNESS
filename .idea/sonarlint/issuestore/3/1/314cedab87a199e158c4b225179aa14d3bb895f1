@@ -1,7 +1,26 @@
 
+<<<<<<< HEAD
 Š
 AWgCxKlrLN4U8H7a5_rC"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(—ƒƒ8àÍ–€-
 R
 AWgCxKlrLN4U8H7a5_rDsquid:S1451"&Add or update the header of this file.8àÍ–€-
 c
 AWgCxKlrLN4U8H7a5_rBsquid:IndentationCheck"!Make this line start at column 3.(öÝÉæúÿÿÿÿ8àÍ–€-
+=======
+š
+AWgCmg52x5JDG4Yppbelsquid:UselessImportCheck"[Remove this unused import 'project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface'.(¬ Ãš8˜ÐØ³ý,
+o
+AWgCmg52x5JDG4Yppbensquid:UselessImportCheck"0Remove this unused import 'retrofit2.http.Path'.(íøŠ¡8ÐÑÑÿ,
+p
+AWgCmg52x5JDG4Yppbeosquid:UselessImportCheck",Remove this unused import 'android.net.Uri'.(òêû‘ýÿÿÿÿ8˜ÐØ³ý,
+c
+AWgCmg52x5JDG4Yppbeisquid:IndentationCheck"!Make this line start at column 3.(öÝÉæúÿÿÿÿ8˜ÐØ³ý,
+R
+AWgCmg52x5JDG4Yppbepsquid:S1451"&Add or update the header of this file.8ÐÑÑÿ,
+Š
+AWgCmg52x5JDG4Yppbej"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(—ƒƒ8˜ÐØ³ý,
+n
+AWgCmg52x5JDG4Yppbemsquid:UselessImportCheck"/Remove this unused import 'retrofit2.http.GET'.(¬ü‰´8˜ÐØ³ý,
+t
+AWgCmg52x5JDG4Yppbeksquid:UselessImportCheck"0Remove this unused import 'org.json.JSONObject'.(œÖ´üþÿÿÿÿ8˜ÐØ³ý,
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e

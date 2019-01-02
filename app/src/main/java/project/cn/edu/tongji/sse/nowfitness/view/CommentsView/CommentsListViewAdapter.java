@@ -28,18 +28,17 @@ import project.cn.edu.tongji.sse.nowfitness.view.CommentsView.MomentsDetailView;
 public class CommentsListViewAdapter extends BaseExpandableListAdapter {
     private static final int TYPE_1 = 0;
     private static final int TYPE_2 = 1;
-    private static final int TYPE_3 = 1;
     private int order ;
 
     private List<CommentsDetailModel> commentsList;
-    private List<CommentsReplyModel> replyList;
+    //private List<CommentsReplyModel> replyList;
     private MomentsDetailView context;
     private MomentsModel dMomentsModel;
-    private int pageIndex = 1;
 
     private MomentsDetailPresenter presenter;
 
-    public CommentsListViewAdapter(MomentsDetailView context, List<CommentsDetailModel> commentsList, MomentsModel momentsModel,MomentsDetailPresenter momentsDetailPresenter) {
+    public CommentsListViewAdapter(MomentsDetailView context, List<CommentsDetailModel> commentsList,
+                                   MomentsModel momentsModel,MomentsDetailPresenter momentsDetailPresenter) {
         this.context = context;
         this.commentsList = commentsList;
         dMomentsModel = momentsModel;
@@ -52,52 +51,52 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupTypeCount() {
-        Log.d("wwwww", "getGroupTypeCount: "+order++);
         return 2;
     }
 
     @Override
     public int getGroupCount() {
-        Log.d("wwwww", "getGroupCount: "+order++);
         return commentsList.size();
     }
 
     @Override
     public int getChildrenCount(int i) {
-        Log.d("wwww", "getChildrenCount: "+order++);
         if(commentsList.get(i).getRepliesList() == null){
             return 0;
         }else {
-            return commentsList.get(i).getRepliesList().size()>0 ? commentsList.get(i).getRepliesList().size():0;
+            if(commentsList.get(i).getRepliesList().size()>0) {
+                return commentsList.get(i).getRepliesList().size();
+            }else{
+                return 0;
+            }
         }
 
     }
 
     @Override
     public Object getGroup(int i) {
-        Log.d("wwwww", "getGroup: "+order++);
         return commentsList.get(i);
     }
 
     @Override
     public Object getChild(int i, int i1) {
-        if(commentsList.get(i).getRepliesList()!=null&&commentsList.get(i).getRepliesList().size()>0)
+        if(commentsList.get(i).getRepliesList()!=null&&commentsList.get(i).getRepliesList().size()>0) {
             return commentsList.get(i).getRepliesList().get(i1);
-        else
+        }
+        else {
             return null;
+        }
     }
 
     @Override
     public long getGroupId(int groupPosition) {
-
-        Log.d("wwww", "getGroupId: "+order++);
         return groupPosition;
     }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        Log.d("wwww", "getChildId: "+order++);
-        return childPosition;//getCombinedChildId(groupPosition, childPosition);
+        //getCombinedChildId(groupPosition, childPosition);
+        return childPosition;
     }
 
     @Override
@@ -107,7 +106,6 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupType(int groupPosition) {
-        Log.d("wwww", "getGroupType: "+order++);
         if(groupPosition==0){
             return TYPE_1;
         }else{
@@ -115,19 +113,9 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
         }
     }
 
-    /*@Override
-    public int getChildTypeCount() {
-        return 1;
-    }
-
-    @Override
-    public int getChildType(int groupPosition, int childPosition) {
-        return TYPE_3;
-    }*/
 
     @Override
     public View getGroupView(final int groupPosition, boolean isExpand, View convertView, ViewGroup viewGroup) {
-        Log.d("wwww", "getGroupView: "+order++);
         int type = getGroupType(groupPosition);
         if(type==TYPE_2) {//&&commentsList.size()>=1
             final GroupHolder groupHolder;
@@ -146,7 +134,8 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
         }else{
                 final GroupMomentsHolder groupMomentsHolder;
                 if (convertView == null) {
-                    convertView = LayoutInflater.from(context).inflate(R.layout.moments_detail_moments_view, viewGroup, false);
+                    convertView = LayoutInflater.from(context).inflate(R.layout.moments_detail_moments_view,
+                            viewGroup, false);
                     groupMomentsHolder = new GroupMomentsHolder(convertView,context,presenter);
                     groupMomentsHolder.setGroupPosition(groupPosition);
                     convertView.setTag(groupMomentsHolder);
@@ -160,11 +149,10 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
         }
     }
     @Override
-    public View getChildView(final int groupPosition, int childPosition, boolean b, View convertView, ViewGroup viewGroup) {
-        Log.d("wwww", "getChildView: "+order++);
+    public View getChildView(final int groupPosition, int childPosition, boolean b,
+                             View convertView, ViewGroup viewGroup) {
         // type = getChildType(groupPosition,childPosition);
         final ChildHolder childHolder;
-        if(true) {
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.comment_reply_item, viewGroup, false);
                 childHolder = new ChildHolder(convertView,context,presenter);
@@ -173,8 +161,6 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
                 childHolder = (ChildHolder) convertView.getTag();
             }
             childHolder.onBindView(commentsList.get(groupPosition).getRepliesList().get(childPosition));
-            return convertView;
-        }else
             return convertView;
     }
 
@@ -241,8 +227,9 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
             commentsList.remove(groupPos);
             notifyDataSetChanged();
             return true;
-        }else
+        }else {
             return false;
+        }
     }
 
 

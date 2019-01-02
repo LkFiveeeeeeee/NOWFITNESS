@@ -1,5 +1,6 @@
 
 ^
+<<<<<<< HEAD
 AWgCxLBxLN4U8H7a6Acqsquid:IndentationCheck"!Make this line start at column 7.(ž¥ùé8àÍ–€-
 c
 AWgCxLBxLN4U8H7a6Acnsquid:IndentationCheck"!Make this line start at column 5.(—³…œþÿÿÿÿ8àÍ–€-
@@ -47,3 +48,60 @@ t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginni
 AWgCxLBxLN4U8H7a6Ac8"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÒØ†žÿÿÿÿÿ8àÍ–€-
 
 AWgCxLBxLN4U8H7a6Acx"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Î±¿ôúÿÿÿÿ8àÍ–€-
+=======
+AWgCmhutx5JDG4YppcUesquid:IndentationCheck"!Make this line start at column 5.(§ùÊ·8À÷²Úú,
+c
+AWgCmhutx5JDG4YppcUdsquid:IndentationCheck"!Make this line start at column 7.(œÂÈºøÿÿÿÿ8¨¥Þò,
+c
+AWgCmhutx5JDG4YppcUbsquid:IndentationCheck"!Make this line start at column 7.(Çšøÿÿÿÿ8¨¥Þò,
+
+AWgCmhutx5JDG4YppcUi"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(®ƒ»—ýÿÿÿÿ8€Â„­ò,
+Š
+AWgCmhutx5JDG4YppcUp"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ñÚÕà8¨¥Þò,
+Š
+AWgCmhutx5JDG4YppcUl"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ó±°¹8¨¥Þò,
+Š
+AWgCmhutx5JDG4YppcUm"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ô„À·8˜ÐØ³ý,
+Š
+AWgCmhutx5JDG4YppcUn"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÝíÏ•8¨¥Þò,
+c
+AWgCmhutx5JDG4YppcUWsquid:IndentationCheck"!Make this line start at column 5.(—³…œþÿÿÿÿ8˜ÐØ³ý,
+]
+AWgCmhutx5JDG4YppcUUsquid:IndentationCheck"!Make this line start at column 3.(Øý8€Â„­ò,
+
+AWgCmhutx5JDG4YppcUg"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Î±¿ôúÿÿÿÿ8È…„õ,
+
+AWgCmhutx5JDG4YppcUq"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¥·¿úûÿÿÿÿ8¨Û©ô,
+]
+AWgCmhutx5JDG4YppcUXsquid:IndentationCheck"!Make this line start at column 5.(úÙîc8€Â„­ò,
+
+AWgCmhutx5JDG4YppcUh"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(äìèèûÿÿÿÿ8¨Û©ô,
+^
+AWgCmhutx5JDG4YppcUasquid:IndentationCheck"!Make this line start at column 5.(ÝíÏ•8¨¥Þò,
+
+AWgCmhutx5JDG4YppcUj"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(»èÌàøÿÿÿÿ8€Â„­ò,
+^
+AWgCmhutx5JDG4YppcUYsquid:IndentationCheck"!Make this line start at column 5.(ó±°¹8¨¥Þò,
+Š
+AWgCmhutx5JDG4YppcUo"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÌÂÁ8˜ÐØ³ý,
+ƒ
+AWgCmhutx5JDG4YppcUs
+squid:S109"RAssign this magic number 6 to a well-named constant, and use the constant instead.(ó±°¹8¨¥Þò,
+^
+AWgCmhutx5JDG4YppcUZsquid:IndentationCheck"!Make this line start at column 7.(ž¥ùé8¨¥Þò,
+c
+AWgCmhutx5JDG4YppcUfsquid:IndentationCheck"!Make this line start at column 5.(«±†¹ÿÿÿÿÿ8€²üÇý,
+
+AWgCmhutx5JDG4YppcUr"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÒØ†žÿÿÿÿÿ8˜ÐØ³ý,
+^
+AWgCmhutx5JDG4YppcUVsquid:IndentationCheck"!Make this line start at column 5.(ÐÊ†¿8€²üÇý,
+R
+AWgCmhutx5JDG4YppcUusquid:S1451"&Add or update the header of this file.8€²üÇý,
+^
+AWgCmhutx5JDG4YppcUcsquid:IndentationCheck"!Make this line start at column 5.(ñÚÕà8¨¥Þò,
+ƒ
+AWgCmhutx5JDG4YppcUt
+squid:S109"RAssign this magic number 8 to a well-named constant, and use the constant instead.(ÝíÏ•8¨¥Þò,
+‰
+AWgCmhutx5JDG4YppcUk"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÓÎ»8¨¥Þò,
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e

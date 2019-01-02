@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 Š
 AWgCxKoMLN4U8H7a5_vI"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥ž‡8àÍ–€-
 Š
@@ -37,3 +38,43 @@ l
 AWgCxKoMLN4U8H7a5_vMsquid:S1118":Add a private constructor to hide the implicit public one.(¥ ðƒ8àÍ–€-
 }
 AWgCxKoMLN4U8H7a5_vOsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÜýË…8àÍ–€-
+=======
+c
+AWgCmhDUx5JDG4YppbiWsquid:IndentationCheck"!Make this line start at column 7.(åƒÄõÿÿÿÿÿ8€§ÈŸþ,
+ƒ
+AWgCmhDUx5JDG4Yppbie
+squid:S109"RAssign this magic number 5 to a well-named constant, and use the constant instead.(£Üïî8€§ÈŸþ,
+^
+AWgCmhDUx5JDG4YppbiTsquid:IndentationCheck"!Make this line start at column 5.(ŸýÎÓ8€§ÈŸþ,
+Š
+AWgCmhDUx5JDG4Yppbic"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥ž‡8€§ÈŸþ,
+^
+AWgCmhDUx5JDG4YppbiRsquid:IndentationCheck"!Make this line start at column 3.(ò¾Žà8€§ÈŸþ,
+l
+AWgCmhDUx5JDG4Yppbigsquid:S1118":Add a private constructor to hide the implicit public one.(¥ ðƒ8€§ÈŸþ,
+Š
+AWgCmhDUx5JDG4YppbiX"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¥ ðƒ8€§ÈŸþ,
+
+AWgCmhDUx5JDG4YppbiZ"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¤ŸÂ«ÿÿÿÿÿ8€§ÈŸþ,
+c
+AWgCmhDUx5JDG4YppbiUsquid:IndentationCheck"!Make this line start at column 5.(¶»†¬ÿÿÿÿÿ8€§ÈŸþ,
+
+AWgCmhDUx5JDG4Yppbib"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¶»†¬ÿÿÿÿÿ8€§ÈŸþ,
+Š
+AWgCmhDUx5JDG4Yppbia"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Å£Ûœ8€§ÈŸþ,
+ˆ
+AWgCmhDUx5JDG4Yppbid
+squid:S109"RAssign this magic number 5 to a well-named constant, and use the constant instead.(¦ìæ‰þÿÿÿÿ8€§ÈŸþ,
+}
+AWgCmhDUx5JDG4Yppbiisquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÜýË…8€§ÈŸþ,
+c
+AWgCmhDUx5JDG4YppbiVsquid:IndentationCheck"!Make this line start at column 7.(åƒÄõÿÿÿÿÿ8€§ÈŸþ,
+R
+AWgCmhDUx5JDG4Yppbifsquid:S1451"&Add or update the header of this file.8€§ÈŸþ,
+c
+AWgCmhDUx5JDG4YppbiSsquid:IndentationCheck"!Make this line start at column 5.(£³ô·ùÿÿÿÿ8€§ÈŸþ,
+Š
+AWgCmhDUx5JDG4YppbiY"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ò¾Žà8€§ÈŸþ,
+Š
+AWgCmhDUx5JDG4Yppbih2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥ž‡8€§ÈŸþ,
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e

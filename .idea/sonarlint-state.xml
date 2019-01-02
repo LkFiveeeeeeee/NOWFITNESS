@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SonarLintProjectState">
+<<<<<<< HEAD
     <lastEventPolling>1546220565871</lastEventPolling>
+=======
+    <lastEventPolling>1546231129550</lastEventPolling>
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e
   </component>
 </project>

@@ -47,7 +47,10 @@ public class BookPresenter extends BasePresenter{
         booksLab = new ArrayList<>();
         this.bookMethod = bookMethod;
     }
-    public void initBannner(){
+    public int getBooNum(){
+        return booksLab.size();
+    }
+    public void initBanner(){
         bookBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片集合
         bookBanner.setImageLoader(new MyImageLoader());
@@ -66,7 +69,7 @@ public class BookPresenter extends BasePresenter{
         bookBanner.start();
 
     }
-    public  void jumpToBookDetail(int position){
+    public void jumpToBookDetail(int position){
         Intent intent = new Intent(mContext,BooksDetailView.class);
         intent.putExtra("books",(Serializable) booksLab);
         intent.putExtra("position",position);
@@ -74,11 +77,13 @@ public class BookPresenter extends BasePresenter{
 
     }
     public void resetBanner(){
+        title = new ArrayList<>();
+        images = new ArrayList<>();
         for(DoubanBookModel book : booksLab){
             title.add(book.getTitle());
             images.add(book.getImage());
         }
-        initBannner();
+        initBanner();
     }
     private class MyImageLoader extends ImageLoader {
         @Override

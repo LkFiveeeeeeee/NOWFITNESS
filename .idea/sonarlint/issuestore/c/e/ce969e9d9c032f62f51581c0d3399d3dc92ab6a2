@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 c
 AWgCxKl-LN4U8H7a5_rGsquid:IndentationCheck"!Make this line start at column 3.(ë´²¢øÿÿÿÿ8àÍ–€-
 R
@@ -25,3 +26,33 @@ L
 AWgCxKl-LN4U8H7a5_rP"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÚÀ”8àÍ–€-
 ƒ
 AWgCxKl-LN4U8H7a5_rRsquid:S00103"KSplit this 121 characters long line (which is greater than 120 authorized).(Ùž§êøÿÿÿÿ8àÍ–€-
+=======
+Š
+AWgCmhCjx5JDG4Yppbh5"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÚÀ”8€§ÈŸþ,
+R
+AWgCmhCjx5JDG4Yppbh7squid:S1451"&Add or update the header of this file.8€§ÈŸþ,
+ƒ
+AWgCmhCjx5JDG4Yppbh8squid:S00103"KSplit this 121 characters long line (which is greater than 120 authorized).(Ùž§êøÿÿÿÿ8€§ÈŸþ,
+Š
+AWgCmhCjx5JDG4Yppbh1"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ú›ëæ8€§ÈŸþ,
+Š
+AWgCmhCjx5JDG4Yppbh2"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Áµ±µ8€§ÈŸþ,
+w
+AWgCmhCjx5JDG4Yppbh6squid:UselessImportCheck"8Remove this unused import 'java.util.function.Function'.(»³Íž8€§ÈŸþ,
+
+AWgCmhCjx5JDG4Yppbh3"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ùž§êøÿÿÿÿ8€§ÈŸþ,
+
+AWgCmhCjx5JDG4Yppbh4"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ã¥×šùÿÿÿÿ8€§ÈŸþ,
+L
+AWgCmhCjx5JDG4Yppbh9squid:S00121"Missing curly brace.(“Å£ôúÿÿÿÿ8€§ÈŸþ,
+d
+AWgCmhCjx5JDG4Yppbhysquid:IndentationCheck""Make this line start at column 11.(Ã¥×šùÿÿÿÿ8€§ÈŸþ,
+c
+AWgCmhCjx5JDG4Yppbhwsquid:IndentationCheck"!Make this line start at column 3.(ë´²¢øÿÿÿÿ8€§ÈŸþ,
+d
+AWgCmhCjx5JDG4Yppbh0squid:IndentationCheck""Make this line start at column 15.(“Å£ôúÿÿÿÿ8€§ÈŸþ,
+^
+AWgCmhCjx5JDG4Yppbhxsquid:IndentationCheck"!Make this line start at column 5.(Ú·ÈÄ8€§ÈŸþ,
+d
+AWgCmhCjx5JDG4Yppbhzsquid:IndentationCheck""Make this line start at column 13.(õôÄ÷øÿÿÿÿ8€§ÈŸþ,
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e

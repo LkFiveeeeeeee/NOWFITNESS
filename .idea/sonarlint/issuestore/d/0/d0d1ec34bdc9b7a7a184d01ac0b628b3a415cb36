@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(Ë¡”‡8Ÿ»Æ€-
 k
 AWgCxKxwLN4U8H7a6AEDsquid:S2974"4Make this class "final" or add a public constructor.(Ø¡²›ÿÿÿÿÿ8àÍ–€-
@@ -34,3 +35,25 @@ Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(ßêÉ©8¡
 Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(…½–ã8¡¢åå€-
 Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(Á§ÎËüÿÿÿÿ8¡¢åå€-
 9squid:S2386"Make this member "protected".(ëÀÕÍ8¡¢åå€-
+=======
+q
+AWgCmhbKx5JDG4YppcArsquid:UselessImportCheck"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8èöõ£õ,
+R
+AWgCmhbKx5JDG4YppcAwsquid:S1451"&Add or update the header of this file.8ÐÑÑÿ,
+
+AWgCmhbKx5JDG4YppcAq"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ø¡²›ÿÿÿÿÿ8¨Û©ô,
+j
+AWgCmhbKx5JDG4YppcAtsquid:UselessImportCheck"+Remove this unused import 'java.sql.Array'.(Õø‹ù8èöõ£õ,
+^
+AWgCmhbKx5JDG4YppcApsquid:IndentationCheck"!Make this line start at column 3.(éå›Ò8¨Û©ô,
+”
+AWgCmhbKx5JDG4YppcAssquid:UselessImportCheck"PRemove this unused import 'org.greenrobot.greendao.converter.PropertyConverter'.(ÔÜá¨þÿÿÿÿ8èöõ£õ,
+o
+AWgCmhbKx5JDG4YppcAusquid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8èöõ£õ,
+‚
+AWgCmhbKx5JDG4YppcAvsquid:UselessImportCheck">Remove this unused import 'java.beans.PropertyChangeListener'.(þ¼ÃÀùÿÿÿÿ8èöõ£õ,
+
+AWgCmhbKx5JDG4YppcAysquid:S2068"V'PASSWORD' detected in this expression, review this potentially hard-coded credential.(È¢šÖÿÿÿÿÿ8¨Û©ô,
+q
+AWgCmhbKx5JDG4YppcAxsquid:S1118":Add a private constructor to hide the implicit public one.(Ø¡²›ÿÿÿÿÿ8¨Û©ô,
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e

@@ -68,7 +68,6 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
     }
 
     public void setAdapter(){
-        //pMomentsLab = momentsModelList;
         momentsRecyclerAdapter = new MomentsRecyclerAdapter(pMomentsLab,this);
         momentsRecyclerView.setAdapter(momentsRecyclerAdapter);
     }
@@ -80,10 +79,7 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
     }
 
     public int getNextPage(){
-            if(pages == pageNum)
-                return pageNum+1;
-            else
-                return pageNum+1;
+        return pageNum + 1;
     }
 
     public int getTotal(){
@@ -133,7 +129,7 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
     }
 
     public void jumpToMomentsDetail(MomentsModel momentsModel,int position) {
-
+        //override in subclass
     }
 
     public static Bundle setShareContent(String title,String summary,String contentUrl,String imageUrl) {
@@ -147,11 +143,11 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
         imgUrlList.add(imageUrl);
         params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL,imgUrlList);// 图片地址
         // 分享操作要在主线程中完成
-        // TODO Auto-generated method stub
         return params;
     }
 
     public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){
+        // override in subclass
     }
 
     @Override

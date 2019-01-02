@@ -3,7 +3,6 @@ package project.cn.edu.tongji.sse.nowfitness.view.MomentsView;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,11 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -69,7 +70,8 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.moments_page,container,false);
         if(type.equals(LeftFragment.TAB_TYPE_1)) {
             momentsPresenter.queryForInfo((int) UserInfoLab.get().getUserInfoModel().getId(), 1);
@@ -86,7 +88,6 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
         swipeRefreshLayout = (SwipeRefreshLayout)myView.findViewById(R.id.news_swipe_refresh);
         momentsRecyclerView = (RecyclerView) myView.findViewById(R.id.news_recyclerView);
         momentsRecyclerView.setLayoutManager(new LinearLayoutManager(myView.getContext(), LinearLayout.VERTICAL,false));
-        //momentsRecyclerView.addItemDecoration(new MomentsItemDecoration());
         momentsPresenter.setMomentsRecyclerView(momentsRecyclerView);
         momentsPresenter.setAdapter();
         refreshLayout = (SmartRefreshLayout)myView.findViewById(R.id.moments_refreshLayout);
@@ -112,9 +113,10 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
 
     @Override
     public void querySuccess(ResponseModel<MomentsModelList> models) {
-        if(models.getStatus() >= 200 || models.getStatus() < 300){
-           if(models.getData().getTotal()==0)
+        if(models.getStatus() >= Constant.NET_CODE_200 || models.getStatus() < Constant.NET_CODE_300){
+           if(models.getData().getTotal()==0) {
                momentsPresenter.setAdapterStates(MomentsRecyclerAdapter.NO_CONTENT);
+           }
            else if(models.getData().getSize()==0) {
                refreshLayout.finishLoadMoreWithNoMoreData();
            }else {
@@ -138,32 +140,20 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
 
     @Override
     public void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel) {
-
+        //there is no need to use this method in this view
     }
 
     @Override
     public void queryError(Throwable e) {
-        if(momentsPresenter.getTotal()==0)
+        if(momentsPresenter.getTotal()==0) {
             momentsPresenter.setAdapterStates(MomentsRecyclerAdapter.NO_NETWORK);
-        else
+        }
+        else {
             refreshLayout.finishLoadMore(false);
+        }
         swipeRefreshLayout.setRefreshing(false);
         e.printStackTrace();
     }
-
-    public class MomentsItemDecoration extends RecyclerView.ItemDecoration {
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            //如果不是第一个，则设置top的值。
-            if (parent.getChildAdapterPosition(view) != 0){
-                //这里直接硬编码为10px
-                outRect.top = 2;
-            }
-        }
-    }
-
 
     private void queryDifferentMoments(int queryType){
         int page = 1;
@@ -190,31 +180,19 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
             Log.d("momentsview", "onActivityResult: "+String.valueOf(position)+"  "+String.valueOf(commentsNum));
             momentsPresenter.notifyCommentsNumChange(position,commentsNum);
         }
-        Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
+        Tencent.onActivityResultData(requestCode, resultCode, data, null);
     }
-    QQIUiListener mIUiListener = new QQIUiListener();
 
     @Override
     public void shareToQZone(Bundle params) {
-        mTencent.shareToQzone(this.getActivity(), params,mIUiListener);
-    }
-    class QQIUiListener implements IUiListener {
-        @Override
-        public void onComplete(Object o) {
-        }
-        @Override
-        public void onError(UiError uiError) {
-            // 分享异常
-        }
-        @Override
-        public void onCancel() {
-            // 取消分享
-        }
+        mTencent.shareToQzone(this.getActivity(), params,null);
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroy() {
         momentsPresenter.onViewDestroyed();
-        super.onDestroyView();
+        super.onDestroy();
     }
+
+
 }

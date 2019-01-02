@@ -2,7 +2,6 @@ package project.cn.edu.tongji.sse.nowfitness.view.PersonPageView;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
@@ -13,7 +12,7 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 
 public class OfflineViewHolder  extends RecyclerView.ViewHolder{
     private TextView textView;
-    private ImageView image;
+
     public OfflineViewHolder(View itemview){
         super(itemview);
         textView = (TextView) itemview.findViewById(R.id.network_text);

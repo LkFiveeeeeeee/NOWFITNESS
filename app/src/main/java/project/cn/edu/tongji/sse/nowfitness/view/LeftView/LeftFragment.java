@@ -43,6 +43,7 @@ public class LeftFragment extends Fragment implements BookMethod{
 
     public static String TAB_TYPE_1= "following";
     public static String TAB_TYPE_2 = "nearBy";
+    private final int BOOK_NUMS = 5;
 
     private Banner bookBanner;
     private AppBarLayout   appBarLayout;
@@ -53,7 +54,6 @@ public class LeftFragment extends Fragment implements BookMethod{
     private LeftFragmentPresenter leftFragmentPresenter;
     private BookPresenter bookPresenter;
     private View myView;
-    private Activity mActivity;
     private AppCompatActivity mAppCompatActivity;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     @Override
@@ -68,7 +68,7 @@ public class LeftFragment extends Fragment implements BookMethod{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.left_fragment,container,false);
         mAppCompatActivity=(AppCompatActivity)getActivity();
-        bookPresenter.getBookInfo("健身",getRandomBookStart(),5);
+        bookPresenter.getBookInfo("健身",getRandomBookStart(),BOOK_NUMS);
         leftFragmentPresenter.initView();
         return myView;
     }
@@ -95,10 +95,12 @@ public class LeftFragment extends Fragment implements BookMethod{
         newsFeedViewPager.setAdapter(new FragmentPagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
-                if(position==0)
+                if(position==0) {
                     return MomentsView.newInstance(TAB_TYPE_1);
-                else
+                }
+                else {
                     return MomentsView.newInstance(TAB_TYPE_2);
+                }
             }
             @Override
             public int getCount() {
@@ -109,10 +111,17 @@ public class LeftFragment extends Fragment implements BookMethod{
     }
 
     private void initEvent(){
+        bookBanner.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                bookPresenter.getBookInfo("健身",getRandomBookStart(),BOOK_NUMS);
+                return true;
+            }
+        });
         bookBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                bookPresenter.jumpToBookDetail(position);
+                    bookPresenter.jumpToBookDetail(position);
             }
         });
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -152,15 +161,17 @@ public class LeftFragment extends Fragment implements BookMethod{
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int day_index = cal.get(Calendar.DAY_OF_MONTH);
-        if(day_index >= 1 )
-            return day_index;
-        else
+        if(day_index >= 1 ) {
+            return day_index*5;
+        }
+        else {
             return 1;
+        }
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroy() {
         leftFragmentPresenter.onViewDestroyed();
-        super.onDestroyView();
+        super.onDestroy();
     }
 }

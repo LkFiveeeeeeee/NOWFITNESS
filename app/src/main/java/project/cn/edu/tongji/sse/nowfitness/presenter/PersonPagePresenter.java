@@ -29,7 +29,8 @@ public class PersonPagePresenter extends BaseMomentsPresenter{
     private PersonPageView personPageView;
     private PersonPageViewMethod personPageViewMethod;
 
-    public PersonPagePresenter(Context context, MomentsMethod momentsMethod,PersonPageView personPageView,PersonPageViewMethod personPageViewMethod){
+    public PersonPagePresenter(Context context, MomentsMethod momentsMethod,
+                               PersonPageView personPageView,PersonPageViewMethod personPageViewMethod){
        super(momentsMethod, context);
        this.personPageView = personPageView;
        this.personPageViewMethod =personPageViewMethod;
@@ -62,25 +63,27 @@ public class PersonPagePresenter extends BaseMomentsPresenter{
     }
 
     public void addMomentsList(List<MomentsModel> momentsModelList){
-        for(MomentsModel e:momentsModelList)
+        for(MomentsModel e:momentsModelList) {
             pMomentsLab.add(e);
+        }
          momentsRecyclerAdapter.resetMomentsModelsList(pMomentsLab);
          momentsRecyclerAdapter.notifyDataSetChanged();
     }
     public void deleteMoments(int position){
-        MomentsModel momentsDel = pMomentsLab.get(position);
         pMomentsLab.remove(position);
         momentsRecyclerAdapter.notifyItemRemoved(position);
         momentsRecyclerAdapter.notifyItemRangeChanged(position,pMomentsLab.size()-position);
     }
+    @Override
     public void jumpToMomentsDetail(MomentsModel momentsModel,int position){
         Intent intent = new Intent();
         intent.putExtra("moments",momentsModel);
         intent.setClass(mContext, MomentsDetailView.class);
         personPageView.startActivityForResult(intent,1001);
     }
+    @Override
     public void shareToQzone(String title,String summary,String contentUrl,String imageUrl){
-        personPageView.shareToQZone(this.setShareContent(title,summary,contentUrl,imageUrl));
+        personPageView.shareToQZone(BaseMomentsPresenter.setShareContent(title,summary,contentUrl,imageUrl));
     }
 
 }

@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 R
 AWgCxK-nLN4U8H7a6AaIsquid:S1451"&Add or update the header of this file.8àÍ–€-
 c
@@ -50,3 +51,48 @@ c
 AWgCxK-nLN4U8H7a6AZ3squid:IndentationCheck"!Make this line start at column 5.(’ÅÒ¸ýÿÿÿÿ8àÍ–€-
 ]
 AWgCxK-nLN4U8H7a6AZ6squid:IndentationCheck"!Make this line start at column 5.(åÓ³8àÍ–€-
+=======
+
+AWgCmhxHx5JDG4YppcWV"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(³ýÇ¿ùÿÿÿÿ8€§ÈŸþ,
+^
+AWgCmhxHx5JDG4YppcWGsquid:IndentationCheck"!Make this line start at column 5.(ù¨öª8ÐßÎÖü,
+c
+AWgCmhxHx5JDG4YppcWEsquid:IndentationCheck"!Make this line start at column 3.(Ÿý¢žùÿÿÿÿ8€§ÈŸþ,
+
+AWgCmhxHx5JDG4YppcWO"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ŒýÔùÿÿÿÿ8ÐßÎÖü,
+c
+AWgCmhxHx5JDG4YppcWKsquid:IndentationCheck"!Make this line start at column 5.(®°®²øÿÿÿÿ8€§ÈŸþ,
+c
+AWgCmhxHx5JDG4YppcWMsquid:IndentationCheck"!Make this line start at column 5.(Ÿš­Áùÿÿÿÿ8ÐÑÑÿ,
+
+AWgCmhxHx5JDG4YppcWP"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(»èÌàøÿÿÿÿ8ØðÞöõ,
+c
+AWgCmhxHx5JDG4YppcWIsquid:IndentationCheck"!Make this line start at column 5.(’ÅÒ¸ýÿÿÿÿ8€§ÈŸþ,
+c
+AWgCmhxHx5JDG4YppcWJsquid:IndentationCheck"!Make this line start at column 5.(÷Úüµúÿÿÿÿ8ÐßÎÖü,
+Š
+AWgCmhxHx5JDG4YppcWQ"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ã£ãÎ8°Ò–Òõ,
+
+AWgCmhxHx5JDG4YppcWS"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(½Šæ¤þÿÿÿÿ8€§ÈŸþ,
+m
+AWgCmhxHx5JDG4YppcWNsquid:S1213";Move this constructor to comply with Java Code Conventions.(Ã£ãÎ8°Ò–Òõ,
+c
+AWgCmhxHx5JDG4YppcWFsquid:IndentationCheck"!Make this line start at column 5.(øºðŒÿÿÿÿÿ8ØðÞöõ,
+
+AWgCmhxHx5JDG4YppcWW"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(—çÀûÿÿÿÿ8ÐÑÑÿ,
+R
+AWgCmhxHx5JDG4YppcWZsquid:S1451"&Add or update the header of this file.8ÐÑÑÿ,
+Š
+AWgCmhxHx5JDG4YppcWT"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÜÅí8ÐßÎÖü,
+^
+AWgCmhxHx5JDG4YppcWHsquid:IndentationCheck"!Make this line start at column 5.(Î»£ç8°ÁŽ„þ,
+
+AWgCmhxHx5JDG4YppcWR"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(óâéÿÿÿÿÿ8ÈÆÖ³ý,
+
+AWgCmhxHx5JDG4YppcWU"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(‹Í„Øúÿÿÿÿ8€§ÈŸþ,
+]
+AWgCmhxHx5JDG4YppcWLsquid:IndentationCheck"!Make this line start at column 5.(åÓ³8€§ÈŸþ,
+asquid:S3242"EUse 'java.lang.Iterable' here; it is a more general type than 'List'.(ÜÅí8üîå—€-
+Msquid:IndentationCheck"!Make this line start at column 7.(ÚÌÓ‘ýÿÿÿÿ8Áôþ—€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(÷Úüµúÿÿÿÿ8Áôþ—€-
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e

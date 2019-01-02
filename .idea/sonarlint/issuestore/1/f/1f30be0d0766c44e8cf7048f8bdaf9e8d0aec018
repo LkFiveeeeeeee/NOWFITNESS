@@ -1,0 +1,57 @@
+
+^
+AWgCmh_Sx5JDG4Yppcj0squid:IndentationCheck"!Make this line start at column 5.(–ì¥8ÈÆÖ³ı,
+x
+AWgCmh_Sx5JDG4YppckDsquid:UselessImportCheck"4Remove this unused import 'android.widget.TextView'.(„Ë‚ˆÿÿÿÿÿ8ÈÆÖ³ı,
+^
+AWgCmh_Sx5JDG4Yppcjvsquid:IndentationCheck"!Make this line start at column 3.(¢äñ¡8ÈÆÖ³ı,
+Š
+AWgCmh_Sx5JDG4Yppcj9"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ë¯Âï8ÈÆÖ³ı,
+
+AWgCmh_Sx5JDG4Yppcj_"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ùƒ²‘şÿÿÿÿ8ÈÆÖ³ı,
+Š
+AWgCmh_Sx5JDG4YppckA"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8ÈÆÖ³ı,
+c
+AWgCmh_Sx5JDG4Yppcjysquid:IndentationCheck"!Make this line start at column 5.(€°ÏÌùÿÿÿÿ8ÈÆÖ³ı,
+z
+AWgCmh_Sx5JDG4YppckGsquid:S3052"HRemove this initialization to "null", the compiler will do that for you.(¢äñ¡8ÈÆÖ³ı,
+
+AWgCmh_Sx5JDG4Yppcj8"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¨¡©Ñüÿÿÿÿ8ÈÆÖ³ı,
+u
+AWgCmh_Sx5JDG4YppckEsquid:S1155">Use isEmpty() to check whether the collection is empty or not.(Ùƒ²‘şÿÿÿÿ8ÈÆÖ³ı,
+Š
+AWgCmh_Sx5JDG4Yppcj4"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(‹«Ê8ÈÆÖ³ı,
+_
+AWgCmh_Sx5JDG4YppckIsquid:S1185"(Remove this method to simply inherit it.(¨¡©Ñüÿÿÿÿ8ÈÆÖ³ı,
+c
+AWgCmh_Sx5JDG4Yppcj1squid:IndentationCheck"!Make this line start at column 5.(¿·É½øÿÿÿÿ8ÈÆÖ³ı,
+Š
+AWgCmh_Sx5JDG4YppckJ2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8ÈÆÖ³ı,
+}
+AWgCmh_Sx5JDG4YppckKsquid:S4142"KVerify that this is the intended value; it is the same as the 2nd argument.(‘¬ØŒ8ÈÆÖ³ı,
+c
+AWgCmh_Sx5JDG4Yppcjwsquid:IndentationCheck"!Make this line start at column 5.(ŸäåÖıÿÿÿÿ8ÈÆÖ³ı,
+^
+AWgCmh_Sx5JDG4Yppcjzsquid:IndentationCheck"!Make this line start at column 5.(ãµÑË8ÈÆÖ³ı,
+Š
+AWgCmh_Sx5JDG4Yppcj5"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(õİşè8ÈÆÖ³ı,
+
+AWgCmh_Sx5JDG4Yppcj-"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(­Ôåøÿÿÿÿ8ÈÆÖ³ı,
+R
+AWgCmh_Sx5JDG4YppckFsquid:S1451"&Add or update the header of this file.8ÈÆÖ³ı,
+^
+AWgCmh_Sx5JDG4Yppcjxsquid:IndentationCheck"!Make this line start at column 5.(²¤”Ì8ÈÆÖ³ı,
+c
+AWgCmh_Sx5JDG4Yppcj3squid:IndentationCheck"!Make this line start at column 7.(‹Éóƒÿÿÿÿÿ8ÈÆÖ³ı,
+W
+AWgCmh_Sx5JDG4YppckBsquid:S2384" Store a copy of "bookModelList".(†ÁÎúÿÿÿÿ8ÈÆÖ³ı,
+^
+AWgCmh_Sx5JDG4Yppcj2squid:IndentationCheck"!Make this line start at column 7.(œî“º8ÈÆÖ³ı,
+z
+AWgCmh_Sx5JDG4YppckHsquid:S3052"HRemove this initialization to "null", the compiler will do that for you.(¥€›û8ÈÆÖ³ı,
+‰
+AWgCmh_Sx5JDG4Yppcj7"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÀÔÀp8ÈÆÖ³ı,
+’
+AWgCmh_Sx5JDG4YppckCsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(É‚Şüÿÿÿÿ8ÈÆÖ³ı,
+Š
+AWgCmh_Sx5JDG4Yppcj6"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÒÊÏ·8ÈÆÖ³ı,

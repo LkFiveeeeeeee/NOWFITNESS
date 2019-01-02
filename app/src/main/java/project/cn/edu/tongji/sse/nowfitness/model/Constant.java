@@ -30,4 +30,8 @@ public class Constant {
     public static final String TYPE_KEY = "clickType";
     public static final String STARS_TYPE_S = "following";
     public static final String FANS_TYPE_S = "followers";
+
+    public static final int NET_CODE_200 = 200;
+    public static final int NET_CODE_300 = 300;
+
 }

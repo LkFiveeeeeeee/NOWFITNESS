@@ -159,8 +159,8 @@ public class DayFragment extends Fragment implements DataChartMethod {
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroy() {
         dataChartPresenter.onViewDestroyed();
-        super.onDestroyView();
+        super.onDestroy();
     }
 }

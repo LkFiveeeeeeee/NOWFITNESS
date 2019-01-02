@@ -18,6 +18,7 @@ public class BookDetailViewHolder {
     private TextView title,author,rating,ratesNum,tag,description,pubDate;
     private ImageView bookImg;
     private Context mContext;
+    private final int TAG_NUMS = 3;
     public  BookDetailViewHolder(Context context,View view){
         mContext = context;
         title = view.findViewById(R.id.tv_book_title);
@@ -41,8 +42,9 @@ public class BookDetailViewHolder {
         for(DoubanBookModel.TagsBean t :bookModel.getTags()){
             tagList = tagList +  t.getName();
             count++;
-            if(count==3)
+            if(count==TAG_NUMS) {
                 break;
+            }
         }
         tag.setText(tagList);
         Glide.with(mContext)

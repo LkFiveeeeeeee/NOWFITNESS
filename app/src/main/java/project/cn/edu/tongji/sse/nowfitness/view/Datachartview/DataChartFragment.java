@@ -262,8 +262,8 @@ public class DataChartFragment
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroy() {
         dataChartPresenter.onViewDestroyed();
-        super.onDestroyView();
+        super.onDestroy();
     }
 }

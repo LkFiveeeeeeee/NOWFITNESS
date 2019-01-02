@@ -27,8 +27,6 @@ import com.lai.library.ButtonStyle;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.tencent.connect.common.Constants;
-import com.tencent.connect.share.QzoneShare;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -103,8 +101,9 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         nameView = (TextView) findViewById(R.id.person_name);
-        if (nickName!=null)
+        if (nickName!=null) {
             nameView.setText(nickName);
+        }
         followsView = (TextView) findViewById(R.id.follow);
         fansView = (TextView) findViewById(R.id.fan);
         ageTab = (ButtonStyle) findViewById(R.id.age_button);
@@ -120,10 +119,10 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
         }
         ageTab.setEnabled(false);
         sexTab.setEnabled(false);
-       // personToolbar.setVisibility(View.GONE);
         nestedScrollView = (NestedScrollView)findViewById(R.id.person_scroll);
         momentsRecyclerView = (RecyclerView)findViewById(R.id.moments_recyclerview);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(PersonPageView.this,LinearLayout.VERTICAL,false);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(
+                PersonPageView.this,LinearLayout.VERTICAL,false);
         mLinearLayoutManager.setSmoothScrollbarEnabled(true);
         momentsRecyclerView.setHasFixedSize(false);
         momentsRecyclerView.setNestedScrollingEnabled(false);
@@ -167,13 +166,16 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
                         public void onClick(DialogInterface dialogInterface, int i) {
                             followingButton.setText("+ 关注");
                             followingButton.setBackgroundColor(Color.parseColor("#90FF0000"));
-                            UserInfoLab.get().getUserInfoModel().setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()-1);
-                            personPagePresenter.deleteFollowingInfo((int) UserInfoLab.get().getUserInfoModel().getId(),personId);
+                            UserInfoLab.get().getUserInfoModel().
+                                    setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()-1);
+                            personPagePresenter.deleteFollowingInfo(
+                                    (int) UserInfoLab.get().getUserInfoModel().getId(),personId);
                         }
                     });
                     dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            //back to view nothing to do
                         }
                     });
                     dialog.show();
@@ -181,7 +183,8 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
                     followingButton.setText("已关注");
                     followingButton.setBackgroundColor(Color.parseColor("#80D3D3D3"));
                     Toast.makeText(getApplicationContext(), "关注成功", Toast.LENGTH_SHORT).show();
-                    UserInfoLab.get().getUserInfoModel().setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()+1);
+                    UserInfoLab.get().getUserInfoModel().
+                            setFollowingNum(UserInfoLab.get().getUserInfoModel().getFollowingNum()+1);
                     personPagePresenter.postFollowingInfo((int) UserInfoLab.get().getUserInfoModel().getId(),personId);
                 }
             }
@@ -191,13 +194,14 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -headLayout.getHeight() / 2) {
-                   // personToolbar.setVisibility(View.VISIBLE);
-                    if(nickName!=null)
+                    if(nickName!=null) {
                         mCollapsingToolbarLayout.setTitle(nickName);
-                    else
+                    }
+                    else {
                         mCollapsingToolbarLayout.setTitle("无名氏");
+                    }
                 } else {
-                   // personToolbar.setVisibility(View.VISIBLE);
+                   // //another method personToolbar.setVisibility(View.VISIBLE);x
                     mCollapsingToolbarLayout.setTitle(" ");
                 }
             }
@@ -206,9 +210,11 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
 
     @Override
     public void querySuccess(ResponseModel<MomentsModelList> momentsModelListResponseModel) {
-        if(momentsModelListResponseModel.getStatus() >= 200 || momentsModelListResponseModel.getStatus() < 300){
-            if(momentsModelListResponseModel.getData().getTotal()==0)
+        if(momentsModelListResponseModel.getStatus() >= Constant.NET_CODE_200
+                || momentsModelListResponseModel.getStatus() < Constant.NET_CODE_300){
+            if(momentsModelListResponseModel.getData().getTotal()==0) {
                 personPagePresenter.setAdapterStates(MomentsRecyclerAdapter.NO_CONTENT);
+            }
             else if(momentsModelListResponseModel.getData().getSize()==0) {
                 refreshLayout.finishLoadMoreWithNoMoreData();
             }else {
@@ -231,7 +237,8 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
     }
     @Override
     public void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel) {
-        if(userInfoModelResponseModel.getStatus() >= 200 && userInfoModelResponseModel.getStatus() < 300){
+        if(userInfoModelResponseModel.getStatus() >= Constant.NET_CODE_200
+                && userInfoModelResponseModel.getStatus() < Constant.NET_CODE_300){
             UserInfoModel userInfoModel = userInfoModelResponseModel.getData();
             bindPersonInfo(userInfoModel);
         }
@@ -259,31 +266,19 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
             Log.d("momentsview", "onActivityResult: "+String.valueOf(position)+"  "+String.valueOf(commentsNum));
            personPagePresenter.notifyCommentsNumChange(position,commentsNum);
         }
-        Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
+        Tencent.onActivityResultData(requestCode, resultCode, data, null);
     }
-    QQIUiListener mIUiListener = new QQIUiListener();
 
     @Override
     public void shareToQZone(Bundle params) {
-        mTencent.shareToQzone(PersonPageView.this, params,mIUiListener);
+        mTencent.shareToQzone(PersonPageView.this, params,null);
     }
-    class QQIUiListener implements IUiListener {
-        @Override
-        public void onComplete(Object o) {
-        }
-        @Override
-        public void onError(UiError uiError) {
-            // 分享异常
-        }
-        @Override
-        public void onCancel() {
-            // 取消分享
-        }
-    }
+
 
     @Override
     public void queryRelationSuccess(ResponseModel<FollowingRelation> followingRelationResponseModel) {
-        if(followingRelationResponseModel.getStatus() >= 200 && followingRelationResponseModel.getStatus() < 300) {
+        if(followingRelationResponseModel.getStatus() >= Constant.NET_CODE_200
+                && followingRelationResponseModel.getStatus() < Constant.NET_CODE_300) {
             if(followingRelationResponseModel.getData().getStates()) {
                 followingButton.setText("已关注");
                 followingButton.setBackgroundColor(Color.parseColor("#80D3D3D3"));
