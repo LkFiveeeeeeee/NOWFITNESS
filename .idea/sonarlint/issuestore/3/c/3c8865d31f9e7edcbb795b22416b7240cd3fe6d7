@@ -1,0 +1,11 @@
+
+Msquid:IndentationCheck"!Make this line start at column 3.(ıÄôˆùÿÿÿÿ8ÂëÔî€-
+Msquid:IndentationCheck"!Make this line start at column 5.(’“±Õşÿÿÿÿ8ÂëÔî€-
+Hsquid:IndentationCheck"!Make this line start at column 5.(‰ó€8ÂëÔî€-
+Msquid:IndentationCheck"!Make this line start at column 5.(ñÃíüüÿÿÿÿ8ÂëÔî€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(èÎöå8ÂëÔî€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(É¢ÍÚ8ÂëÔî€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(üò¥ÿÿÿÿÿ8ÂëÔî€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÒÊÏ·8ÂëÔî€-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¶áÇ—8ÂëÔî€-
+<squid:S1451"&Add or update the header of this file.8ÂëÔî€-

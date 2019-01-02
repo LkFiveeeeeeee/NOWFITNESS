@@ -301,4 +301,9 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        personPagePresenter.onViewDestroyed();
+        super.onDestroy();
+    }
 }

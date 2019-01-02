@@ -1,0 +1,52 @@
+
+R
+AWgCxK-nLN4U8H7a6AaIsquid:S1451"&Add or update the header of this file.8àÍ–€-
+c
+AWgCxK-nLN4U8H7a6AZzsquid:IndentationCheck"!Make this line start at column 3.(®ôäøÿÿÿÿ8àÍ–€-
+h
+AWgCxK-nLN4U8H7a6AZysquid:S1444"1Make this "public static RESULT_CODE" field final(®ôäøÿÿÿÿ8àÍ–€-
+c
+AWgCxK-nLN4U8H7a6AZ5squid:IndentationCheck"!Make this line start at column 5.(®°®²øÿÿÿÿ8àÍ–€-
+
+AWgCxK-nLN4U8H7a6AaF"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(—çÀûÿÿÿÿ8àÍ–€-
+‹
+AWgCxK-nLN4U8H7a6AaG
+squid:S109"UAssign this magic number 1001 to a well-named constant, and use the constant instead.(®ôäøÿÿÿÿ8àÍ–€-
+^
+AWgCxK-nLN4U8H7a6AZ4squid:IndentationCheck"!Make this line start at column 5.(¿ß½Ö8àÍ–€-
+^
+AWgCxK-nLN4U8H7a6AZ2squid:IndentationCheck"!Make this line start at column 5.(Î»£ç8àÍ–€-
+Š
+AWgCxK-nLN4U8H7a6AaC"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÜÅí8àÍ–€-
+
+AWgCxK-nLN4U8H7a6AaJsquid:S3008"VRename this field "RESULT_CODE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ôäøÿÿÿÿ8àÍ–€-
+^
+AWgCxK-nLN4U8H7a6AZ7squid:IndentationCheck"!Make this line start at column 5.(ğˆü¬8àÍ–€-
+Š
+AWgCxK-nLN4U8H7a6AZ_"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ã£ãÎ8àÍ–€-
+
+AWgCxK-nLN4U8H7a6AaA"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(óâéÿÿÿÿÿ8àÍ–€-
+G
+AWgCxK-nLN4U8H7a6AaLsquid:S00121"Missing curly brace.(¿ß½Ö8àÍ–€-
+
+AWgCxK-nLN4U8H7a6AaD"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(‹Í„Øúÿÿÿÿ8àÍ–€-
+
+AWgCxK-nLN4U8H7a6AaB"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(½Šæ¤şÿÿÿÿ8àÍ–€-
+
+AWgCxK-nLN4U8H7a6AZ9"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ŒıÔùÿÿÿÿ8àÍ–€-
+
+AWgCxK-nLN4U8H7a6AaE"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(³ıÇ¿ùÿÿÿÿ8àÍ–€-
+c
+AWgCxK-nLN4U8H7a6AZ0squid:IndentationCheck"!Make this line start at column 5.(øºğŒÿÿÿÿÿ8àÍ–€-
+m
+AWgCxK-nLN4U8H7a6AZ8squid:S1213";Move this constructor to comply with Java Code Conventions.(Ã£ãÎ8àÍ–€-
+¥
+AWgCxK-nLN4U8H7a6AaH"squid:ClassVariableVisibilityCheck"WMake RESULT_CODE a static final constant or non-public and provide accessors if needed.(®ôäøÿÿÿÿ8àÍ–€-
+^
+AWgCxK-nLN4U8H7a6AZ1squid:IndentationCheck"!Make this line start at column 5.(ù¨öª8àÍ–€-
+
+AWgCxK-nLN4U8H7a6AZ-"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(»èÌàøÿÿÿÿ8àÍ–€-
+c
+AWgCxK-nLN4U8H7a6AZ3squid:IndentationCheck"!Make this line start at column 5.(’ÅÒ¸ıÿÿÿÿ8àÍ–€-
+]
+AWgCxK-nLN4U8H7a6AZ6squid:IndentationCheck"!Make this line start at column 5.(åÓ³8àÍ–€-

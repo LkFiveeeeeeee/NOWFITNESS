@@ -43,8 +43,10 @@ public class DaoMethod {
 
 
     public static List<StepModel> queryByDate(String date,long userID){
-        QueryBuilder<StepModel> queryBuilder = DaoManager.getDaoInstance().getDaoSession().getStepModelDao().queryBuilder();
-        queryBuilder.where(queryBuilder.and(StepModelDao.Properties.Today.eq(date),StepModelDao.Properties.UserId.eq(userID)));
+        QueryBuilder<StepModel> queryBuilder =
+                DaoManager.getDaoInstance().getDaoSession().getStepModelDao().queryBuilder();
+        queryBuilder.where(queryBuilder.
+                and(StepModelDao.Properties.Today.eq(date),StepModelDao.Properties.UserId.eq(userID)));
         return queryBuilder.list();
     }
 

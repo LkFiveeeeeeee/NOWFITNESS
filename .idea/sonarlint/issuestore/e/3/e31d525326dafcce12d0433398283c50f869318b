@@ -1,0 +1,82 @@
+
+^
+AWgCxLMZLN4U8H7a6Avosquid:IndentationCheck"!Make this line start at column 5.(Ò„‡¬8àÍ–€-
+c
+AWgCxLMZLN4U8H7a6Avysquid:IndentationCheck"!Make this line start at column 5.(‘Ñàÿÿÿÿÿ8àÍ–€-
+_
+AWgCxLMZLN4U8H7a6Avtsquid:IndentationCheck""Make this line start at column 11.(÷¦¦Ò8àÍ–€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8ë³àÅ€-
+Š
+AWgCxLMZLN4U8H7a6AwP2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+^
+AWgCxLMZLN4U8H7a6Av1squid:IndentationCheck"!Make this line start at column 7.(ÖÔôË8àÍ–€-
+isquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(ö¤F8—ñÑÅ€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(÷¦¦Ò8àÍ–€-
+c
+AWgCxLMZLN4U8H7a6Avxsquid:IndentationCheck"!Make this line start at column 5.(Òêµİşÿÿÿÿ8àÍ–€-
+c
+AWgCxLMZLN4U8H7a6Avzsquid:IndentationCheck"!Make this line start at column 5.(óÓ×ıÿÿÿÿ8àÍ–€-
+k
+AWgCxLMZLN4U8H7a6AwKsquid:S1258":Add a constructor to the class, or provide default values.(ö¤F8àÍ–€-
+^
+AWgCxLMZLN4U8H7a6Avlsquid:IndentationCheck"!Make this line start at column 3.(»ÿ®º8àÍ–€-
+d
+AWgCxLMZLN4U8H7a6Avusquid:IndentationCheck""Make this line start at column 13.(ƒ™Œ”üÿÿÿÿ8àÍ–€-
+
+AWgCxLMZLN4U8H7a6Av8"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(çìšúÿÿÿÿ8àÍ–€-
+|
+AWgCxLMZLN4U8H7a6AwOsquid:S2133"ERemove this object instantiation and use "StepService.class" instead.(óÓ×ıÿÿÿÿ8àÍ–€-
+c
+AWgCxLMZLN4U8H7a6Av0squid:IndentationCheck"!Make this line start at column 7.(™ÿıªûÿÿÿÿ8àÍ–€-
+c
+AWgCxLMZLN4U8H7a6Avnsquid:IndentationCheck"!Make this line start at column 5.(µ»Öúÿÿÿÿ8àÍ–€-
+
+AWgCxLMZLN4U8H7a6AwA"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ö²›§ıÿÿÿÿ8àÍ–€-
+Š
+AWgCxLMZLN4U8H7a6AwF"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+¡
+AWgCxLMZLN4U8H7a6AwM-squid:RightCurlyBraceSameLineAsNextBlockCheck"HMove this "else" on the same line that the previous closing curly brace.(Ö²›§ıÿÿÿÿ8àÍ–€-
+
+AWgCxLMZLN4U8H7a6AwC"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(œƒƒ©ùÿÿÿÿ8àÍ–€-
+‰
+AWgCxLMZLN4U8H7a6Av2"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ö¤F8àÍ–€-
+d
+AWgCxLMZLN4U8H7a6Avpsquid:IndentationCheck""Make this line start at column 11.(Ğ¸™áúÿÿÿÿ8àÍ–€-
+
+AWgCxLMZLN4U8H7a6AwE"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ßÙåàşÿÿÿÿ8àÍ–€-
+ˆ
+AWgCxLMZLN4U8H7a6AwG
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(Ö²›§ıÿÿÿÿ8àÍ–€-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(²ë²8·ÜûÑ€-
+
+AWgCxLMZLN4U8H7a6Av5"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÜÔ³ÿûÿÿÿÿ8àÍ–€-
+_
+AWgCxLMZLN4U8H7a6Avvsquid:IndentationCheck""Make this line start at column 13.(êÔåˆ8àÍ–€-
+Š
+AWgCxLMZLN4U8H7a6AwB"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ôö§ó8àÍ–€-
+Š
+AWgCxLMZLN4U8H7a6Av7"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ò„‡¬8àÍ–€-
+
+AWgCxLMZLN4U8H7a6AwD"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(øàöıÿÿÿÿ8àÍ–€-
+R
+AWgCxLMZLN4U8H7a6AwHsquid:S1451"&Add or update the header of this file.8àÍ–€-
+_
+AWgCxLMZLN4U8H7a6Avwsquid:IndentationCheck""Make this line start at column 15.(êÔåˆ8àÍ–€-
+
+AWgCxLMZLN4U8H7a6Av-"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¢Ğø¥øÿÿÿÿ8àÍ–€-
+Š
+AWgCxLMZLN4U8H7a6Av4"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(šœ•²8àÍ–€-
+
+AWgCxLMZLN4U8H7a6Av3"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Û½Ê€şÿÿÿÿ8àÍ–€-
+d
+AWgCxLMZLN4U8H7a6Avqsquid:IndentationCheck""Make this line start at column 13.(À­†Èıÿÿÿÿ8àÍ–€-
+c
+AWgCxLMZLN4U8H7a6Avrsquid:IndentationCheck"!Make this line start at column 5.(Ãéø­ıÿÿÿÿ8àÍ–€-
+c
+AWgCxLMZLN4U8H7a6Avmsquid:IndentationCheck"!Make this line start at column 5.(î±¨Ôøÿÿÿÿ8àÍ–€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ğ¸™áúÿÿÿÿ8àÍ–€-
+
+AWgCxLMZLN4U8H7a6Av_"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ƒ™Œ”üÿÿÿÿ8àÍ–€-
+c
+AWgCxLMZLN4U8H7a6Avssquid:IndentationCheck"!Make this line start at column 5.(Ù™Î¢ùÿÿÿÿ8àÍ–€-

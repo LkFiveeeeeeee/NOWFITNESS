@@ -16,6 +16,10 @@ public class IndividualDTO {
      * nickName :
      */
 
+    private IndividualDTO(){
+        //DO NOTHING
+    }
+
     private int id;
     private String userName;
     private String password;

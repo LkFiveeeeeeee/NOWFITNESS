@@ -13,6 +13,6 @@ public class FollowingRelation {
         return states;
     }
     public FollowingRelation(RelationDTO relationDTO){
-        this.states = relationDTO.getStates();
+        this.states = relationDTO.isStates();
     }
 }

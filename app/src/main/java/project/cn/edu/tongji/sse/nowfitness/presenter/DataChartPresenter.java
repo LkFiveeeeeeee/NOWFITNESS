@@ -3,7 +3,7 @@ package project.cn.edu.tongji.sse.nowfitness.presenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
-import project.cn.edu.tongji.sse.nowfitness.view.datachartview.DataChartMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.Datachartview.DataChartMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class DataChartPresenter extends BasePresenter {

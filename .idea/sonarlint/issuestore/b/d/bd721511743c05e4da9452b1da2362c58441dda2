@@ -1,0 +1,86 @@
+
+d
+AWgCxLTxLN4U8H7a6A7isquid:IndentationCheck""Make this line start at column 13.(¡Ø˜Êıÿÿÿÿ8àÍ–€-
+Š
+AWgCxLTxLN4U8H7a6A7x"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(äÄí†8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ğ¸™áúÿÿÿÿ8àÍ–€-
+ˆ
+AWgCxLTxLN4U8H7a6A7y
+squid:S109"RAssign this magic number 5 to a well-named constant, and use the constant instead.(‘ôÁÀıÿÿÿÿ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A79squid:S1450"XRemove the "sportsFun" field and declare it as a local variable in the relevant methods.(ıá™„ıÿÿÿÿ8àÍ–€-
+c
+AWgCxLTxLN4U8H7a6A7jsquid:IndentationCheck"!Make this line start at column 5.(¾«ˆƒüÿÿÿÿ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7v"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¾«ˆƒüÿÿÿÿ8àÍ–€-
+ƒ
+AWgCxLTxLN4U8H7a6A7z
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(ÊÒ´8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÜÔ³ÿûÿÿÿÿ8àÍ–€-
+Š
+AWgCxLTxLN4U8H7a6A72
+squid:S109"TAssign this magic number 200 to a well-named constant, and use the constant instead.(¾«ˆƒüÿÿÿÿ8àÍ–€-
+Š
+AWgCxLTxLN4U8H7a6A7u"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Äšô8àÍ–€-
+Š
+AWgCxLTxLN4U8H7a6A7n"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(”ŞŒ¢8àÍ–€-
+c
+AWgCxLTxLN4U8H7a6A7lsquid:IndentationCheck"!Make this line start at column 7.(ùõ›…ÿÿÿÿÿ8àÍ–€-
+c
+AWgCxLTxLN4U8H7a6A7ksquid:IndentationCheck"!Make this line start at column 7.(”Ç©šùÿÿÿÿ8àÍ–€-
+ƒ
+AWgCxLTxLN4U8H7a6A70
+squid:S109"RAssign this magic number 3 to a well-named constant, and use the constant instead.(éèáñ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7p"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(»èÌàøÿÿÿÿ8àÍ–€-
+d
+AWgCxLTxLN4U8H7a6A7hsquid:IndentationCheck""Make this line start at column 11.(Ğ¸™áúÿÿÿÿ8àÍ–€-
+Š
+AWgCxLTxLN4U8H7a6A7w"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+R
+AWgCxLTxLN4U8H7a6A75squid:S1451"&Add or update the header of this file.8àÍ–€-
+^
+AWgCxLTxLN4U8H7a6A7dsquid:IndentationCheck"!Make this line start at column 5.(å¯Ô«8àÍ–€-
+‚
+AWgCxLTxLN4U8H7a6A71
+squid:S109"RAssign this magic number 4 to a well-named constant, and use the constant instead.(¿—)8àÍ–€-
+^
+AWgCxLTxLN4U8H7a6A77squid:S1659"'Declare "sportsPeo" on a separate line.(ıá™„ıÿÿÿÿ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7-squid:S1450"XRemove the "sportsPeo" field and declare it as a local variable in the relevant methods.(ıá™„ıÿÿÿÿ8àÍ–€-
+`
+AWgCxLTxLN4U8H7a6A8Csquid:S2143")Use the Java 8 Date and Time API instead.(”Ç©šùÿÿÿÿ8àÍ–€-
+c
+AWgCxLTxLN4U8H7a6A7esquid:IndentationCheck"!Make this line start at column 5.(²Ï¸öûÿÿÿÿ8àÍ–€-
+c
+AWgCxLTxLN4U8H7a6A7gsquid:IndentationCheck"!Make this line start at column 5.(«àµÀüÿÿÿÿ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7q"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(®âŠ¡ùÿÿÿÿ8àÍ–€-
+^
+AWgCxLTxLN4U8H7a6A76squid:S1659"'Declare "sportsFun" on a separate line.(ıá™„ıÿÿÿÿ8àÍ–€-
+]
+AWgCxLTxLN4U8H7a6A7csquid:IndentationCheck"!Make this line start at column 3.(¸ÄŞJ8àÍ–€-
+c
+AWgCxLTxLN4U8H7a6A7msquid:IndentationCheck"!Make this line start at column 5.(ùõ›…ÿÿÿÿÿ8àÍ–€-
+Š
+AWgCxLTxLN4U8H7a6A73
+squid:S109"TAssign this magic number 300 to a well-named constant, and use the constant instead.(¾«ˆƒüÿÿÿÿ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A78squid:S1450"XRemove the "sportsExa" field and declare it as a local variable in the relevant methods.(ıá™„ıÿÿÿÿ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7s"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(«àµÀüÿÿÿÿ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7_squid:S1450"YRemove the "heartImage" field and declare it as a local variable in the relevant methods.(«Ìû¦ÿÿÿÿÿ8àÍ–€-
+l
+AWgCxLTxLN4U8H7a6A8Asquid:S1258":Add a constructor to the class, or provide default values.(”ŞŒ¢8àÍ–€-
+Z
+AWgCxLTxLN4U8H7a6A74squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8àÍ–€-
+
+AWgCxLTxLN4U8H7a6A7o"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¨Œşÿÿÿÿ8àÍ–€-
+Š
+AWgCxLTxLN4U8H7a6A8B2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+c
+AWgCxLTxLN4U8H7a6A7fsquid:IndentationCheck"!Make this line start at column 5.(ŠÖæ­ÿÿÿÿÿ8àÍ–€-
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(”ŞŒ¢8ğûÃ€-

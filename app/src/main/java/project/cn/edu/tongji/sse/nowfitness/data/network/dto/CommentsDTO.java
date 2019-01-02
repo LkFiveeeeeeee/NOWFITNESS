@@ -8,6 +8,10 @@ import java.util.List;
 
 public class CommentsDTO {
 
+
+    public CommentsDTO(){
+        //DO NOTHING}
+    }
     /**
      * commentsNum : 2
      * commentsList : [{"id":6,"momentsId":10,"content":"adsfaf","commentUserId":4,"commentTime":"2018-11-28T16:25:02.000+0000","commentUserPhoto":"e3bb8aef5f5f4edd8be8dd0de60c6874.JPG","commentUserName":"liuke","repliesList":[{"id":2,"commentId":6,"fromUserId":2,"toUserId":3,"replyType":"reply","content":"haofangaaaa","replyTime":"2018-11-25T12:47:47.000+0000","replyId":1,"fromUserName":"huitaaa","toUserName":"omf"},{"id":1,"commentId":6,"fromUserId":3,"toUserId":2,"replyType":"reply","content":"haofangaaaa","replyTime":"2018-11-25T12:45:05.000+0000","replyId":1,"fromUserName":"omf","toUserName":"huitaaa"}]},{"id":4,"momentsId":10,"content":"asdgqrqtr","commentUserId":4,"commentTime":"2018-11-25T13:20:41.000+0000","commentUserPhoto":"e3bb8aef5f5f4edd8be8dd0de60c6874.JPG","commentUserName":"liuke","repliesList":[{"id":6,"commentId":4,"fromUserId":3,"toUserId":4,"replyType":"reply","content":"hwytufsgha","replyTime":"2018-11-25T12:49:42.000+0000","replyId":5,"fromUserName":"omf","toUserName":"liuke"},{"id":5,"commentId":4,"fromUserId":2,"toUserId":4,"replyType":"reply","content":"hafgdfsgha","replyTime":"2018-11-25T12:49:16.000+0000","replyId":5,"fromUserName":"huitaaa","toUserName":"liuke"},{"id":4,"commentId":4,"fromUserId":4,"toUserId":2,"replyType":"reply","content":"haaaaa","replyTime":"2018-11-25T12:48:43.000+0000","replyId":1,"fromUserName":"liuke","toUserName":"huitaaa"}]}]
@@ -33,6 +37,9 @@ public class CommentsDTO {
     }
 
     public static class CommentsListBean {
+        public CommentsListBean(){
+            //DO NOTHING
+        }
         /**
          * id : 6
          * momentsId : 10

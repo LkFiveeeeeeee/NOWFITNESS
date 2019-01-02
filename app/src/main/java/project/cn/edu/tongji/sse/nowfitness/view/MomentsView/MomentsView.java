@@ -211,4 +211,10 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
             // 取消分享
         }
     }
+
+    @Override
+    public void onDestroyView() {
+        momentsPresenter.onViewDestroyed();
+        super.onDestroyView();
+    }
 }

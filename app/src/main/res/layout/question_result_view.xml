@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="project.cn.edu.tongji.sse.nowfitness.view.planquestionview.QuestionResultView">
+    tools:context="project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.QuestionResultView">
     <ImageView
         android:layout_marginTop="50dp"
         android:id="@+id/heart_image"

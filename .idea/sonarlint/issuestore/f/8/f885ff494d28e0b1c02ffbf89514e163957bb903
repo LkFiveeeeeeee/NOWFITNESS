@@ -1,0 +1,67 @@
+
+
+AWgCxK6TLN4U8H7a6AXX"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(“È¦°ûÿÿÿÿ8àÍ–€-
+‹
+AWgCxK6TLN4U8H7a6AXh
+squid:S109"UAssign this magic number 1500 to a well-named constant, and use the constant instead.(ÉÛê¢şÿÿÿÿ8àÍ–€-
+Š
+AWgCxK6TLN4U8H7a6AXf"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(³¾§Ï8àÍ–€-
+Š
+AWgCxK6TLN4U8H7a6AXd"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ˆÁÅÛ8àÍ–€-
+
+AWgCxK6TLN4U8H7a6AXg"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ûÙ¼‰ÿÿÿÿÿ8àÍ–€-
+^
+AWgCxK6TLN4U8H7a6AXLsquid:IndentationCheck"!Make this line start at column 5.(üŞä¤8àÍ–€-
+^
+AWgCxK6TLN4U8H7a6AXTsquid:IndentationCheck"!Make this line start at column 7.(ğçÒö8àÍ–€-
+R
+AWgCxK6TLN4U8H7a6AXosquid:S1451"&Add or update the header of this file.8àÍ–€-
+|
+AWgCxK6TLN4U8H7a6AXksquid:UselessImportCheck"8Remove this unused import 'com.google.gson.GsonBuilder'.(”«à¬ÿÿÿÿÿ8àÍ–€-
+p
+AWgCxK6TLN4U8H7a6AXlsquid:UselessImportCheck"1Remove this unused import 'com.google.gson.Gson'.(–§8àÍ–€-
+^
+AWgCxK6TLN4U8H7a6AXSsquid:IndentationCheck"!Make this line start at column 5.(³¾§Ï8àÍ–€-
+m
+AWgCxK6TLN4U8H7a6AXVsquid:S1213";Move this constructor to comply with Java Code Conventions.(ì±ßç8àÍ–€-
+c
+AWgCxK6TLN4U8H7a6AXKsquid:IndentationCheck"!Make this line start at column 5.(€àş´ÿÿÿÿÿ8àÍ–€-
+c
+AWgCxK6TLN4U8H7a6AXRsquid:IndentationCheck"!Make this line start at column 3.(¯·ÉÔùÿÿÿÿ8àÍ–€-
+R
+AWgCxK6TLN4U8H7a6AXisquid:S2384" Store a copy of "bookModelList".(üŞä¤8àÍ–€-
+c
+AWgCxK6TLN4U8H7a6AXQsquid:IndentationCheck"!Make this line start at column 7.(ì´„òıÿÿÿÿ8àÍ–€-
+^
+AWgCxK6TLN4U8H7a6AXUsquid:IndentationCheck"!Make this line start at column 5.(Á¼º«8àÍ–€-
+
+AWgCxK6TLN4U8H7a6AXb"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¶ÀÆûÿÿÿÿ8àÍ–€-
+
+AWgCxK6TLN4U8H7a6AXe"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¯·ÉÔùÿÿÿÿ8àÍ–€-
+‚
+AWgCxK6TLN4U8H7a6AXjsquid:UselessImportCheck">Remove this unused import 'com.google.gson.reflect.TypeToken'.(İªıñøÿÿÿÿ8àÍ–€-
+Š
+AWgCxK6TLN4U8H7a6AXY"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(üŞä¤8àÍ–€-
+w
+AWgCxK6TLN4U8H7a6AXnsquid:UselessImportCheck"3Remove this unused import 'java.lang.reflect.Type'.(‰ûÕñıÿÿÿÿ8àÍ–€-
+
+AWgCxK6TLN4U8H7a6AXc"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¼“ø›úÿÿÿÿ8àÍ–€-
+^
+AWgCxK6TLN4U8H7a6AXJsquid:IndentationCheck"!Make this line start at column 3.(×£8àÍ–€-
+
+AWgCxK6TLN4U8H7a6AXa"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(õ­à¤ùÿÿÿÿ8àÍ–€-
+c
+AWgCxK6TLN4U8H7a6AXOsquid:IndentationCheck"!Make this line start at column 5.(‹¼Óøÿÿÿÿ8àÍ–€-
+c
+AWgCxK6TLN4U8H7a6AXMsquid:IndentationCheck"!Make this line start at column 5.(åúı´ıÿÿÿÿ8àÍ–€-
+^
+AWgCxK6TLN4U8H7a6AXNsquid:IndentationCheck"!Make this line start at column 5.(²Ñ…›8àÍ–€-
+‚
+AWgCxK6TLN4U8H7a6AXmsquid:UselessImportCheck"CRemove this unused import 'project.cn.edu.tongji.sse.nowfitness.R'.(Ş‡ÁÙ8àÍ–€-
+Š
+AWgCxK6TLN4U8H7a6AXW"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(È¹›É8àÍ–€-
+`squid:S2057"?Add a "static final long serialVersionUID" field to this class.(¯·ÉÔùÿÿÿÿ8ü™¨§€-
+Š
+AWgCxK6TLN4U8H7a6AXZ"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ì±ßç8àÍ–€-
+^
+AWgCxK6TLN4U8H7a6AXPsquid:IndentationCheck"!Make this line start at column 5.(ˆÁÅÛ8àÍ–€-

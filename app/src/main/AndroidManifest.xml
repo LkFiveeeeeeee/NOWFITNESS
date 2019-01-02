@@ -33,42 +33,42 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.loginandregisterview.LoginView">
+        <activity android:name=".view.LoginAndRegisterView.LoginView">
         </activity>
-        <activity android:name=".view.mainview.MainView" />
+        <activity android:name=".view.MainView.MainView" />
         <activity
-            android:name=".view.loginandregisterview.RegisterView"
+            android:name=".view.LoginAndRegisterView.RegisterView"
             android:theme="@style/Translucent">
 
         </activity>
-        <activity android:name=".view.userview.DisplayVIEW.DisplayView"></activity>
-        <activity android:name=".view.publishmomentview.PublishMomentView">
+        <activity android:name=".view.UserView.DisplayVIEW.DisplayView"></activity>
+        <activity android:name=".view.PublishMomentView.PublishMomentView">
 
         </activity>
         <activity android:name=".view.CommentsView.MomentsDetailView">
 
         </activity>
 
-        <activity android:name=".view.planquestionview.PlanQuestionView">
+        <activity android:name=".view.PlanQuestionView.PlanQuestionView">
 
         </activity>
 
-        <activity android:name=".view.datachartview.DataChartView">
+        <activity android:name=".view.Datachartview.DataChartView">
 
         </activity>
 
-        <activity android:name=".view.usersettingview.UserSettingView">
+        <activity android:name=".view.UserSettingView.UserSettingView">
 
         </activity>
 
         <activity android:name=".view.LeftView.BooksDetailView" />
-        <activity android:name=".view.planquestionview.QuestionResultView"></activity>
+        <activity android:name=".view.PlanQuestionView.QuestionResultView"></activity>
 
         <activity android:name=".view.PersonPageView.PersonPageView" />
 
 
 
-        <activity android:name=".view.welcomeview.WelcomeView">
+        <activity android:name=".view.WelComeview.WelcomeView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -13,6 +13,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetWorkUtils {
+    private NetWorkUtils(){}
+
     public static Retrofit makeRetrofit(){
         return new Retrofit.Builder()
                 .baseUrl("http://47.107.167.12:8080/api/")
@@ -23,26 +25,15 @@ public class NetWorkUtils {
     }
 
     static OkHttpClient makeClient(){
+        final int timeout = 5;
         return new OkHttpClient.Builder()
-                .connectTimeout(5,TimeUnit.SECONDS)
-                .readTimeout(5,TimeUnit.SECONDS)
+                .connectTimeout(timeout,TimeUnit.SECONDS)
+                .readTimeout(timeout,TimeUnit.SECONDS)
                 .addInterceptor(makeLoggingInterceptor())
            //     .addInterceptor()
                 .build();
     }
 
-    /*
-    //给Retrofit添加header
-    static Interceptor makeHeadersInterceptor(){
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                return chain.proceed(chain.request().newBuilder()
-                .addHeader()
-                .build());
-            }
-        }
-    }*/
 
     static Interceptor makeLoggingInterceptor(){
         if(BuildConfig.DEBUG){

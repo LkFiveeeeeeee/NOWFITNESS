@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MyGlideEngine;
@@ -17,17 +18,7 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.MyGlideEngine;
 public class ConstantMethod {
     private ConstantMethod(){}
 
-    public static final  String[] PERMISSIONS_STORAGE ={
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
 
-    public static final String RESULT_INTEGER = "result";
-    public static final int REQUEST_PERMISSION_CODE = 55;
-    public static final int REQUEST_IMAGE_CODE = 188;
-    public static final String TYPE_KEY = "clickType";
-    public static final String STARS_TYPE = "following";
-    public static final String FANS_TYPE = "followers";
 
 
 
@@ -37,11 +28,11 @@ public class ConstantMethod {
                 .countable(true)
                 .maxSelectable(1)
               //  .gridExpectedSize(R.dimen.grid_expected_size)
-                .spanCount(3)
+                .spanCount(Constant.SPAN_COUNT)
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f)
                 .imageEngine(new MyGlideEngine())
-                .forResult(REQUEST_IMAGE_CODE);
+                .forResult(Constant.REQUEST_IMAGE_CODE);
     }
 
 
@@ -51,11 +42,11 @@ public class ConstantMethod {
                 .countable(true)
                 .maxSelectable(1)
                 //  .gridExpectedSize(R.dimen.grid_expected_size)
-                .spanCount(3)
+                .spanCount(Constant.SPAN_COUNT)
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f)
                 .imageEngine(new MyGlideEngine())
-                .forResult(REQUEST_IMAGE_CODE);
+                .forResult(Constant.REQUEST_IMAGE_CODE);
     }
 
     public static void toastShort(Context context,String string){
@@ -63,7 +54,7 @@ public class ConstantMethod {
     }
 
     public static double countCalories(int steps,double weight){
-        return steps * weight * 0.70 * 1.036 / 1000;
+        return steps * weight * Constant.AVA_STEP * 1.036 / Constant.ONE_THOUSAND;
     }
 
     public static void checkUserInfoModel(){

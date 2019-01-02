@@ -30,6 +30,7 @@ import java.util.List;
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoMethod;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepLab;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
@@ -37,15 +38,16 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.pedometermodule.accelerometer.StepCount;
 import project.cn.edu.tongji.sse.nowfitness.presenter.StepServicePresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.mainview.MainView;
+import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 
-public class StepService extends Service implements SensorEventListener,StepServiceMethod{
+public class StepService extends Service
+        implements SensorEventListener,StepServiceMethod{
     private String TAG = "StepService Debug";
 
     //30s进行一次存储
-    private  int duration = 30 * 1000;
+    public  int duration = 30 * 1000;
     //传感器管理对象
     private SensorManager sensorManager;
     //广播接受者
@@ -73,18 +75,18 @@ public class StepService extends Service implements SensorEventListener,StepServ
 
 
     //计步notification ID
-    int notifyID = 100;
+    private final int notifyID = 100;
 
     //
-    int countTime = 0;
+    private int countTime = 0;
 
     //频道ID
-    String channelID;
+    private String channelID;
 
     //UI监听器
     private UpdateUICallBack uiCallBack;
 
-    private StepServicePresenter stepServicePresenter = new StepServicePresenter();
+    private StepServicePresenter stepServicePresenter = new StepServicePresenter(this);
 
     public StepService(){
 
@@ -234,6 +236,8 @@ public class StepService extends Service implements SensorEventListener,StepServ
                     Log.d(TAG, "onReceive: Time Changed");
                     save();
                     isNewDay();
+                }else{
+                    //DO NOTHING
                 }
             }
         };
@@ -274,9 +278,7 @@ public class StepService extends Service implements SensorEventListener,StepServ
 
     @Override
     public void putSuccess(ResponseModel responseModel) {
-        if(!(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300)){
-            ConstantMethod.toastShort(getApplicationContext(),responseModel.getMessage());
-        }
+        //DO NOTHING
     }
 
     @Override
@@ -312,7 +314,6 @@ public class StepService extends Service implements SensorEventListener,StepServ
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         return START_STICKY;
     }
 
@@ -347,7 +348,7 @@ public class StepService extends Service implements SensorEventListener,StepServ
             sensorManager.registerListener(StepService.this,
                     detectorSensor,SensorManager.SENSOR_DELAY_NORMAL);
         }else{
-            Log.d(TAG, "addCountStepListener: not availbale!");
+            Log.d(TAG, "addCountStepListener: not available!");
             addBasePedometerListener();
         }
     }
@@ -362,7 +363,7 @@ public class StepService extends Service implements SensorEventListener,StepServ
         boolean isAvailable = sensorManager.registerListener(
                 stepCount.getStepDetector(),sensor,SensorManager.SENSOR_DELAY_UI
         );
-        stepCount.initListener(steps -> {
+        stepCount.initListener((int steps) -> {
             currentStep = steps;
             updateNotification();
         });
@@ -376,6 +377,7 @@ public class StepService extends Service implements SensorEventListener,StepServ
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+
         if(stepSensorType == Sensor.TYPE_STEP_COUNTER){
             int tempStep = (int) sensorEvent.values[0];
             if(!hasRecord){
@@ -387,9 +389,12 @@ public class StepService extends Service implements SensorEventListener,StepServ
                 currentStep += thisStep;
                 previousStepCount = thisStepCount;
             }
-        }else if(stepSensorType == Sensor.TYPE_STEP_DETECTOR && sensorEvent.values[0] == 1.0){
-                currentStep++;
-
+        }else if(stepSensorType == Sensor.TYPE_STEP_DETECTOR &&
+                (sensorEvent.values[0] >= (1.0f - Constant.EPSILON)
+                        && sensorEvent.values[0] <= (1.0f + Constant.EPSILON))){
+            currentStep++;
+        }else{
+            //DO NOTHING
         }
         updateNotification();
     }
@@ -424,6 +429,7 @@ public class StepService extends Service implements SensorEventListener,StepServ
 
     //保存计步数据
     private void save(){
+        final int submitNum = 10;
         int tempStep = currentStep;
         Log.d(TAG, "save: do a save");
         StepLab.get().setStep(tempStep + "");
@@ -431,7 +437,7 @@ public class StepService extends Service implements SensorEventListener,StepServ
         DaoManager.getDaoInstance().getDaoSession().getStepModelDao().insertOrReplace(StepLab.get().getStepModel());
         countTime++;
         Log.d(TAG, "save: putTodayStepsData"  + countTime);
-        if(countTime == 10){
+        if(countTime == submitNum){
             putTodayStepsData();
             Log.d(TAG, "save: putTodayStepsData" + "success");
             countTime = 0;
@@ -448,6 +454,7 @@ public class StepService extends Service implements SensorEventListener,StepServ
         super.onDestroy();
         stopForeground(true);
         unregisterReceiver(broadcastReceiver);
+        stepServicePresenter.onViewDestroyed();
     }
 
 
@@ -456,7 +463,8 @@ public class StepService extends Service implements SensorEventListener,StepServ
     private String createChannel(){
         String myChannelID = "countStepService";
         String channelName = "NowFitness";
-        NotificationChannel channel = new NotificationChannel(myChannelID,channelName,NotificationManager.IMPORTANCE_NONE);
+        NotificationChannel channel =
+                new NotificationChannel(myChannelID,channelName,NotificationManager.IMPORTANCE_NONE);
         notificationManager.createNotificationChannel(channel);
         return myChannelID;
     }

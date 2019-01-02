@@ -1,0 +1,18 @@
+
+Fsquid:IndentationCheck"!Make this line start at column 3.(¦·ë»úÿÿÿÿ
+Asquid:IndentationCheck"!Make this line start at column 5.(™çâ¥
+Asquid:IndentationCheck"!Make this line start at column 5.(§’ßÓ
+Fsquid:IndentationCheck"!Make this line start at column 5.(Ë öÃıÿÿÿÿ
+Gsquid:IndentationCheck""Make this line start at column 11.(Ğ¸™áúÿÿÿÿ
+Asquid:IndentationCheck""Make this line start at column 13.(úÕƒ:
+Asquid:IndentationCheck"!Make this line start at column 5.(åğÜÀ
+m"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(²£ß±
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(øÃ´Œıÿÿÿÿ
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ƒ…Ìşÿÿÿÿ
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(±»²øÿÿÿÿ
+m"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ö¹™º
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ğ¸™áúÿÿÿÿ
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Õ»­ëüÿÿÿÿ
+,squid:S2384"Store a copy of "list".(™çâ¥
+psquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ğ’Ÿ
+5squid:S1451"&Add or update the header of this file.

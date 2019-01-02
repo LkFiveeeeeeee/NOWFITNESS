@@ -66,4 +66,6 @@ public interface APIRepository {
 
     Single getUserRelation(int userID, int anotherUserId);
 
+    Single deleteMoment(int momentID);
+
 }

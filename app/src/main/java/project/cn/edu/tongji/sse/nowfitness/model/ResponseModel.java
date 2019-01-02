@@ -11,6 +11,10 @@ public class ResponseModel<T> {
      * data : null
      */
 
+    public ResponseModel(){
+        //DO NOTHING
+    }
+
     private String timestamp;
     private int status;
     private String error;

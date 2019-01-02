@@ -33,7 +33,7 @@
             tl:tl_tab_padding="20dp" />
     </LinearLayout>
 
-    <project.cn.edu.tongji.sse.nowfitness.view.datachartview.BanSwipingViewPager
+    <project.cn.edu.tongji.sse.nowfitness.view.Datachartview.BanSwipingViewPager
         android:id="@+id/chart_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

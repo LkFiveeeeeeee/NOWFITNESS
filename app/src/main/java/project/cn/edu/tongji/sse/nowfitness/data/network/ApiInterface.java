@@ -41,7 +41,8 @@ public interface ApiInterface {
      */
     @POST("user/login")
     @Multipart
-    Single<ResponseDTO<TokenDTO>> verifyInfo(@Part("userName") RequestBody userName, @Part("password") RequestBody password);
+    Single<ResponseDTO<TokenDTO>> verifyInfo
+        (@Part("userName") RequestBody userName, @Part("password") RequestBody password);
 
     /**
      * POST 注册请求
@@ -51,7 +52,8 @@ public interface ApiInterface {
      */
     @POST("user/register")
     @Multipart
-    Single<ResponseDTO<TokenDTO>> applyRegister(@Part("userName") RequestBody userName, @Part("password") RequestBody passWord);
+    Single<ResponseDTO<TokenDTO>> applyRegister
+        (@Part("userName") RequestBody userName, @Part("password") RequestBody passWord);
 
     /**
      * 获取用户信息
@@ -161,7 +163,8 @@ public interface ApiInterface {
      */
     @POST("moments")
     @Multipart
-    Single<ResponseDTO> postMoment(@Part("userId") RequestBody userId,@Part("content") RequestBody content,@Part MultipartBody.Part file);
+    Single<ResponseDTO> postMoment
+        (@Part("userId") RequestBody userId,@Part("content") RequestBody content,@Part MultipartBody.Part file);
 
     /**
      * 上传个人图片(未选择图片)
@@ -291,8 +294,20 @@ public interface ApiInterface {
      */
     @POST("user/password")
     @Multipart
-    Single<ResponseDTO<SaltDTO>> changePassword(@Part("userId") RequestBody userId, @Part("password") RequestBody password);
+    Single<ResponseDTO<SaltDTO>>
+        changePassword(@Part("userId") RequestBody userId, @Part("password") RequestBody password);
 
     @GET("user/{userId}/anotherUser/{anotherUserId}")
-    Single<ResponseDTO<RelationDTO>> getUserRelation(@Path("userId") int userID, @Path("anotherUserId") int anotherUserId);
+    Single<ResponseDTO<RelationDTO>>
+        getUserRelation(@Path("userId") int userID, @Path("anotherUserId") int anotherUserId);
+
+    /**
+     * 删除某条动态
+     * @param momentsId 动态ID
+     * @return ResponseDTO without data
+     */
+
+    @DELETE("moments/{momentsId}")
+    Single<ResponseDTO>
+        deleteMoment(@Path("momentsId") int momentsId);
 }

@@ -10,4 +10,8 @@ public class SaltModel {
     }
 
     private String salt;
+
+    public SaltModel(){
+        //DO NOTHING
+    }
 }

@@ -10,6 +10,7 @@ public class StepCount implements StepCountListener{
 
     public StepCount(){
         stepDetector = new StepDetector();
+        //TODO 修改bug
         stepDetector.initListener(this);
     }
     public void initListener(StepValuePassListener listener){
@@ -24,12 +25,14 @@ public class StepCount implements StepCountListener{
     //三秒内计步超过5步才开始正式计步
     @Override
     public void countStep() {
+        final long peakNum = 3000L;
+        final int limitSecond = 5;
         this.timeOfLastPeak = this.timeOfThisPeak;
         this.timeOfThisPeak = System.currentTimeMillis();
-        if(this.timeOfThisPeak -this.timeOfLastPeak <= 3000L){
-            if(this.priCount < 5){
+        if(this.timeOfThisPeak -this.timeOfLastPeak <= peakNum){
+            if(this.priCount < limitSecond){
                 this.priCount++;
-            }else if(this.priCount == 5){
+            }else if(this.priCount == limitSecond){
                 this.priCount++;
                 this.uiCount = this.priCount;
                 notifyListener();

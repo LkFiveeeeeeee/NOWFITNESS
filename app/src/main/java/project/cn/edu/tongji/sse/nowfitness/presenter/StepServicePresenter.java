@@ -9,15 +9,21 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
+import project.cn.edu.tongji.sse.nowfitness.pedometermodule.stepservice.StepServiceMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class StepServicePresenter extends BasePresenter{
+    StepServiceMethod stepServiceMethod;
+    public StepServicePresenter(StepServiceMethod stepServiceMethod){
+        this.stepServiceMethod = stepServiceMethod;
+    }
+
     public void putTodayStepsData(int steps) {
-        String temp = "multipart/form-data";
+        String temp = "text/plain";
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         RequestBody requestId = RequestBody.create(MediaType.parse(temp),
-                String.valueOf(UserInfoLab.get().getUserInfoModel().getId()));
+                String.valueOf((int)UserInfoLab.get().getUserInfoModel().getId()));
         RequestBody requestSteps = RequestBody.create(MediaType.parse(temp),
                 String.valueOf(steps));
         RequestBody requestCalories = RequestBody.create(MediaType.parse(temp),
@@ -30,6 +36,6 @@ public class StepServicePresenter extends BasePresenter{
         subscriptions.add(apiRepository.putTodayStep(requestBodyMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe());
+                .subscribe(stepServiceMethod::putSuccess,stepServiceMethod::putError));
     }
 }

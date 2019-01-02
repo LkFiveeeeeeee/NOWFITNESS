@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 
 public class FileHelper {
     private FileHelper(){}
@@ -47,6 +48,7 @@ public class FileHelper {
                 path = cursor.getString(columnIndex);
             }
         } catch (Exception e) {
+            Log.d("FileExp", e.toString());
             if (cursor != null) {
                 cursor.close();
             }
@@ -66,9 +68,11 @@ public class FileHelper {
 
                 String selection = MediaStore.Images.Media._ID + "=?";
                 String[] selectionArgs = {id};
-                filePath = getDataColumn(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection, selectionArgs);
+                filePath = getDataColumn
+                        (context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection, selectionArgs);
             } else if (isDownloadsDocument(uri)) { // DownloadsProvider
-                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(documentId));
+                Uri contentUri = ContentUris.withAppendedId
+                        (Uri.parse("content://downloads/public_downloads"), Long.valueOf(documentId));
                 filePath = getDataColumn(context, contentUri, null, null);
             }
         } else if ("content".equalsIgnoreCase(uri.getScheme())){

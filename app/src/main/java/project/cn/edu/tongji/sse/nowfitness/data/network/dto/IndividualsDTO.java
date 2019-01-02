@@ -7,6 +7,10 @@ public class IndividualsDTO {
 
     private List<IndividualDTO> users;
 
+    private IndividualsDTO(){
+        //DO NOTHING
+    }
+
     public int getTotalNum() {
         return totalNum;
     }

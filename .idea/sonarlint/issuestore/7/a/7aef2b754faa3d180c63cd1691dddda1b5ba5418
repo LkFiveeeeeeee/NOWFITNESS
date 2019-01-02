@@ -1,0 +1,36 @@
+
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(ÝÇÉ8Ý÷ûÅ€-
+
+AWgCxLSpLN4U8H7a6A5R"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÀÙ›²øÿÿÿÿ8àÍ–€-
+¢
+AWgCxLSpLN4U8H7a6A5Vsquid:S1450"kRemove the "questionFragmentPagerAdapter" field and declare it as a local variable in the relevant methods.(¢º«™ûÿÿÿÿ8àÍ–€-
+
+AWgCxLSpLN4U8H7a6A5Tsquid:S1450"XRemove the "viewPager" field and declare it as a local variable in the relevant methods.(åÙ¬Ïûÿÿÿÿ8àÍ–€-
+Š
+AWgCxLSpLN4U8H7a6A5Q"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ñ”Ò8àÍ–€-
+l
+AWgCxLSpLN4U8H7a6A5Xsquid:S1258":Add a constructor to the class, or provide default values.(ÝÇÉ8àÍ–€-
+^
+AWgCxLSpLN4U8H7a6A5Ksquid:IndentationCheck"!Make this line start at column 5.(áìþ†8àÍ–€-
+R
+AWgCxLSpLN4U8H7a6A5Ssquid:S1451"&Add or update the header of this file.8àÍ–€-
+
+AWgCxLSpLN4U8H7a6A5P"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(»èÌàøÿÿÿÿ8àÍ–€-
+Fsquid:S1905"*Remove this unnecessary cast to "Toolbar".(áìþ†8Ý÷ûÅ€-
+c
+AWgCxLSpLN4U8H7a6A5Jsquid:IndentationCheck"!Make this line start at column 5.(î±¨Ôøÿÿÿÿ8àÍ–€-
+Š
+AWgCxLSpLN4U8H7a6A5N"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÝÇÉ8àÍ–€-
+
+AWgCxLSpLN4U8H7a6A5O"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Û½Ê€þÿÿÿÿ8àÍ–€-
+c
+AWgCxLSpLN4U8H7a6A5Lsquid:IndentationCheck"!Make this line start at column 5.(ÀÙ›²øÿÿÿÿ8àÍ–€-
+c
+AWgCxLSpLN4U8H7a6A5Msquid:IndentationCheck"!Make this line start at column 7.(¯½Üùÿÿÿÿ8àÍ–€-
+—
+AWgCxLSpLN4U8H7a6A5Wsquid:S1450"`Remove the "questionModelList" field and declare it as a local variable in the relevant methods.(âÏÜøÿÿÿÿ8àÍ–€-
+Msquid:S1905",Remove this unnecessary cast to "ViewPager".(ßÒÆÔùÿÿÿÿ8Ý÷ûÅ€-
+ˆ
+AWgCxLSpLN4U8H7a6A5Usquid:S1450"VRemove the "toolbar" field and declare it as a local variable in the relevant methods.(þ®º—8àÍ–€-
+c
+AWgCxLSpLN4U8H7a6A5Isquid:IndentationCheck"!Make this line start at column 3.(åÙ¬Ïûÿÿÿÿ8àÍ–€-

@@ -1,0 +1,8 @@
+
+Fsquid:IndentationCheck"!Make this line start at column 3.(žÅ€†ýÿÿÿÿ
+Fsquid:IndentationCheck"!Make this line start at column 5.(ûáˆœþÿÿÿÿ
+m"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ìýé½
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(øÊ½çûÿÿÿÿ
+psquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(­í™˜
+5squid:S1451"&Add or update the header of this file.
+Osquid:S2039"5Explicitly declare the visibility for "questionView".(žÅ€†ýÿÿÿÿ

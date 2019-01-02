@@ -7,7 +7,7 @@ public class RelationDTO {
         this.states = states;
     }
 
-    public boolean getStates() {
+    public boolean isStates() {
         return states;
     }
 

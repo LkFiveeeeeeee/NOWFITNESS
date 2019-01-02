@@ -9,8 +9,8 @@ public class StepDetector implements SensorEventListener {
     //存放三维数据
     private float[] oriValues = new float[3];
     //用于存放计算阈值的波峰波谷差值
-    private static final int valueNum = 4;
-    private float[] tempValue = new float[valueNum];
+    private static final int VALUE_NUM = 4;
+    private float[] tempValue = new float[VALUE_NUM];
     private int tempCount = 0;
     //标志是否上升
     private boolean isDirectionUp = false;
@@ -31,11 +31,11 @@ public class StepDetector implements SensorEventListener {
     //上次传感器的值
     private float gravityOld = 0;
     //动态阈值需要的数据
-    private static final float initialValue = (float) 1.3;
+    private static final float INITIAL_VALUE = (float) 1.3;
     //初始阈值
     private float threadValue = (float) 2.0;
     //波峰波谷时间差
-    private int timeInterval = 250;
+    private final int timeInterval = 250;
     private StepCountListener stepCountListener;
 
     StepDetector() {
@@ -77,7 +77,7 @@ public class StepDetector implements SensorEventListener {
                 }
             }
             if(timeOfNow - timeOfLastPeak >= timeInterval
-                    && (peakOfWave - valleyOfWave >= initialValue)){
+                    && (peakOfWave - valleyOfWave >= INITIAL_VALUE)){
                 timeOfThisPeak = timeOfNow;
                 threadValue = peakValleyThread(peakOfWave - valleyOfWave);
             }
@@ -110,15 +110,15 @@ public class StepDetector implements SensorEventListener {
 
     public float peakValleyThread(float value){
         float tempThread = threadValue;
-        if(tempCount < valueNum){
+        if(tempCount < VALUE_NUM){
             tempValue[tempCount] = value;
             tempCount++;
         }else{
-            tempThread = averageValue(tempValue,valueNum);
-            for(int i = 1; i < valueNum;i++){
+            tempThread = averageValue(tempValue, VALUE_NUM);
+            for(int i = 1; i < VALUE_NUM; i++){
                 tempValue[i - 1] = tempValue[i];
             }
-            tempValue[valueNum - 1] =value;
+            tempValue[VALUE_NUM - 1] =value;
         }
         return tempThread;
     }
@@ -129,7 +129,7 @@ public class StepDetector implements SensorEventListener {
         for(int i = 0; i < n;i++){
             ave += value[i];
         }
-        ave = ave / valueNum;
+        ave = ave / VALUE_NUM;
         if(ave > 8){
             ave = (float) 4.3;
         }else if(ave >= 7 && ave < 8){

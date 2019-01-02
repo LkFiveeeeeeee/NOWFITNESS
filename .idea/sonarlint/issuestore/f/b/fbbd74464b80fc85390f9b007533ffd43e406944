@@ -1,0 +1,39 @@
+
+Š
+AWgCxKoMLN4U8H7a5_vI"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+Š
+AWgCxKoMLN4U8H7a5_vE"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ò¾à8àÍ–€-
+c
+AWgCxKoMLN4U8H7a5_u-squid:IndentationCheck"!Make this line start at column 5.(£³ô·ùÿÿÿÿ8àÍ–€-
+ˆ
+AWgCxKoMLN4U8H7a5_vJ
+squid:S109"RAssign this magic number 5 to a well-named constant, and use the constant instead.(¦ìæ‰şÿÿÿÿ8àÍ–€-
+Š
+AWgCxKoMLN4U8H7a5_vD"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¥ ğƒ8àÍ–€-
+c
+AWgCxKoMLN4U8H7a5_vBsquid:IndentationCheck"!Make this line start at column 7.(åƒÄõÿÿÿÿÿ8àÍ–€-
+ƒ
+AWgCxKoMLN4U8H7a5_vK
+squid:S109"RAssign this magic number 5 to a well-named constant, and use the constant instead.(£Üïî8àÍ–€-
+Š
+AWgCxKoMLN4U8H7a5_vN2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+c
+AWgCxKoMLN4U8H7a5_vAsquid:IndentationCheck"!Make this line start at column 5.(¶»†¬ÿÿÿÿÿ8àÍ–€-
+^
+AWgCxKoMLN4U8H7a5_u9squid:IndentationCheck"!Make this line start at column 3.(ò¾à8àÍ–€-
+^
+AWgCxKoMLN4U8H7a5_u_squid:IndentationCheck"!Make this line start at column 5.(ŸıÎÓ8àÍ–€-
+Š
+AWgCxKoMLN4U8H7a5_vG"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Å£Ûœ8àÍ–€-
+c
+AWgCxKoMLN4U8H7a5_vCsquid:IndentationCheck"!Make this line start at column 7.(åƒÄõÿÿÿÿÿ8àÍ–€-
+R
+AWgCxKoMLN4U8H7a5_vLsquid:S1451"&Add or update the header of this file.8àÍ–€-
+
+AWgCxKoMLN4U8H7a5_vH"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¶»†¬ÿÿÿÿÿ8àÍ–€-
+
+AWgCxKoMLN4U8H7a5_vF"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¤ŸÂ«ÿÿÿÿÿ8àÍ–€-
+l
+AWgCxKoMLN4U8H7a5_vMsquid:S1118":Add a private constructor to hide the implicit public one.(¥ ğƒ8àÍ–€-
+}
+AWgCxKoMLN4U8H7a5_vOsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÜıË…8àÍ–€-

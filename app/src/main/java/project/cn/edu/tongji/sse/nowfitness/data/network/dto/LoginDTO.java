@@ -7,6 +7,10 @@ public class LoginDTO {
      * result : login success
      */
 
+    public LoginDTO(){
+        //DO NOTHING
+    }
+
     private String result;
 
     public String getResult() {

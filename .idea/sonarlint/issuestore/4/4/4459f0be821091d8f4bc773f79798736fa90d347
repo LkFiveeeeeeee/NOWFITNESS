@@ -1,0 +1,109 @@
+
+ƒ
+AWgCxLV2LN4U8H7a6BAC
+squid:S109"RAssign this magic number 8 to a well-named constant, and use the constant instead.(Š­à’8àÍ–€-
+Š
+AWgCxLV2LN4U8H7a6A_4"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+„
+AWgCxLV2LN4U8H7a6BAD
+squid:S109"SAssign this magic number 10 to a well-named constant, and use the constant instead.(øºÛ8àÍ–€-
+‰
+AWgCxLV2LN4U8H7a6A_5
+squid:S109"SAssign this magic number 30 to a well-named constant, and use the constant instead.(êĞş±şÿÿÿÿ8àÍ–€-
+c
+AWgCxLV2LN4U8H7a6A_msquid:IndentationCheck"!Make this line start at column 5.(·ÿä¶úÿÿÿÿ8àÍ–€-
+y
+AWgCxLV2LN4U8H7a6BAMsquid:S1774"GConvert this usage of the ternary operator to an "if"/"else" structure.(“Õ„8àÍ–€-
+c
+AWgCxLV2LN4U8H7a6A_osquid:IndentationCheck"!Make this line start at column 5.(Î­³‘úÿÿÿÿ8àÍ–€-
+^
+AWgCxLV2LN4U8H7a6A_nsquid:IndentationCheck"!Make this line start at column 5.(Î×ƒÛ8àÍ–€-
+ƒ
+AWgCxLV2LN4U8H7a6A_7
+squid:S109"RAssign this magic number 5 to a well-named constant, and use the constant instead.(Î×ƒÛ8àÍ–€-
+^
+AWgCxLV2LN4U8H7a6A_tsquid:IndentationCheck"!Make this line start at column 7.(×¡ïİ8àÍ–€-
+
+AWgCxLV2LN4U8H7a6BAGsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(õ¨¾8àÍ–€-
+o
+AWgCxLV2LN4U8H7a6A_v
+squid:S864"9Add parentheses to make the operator precedence explicit.(ÃÜÀØıÿÿÿÿ8àÍ–€-
+ƒ
+AWgCxLV2LN4U8H7a6A_8
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(Î×ƒÛ8àÍ–€-
+^
+AWgCxLV2LN4U8H7a6A_lsquid:IndentationCheck"!Make this line start at column 3.(åé°ü8àÍ–€-
+ˆ
+AWgCxLV2LN4U8H7a6A_-
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(Î­³‘úÿÿÿÿ8àÍ–€-
+
+AWgCxLV2LN4U8H7a6A_3"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(éæ¶™ûÿÿÿÿ8àÍ–€-
+v
+AWgCxLV2LN4U8H7a6BALsquid:S3358"DExtract this nested ternary operation into an independent statement.(Ã†öÎ8àÍ–€-
+Š
+AWgCxLV2LN4U8H7a6A_z"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(•ï°¨8àÍ–€-
+^
+AWgCxLV2LN4U8H7a6A_rsquid:IndentationCheck"!Make this line start at column 7.(×¡ïİ8àÍ–€-
+Š
+AWgCxLV2LN4U8H7a6A_1"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¼¦µÈ8àÍ–€-
+c
+AWgCxLV2LN4U8H7a6A_qsquid:IndentationCheck"!Make this line start at column 5.(Î­³‘úÿÿÿÿ8àÍ–€-
+y
+AWgCxLV2LN4U8H7a6BAPsquid:S1774"GConvert this usage of the ternary operator to an "if"/"else" structure.(“Õ„8àÍ–€-
+{
+AWgCxLV2LN4U8H7a6BAOsquid:S3358"DExtract this nested ternary operation into an independent statement.(ÃÜÀØıÿÿÿÿ8àÍ–€-
+Š
+AWgCxLV2LN4U8H7a6BAJ2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+
+AWgCxLV2LN4U8H7a6BAI2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(éæ¶™ûÿÿÿÿ8àÍ–€-
+Š
+AWgCxLV2LN4U8H7a6A_x"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(É°²ó8àÍ–€-
+ˆ
+AWgCxLV2LN4U8H7a6BAA
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(Î­³‘úÿÿÿÿ8àÍ–€-
+c
+AWgCxLV2LN4U8H7a6A_psquid:IndentationCheck"!Make this line start at column 5.(Î­³‘úÿÿÿÿ8àÍ–€-
+‰
+AWgCxLV2LN4U8H7a6BAE
+squid:S109"SAssign this magic number 10 to a well-named constant, and use the constant instead.(™È‚æùÿÿÿÿ8àÍ–€-
+
+AWgCxLV2LN4U8H7a6A_2"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(õ„Šíşÿÿÿÿ8àÍ–€-
+‰
+AWgCxLV2LN4U8H7a6A_6
+squid:S109"SAssign this magic number 30 to a well-named constant, and use the constant instead.(§Øºûÿÿÿÿ8àÍ–€-
+ˆ
+AWgCxLV2LN4U8H7a6A_9
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(Î­³‘úÿÿÿÿ8àÍ–€-
+R
+AWgCxLV2LN4U8H7a6BAHsquid:S1451"&Add or update the header of this file.8àÍ–€-
+j
+AWgCxLV2LN4U8H7a6A_u
+squid:S864"9Add parentheses to make the operator precedence explicit.(Ã†öÎ8àÍ–€-
+
+AWgCxLV2LN4U8H7a6A_y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(—·œÿÿÿÿÿ8àÍ–€-
+
+AWgCxLV2LN4U8H7a6A_0"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ú½îÒúÿÿÿÿ8àÍ–€-
+„
+AWgCxLV2LN4U8H7a6BAF
+squid:S109"SAssign this magic number 10 to a well-named constant, and use the constant instead.(©™’¸8àÍ–€-
+Š
+AWgCxLV2LN4U8H7a6A_w"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(™ğ›–8àÍ–€-
+^
+AWgCxLV2LN4U8H7a6A_ssquid:IndentationCheck"!Make this line start at column 7.(×¡ïİ8àÍ–€-
+Csquid:S2164"'Use a "double" or "BigDecimal" instead.(×¡ïİ8ç»ç¨€-
+\squid:S2184"@Cast one of the operands of this integer division to a "double".(©™’¸8ç»ç¨€-
+Csquid:S2164"'Use a "double" or "BigDecimal" instead.(©™’¸8ç»ç¨€-
+m
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(Ñ·ãí8ç»ç¨€-
+asquid:S2184"@Cast one of the operands of this integer division to a "double".(™È‚æùÿÿÿÿ8ç»ç¨€-
+Csquid:S2164"'Use a "double" or "BigDecimal" instead.(×¡ïİ8ç»ç¨€-
+asquid:UselessImportCheck"3Remove this unused import 'android.graphics.Paint'.(êı‚•ÿÿÿÿÿ8ç»ç¨€-
+hsquid:S1774"GConvert this usage of the ternary operator to an "if"/"else" structure.(ÃÜÀØıÿÿÿÿ8ç»ç¨€-
+\squid:S2184"@Cast one of the operands of this integer division to a "double".(øºÛ8ç»ç¨€-
+Hsquid:S2164"'Use a "double" or "BigDecimal" instead.(™È‚æùÿÿÿÿ8ç»ç¨€-
+>squid:S00113"'Add a new line at the end of this file.8ç»ç¨€-
+Csquid:S2164"'Use a "double" or "BigDecimal" instead.(øºÛ8ç»ç¨€-
+csquid:S1774"GConvert this usage of the ternary operator to an "if"/"else" structure.(Ã†öÎ8ç»ç¨€-
+Csquid:S2164"'Use a "double" or "BigDecimal" instead.(×¡ïİ8ç»ç¨€-
+m
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(Ñ·ãí8ç»ç¨€-
