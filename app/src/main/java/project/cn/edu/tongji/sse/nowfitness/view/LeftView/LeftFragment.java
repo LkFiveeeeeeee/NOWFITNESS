@@ -169,4 +169,9 @@ public class LeftFragment extends Fragment implements BookMethod{
         }
     }
 
+    @Override
+    public void onDestroy() {
+        leftFragmentPresenter.onViewDestroyed();
+        super.onDestroy();
+    }
 }

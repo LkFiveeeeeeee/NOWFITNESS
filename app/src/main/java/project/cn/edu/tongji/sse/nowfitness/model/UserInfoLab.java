@@ -12,6 +12,9 @@ public class UserInfoLab  {
     public void setUserInfoModel(UserInfoModel userInfoModel) {
         this.userInfoModel = userInfoModel;
     }
+    private UserInfoLab(){
+        //DO NOTHING
+    }
 
     private UserInfoModel userInfoModel;
     public static UserInfoLab get(){

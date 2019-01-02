@@ -1,7 +1,7 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.IndividualDTO;
 
 public class IndividualModel {
 

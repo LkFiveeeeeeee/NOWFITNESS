@@ -1,0 +1,50 @@
+
+‹
+AWgCxLNGLN4U8H7a6AxP2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"2Move this "catch" keyword to a new dedicated line.(”ı¾8àÍ–€-
+Š
+AWgCxLNGLN4U8H7a6AxF"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(æŸ‘¿8àÍ–€-
+W
+AWgCxLNGLN4U8H7a6AxIsquid:S1166"%Either log or rethrow this exception.(”ı¾8àÍ–€-
+i
+AWgCxLNGLN4U8H7a6AxUsquid:S1197"8Move the array designator from the variable to the type.(ÓöñL8àÍ–€-
+†
+AWgCxLNGLN4U8H7a6AxNsquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„¶¢€şÿÿÿÿ8àÍ–€-
+‚
+AWgCxLNGLN4U8H7a6AxG
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(ÓöñL8àÍ–€-
+f
+AWgCxLNGLN4U8H7a6AxQsquid:S2221"4Catch a list of specific exception subtypes instead.(”ı¾8àÍ–€-
+a
+AWgCxLNGLN4U8H7a6AxSsquid:S2070"*Use a stronger hashing algorithm than MD5.(ù¡ß“øÿÿÿÿ8àÍ–€-
+O
+AWgCxLNGLN4U8H7a6AxRsquid:S1943"Remove this use of "getBytes"(ß€¤8àÍ–€-
+ƒ
+AWgCxLNGLN4U8H7a6AxH
+squid:S109"RAssign this magic number 4 to a well-named constant, and use the constant instead.(«†‡8àÍ–€-
+^
+AWgCxLNGLN4U8H7a6Aw8squid:IndentationCheck"!Make this line start at column 5.(ŠÔîÃ8àÍ–€-
+j
+AWgCxLNGLN4U8H7a6AxOsquid:S1197"8Move the array designator from the variable to the type.(ŠÔîÃ8àÍ–€-
+`
+AWgCxLNGLN4U8H7a6AxTsquid:S4790")Make sure that hashing data is safe here.(ù¡ß“øÿÿÿÿ8àÍ–€-
+
+AWgCxLNGLN4U8H7a6AxC"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(„¶¢€şÿÿÿÿ8àÍ–€-
+
+AWgCxLNGLN4U8H7a6AxD"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¡»¢üùÿÿÿÿ8àÍ–€-
+c
+AWgCxLNGLN4U8H7a6Aw-squid:IndentationCheck"!Make this line start at column 9.(ƒä³İûÿÿÿÿ8àÍ–€-
+Š
+AWgCxLNGLN4U8H7a6AxB"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.( ´Â8àÍ–€-
+^
+AWgCxLNGLN4U8H7a6Aw9squid:IndentationCheck"!Make this line start at column 7.(ß€¤8àÍ–€-
+R
+AWgCxLNGLN4U8H7a6AxLsquid:S1451"&Add or update the header of this file.8àÍ–€-
+j
+AWgCxLNGLN4U8H7a6AxA
+squid:S864"9Add parentheses to make the operator precedence explicit.(«†‡8àÍ–€-
+Msquid:IndentationCheck"!Make this line start at column 3.(ğçàîûÿÿÿÿ8öêìÅ€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ğçàîûÿÿÿÿ8öêìÅ€-
+Hsquid:IndentationCheck"!Make this line start at column 7.(ğ©ó8Í•ğÅ€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(”ı¾8àÍ–€-
+Ssquid:S1135"2Complete the task associated to this TODO comment.(ä‘€£şÿÿÿÿ8æ‘óÅ€-
+Psquid:S2974"4Make this class "final" or add a public constructor.( ´Â8öêìÅ€-

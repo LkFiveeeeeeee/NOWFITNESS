@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.Objects;
 
@@ -19,52 +18,52 @@ import project.cn.edu.tongji.sse.nowfitness.model.QuestionList;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class QuestionFinishFragment extends BaseFragment {
-    private TextView questionText;
     private Button finishButton;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.question_finish,container,false);
         this.questionView = (CardView) view.findViewById(R.id.question_container);
         this.questionView.setMaxCardElevation(questionView.getCardElevation()
-                * QuestionAdapter.MAX_ELEVATION_FACTOR);
+                * Constant.MAX_ELEVATION_FACTOR);
         initView(view);
         return view;
     }
 
     private void initView(View view){
-        questionText = view.findViewById(R.id.question_text);
         finishButton = view.findViewById(R.id.finish_button);
         finishButton.setEnabled(true);
         setListener();
     }
 
     private void setListener(){
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(QuestionList.get().calculateScore()){
-               //     ConstantMethod.toastShort(getContext(),"success,请仔细查阅!" +" " + QuestionList.get().getScore());
-                    Intent intent = new Intent(getActivity(),QuestionResultView.class);
-                    intent.putExtra(ConstantMethod.result_Integer,sortValue(QuestionList.get().getScore()));
-                    startActivity(intent);
-                    Objects.requireNonNull(getActivity()).finish();
-                }else{
-                    ConstantMethod.toastShort(getContext(),"您有未进行选择的问题,请仔细查阅!");
-                }
+        finishButton.setOnClickListener((View view) -> {
+            if(QuestionList.get().calculateScore()){
+                Intent intent = new Intent(getActivity(),QuestionResultView.class);
+                intent.putExtra(Constant.RESULT_INTEGER,sortValue(QuestionList.get().getScore()));
+                startActivity(intent);
+                Objects.requireNonNull(getActivity()).finish();
+            }else{
+                ConstantMethod.toastShort(getContext(),"您有未进行选择的问题,请仔细查阅!");
             }
         });
     }
 
     private int sortValue(int score){
-        if(score > 83){
+        if(score > Constant.A_RANK){
             double d = Math.random();
             int i = (int) (d*100);
-            return i % 2 == 0 ? 0 : 1;
-        }else if(score > 65){
+            if(i % 2 == 0){
+                i = 0;
+            }else{
+                i = 1;
+            }
+            return i;
+        }else if(score > Constant.B_RANK){
             return 2;
-        }else if(score > 49){
+        }else if(score > Constant.C_RANK){
             return 3;
         }else{
             return 4;

@@ -2,16 +2,15 @@ package project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView;
 
 import com.haibin.calendarview.Calendar;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public interface CalendarControlMethod {
 
-    public void initCalendarView();
+    void initCalendarView();
 
-    public void setInitView();
+    void setInitView();
 
-    public Calendar getSchemeCalendar(int year, int month, int day, String text);
+    Calendar getSchemeCalendar(int year, int month, int day, String text);
 
-    public Date StringConvertToDate(String dateString);
+    Date stringConvertToDate(String dateString);
 }

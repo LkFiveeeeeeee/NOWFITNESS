@@ -5,7 +5,8 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Transient;
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataListDTO;
 
 
 @Entity
@@ -39,7 +40,7 @@ public class StepModel {
     public StepModel() {
     }
 
-    public StepModel(StepDataDTO.StepsDataModelListBean bean){
+    public StepModel(StepDataListDTO bean){
         this.step = String.valueOf(bean.getSteps());
         this.today = bean.getDate();
         this.calories = bean.getCalories();

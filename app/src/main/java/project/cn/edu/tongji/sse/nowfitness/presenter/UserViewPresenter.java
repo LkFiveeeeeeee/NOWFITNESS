@@ -10,34 +10,18 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewMethod;
 
 public class UserViewPresenter extends BasePresenter{
-    private boolean ableRead = false;
-    private boolean ableWrite = false;
     private UserViewFragment userView;
     private UserViewMethod userViewMethod;
     private UserInfoModel userInfoModel;
     private UserInfoModelDao userInfoModelDao;
 
-    public boolean isAbleRead() {
-        return ableRead;
-    }
-
-    public void setAbleRead(boolean ableRead) {
-        this.ableRead = ableRead;
-    }
-
-    public boolean isAbleWrite() {
-        return ableWrite;
-    }
-
-    public void setAbleWrite(boolean ableWrite) {
-        this.ableWrite = ableWrite;
-    }
 
     public UserViewPresenter(UserViewFragment userView, UserViewMethod userViewMethod){
         this.userView = userView;
@@ -70,11 +54,12 @@ public class UserViewPresenter extends BasePresenter{
     }
 
     public double getBMINum(){
-        if(userInfoModel.getWeight() == 0 || userInfoModel.getHeight() == 0){
+        final int DIVISION = 100;
+        if(userInfoModel.getWeight() >= -Constant.EPSILON && userInfoModel.getHeight() <= Constant.EPSILON){
             return 0.0;
         }
-        return userInfoModel.getWeight() / (userInfoModel.getHeight()/100)
-                /(userInfoModel.getHeight()/100);
+        return userInfoModel.getWeight() / (userInfoModel.getHeight()/DIVISION)
+                /(userInfoModel.getHeight()/DIVISION);
     }
 
     public void setAvatar(String imageUrl){
@@ -87,11 +72,6 @@ public class UserViewPresenter extends BasePresenter{
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file);
         MultipartBody.Part part = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
         RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(userId));
-     /*   RequestBody body = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("id",String.valueOf(userId)    )
-                .addFormDataPart("file",file.getName(),requestFile)
-                .build();*/
         subscriptions.add(apiRepository.postUserAvatar(part,requestId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

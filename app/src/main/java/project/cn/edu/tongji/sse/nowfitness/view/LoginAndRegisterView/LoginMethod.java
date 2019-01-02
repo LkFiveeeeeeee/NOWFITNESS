@@ -6,7 +6,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
 public interface LoginMethod {
     void loginSuccess(ResponseModel<Token> responseModel);
-    void loginError(Throwable e);
+    void netError(Throwable e);
     void querySuccess(ResponseModel<UserInfoModel> responseModel);
 
 }

@@ -1,6 +1,7 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
 import java.util.List;
+import java.util.PrimitiveIterator;
 
 public class StepModelList {
 
@@ -9,6 +10,10 @@ public class StepModelList {
 
 
     private int days;
+
+    public StepModelList(){
+        //DO NOTHING
+    }
 
     public List<StepModel> getStepModels() {
         return stepModels;

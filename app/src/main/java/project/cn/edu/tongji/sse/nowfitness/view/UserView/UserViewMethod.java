@@ -6,14 +6,7 @@ public interface UserViewMethod {
     void initUserView();
     void setBMINum();
     void setListener();
-
-    void jumpToStars();
-    void jumpToFans();
-    void jumpToMyMoments();
     void queryError(Throwable e);
     void shakeSuccess(String s);
-
     void applyForImageChange(ResponseModel responseDTO);
-    void applyForBodyInfoChange();
-    void applyForMomentsInfoChange();
 }

@@ -1,22 +1,17 @@
 package project.cn.edu.tongji.sse.nowfitness.view.UserView;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -29,7 +24,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.haibin.calendarview.Calendar;
@@ -37,6 +31,7 @@ import com.haibin.calendarview.CalendarView;
 import com.victor.ringbutton.RingButton;
 import com.zhihu.matisse.Matisse;
 
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -45,31 +40,33 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FileHelper;
 import project.cn.edu.tongji.sse.nowfitness.presenter.UserViewPresenter;
-import project.cn.edu.tongji.sse.nowfitness.view.DataChartView.DataChartView;
+import project.cn.edu.tongji.sse.nowfitness.view.Datachartview.DataChartView;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.PlanQuestionView;
 import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingView;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarControlMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.ConstantColor;
 
 
+
 public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,SensorEventListener,ToPersonPageView {
     /*temp para*/
-    private List<Uri> imageUri;
+    private String tag = "Test Sensor";
+    private String classTag = "UserViewFragment";
+    private SecureRandom random = new SecureRandom();
 
 
     private UserViewPresenter userViewPresenter;
@@ -105,6 +102,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     private boolean isShake = false;
     private AlertDialog dialog;
 
+
     /*摇一摇相关*/
 
     @Override
@@ -115,7 +113,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             accelerateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             if(accelerateSensor != null){
                 sensorManager.registerListener((SensorEventListener) this,accelerateSensor,SensorManager.SENSOR_DELAY_UI);
-                Log.d("Test Sensor", "onStart: OK 加速器传感器");
+                Log.d(tag, "onStart: OK 加速器传感器");
             }
         }
     }
@@ -131,7 +129,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        Log.d("Test Sensor", "onStart: OK here is an event");
+        Log.d(tag, "onStart: OK here is an event");
         int type = sensorEvent.sensor.getType();
         if(type == Sensor.TYPE_ACCELEROMETER){
             float[] values = sensorEvent.values;
@@ -140,7 +138,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
             float z = values[2];
 
             if((Math.abs(x) > 17  || Math.abs(y) > 17 || Math.abs(z)>17 )&& ! isShake){
-                Log.d("Test Sensor", "onStart: OK 加速器传感器 The event is OK");
+                Log.d(tag, "onStart: OK 加速器传感器 The event is OK");
                 isShake = true;
                 Observable.just("Success")
                         .subscribe(this::shakeSuccess,this::queryError);
@@ -151,7 +149,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-
+        //DO NOTHING
     }
 
     @Nullable
@@ -206,7 +204,6 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     public void setInitView() {
 
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
-        Log.d("String1111111", userInfoModel.getPictureUrl());
         if(userInfoModel.getPictureUrl() != null){
             Glide.with(myView).load(userInfoModel.getPictureUrl()).into(avatarImageView);
         }
@@ -233,14 +230,10 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
         if(userInfoModel.getDateCheckList() != null){
             for(int i = 0;i < userInfoModel.getDateCheckList().size();i++){
-                Date date = StringConvertToDate(userInfoModel.getDateCheckList().get(i));
+                Date date = stringConvertToDate(userInfoModel.getDateCheckList().get(i));
                 java.util.Calendar calendar = new GregorianCalendar();
                 calendar.setTime(date);
 
-                Log.d("111111111", "setInitView: " + date.toString());
-                Log.d("111111111", "setInitView: " + date.getYear());
-                Log.d("111111111", "setInitView: " + date.getMonth());
-                Log.d("111111111", "setInitView: " + date.getDay());
                 map.put(getSchemeCalendar(calendar.get(java.util.Calendar.YEAR)
                         ,calendar.get(java.util.Calendar.MONTH) + 1,
                         calendar.get(java.util.Calendar.DAY_OF_MONTH)," ").toString(),
@@ -251,15 +244,6 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         }
 
 
-    /*    map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 3, " ").toString(),
-                getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 3, " "));
-        map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 4, " ").toString(),
-                getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 4, " "));
-        map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 5, " ").toString(),
-                getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 5, " "));
-        map.put(getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 6, " ").toString(),
-                getSchemeCalendar(calendarView.getCurYear(), calendarView.getCurMonth(), 6, " "));*/
-
         calendarView.setSchemeDate(map);
 
     }
@@ -268,14 +252,14 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     public void onResume() {
         super.onResume();
         sensorManager.registerListener((SensorEventListener) this,accelerateSensor,SensorManager.SENSOR_DELAY_UI);
-        Log.d("Test Sensor", "onStart: OK 加速器传感器 The event is OK");
+        Log.d(tag, "onStart: OK 加速器传感器 The event is OK");
         setInitView();
     }
 
     @Override
     public Calendar getSchemeCalendar(int year, int month, int day, String text) {
-        Random random = new Random();
-        int color = ConstantColor.color[random.nextInt(100) % ConstantColor.color.length];
+
+        int color = ConstantColor.color[this.random.nextInt(100) % ConstantColor.color.length];
 
         Calendar calendar = new Calendar();
         calendar.setYear(year);
@@ -287,13 +271,13 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     }
 
     @Override
-    public Date StringConvertToDate(String dateString) {
+    public Date stringConvertToDate(String dateString) {
         Date date = new Date();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
             date = sdf.parse(dateString);
         }catch (Exception e){
-            e.printStackTrace();
+            Log.d(classTag, "stringConvertToDate: ");
         }
         return date;
     }
@@ -323,14 +307,11 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
     @Override
     public void setBMINum() {
-        if(heightNum.getText().equals("0")||weightNum.getText().equals("0")){
-            return;
-        }else{
-            //TODO calculate BMI number
+        if(!(heightNum.getText().toString().equals("0")||weightNum.getText().toString().equals("0"))){
             double num = userViewPresenter.getBMINum();
             DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
-            if(num == 0){
+            if(num >= -Constant.EPSILON && num <= Constant.EPSILON){
                 return;
             }
             if(num < 18.5){
@@ -352,7 +333,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         momentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Intent
+
                 UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
                 jumpToPersonPage((int)userInfoModel.getId(),userInfoModel.getUserName(),userInfoModel.getNickName(),userInfoModel.getPictureUrl());
 
@@ -361,32 +342,28 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         followLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Intent
+
                 Intent intent = new Intent(getActivity(),DisplayView.class);
-                intent.putExtra(ConstantMethod.type_Key,
-                        ConstantMethod.stars_Type);
+                intent.putExtra(Constant.TYPE_KEY,
+                        Constant.STARS_TYPE_S);
                 startActivity(intent);
             }
         });
-        fansLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO Intent
-                Intent intent = new Intent(getActivity(),DisplayView.class);
-                intent.putExtra(ConstantMethod.type_Key,
-                        ConstantMethod.fans_Type);
-                startActivity(intent);
-            }
+        fansLayout.setOnClickListener((View view) -> {
+            Intent intent = new Intent(getActivity(),DisplayView.class);
+            intent.putExtra(Constant.TYPE_KEY,
+                    Constant.FANS_TYPE_S);
+            startActivity(intent);
         });
         heightNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
@@ -397,12 +374,12 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         weightNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
@@ -435,53 +412,29 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
 
     /* 请求回调操作*/
 
-      @Override
-    public void jumpToStars() {
-
-    }
-
-    @Override
-    public void jumpToFans() {
-
-    }
-
-    @Override
-    public void jumpToMyMoments() {
-
-    }
 
     @Override
     public void queryError(Throwable e) {
-        e.printStackTrace();
-        Log.d("error", "queryError: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Log.d(classTag, e.toString());
+        ConstantMethod.toastShort(getContext(),"网络错误!!!");
+        Log.d("error", "queryError: " + e.toString());
     }
 
     @Override
     public void shakeSuccess(String s) {
         isShake = false;
-        Log.d("Test shake", "shakeSuccess: " + isShake);
-        Log.d("Test Sensor", s);
         dialog.show();
 
     }
 
     @Override
-    public void applyForImageChange(ResponseModel responseDTO) {
-        if(responseDTO.getStatus() == 200){
-            Log.d("test post", "applyForImageChange: success!!!!!!");
+    public void applyForImageChange(ResponseModel model) {
+        if(model.getStatus() >= 200 && model.getStatus() < 300){
+            ConstantMethod.toastShort(getContext(),"更换成功!");
         }
-        Log.d("test post", responseDTO.getError());
+        ConstantMethod.toastShort(getContext(),"由于网络原因,更换失败!!!");
     }
 
-    @Override
-    public void applyForBodyInfoChange() {
-
-    }
-
-    @Override
-    public void applyForMomentsInfoChange() {
-
-    }
 
     /*   请求回调操作*/
 
@@ -494,14 +447,11 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ConstantMethod.REQUEST_IMAGE_CODE && resultCode == Activity.RESULT_OK) {
-            imageUri = Matisse.obtainResult(data);
-            Log.d("1111", "onActivityResult:succsess Image ");
-            String url = FileHelper.getFilePath(getContext(),imageUri.get(0));
-            Log.d("AAAA", url);
+        if (requestCode == Constant.REQUEST_IMAGE_CODE && resultCode == Activity.RESULT_OK) {
+            List<Uri> imageUri = Matisse.obtainResult(data);
+            String url = FileHelper.getFilePath(getContext(), imageUri.get(0));
             Glide.with(myView).load(imageUri.get(0)).into(avatarImageView);
             userViewPresenter.setAvatar(imageUri.get(0).toString());
-            Log.d("AAAA", url);
             userViewPresenter.postAvatar(url,(int) UserInfoLab.get().getUserInfoModel().getId());
         }
     }
@@ -516,5 +466,11 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
         intent.putExtra("userName",userName);
         intent.setClass(getActivity(), PersonPageView.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        userViewPresenter.onViewDestroyed();
+        super.onDestroy();
     }
 }

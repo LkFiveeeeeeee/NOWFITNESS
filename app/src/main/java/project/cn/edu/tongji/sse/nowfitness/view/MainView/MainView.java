@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -18,64 +17,43 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
-import project.cn.edu.tongji.sse.nowfitness.model.StepLab;
-import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
-import project.cn.edu.tongji.sse.nowfitness.pedometerModule.StepService.StepService;
-import project.cn.edu.tongji.sse.nowfitness.presenter.MainViewPresenter;
+import project.cn.edu.tongji.sse.nowfitness.pedometermodule.stepservice.StepService;
 
-import project.cn.edu.tongji.sse.nowfitness.presenter.StepServicePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 
 import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
 
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
-import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentView;
+import project.cn.edu.tongji.sse.nowfitness.view.PublishMomentView.PublishMomentView;
 
 
 public class MainView extends AppCompatActivity {
-  //  private final String TAG ="Test Database";
 
 
-    private LeftFragment leftFragment;//omf
     private UserViewFragment userViewFragment;
-    private FragmentManager fragmentManager;
-    private MainViewPresenter mainViewPresenter;
     private FloatingActionButton addButton;
     private AHBottomNavigation bottomNavigation;
-
-    private Intent serviceIntent = null;
-    private StepService stepService = null;
-    private StepServicePresenter stepServicePresenter;
-
-
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_view);
-        mainViewPresenter = new MainViewPresenter(this);
-        stepServicePresenter = new StepServicePresenter();
         setupService();
-    /*    Intent intent = getIntent();
-        Log.d("11111111", "onCreate: " + intent.getStringExtra(ConstantMethod.userName_Key));
-        Log.d("11111111", "onCreate: " + intent.getStringExtra(ConstantMethod.passWord_Key));
-        mainViewPresenter.queryForUserInfo(
-                intent.getStringExtra(ConstantMethod.userName_Key)
-        );*/
-        mainViewPresenter.initView();
-   //     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        initView();
     }
 
 
-    public void initView(){
+    private void initView(){
 
         addButton = findViewById(R.id.add_button);
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
-        AHBottomNavigationItem itemOne = new AHBottomNavigationItem(R.string.thing,R.drawable.cameradiaphragm,R.color.leftFragment);
+        AHBottomNavigationItem itemOne = new AHBottomNavigationItem
+                (R.string.thing,R.drawable.cameradiaphragm,R.color.leftFragment);
         AHBottomNavigationItem itemTwo =new AHBottomNavigationItem("",R.mipmap.ic_add);
-        AHBottomNavigationItem itemThree = new AHBottomNavigationItem(R.string.user,R.drawable.user,R.color.rightFragment);
+        AHBottomNavigationItem itemThree = new AHBottomNavigationItem
+                (R.string.user,R.drawable.user,R.color.rightFragment);
 
 
 
@@ -95,7 +73,6 @@ public class MainView extends AppCompatActivity {
         bottomNavigation.disableItemAtPosition(1); //禁用占位图标
         bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
 
-        fragmentManager=getSupportFragmentManager();//omf
         initFragment();
         initEvent();
         setListener();
@@ -112,39 +89,35 @@ public class MainView extends AppCompatActivity {
     }
 
     private void initFragment(){
-        leftFragment = new LeftFragment();
+        //omf
+        LeftFragment leftFragment = new LeftFragment();
         userViewFragment = new UserViewFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment,leftFragment)
+                .add(R.id.fragment, leftFragment)
                 .commit();
     }
     //omf
     private void initEvent(){
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
-            @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
-                if(position == 0){
-                    if(!wasSelected){
-                        getSupportFragmentManager()
-                                .popBackStack();
-                    }
+        bottomNavigation.setOnTabSelectedListener((int position, boolean wasSelected) ->{
+            if(position == 0){
+                if(!wasSelected){
+                    getSupportFragmentManager()
+                            .popBackStack();
                 }
-                else if (position == 2){
-                    if(!wasSelected){
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setCustomAnimations(R.anim.right_slide_in,
-                                        R.anim.left_slide_out,
-                                        R.anim.left_slide_in,
-                                        R.anim.right_slide_out)
-                                .replace(R.id.fragment,userViewFragment)
-                                .addToBackStack(null)
-                                .commit();
-                    }
-                }
-                return true;
             }
+            else if (position == 2 && !wasSelected){
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.right_slide_in, R.anim.left_slide_out,
+                                R.anim.left_slide_in, R.anim.right_slide_out)
+                        .replace(R.id.fragment,userViewFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }else{
+                //DO NOTHING
+            }
+            return true;
         });
         bottomNavigation.setCurrentItem(0);
     }
@@ -163,48 +136,18 @@ public class MainView extends AppCompatActivity {
     }
 
     private void setupService(){
-      /*  conn = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                StepService stepService = ((StepService.StepBinder) iBinder).getService();
-            }
+        StepService stepService = new StepService(NOWFITNESSApplication.getContext());
+        Intent serviceIntent = new Intent(this, stepService.getClass());
 
-            @Override
-            public void onServiceDisconnected(ComponentName componentName) {
-
-            }
-        };*/
-        stepService = new StepService(NOWFITNESSApplication.getContext());
-        serviceIntent = new Intent(this,stepService.getClass());
-
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                startForegroundService(serviceIntent);
-            }else{
-                startService(serviceIntent);
-            }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-       StepModel stepModel = StepLab.get().getStepModel();
-        if(stepModel != null){
- //           stepServicePresenter.putTodayStepsData(Integer.valueOf(stepModel.getStep()));
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            startForegroundService(serviceIntent);
+        }else{
+            startService(serviceIntent);
         }
     }
 
-    /*
-    private boolean isMyServiceRunning(Class<?> serviceClass){
-        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for(ActivityManager.RunningServiceInfo serviceInfo: activityManager.getRunningServices(Integer.MAX_VALUE)){
-            if(serviceClass.getName().equals(serviceInfo.service.getClassName())){
-                Log.i("isMyServiceRunning", "isMyServiceRunning: tttrue");
-                return  true;
-            }
-        }
-        Log.i("isMyServiceRunning", "isMyServiceRunning: fffalse");
-        return false;
-    }*/
+
+
 
 
 }

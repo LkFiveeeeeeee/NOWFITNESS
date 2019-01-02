@@ -11,10 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualsList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.DisplayPresenter;
@@ -22,14 +22,13 @@ import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
-public class DisplayView extends AppCompatActivity implements DisplayViewMethod,SwipeRefreshLayout.OnRefreshListener,ToPersonPageView {
-    public static final int STARS_TYPE = 1;
-    public static final int FANS_TYPE = 0;
+public class DisplayView extends AppCompatActivity
+        implements DisplayViewMethod,SwipeRefreshLayout.OnRefreshListener,ToPersonPageView {
 
-    private Toolbar myToolbar;
+
+
     private RecyclerView displayRecyclerView;
     private DisplayPresenter displayPresenter;
-    private TextView displayText;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int type;
     private boolean isRefresh = false;
@@ -39,18 +38,15 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_view);
         Intent intent = getIntent();
-        String typeString = intent.getStringExtra(ConstantMethod.type_Key);
-        if(typeString.equals(ConstantMethod.fans_Type)){
-            type = FANS_TYPE;
+        String typeString = intent.getStringExtra(Constant.TYPE_KEY);
+        if(typeString.equals(Constant.FANS_TYPE_S)){
+            type = Constant.FANS_TYPE;
         }else{
-            type = STARS_TYPE;
+            type = Constant.STARS_TYPE;
         }
-
         displayPresenter = new DisplayPresenter(this,this);
         displayPresenter.initView();
-
         onRefresh();
-        //TODO 本地数据库信息获取
 
     }
 
@@ -66,15 +62,15 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
     }
 
     private void setToolbar(){
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setDisplayText(){
-        displayText = findViewById(R.id.display_text);
-        if(type == STARS_TYPE){
+        TextView displayText = findViewById(R.id.display_text);
+        if(type == Constant.STARS_TYPE){
             displayText.setText("关注列表");
         }else{
             displayText.setText("粉丝列表");
@@ -89,9 +85,10 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
     }
 
 
+
+
     @Override
     public void queryForSuccess(ResponseModel<IndividualsList> modelList) {
-        //TODO 本地数据库信息更新
         Log.d("DisplayView", "querySuccess: ");
         isRefresh = false;
         swipeRefreshLayout.setRefreshing(false);
@@ -101,11 +98,14 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
                 displayRecyclerView.setAdapter(displayNoItemAdapter);
                 displayNoItemAdapter.notifyDataSetChanged();
             }else{
-                //如果请求的是关注列表,则将关注状态全部更改为true;
-                if(type == STARS_TYPE){
+                /**
+                 * 如果请求的是关注列表,则将关注状态全部更改为true;
+                 */
+                if(type == Constant.STARS_TYPE){
                     modelList.getData().setTrueForAll();
                 }
-                DisplayViewAdapter displayViewAdapter = new DisplayViewAdapter(modelList.getData().getIndividualModels(),displayPresenter);
+                DisplayViewAdapter displayViewAdapter =
+                        new DisplayViewAdapter(modelList.getData().getIndividualModels(),displayPresenter);
                 displayRecyclerView.setAdapter(displayViewAdapter);
                 displayViewAdapter.notifyDataSetChanged();
             }
@@ -117,18 +117,12 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
 
     @Override
     public void queryError(Throwable e) {
-        Log.d("DisplayView", "queryError: ");
+        Log.d("DisplayView", e.toString());
         isRefresh = false;
         swipeRefreshLayout.setRefreshing(false);
-    //    ConstantMethod.toastShort(DisplayView.this,"网络连接出错!");
-    //TODO 切换成网络连接出错的样式
-        e.printStackTrace();
+        ConstantMethod.toastShort(DisplayView.this,"网络连接错误!");
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onRefresh() {
@@ -156,5 +150,11 @@ public class DisplayView extends AppCompatActivity implements DisplayViewMethod,
         intent.putExtra("userName",userName);
         intent.setClass(this, PersonPageView.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        displayPresenter.onViewDestroyed();
+        super.onDestroy();
     }
 }

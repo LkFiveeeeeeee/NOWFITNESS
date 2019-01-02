@@ -427,4 +427,10 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        momentsDetailPresenter.onViewDestroyed();
+        super.onDestroy();
+    }
 }

@@ -1,0 +1,46 @@
+
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ßçŒ8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 9.(ÜÙ‘±ùÿÿÿÿ8·íªí€-
+Hsquid:IndentationCheck"!Make this line start at column 5.(–›Û¶8·íªí€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¾«ˆƒüÿÿÿÿ8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 5.(¾«ˆƒüÿÿÿÿ8·íªí€-
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(­—çŠ8·íªí€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÏíÌñúÿÿÿÿ8·íªí€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(×ÚŞó8·íªí€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(´ü‡ß8·íªí€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 7.(ªæ­æùÿÿÿÿ8·íªí€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Á‡ŞŸüÿÿÿÿ8·íªí€-
+Hsquid:IndentationCheck"!Make this line start at column 5.(şÅÁã8·íªí€-
+Psquid:S2039"4Explicitly declare the visibility for "welcomePage".(óàÌğ8·íªí€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(­—çŠ8·íªí€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8·íªí€-
+Hsquid:IndentationCheck"!Make this line start at column 7.(êõ¢º8·íªí€-
+Isquid:IndentationCheck""Make this line start at column 11.(ßçŒ8·íªí€-
+Hsquid:IndentationCheck"!Make this line start at column 3.(óàÌğ8·íªí€-
+t
+squid:S109"TAssign this magic number 300 to a well-named constant, and use the constant instead.(¾«ˆƒüÿÿÿÿ8·íªí€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 7.(ã¹´¬ıÿÿÿÿ8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 5.(§†‚Ñıÿÿÿÿ8·íªí€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(×ú…ùüÿÿÿÿ8·íªí€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(‹‹ãİÿÿÿÿÿ8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 7.(»Âç‹ûÿÿÿÿ8·íªí€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8·íªí€-
+Nsquid:IndentationCheck""Make this line start at column 13.(ÜÙ‘±ùÿÿÿÿ8·íªí€-
+Hsquid:IndentationCheck"!Make this line start at column 7.(ü«îŠ8·íªí€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(€åØáøÿÿÿÿ8·íªí€-
+Ysquid:S2039"=Explicitly declare the visibility for "welcomeViewPresenter".(ç´ãÑ8·íªí€-
+<squid:S1451"&Add or update the header of this file.8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 9.(•ğíúÿÿÿÿ8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 7.(ûÅÈ…ÿÿÿÿÿ8·íªí€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Û½Ê€şÿÿÿÿ8·íªí€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8·íªí€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8·íªí€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(µØ²ïûÿÿÿÿ8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 5.(î±¨Ôøÿÿÿÿ8·íªí€-
+Msquid:IndentationCheck"!Make this line start at column 5.(Â½Ÿ¥ùÿÿÿÿ8·íªí€-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(©û¡ş8·íªí€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(şÅÁã8·íªí€-
+t
+squid:S109"TAssign this magic number 200 to a well-named constant, and use the constant instead.(¾«ˆƒüÿÿÿÿ8·íªí€-

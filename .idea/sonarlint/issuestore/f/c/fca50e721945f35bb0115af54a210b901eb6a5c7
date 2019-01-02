@@ -1,0 +1,50 @@
+
+Msquid:IndentationCheck"!Make this line start at column 3.(Ò¦ÖÇúÿÿÿÿ8Êä­ê€-
+Msquid:IndentationCheck"!Make this line start at column 5.(áÇÉĞıÿÿÿÿ8Êä­ê€-
+Msquid:IndentationCheck"!Make this line start at column 5.(îËÉ¹øÿÿÿÿ8Êä­ê€-
+Hsquid:IndentationCheck"!Make this line start at column 5.(íÏ×8Êä­ê€-
+Isquid:IndentationCheck""Make this line start at column 11.(„Â„Ä8Êä­ê€-
+Isquid:IndentationCheck""Make this line start at column 13.(»­›¿8Êä­ê€-
+Isquid:IndentationCheck""Make this line start at column 13.(¡ªï½8Êä­ê€-
+Msquid:IndentationCheck"!Make this line start at column 5.(İ³üøÿÿÿÿ8Êä­ê€-
+Msquid:IndentationCheck"!Make this line start at column 7.(Îîé€ıÿÿÿÿ8Êä­ê€-
+Hsquid:IndentationCheck"!Make this line start at column 9.(Ş¼Ş¢8Êä­ê€-
+Msquid:IndentationCheck"!Make this line start at column 9.(ÍĞÇ³øÿÿÿÿ8Êä­ê€-
+Hsquid:IndentationCheck"!Make this line start at column 7.(Úåö8Êä­ê€-
+Hsquid:IndentationCheck"!Make this line start at column 7.(›…Ú8Êä­ê€-
+Gsquid:IndentationCheck"!Make this line start at column 7.(°Ä²8Êä­ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(´ª€ıÿÿÿÿ8Êä­ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(œ‹º×8Êä­ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÇÄ¯8Êä­ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÜÔ³ÿûÿÿÿÿ8Êä­ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(„Â„Ä8Êä­ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8Êä­ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(èµ³úÿÿÿÿ8Êä­ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(İ³üøÿÿÿÿ8Êä­ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(İÑ³Ñÿÿÿÿÿ8Êä­ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8Êä­ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ğŒˆşúÿÿÿÿ8Êä­ê€-
+s"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(³…»x8Êä­ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8Êä­ê€-
+Csquid:S2164"'Use a "double" or "BigDecimal" instead.(Ä›ö8Êä­ê€-
+t
+squid:S109"TAssign this magic number 100 to a well-named constant, and use the constant instead.(ğË¶­ÿÿÿÿÿ8Êä­ê€-
+r
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(İÑ³Ñÿÿÿÿÿ8Êä­ê€-
+m
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(Úåö8Êä­ê€-
+m
+squid:S109"RAssign this magic number 3 to a well-named constant, and use the constant instead.(›…Ú8Êä­ê€-
+l
+squid:S109"RAssign this magic number 4 to a well-named constant, and use the constant instead.(°Ä²8Êä­ê€-
+Dsquid:S2325"#Make "sortValue" a "static" method.(èµ³úÿÿÿÿ8Êä­ê€-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(­í™˜8Êä­ê€-
+<squid:S1451"&Add or update the header of this file.8Êä­ê€-
+[squid:S1258":Add a constructor to the class, or provide default values.(´ª€ıÿÿÿÿ8Êä­ê€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8Êä­ê€-
+y2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(ğŒˆşúÿÿÿÿ8Êä­ê€-
+fsquid:S2245"EMake sure that using this pseudorandom number generator is safe here.(Îîé€ıÿÿÿÿ8Êä­ê€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8Êä­ê€-
+s2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(³…»x8Êä­ê€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8Êä­ê€-
+nsquid:S1142"MReduce the number of returns of this method 4, down to the maximum allowed 3.(èµ³úÿÿÿÿ8Êä­ê€-

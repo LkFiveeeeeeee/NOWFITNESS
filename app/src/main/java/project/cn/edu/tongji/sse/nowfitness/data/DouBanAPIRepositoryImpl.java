@@ -2,12 +2,11 @@ package project.cn.edu.tongji.sse.nowfitness.data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 import io.reactivex.Single;
 
 import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.BookDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.BookDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.DouBanNetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.BookResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.DoubanBookModel;

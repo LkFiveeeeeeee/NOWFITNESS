@@ -148,6 +148,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
                             mMoments.getUserId());
                 }else if(type==DIALOG_DELETE){
                     ((PersonPagePresenter) baseMomentsPresenter).deleteMoments(myPosition);
+                    ((PersonPagePresenter) baseMomentsPresenter).deleteMoment(mMoments.getMomentsId());
                     UserInfoLab.get().getUserInfoModel().
                             setMomentsNum(UserInfoLab.get().getUserInfoModel().getMomentsNum()-1);
                 }else{

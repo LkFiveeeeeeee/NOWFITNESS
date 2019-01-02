@@ -1,9 +1,7 @@
 package project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.Question;
 import project.cn.edu.tongji.sse.nowfitness.model.QuestionList;
-import project.cn.edu.tongji.sse.nowfitness.model.QuestionModel;
 
 public class QuestionFragment extends BaseFragment {
     private TextView questionText;
@@ -45,7 +43,7 @@ public class QuestionFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.question_item,container,false);
         questionView = (CardView) view.findViewById(R.id.question_container);
         questionView.setMaxCardElevation(questionView.getCardElevation()
-            * QuestionAdapter.MAX_ELEVATION_FACTOR);
+            * Constant.MAX_ELEVATION_FACTOR);
         Bundle bundle = getArguments();
         quesIndex = bundle.getInt("INDEX");
         questionModel = QuestionList.get().getQuestions().get(quesIndex);
@@ -143,7 +141,4 @@ public class QuestionFragment extends BaseFragment {
         }
     }
 
-    public CardView getQuestionView(){
-        return questionView;
-    }
 }

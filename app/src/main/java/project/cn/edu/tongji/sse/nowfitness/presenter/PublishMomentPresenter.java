@@ -11,17 +11,14 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.publishMomentView.PublishMomentView;
+import project.cn.edu.tongji.sse.nowfitness.view.PublishMomentView.PublishMomentMethod;
 
 import static project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication.getContext;
 
 public class PublishMomentPresenter extends BasePresenter {
-    private PublishMomentView publishMomentView;
     private PublishMomentMethod publishMomentMethod;
 
-    public PublishMomentPresenter(PublishMomentView publishMomentView,PublishMomentMethod publishMomentMethod){
-        this.publishMomentView = publishMomentView;
+    public PublishMomentPresenter(PublishMomentMethod publishMomentMethod){
         this.publishMomentMethod = publishMomentMethod;
     }
 

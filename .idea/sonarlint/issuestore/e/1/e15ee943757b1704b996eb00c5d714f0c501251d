@@ -1,0 +1,221 @@
+
+…
+AWgCxK3xLN4U8H7a6ASh
+squid:S109"TAssign this magic number 4.3 to a well-named constant, and use the constant instead.(Õ•Ÿò8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASK"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+„
+AWgCxK3xLN4U8H7a6ASq
+squid:S109"TAssign this magic number 2.0 to a well-named constant, and use the constant instead.(ŒÇ¦8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASL"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(½ùô×8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6ARfsquid:IndentationCheck"!Make this line start at column 5.(ãñ‹ëşÿÿÿÿ8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6ARqsquid:IndentationCheck"!Make this line start at column 7.(•òóûıÿÿÿÿ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6AR5"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¸„¯üÿÿÿÿ8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASE"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6ARusquid:IndentationCheck"!Make this line start at column 7.(øÂİõúÿÿÿÿ8àÍ–€-
+Š
+AWgCxK32LN4U8H7a6AS_2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(õ¦»8àÍ–€-
+Y
+AWgCxK3xLN4U8H7a6ASWsquid:S2164"'Use a "double" or "BigDecimal" instead.(¦áğ¯8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6ARosquid:IndentationCheck"!Make this line start at column 7.(š´Ìúúÿÿÿÿ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6ASB"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(‘ÿ¯–ûÿÿÿÿ8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6ARgsquid:IndentationCheck"!Make this line start at column 5.(ÄàâÏøÿÿÿÿ8àÍ–€-
+c
+AWgCxK3xLN4U8H7a6ARwsquid:IndentationCheck"!Make this line start at column 5.(‡ ¼•ùÿÿÿÿ8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6ARzsquid:IndentationCheck"!Make this line start at column 7.(²ö…8àÍ–€-
+ˆ
+AWgCxK3xLN4U8H7a6ASb
+squid:S109"RAssign this magic number 3 to a well-named constant, and use the constant instead.(®Ö˜¯ûÿÿÿÿ8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6ARxsquid:IndentationCheck"!Make this line start at column 7.(½°ƒŞ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6ASC"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(çÄéÅûÿÿÿÿ8àÍ–€-
+ƒ
+AWgCxK3xLN4U8H7a6ASj
+squid:S109"RAssign this magic number 8 to a well-named constant, and use the constant instead.(õ¦»8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6AR0squid:IndentationCheck"!Make this line start at column 7.(è´ç8àÍ–€-
+ƒ
+AWgCxK3xLN4U8H7a6ASg
+squid:S109"RAssign this magic number 8 to a well-named constant, and use the constant instead.(ÃŠ•Ä8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARlsquid:IndentationCheck"!Make this line start at column 9.(§¯È8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6AR6"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(§Ûëè8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASR"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ËÿÎ¹8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARcsquid:IndentationCheck"!Make this line start at column 3.(¤Ú¯”8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6AR_"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(½¾¤ì8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6AResquid:IndentationCheck"!Make this line start at column 5.(®Ö˜¯ûÿÿÿÿ8àÍ–€-
+w
+AWgCxK32LN4U8H7a6AS1squid:S3052"ERemove this initialization to "0", the compiler will do that for you.(î‹ªò8àÍ–€-
+w
+AWgCxK3xLN4U8H7a6ASzsquid:S3052"ERemove this initialization to "0", the compiler will do that for you.(±ı¡„8àÍ–€-
+ƒ
+AWgCxK3xLN4U8H7a6ASY
+squid:S109"RAssign this magic number 3 to a well-named constant, and use the constant instead.(¤Ú¯”8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6ASXsquid:S2164"'Use a "double" or "BigDecimal" instead.(Ş÷ìÿÿÿÿÿ8àÍ–€-
+ˆ
+AWgCxK3xLN4U8H7a6ASl
+squid:S109"RAssign this magic number 4 to a well-named constant, and use the constant instead.(í‡Ş÷ÿÿÿÿÿ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6AR4"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(‡œ¨ûÿÿÿÿ8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASO"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÃŠ•Ä8àÍ–€-
+]
+AWgCxK3xLN4U8H7a6ASssquid:S2325"&Make "averageValue" a "static" method.(ğó®Äşÿÿÿÿ8àÍ–€-
+Š
+AWgCxK32LN4U8H7a6ATB2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(ËÿÎ¹8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASN"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(»³½‹8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6ARhsquid:IndentationCheck"!Make this line start at column 7.(åçœîüÿÿÿÿ8àÍ–€-
+_
+AWgCxK3wLN4U8H7a6ARksquid:IndentationCheck""Make this line start at column 11.(§¯È8àÍ–€-
+
+AWgCxK3xLN4U8H7a6AR9"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÄàâÏøÿÿÿÿ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6ASA"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(àÂ¹ˆşÿÿÿÿ8àÍ–€-
+ƒ
+AWgCxK3xLN4U8H7a6ASo
+squid:S109"RAssign this magic number 3 to a well-named constant, and use the constant instead.(ËÿÎ¹8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARtsquid:IndentationCheck"!Make this line start at column 7.(º±çÜ8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6ASUsquid:S2164"'Use a "double" or "BigDecimal" instead.(àÂ¹ˆşÿÿÿÿ8àÍ–€-
+w
+AWgCxK3xLN4U8H7a6ASysquid:S3052"ERemove this initialization to "0", the compiler will do that for you.(Ôßìß8àÍ–€-
+‰
+AWgCxK3xLN4U8H7a6ASJ"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¿ø‹b8àÍ–€-
+‰
+AWgCxK3xLN4U8H7a6ASf
+squid:S109"SAssign this magic number 20 to a well-named constant, and use the constant instead.(†ß¡‡ÿÿÿÿÿ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6AR8"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ùÙÜÆÿÿÿÿÿ8àÍ–€-
+…
+AWgCxK3xLN4U8H7a6ASr
+squid:S109"TAssign this magic number 1.3 to a well-named constant, and use the constant instead.(„‚Ç„8àÍ–€-
+Š
+AWgCxK32LN4U8H7a6AS52squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6ARysquid:IndentationCheck"!Make this line start at column 7.(Õ•Ÿò8àÍ–€-
+
+AWgCxK32LN4U8H7a6ATA2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(í‡Ş÷ÿÿÿÿÿ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6ASD"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(½·¹Îùÿÿÿÿ8àÍ–€-
+Š
+AWgCxK32LN4U8H7a6AS72squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+…
+AWgCxK3xLN4U8H7a6ASZ
+squid:S109"TAssign this magic number 2.0 to a well-named constant, and use the constant instead.(ô¼Åß8àÍ–€-
+ƒ
+AWgCxK3xLN4U8H7a6ASp
+squid:S109"RAssign this magic number 4 to a well-named constant, and use the constant instead.(ËÿÎ¹8àÍ–€-
+w
+AWgCxK3xLN4U8H7a6ASwsquid:S3052"ERemove this initialization to "0", the compiler will do that for you.(®êÙÕ8àÍ–€-
+t
+AWgCxK32LN4U8H7a6AS6squid:S1244"=Equality tests should not be made with floating point values.(ÄàâÏøÿÿÿÿ8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARisquid:IndentationCheck"!Make this line start at column 7.(½¾¤ì8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6AR2squid:IndentationCheck"!Make this line start at column 7.(„‚Ç„8àÍ–€-
+w
+AWgCxK3xLN4U8H7a6AS0squid:S3052"ERemove this initialization to "0", the compiler will do that for you.(Âòó8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASS"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+Š
+AWgCxK32LN4U8H7a6AS-2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6AR-"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6ASTsquid:S2164"'Use a "double" or "BigDecimal" instead.(á®©Ãûÿÿÿÿ8àÍ–€-
+w
+AWgCxK32LN4U8H7a6AS2squid:S3052"ERemove this initialization to "0", the compiler will do that for you.(„æ«Ü8àÍ–€-
+Š
+AWgCxK32LN4U8H7a6AS92squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+Š
+AWgCxK32LN4U8H7a6ATC2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+ˆ
+AWgCxK3xLN4U8H7a6ASd
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(®©®ùÿÿÿÿ8àÍ–€-
+…
+AWgCxK3xLN4U8H7a6ASn
+squid:S109"TAssign this magic number 2.3 to a well-named constant, and use the constant instead.(è´ç8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASP"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(õ¦»8àÍ–€-
+ˆ
+AWgCxK3xLN4U8H7a6ASm
+squid:S109"RAssign this magic number 7 to a well-named constant, and use the constant instead.(í‡Ş÷ÿÿÿÿÿ8àÍ–€-
+ˆ
+AWgCxK3xLN4U8H7a6ASe
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(†ß¡‡ÿÿÿÿÿ8àÍ–€-
+…
+AWgCxK3xLN4U8H7a6ASk
+squid:S109"TAssign this magic number 3.3 to a well-named constant, and use the constant instead.(²ö…8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6ARpsquid:IndentationCheck"!Make this line start at column 7.(»âøÿÿÿÿ8àÍ–€-
+R
+AWgCxK3xLN4U8H7a6AStsquid:S1451"&Add or update the header of this file.8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARvsquid:IndentationCheck"!Make this line start at column 9.(Ã‡ß®8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6AR7"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(³İ˜±8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASH"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+ˆ
+AWgCxK3xLN4U8H7a6ASc
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(®©®ùÿÿÿÿ8àÍ–€-
+ƒ
+AWgCxK3xLN4U8H7a6ASi
+squid:S109"RAssign this magic number 7 to a well-named constant, and use the constant instead.(õ¦»8àÍ–€-
+|
+AWgCxK3xLN4U8H7a6ASusquid:S3052"ERemove this initialization to "0", the compiler will do that for you.(¼ÁŸÄÿÿÿÿÿ8àÍ–€-
+€
+AWgCxK3xLN4U8H7a6ASvsquid:S3052"IRemove this initialization to "false", the compiler will do that for you.(„şÏıÿÿÿÿ8àÍ–€-
+|
+AWgCxK3xLN4U8H7a6ASxsquid:S3052"ERemove this initialization to "0", the compiler will do that for you.(ı°Üøüÿÿÿÿ8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6ASG"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(îË³é8àÍ–€-
+]
+AWgCxK3xLN4U8H7a6AR1squid:IndentationCheck"!Make this line start at column 7.(ŒÇ¦8àÍ–€-
+
+AWgCxK3xLN4U8H7a6ASI"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(‘ªÛıÿÿÿÿ8àÍ–€-
+c
+AWgCxK3wLN4U8H7a6ARdsquid:IndentationCheck"!Make this line start at column 5.(¬®Áòÿÿÿÿÿ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6ASQ"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(í‡Ş÷ÿÿÿÿÿ8àÍ–€-
+
+AWgCxK3xLN4U8H7a6ASM"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ğó®Äşÿÿÿÿ8àÍ–€-
+Š
+AWgCxK32LN4U8H7a6AS82squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(îË³é8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARnsquid:IndentationCheck"!Make this line start at column 7.(ŒãÛó8àÍ–€-
+]
+AWgCxK3wLN4U8H7a6ARrsquid:IndentationCheck"!Make this line start at column 7.(¸®Ã'8àÍ–€-
+
+AWgCxK3xLN4U8H7a6ASF"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(†ß¡‡ÿÿÿÿÿ8àÍ–€-
+Š
+AWgCxK3xLN4U8H7a6AR3"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(·ÙâË8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARjsquid:IndentationCheck"!Make this line start at column 9.(´Â¬˜8àÍ–€-
+^
+AWgCxK3xLN4U8H7a6ASVsquid:S2164"'Use a "double" or "BigDecimal" instead.(‘ÿ¯–ûÿÿÿÿ8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARssquid:IndentationCheck"!Make this line start at column 5.(°¨î€8àÍ–€-
+^
+AWgCxK3wLN4U8H7a6ARmsquid:IndentationCheck"!Make this line start at column 5.(¶…«¯8àÍ–€-
+Bsquid:S1170"!Make this final field static too.(öÔÜÉüÿÿÿÿ8¸±—Å€-

@@ -2,5 +2,10 @@ projectKey=NOWFITNESS
 serverUrl=http://localhost:9000
 serverVersion=6.7.6.38781
 dashboardUrl=http://localhost:9000/dashboard/index/NOWFITNESS
+<<<<<<< HEAD
+ceTaskId=AWgCxJOMYxUOyKk6ANk2
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWgCxJOMYxUOyKk6ANk2
+=======
 ceTaskId=AWgDAqoHkuX-tcATkUt-
 ceTaskUrl=http://localhost:9000/api/ce/task?id=AWgDAqoHkuX-tcATkUt-
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e

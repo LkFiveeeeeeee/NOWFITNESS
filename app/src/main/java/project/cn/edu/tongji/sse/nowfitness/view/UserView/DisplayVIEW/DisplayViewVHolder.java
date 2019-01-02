@@ -15,7 +15,6 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.presenter.DisplayPresenter;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FollowPresenter;
 
 public class DisplayViewVHolder extends RecyclerView.ViewHolder {
@@ -36,18 +35,26 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void setSwitchButton(boolean judge){
+    private void setSwitchButton(boolean judge){
         if(judge){
-            Drawable img = itemView.getContext().getResources().getDrawable(R.drawable.righticon);
-            img.setBounds(0,0,img.getMinimumWidth(),img.getMinimumHeight());
-            switchButton.setCompoundDrawables(img,null,null,null);
-            switchButton.setText(R.string.isFollowed);
+            setFollow();
         }else{
-            Drawable img = itemView.getContext().getResources().getDrawable(R.drawable.add_mini);
-            img.setBounds(0,0,img.getMinimumWidth(),img.getMinimumHeight());
-            switchButton.setCompoundDrawables(img,null,null,null);
-            switchButton.setText(R.string.unFollowed);
+            setUnFollow();
         }
+    }
+
+    private void setFollow(){
+        Drawable img = itemView.getContext().getResources().getDrawable(R.drawable.righticon);
+        img.setBounds(0,0,img.getMinimumWidth(),img.getMinimumHeight());
+        switchButton.setCompoundDrawables(img,null,null,null);
+        switchButton.setText(R.string.isFollowed);
+    }
+
+    private void setUnFollow(){
+        Drawable img = itemView.getContext().getResources().getDrawable(R.drawable.add_mini);
+        img.setBounds(0,0,img.getMinimumWidth(),img.getMinimumHeight());
+        switchButton.setCompoundDrawables(img,null,null,null);
+        switchButton.setText(R.string.unFollowed);
     }
 
     void bind(final IndividualModel individual){
@@ -56,21 +63,18 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
         sex.setText(individualModel.getSex());
         Glide.with(itemView).load(individualModel.getPicture()).into(avatar);
         setSwitchButton(individualModel.isStated());
-        switchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                individualModel.setStated(!individualModel.isStated());
-                setSwitchButton(individualModel.isStated());
-                UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
-                if(individualModel.isStated()){
-                    followPresenter.postFollowInfo((int)UserInfoLab.get().getUserInfoModel().getId(),individualModel.getId());
-                    userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() + 1);
-                }else{
-                    followPresenter.deleteFollowInfo((int)UserInfoLab.get().getUserInfoModel().getId(),individualModel.getId());
-                    userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() - 1);
-                }
-                //TODO 更改网络方面数据
-                //TODO Toast 成功or失败信息
+        switchButton.setOnClickListener((View view) -> {
+            individualModel.setStated(!individualModel.isStated());
+            setSwitchButton(individualModel.isStated());
+            UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+            if(individualModel.isStated()){
+                followPresenter.postFollowInfo((int)UserInfoLab.get().
+                        getUserInfoModel().getId(),individualModel.getId());
+                userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() + 1);
+            }else{
+                followPresenter.deleteFollowInfo((int)UserInfoLab.get().
+                        getUserInfoModel().getId(),individualModel.getId());
+                userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() - 1);
             }
         });
     }

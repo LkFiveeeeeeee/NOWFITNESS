@@ -2,7 +2,7 @@ package project.cn.edu.tongji.sse.nowfitness.model;
 
 import java.io.Serializable;
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.MomentsListDTO;
 
 public class MomentsModel implements Serializable {
     private int momentsId;
@@ -17,7 +17,7 @@ public class MomentsModel implements Serializable {
     private int commentsNum;
     private boolean liked;
 
-    public MomentsModel(MomentsDTO.ListBean listBean){
+    public MomentsModel(MomentsListDTO listBean){
         momentsId = listBean.getMomentsId();
         userId =listBean.getUserId();
         userPhoto = listBean.getUserPhoto();

@@ -3,40 +3,35 @@ package project.cn.edu.tongji.sse.nowfitness.data;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.data.network.ApiInterface;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RelationDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.SaltDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.CommentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.IndividualDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.IndividualsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.MomentsListDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.RelationDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.SaltDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataListDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.TokenDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.NetWorkUtils;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
-
 import project.cn.edu.tongji.sse.nowfitness.model.FollowingRelation;
-import project.cn.edu.tongji.sse.nowfitness.model.IndiInfoModel;
-import project.cn.edu.tongji.sse.nowfitness.model.IndiRelationModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualsList;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModel;
 import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
-import project.cn.edu.tongji.sse.nowfitness.model.Response;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.SaltModel;
 import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
@@ -44,7 +39,8 @@ import project.cn.edu.tongji.sse.nowfitness.model.StepModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
-public class APIRepositoryImpl implements APIRepository {
+public class APIRepositoryImpl
+        implements APIRepository {
 
     private ApiInterface api = NetWorkUtils.makeRetrofit().create(ApiInterface.class);
 
@@ -86,7 +82,8 @@ public class APIRepositoryImpl implements APIRepository {
         return api.queryUserInfo(userName)
                 .map(new Function<ResponseDTO<UserInfoDTO>, ResponseModel<UserInfoModel>>() {
                     @Override
-                    public ResponseModel<UserInfoModel> apply(ResponseDTO<UserInfoDTO> userInfoDTOResponseDTO) throws Exception {
+                    public ResponseModel<UserInfoModel>
+                    apply(ResponseDTO<UserInfoDTO> userInfoDTOResponseDTO) throws Exception {
                         responseModel.setStatus(userInfoDTOResponseDTO.getStatus());
                         responseModel.setError(userInfoDTOResponseDTO.getError());
                         UserInfoModel userInfoModel = new UserInfoModel(userInfoDTOResponseDTO.getData());
@@ -103,11 +100,12 @@ public class APIRepositoryImpl implements APIRepository {
         return api.getStarsAllMoments(userId,pageNum)
                 .map(new Function<ResponseDTO<MomentsDTO>, ResponseModel<MomentsModelList>>() {
                     @Override
-                    public ResponseModel<MomentsModelList> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
+                    public ResponseModel<MomentsModelList>
+                    apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
                         List<MomentsModel> modelList = new ArrayList<>();
                         MomentsModelList momentsModelList = new MomentsModelList(momentsDTOResponseDTO.getData());
                         if(momentsDTOResponseDTO.getData() != null){
-                            for(MomentsDTO.ListBean bean:momentsDTOResponseDTO.getData().getList()){
+                            for(MomentsListDTO bean:momentsDTOResponseDTO.getData().getList()){
                                 modelList.add(new MomentsModel(bean));
                             }
                             momentsModelList.setList(modelList);
@@ -126,11 +124,12 @@ public class APIRepositoryImpl implements APIRepository {
         return api.getNeighborMoments(userId,pageNum)
                 .map(new Function<ResponseDTO<MomentsDTO>, ResponseModel<MomentsModelList>>() {
                     @Override
-                    public ResponseModel<MomentsModelList> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
+                    public ResponseModel<MomentsModelList>
+                    apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
                         List<MomentsModel> modelList = new ArrayList<>();
                         MomentsModelList momentsModelList = new MomentsModelList(momentsDTOResponseDTO.getData());
                         if(momentsDTOResponseDTO.getData() != null){
-                            for(MomentsDTO.ListBean bean:momentsDTOResponseDTO.getData().getList()){
+                            for(MomentsListDTO bean:momentsDTOResponseDTO.getData().getList()){
                                 modelList.add(new MomentsModel(bean));
                             }
                             momentsModelList.setList(modelList);
@@ -149,11 +148,12 @@ public class APIRepositoryImpl implements APIRepository {
         return api.getUserMoments(userId,pageNum)
                 .map(new Function<ResponseDTO<MomentsDTO>, ResponseModel<MomentsModelList>>() {
                     @Override
-                    public ResponseModel<MomentsModelList> apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
+                    public ResponseModel<MomentsModelList>
+                    apply(ResponseDTO<MomentsDTO> momentsDTOResponseDTO) throws Exception {
                         List<MomentsModel> modelList = new ArrayList<>();
                         MomentsModelList momentsModelList = new MomentsModelList(momentsDTOResponseDTO.getData());
                         if(momentsDTOResponseDTO.getData() != null){
-                            for(MomentsDTO.ListBean bean:momentsDTOResponseDTO.getData().getList()){
+                            for(MomentsListDTO bean:momentsDTOResponseDTO.getData().getList()){
                                 modelList.add(new MomentsModel(bean));
                             }
                             momentsModelList.setList(modelList);
@@ -174,7 +174,8 @@ public class APIRepositoryImpl implements APIRepository {
         return api.getAllComments(momentsId)
                 .map(new Function<ResponseDTO<CommentsDTO>, ResponseModel<CommentsDetailModelList>>() {
                     @Override
-                    public ResponseModel<CommentsDetailModelList> apply(ResponseDTO<CommentsDTO> commentsDTOResponseDTO) throws Exception {
+                    public ResponseModel<CommentsDetailModelList>
+                    apply(ResponseDTO<CommentsDTO> commentsDTOResponseDTO) throws Exception {
                         for(CommentsDTO.CommentsListBean bean:commentsDTOResponseDTO.getData().getCommentsList()){
                             commentsDetailModelList.add(new CommentsDetailModel(bean));
                         }
@@ -366,7 +367,8 @@ public class APIRepositoryImpl implements APIRepository {
         return api.getUserRelation(userID, anotherUserId)
                 .map(new Function<ResponseDTO<RelationDTO>, ResponseModel<FollowingRelation>>() {
                     @Override
-                    public ResponseModel<FollowingRelation> apply(ResponseDTO<RelationDTO> relationDTOResponseDTO) throws Exception {
+                    public ResponseModel<FollowingRelation>
+                    apply(ResponseDTO<RelationDTO> relationDTOResponseDTO) throws Exception {
                         responseModel.setError(relationDTOResponseDTO.getError());
                         responseModel.setStatus(relationDTOResponseDTO.getStatus());
                         responseModel.setData(new FollowingRelation(relationDTOResponseDTO.getData()));
@@ -381,7 +383,8 @@ public class APIRepositoryImpl implements APIRepository {
         return api.getFansInfo(userId)
                 .map(new Function<ResponseDTO<IndividualsDTO>, ResponseModel<IndividualsList>>() {
                     @Override
-                    public ResponseModel<IndividualsList> apply(ResponseDTO<IndividualsDTO> individualsDTOResponseDTO) throws Exception {
+                    public ResponseModel<IndividualsList>
+                    apply(ResponseDTO<IndividualsDTO> individualsDTOResponseDTO) throws Exception {
                         if(individualsDTOResponseDTO.getData().getTotalNum() != 0){
                             for(IndividualDTO individualDTO:individualsDTOResponseDTO.getData().getUsers()){
                                 individualModels.add(new IndividualModel(individualDTO));
@@ -405,7 +408,8 @@ public class APIRepositoryImpl implements APIRepository {
         return api.getFollowingInfo(userId)
                 .map(new Function<ResponseDTO<IndividualsDTO>, ResponseModel<IndividualsList>>() {
                     @Override
-                    public ResponseModel<IndividualsList> apply(ResponseDTO<IndividualsDTO> individualsDTOResponseDTO) throws Exception {
+                    public ResponseModel<IndividualsList>
+                    apply(ResponseDTO<IndividualsDTO> individualsDTOResponseDTO) throws Exception {
                         if(individualsDTOResponseDTO.getData().getTotalNum() != 0){
                             for(IndividualDTO individualDTO:individualsDTOResponseDTO.getData().getUsers()){
                                 individualModels.add(new IndividualModel(individualDTO));
@@ -443,9 +447,11 @@ public class APIRepositoryImpl implements APIRepository {
         return api.getStepsData(userId,days)
                 .map(new Function<ResponseDTO<StepDataDTO>, ResponseModel<StepModelList>>() {
                     @Override
-                    public ResponseModel<StepModelList> apply(ResponseDTO<StepDataDTO> stepDataDTOResponseDTO) throws Exception {
+                    public ResponseModel<StepModelList>
+                    apply(ResponseDTO<StepDataDTO> stepDataDTOResponseDTO) throws Exception {
                         if(stepDataDTOResponseDTO.getData().getDays() > 0){
-                            for(StepDataDTO.StepsDataModelListBean bean:stepDataDTOResponseDTO.getData().getStepsDataModelList()){
+                            for(StepDataListDTO
+                                    bean:stepDataDTOResponseDTO.getData().getStepsDataModelList()){
                                 stepModels.add(new StepModel(bean));
                             }
                         }
@@ -490,7 +496,19 @@ public class APIRepositoryImpl implements APIRepository {
                         return responseModel;
                     }
                 });
+    }
 
-
+    @Override
+    public Single<ResponseModel> deleteMoment(int momentID) {
+        ResponseModel responseModel = new ResponseModel();
+        return api.deleteMoment(momentID)
+                .map(new Function<ResponseDTO, ResponseModel>() {
+                    @Override
+                    public ResponseModel apply(ResponseDTO responseDTO) throws Exception {
+                        responseModel.setStatus(responseDTO.getStatus());
+                        responseModel.setError(responseDTO.getError());
+                        return responseModel;
+                    }
+                });
     }
 }

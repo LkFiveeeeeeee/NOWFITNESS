@@ -1,0 +1,21 @@
+
+Fsquid:IndentationCheck"!Make this line start at column 3.(åÙ¬Ïûÿÿÿÿ
+Fsquid:IndentationCheck"!Make this line start at column 5.(î±¨Ôøÿÿÿÿ
+Asquid:IndentationCheck"!Make this line start at column 5.(áìş†
+Fsquid:IndentationCheck"!Make this line start at column 5.(ÀÙ›²øÿÿÿÿ
+Fsquid:IndentationCheck"!Make this line start at column 7.(¯½Üùÿÿÿÿ
+csquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(İÇÉ
+m"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(İÇÉ
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Û½Ê€şÿÿÿÿ
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(»èÌàøÿÿÿÿ
+m"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ñ”Ò
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÀÙ›²øÿÿÿÿ
+psquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(­í™˜
+5squid:S1451"&Add or update the header of this file.
+rsquid:S1450"XRemove the "viewPager" field and declare it as a local variable in the relevant methods.(åÙ¬Ïûÿÿÿÿ
+ksquid:S1450"VRemove the "toolbar" field and declare it as a local variable in the relevant methods.(ş®º—
+…squid:S1450"kRemove the "questionFragmentPagerAdapter" field and declare it as a local variable in the relevant methods.(¢º«™ûÿÿÿÿ
+zsquid:S1450"`Remove the "questionModelList" field and declare it as a local variable in the relevant methods.(âÏÜøÿÿÿÿ
+Osquid:S1258":Add a constructor to the class, or provide default values.(İÇÉ
+?squid:S1905"*Remove this unnecessary cast to "Toolbar".(áìş†
+Fsquid:S1905",Remove this unnecessary cast to "ViewPager".(ßÒÆÔùÿÿÿÿ

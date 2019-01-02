@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,8 @@ import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.Encryption;
 
-public class UserSettingView extends AppCompatActivity implements UserSettingMethod{
+public class UserSettingView extends AppCompatActivity
+        implements UserSettingMethod{
     /**
      * Presenter param
      */
@@ -47,7 +49,6 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
     private CardView passWordSetting;
     private AlertDialog passWordDialog;
     private AlertDialog userInfoDialog;
-    private Toolbar toolbar;
     private AppCompatButton logoutButton;
     private EditText ageInfo;
     private TextInputEditText nickNameText;
@@ -60,12 +61,11 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
 
     private String sex = "";
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usersetting_view);
-        userSettingPresenter = new UserSettingPresenter(this,this);
+        userSettingPresenter = new UserSettingPresenter(this);
         initView();
     }
 
@@ -81,7 +81,8 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
 
     private void setUpPassWordDialog(){
         LayoutInflater inflater = getLayoutInflater();
-        View passWordView = inflater.inflate(R.layout.changepassword_view,(ViewGroup) findViewById(R.id.password_dialog));
+        View passWordView = inflater.inflate
+                (R.layout.changepassword_view,(ViewGroup) findViewById(R.id.password_dialog));
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         oldPassword = (TextInputEditText) passWordView.findViewById(R.id.old_password);
         newPassword = (TextInputEditText) passWordView.findViewById(R.id.new_password);
@@ -118,7 +119,8 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
 
     private void setUpUserInfoDialog(){
         LayoutInflater inflater = getLayoutInflater();
-        View userInfoView = inflater.inflate(R.layout.changeuserinfo_view,(ViewGroup) findViewById(R.id.userinfo_dialog));
+        View userInfoView = inflater.inflate
+                (R.layout.changeuserinfo_view,(ViewGroup) findViewById(R.id.userinfo_dialog));
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         ageInfo = (EditText) userInfoView.findViewById(R.id.age_text);
         RadioGroup sexChoose = (RadioGroup) userInfoView.findViewById(R.id.sex_button);
@@ -129,6 +131,8 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
             sexChoose.check(R.id.male_sex);
         }else if(sex.equals("女")){
             sexChoose.check(R.id.female_sex);
+        }else{
+            //DO NOTHING
         }
         ageInfo.setText(String.valueOf(UserInfoLab.get().getUserInfoModel().getAge()));
 
@@ -202,7 +206,7 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
     }
 
     private void setToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.userinfo_toolbar);
+        Toolbar toolbar = findViewById(R.id.userinfo_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -223,6 +227,8 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
         }else if(userName.length() > 12){
             ConstantMethod.toastShort(getApplicationContext(),"用户名的长度不可以超过12");
             return false;
+        }else{
+            //DO NOTHING
         }
         if(age.equals("")){
             ConstantMethod.toastShort(getApplicationContext(),"生日还没有进行选择");
@@ -237,9 +243,12 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
 
     private boolean verifyPassword(String oldPassword,String newPassword,String repeatWord){
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
-        if((oldPassword.length() < 6 || oldPassword.length() > 15)
-               || (newPassword.length() < 6 || newPassword.length() > 15)
-               || (repeatWord.length() < 6 || repeatWord.length() > 15) ){
+        if(oldPassword.length() < Constant.MIN_LENGTH
+               || oldPassword.length() > Constant.MAX_LENGTH
+               || newPassword.length() < Constant.MIN_LENGTH
+               || newPassword.length() > Constant.MAX_LENGTH
+               || repeatWord.length() < Constant.MIN_LENGTH
+               || repeatWord.length() > Constant.MAX_LENGTH){
             ConstantMethod.toastShort(getApplicationContext(),"密码长度应在6-15位之间");
             return false;
         }
@@ -254,11 +263,7 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
         return true;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
 
-    }
 
     @Override
     public void putSuccess(ResponseModel responseModel) {
@@ -267,7 +272,8 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
             UserInfoLab.get().getUserInfoModel().setAge(Integer.valueOf(ageInfo.getText().toString()));
             UserInfoLab.get().getUserInfoModel().setNickName(nickNameText.getText().toString());
             UserInfoLab.get().getUserInfoModel().setSex(sex);
-            DaoManager.getDaoInstance().getDaoSession().getUserInfoModelDao().insertOrReplace(UserInfoLab.get().getUserInfoModel());
+            DaoManager.getDaoInstance().getDaoSession().
+                    getUserInfoModelDao().insertOrReplace(UserInfoLab.get().getUserInfoModel());
             ConstantMethod.toastShort(UserSettingView.this,"更改成功!");
         }else{
             ConstantMethod.toastShort(UserSettingView.this,responseModel.getError());
@@ -276,7 +282,8 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
 
     @Override
     public void putError(Throwable e) {
-        e.printStackTrace();
+        String classTag = "UserSettingView";
+        Log.d(classTag, e.toString());
         ConstantMethod.toastShort(getApplicationContext(),"网络错误!");
     }
 
@@ -286,7 +293,8 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
             UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
             userInfoModel.setSalt(saltModelResponseModel.getData().getSalt());
             userInfoModel.setPassword(Encryption.MD5(newPassword.getText().toString()+userInfoModel.getSalt()));
-            DaoManager.getDaoInstance().getDaoSession().getUserInfoModelDao().insertOrReplace(UserInfoLab.get().getUserInfoModel());
+            DaoManager.getDaoInstance().getDaoSession().
+                    getUserInfoModelDao().insertOrReplace(UserInfoLab.get().getUserInfoModel());
             oldPassword.setText("");
             newPassword.setText("");
             repeatPassword.setText("");
@@ -295,5 +303,11 @@ public class UserSettingView extends AppCompatActivity implements UserSettingMet
         }else{
             ConstantMethod.toastShort(getApplicationContext(),"网络错误!");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        userSettingPresenter.onViewDestroyed();
+        super.onDestroy();
     }
 }

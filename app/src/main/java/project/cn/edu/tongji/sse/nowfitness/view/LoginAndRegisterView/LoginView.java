@@ -8,7 +8,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Explode;
@@ -27,7 +26,6 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.LoginPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
-import project.cn.edu.tongji.sse.nowfitness.view.WelcomeView.WelcomeView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class LoginView extends AppCompatActivity implements LoginMethod {
@@ -38,7 +36,6 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
     private TextInputLayout userNameLayout;
     private TextInputLayout passWordLayout;
     private Button loginButton;
-    private CardView loginView;
     private FloatingActionButton switchToRegister;
 
     @Override
@@ -54,7 +51,6 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
         userName = findViewById(R.id.username);
         passWord = findViewById(R.id.password);
         loginButton = findViewById(R.id.start);
-        loginView = findViewById(R.id.login_view);
         switchToRegister = findViewById(R.id.switch_button);
         userNameLayout = findViewById(R.id.usernamelayout);
         passWordLayout = findViewById(R.id.passwordlayout);
@@ -69,8 +65,6 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
                 explode.setDuration(300);
                 getWindow().setExitTransition(explode);
                 getWindow().setEnterTransition(explode);
-                ActivityOptionsCompat optionsCompat
-                        = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginView.this);
 
                 loginPresenter.queryForVerify(userName.getText().toString(),passWord.getText().toString());
             }
@@ -85,7 +79,6 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
                         = ActivityOptionsCompat
                         .makeSceneTransitionAnimation
                                 (LoginView.this,switchToRegister,switchToRegister.getTransitionName());
-                //TODO
                 //注册页面
                 Intent intent = new Intent(LoginView.this,RegisterView.class);
                 startActivity(intent,optionsCompat.toBundle());
@@ -95,12 +88,12 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
         userName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
@@ -112,12 +105,12 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
         passWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
@@ -153,10 +146,6 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
         Log.d("1111111", "loginSuccess: ");
         Log.d("11111",Constant.LOGIN_SUCCESS);
         if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
-            Log.d("TOKEN_VALUE", responseModel.toString());
-            Log.d("TOKEN_VALUE", responseModel.getData().toString());
-            Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue().toString());
-            Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue());
             Token token = responseModel.getData();
             token.setUserName(userName.getText().toString());
             DaoMethod.insertToken(token);
@@ -169,9 +158,9 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
     }
 
     @Override
-    public void loginError(Throwable e) {
-        Log.d("222222", "loginError: ");
-        e.printStackTrace();
+    public void netError(Throwable e) {
+        Log.d("LoginView", e.toString());
+        ConstantMethod.toastShort(LoginView.this,"网络错误!");
     }
 
     @Override
@@ -188,5 +177,9 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        loginPresenter.onViewDestroyed();
+        super.onDestroy();
+    }
 }

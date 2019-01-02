@@ -1,0 +1,5 @@
+
+Asquid:IndentationCheck"!Make this line start at column 3.(âöÔ›
+r"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ï‹ÒÓÿÿÿÿÿ
+psquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¶áÇ—
+5squid:S1451"&Add or update the header of this file.

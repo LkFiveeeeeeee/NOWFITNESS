@@ -5,16 +5,16 @@ import java.util.Map;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.BookDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.CommentsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.IndividualsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.MomentsDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.RelationDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.ResponseDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.SaltDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.StepDataDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.TokenDTO;
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.BookDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.CommentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.IndividualsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.MomentsDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.RelationDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.ResponseDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.SaltDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.TokenDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.UserInfoDTO;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
@@ -31,7 +31,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-    //TODO API接口函数声明
 
 
     /**
@@ -42,7 +41,8 @@ public interface ApiInterface {
      */
     @POST("user/login")
     @Multipart
-    Single<ResponseDTO<TokenDTO>> verifyInfo(@Part("userName") RequestBody userName, @Part("password") RequestBody password);
+    Single<ResponseDTO<TokenDTO>> verifyInfo
+        (@Part("userName") RequestBody userName, @Part("password") RequestBody password);
 
     /**
      * POST 注册请求
@@ -52,7 +52,8 @@ public interface ApiInterface {
      */
     @POST("user/register")
     @Multipart
-    Single<ResponseDTO<TokenDTO>> applyRegister(@Part("userName") RequestBody userName, @Part("password") RequestBody passWord);
+    Single<ResponseDTO<TokenDTO>> applyRegister
+        (@Part("userName") RequestBody userName, @Part("password") RequestBody passWord);
 
     /**
      * 获取用户信息
@@ -162,7 +163,8 @@ public interface ApiInterface {
      */
     @POST("moments")
     @Multipart
-    Single<ResponseDTO> postMoment(@Part("userId") RequestBody userId,@Part("content") RequestBody content,@Part MultipartBody.Part file);
+    Single<ResponseDTO> postMoment
+        (@Part("userId") RequestBody userId,@Part("content") RequestBody content,@Part MultipartBody.Part file);
 
     /**
      * 上传个人图片(未选择图片)
@@ -292,8 +294,20 @@ public interface ApiInterface {
      */
     @POST("user/password")
     @Multipart
-    Single<ResponseDTO<SaltDTO>> changePassword(@Part("userId") RequestBody userId, @Part("password") RequestBody password);
+    Single<ResponseDTO<SaltDTO>>
+        changePassword(@Part("userId") RequestBody userId, @Part("password") RequestBody password);
 
     @GET("user/{userId}/anotherUser/{anotherUserId}")
-    Single<ResponseDTO<RelationDTO>> getUserRelation(@Path("userId") int userID, @Path("anotherUserId") int anotherUserId);
+    Single<ResponseDTO<RelationDTO>>
+        getUserRelation(@Path("userId") int userID, @Path("anotherUserId") int anotherUserId);
+
+    /**
+     * 删除某条动态
+     * @param momentsId 动态ID
+     * @return ResponseDTO without data
+     */
+
+    @DELETE("moments/{momentsId}")
+    Single<ResponseDTO>
+        deleteMoment(@Path("momentsId") int momentsId);
 }

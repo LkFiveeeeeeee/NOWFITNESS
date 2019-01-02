@@ -5,6 +5,10 @@ import java.util.List;
 public class IndividualsList {
     private int totalNum;
 
+    public IndividualsList(){
+        //DO NOTHING
+    }
+
     public int getTotalNum() {
         return totalNum;
     }

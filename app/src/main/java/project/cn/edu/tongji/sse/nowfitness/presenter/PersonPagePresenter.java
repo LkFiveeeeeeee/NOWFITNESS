@@ -86,4 +86,12 @@ public class PersonPagePresenter extends BaseMomentsPresenter{
         personPageView.shareToQZone(BaseMomentsPresenter.setShareContent(title,summary,contentUrl,imageUrl));
     }
 
+    public void deleteMoment(int momentID){
+        subscriptions.add(apiRepository.deleteMoment(momentID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        );
+    }
+
 }

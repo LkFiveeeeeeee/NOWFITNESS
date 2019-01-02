@@ -1,6 +1,5 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
-import java.nio.channels.ShutdownChannelGroupException;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -9,13 +8,10 @@ import okhttp3.RequestBody;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingMethod;
-import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingView;
 
 public class UserSettingPresenter extends BasePresenter {
-    private UserSettingView userSettingView;
     private UserSettingMethod userSettingMethod;
-    public UserSettingPresenter(UserSettingView userSettingView,UserSettingMethod userSettingMethod){
-        this.userSettingView = userSettingView;
+    public UserSettingPresenter(UserSettingMethod userSettingMethod){
         this.userSettingMethod = userSettingMethod;
 
     }
@@ -30,7 +26,8 @@ public class UserSettingPresenter extends BasePresenter {
 
     public void changePassword(String newPassword){
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
-        RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(userInfoModel.getId()));
+        RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"),
+                String.valueOf(userInfoModel.getId()));
         RequestBody passWordBody = RequestBody.create(MediaType.parse("text/plain"),newPassword);
         subscriptions.add(apiRepository.changePassword(userIdBody,passWordBody)
             .subscribeOn(Schedulers.io())

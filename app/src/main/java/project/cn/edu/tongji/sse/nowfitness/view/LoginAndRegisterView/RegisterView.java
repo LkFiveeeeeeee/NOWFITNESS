@@ -34,7 +34,7 @@ import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class RegisterView extends AppCompatActivity implements RegisterMethod{
     private FloatingActionButton cancelButton;
-    private CardView registerView;
+    private CardView registerCardView;
     private RegisterPresenter registerPresenter;
     private TextInputEditText userName;
     private TextInputEditText passWord;
@@ -57,7 +57,7 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
 
     public void initView(){
         cancelButton = findViewById(R.id.cancel_button);
-        registerView = findViewById(R.id.register_view);
+        registerCardView = findViewById(R.id.register_view);
         userName = findViewById(R.id.username);
         passWord = findViewById(R.id.password);
         repeatPassWord = findViewById(R.id.repeatpassword);
@@ -79,12 +79,12 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
         userName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
@@ -96,19 +96,20 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
         passWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
                 registerPresenter.verifyPassWord(passWord.getText().toString());
                 if(!repeatPassWord.getText().toString().equals("")){
-                    registerPresenter.verifyPassWordAgain(passWord.getText().toString(),repeatPassWord.getText().toString());
+                    registerPresenter.verifyPassWordAgain
+                            (passWord.getText().toString(),repeatPassWord.getText().toString());
                 }
             }
         });
@@ -117,24 +118,24 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
         repeatPassWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //DO NOTHING
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                registerPresenter.verifyPassWordAgain(repeatPassWord.getText().toString(),passWord.getText().toString());
+                registerPresenter.verifyPassWordAgain
+                        (repeatPassWord.getText().toString(),passWord.getText().toString());
             }
         });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
                 if(registerPresenter.verifyUserName(userName.getText().toString())
                         && registerPresenter.verifyPassWord(passWord.getText().toString())
                         &&registerPresenter.verifyPassWordAgain(passWord.getText().toString(),
@@ -142,11 +143,6 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
                     registerPresenter.applyRegister(userName.getText().toString(),passWord.getText().toString());
                     //提交表单,一系列验证操作
                 }
-                else{
-                    //TODO toast
-                }
-
-
             }
         });
 
@@ -159,7 +155,7 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
         transition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
-                registerView.setVisibility(View.GONE);
+                registerCardView.setVisibility(View.GONE);
             }
 
             @Override
@@ -170,17 +166,17 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
 
             @Override
             public void onTransitionCancel(Transition transition) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTransitionPause(Transition transition) {
-
+                //DO NOTHING
             }
 
             @Override
             public void onTransitionResume(Transition transition) {
-
+                //DO NOTHING
             }
         });
     }
@@ -188,20 +184,16 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
 
     public void animateRevealShow(){
         Animator animator = ViewAnimationUtils.createCircularReveal
-                (registerView,registerView.getWidth()/2,0,
-                        cancelButton.getWidth()/2,registerView.getHeight()
+                (registerCardView, registerCardView.getWidth()/2,0,
+                        cancelButton.getWidth()/2, registerCardView.getHeight()
                 );
         animator.setDuration(500);
         animator.setInterpolator(new AccelerateInterpolator());
         animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-            }
 
             @Override
             public void onAnimationStart(Animator animation) {
-                registerView.setVisibility(View.VISIBLE);
+                registerCardView.setVisibility(View.VISIBLE);
                 super.onAnimationStart(animation);
             }
         });
@@ -210,8 +202,8 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
 
     public void animateRevealClose(){
         Animator animator = ViewAnimationUtils.createCircularReveal(
-                registerView,registerView.getWidth()/2,
-                0,registerView.getHeight(),
+                registerCardView, registerCardView.getWidth()/2,
+                0, registerCardView.getHeight(),
                 cancelButton.getWidth()/2
         );
         animator.setDuration(500);
@@ -219,15 +211,10 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                registerView.setVisibility(View.INVISIBLE);
+                registerCardView.setVisibility(View.INVISIBLE);
                 super.onAnimationEnd(animation);
                 cancelButton.setImageResource(R.mipmap.ic_add_round);
                 RegisterView.super.onBackPressed();
-            }
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-                super.onAnimationStart(animation);
             }
         });
         animator.start();
@@ -255,10 +242,6 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
     public void registerSuccess(ResponseModel<Token> responseModel) {
         Log.d("1111111", "loginSuccess: ");
         if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
-            Log.d("TOKEN_VALUE", responseModel.toString());
-            Log.d("TOKEN_VALUE", responseModel.getData().toString());
-            Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue().toString());
-            Log.d("TOKEN_VALUE", responseModel.getData().getTokenValue());
             Token token = new Token();
             token.setTokenValue(responseModel.getData().getTokenValue());
             token.setUserName(userName.getText().toString());
@@ -270,7 +253,7 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
     }
 
     @Override
-    public void registerApplyError(Throwable e) {
+    public void netError(Throwable e) {
         e.printStackTrace();
     }
 
@@ -286,5 +269,11 @@ public class RegisterView extends AppCompatActivity implements RegisterMethod{
         }else{
             ConstantMethod.toastShort(RegisterView.this,responseModel.getError());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        registerPresenter.onViewDestroyed();
+        super.onDestroy();
     }
 }

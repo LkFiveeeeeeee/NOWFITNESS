@@ -1,5 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
+
 public class StepLab {
     private static StepLab stepModelLab;
     private StepModel stepModel;
@@ -9,6 +10,11 @@ public class StepLab {
     public void setStepModel(StepModel stepModel){
         this.stepModel = stepModel;
     }
+
+    private StepLab(){
+        //DO NOTHING
+    }
+
     public static StepLab get(){
         if(stepModelLab == null){
             stepModelLab = new StepLab();

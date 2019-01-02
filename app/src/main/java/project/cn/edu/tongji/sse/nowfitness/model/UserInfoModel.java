@@ -6,7 +6,7 @@ import org.greenrobot.greendao.annotation.Transient;
 
 import java.util.List;
 
-import project.cn.edu.tongji.sse.nowfitness.data.network.DTO.UserInfoDTO;
+import project.cn.edu.tongji.sse.nowfitness.data.network.dto.UserInfoDTO;
 import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
@@ -39,22 +39,7 @@ public class UserInfoModel {
 
     @Transient
     private StringAndListConvertMethod convert = new StringAndListConvertMethod();
-    public UserInfoModel(int id, String userName, String password, double height,
-                         double weight, String sex, int age, String pictureUrl,
-                         int followingNum, int fansNum, int momentsNum, List<String> dateCheckList) {
-        this.id = (long) id;
-        this.userName = userName;
-        this.password = password;
-        this.height = height;
-        this.weight = weight;
-        this.sex = sex;
-        this.age = age;
-        this.pictureUrl = pictureUrl;
-        this.followingNum = followingNum;
-        this.fansNum = fansNum;
-        this.momentsNum = momentsNum;
-        this.dateCheckList = dateCheckList;
-    }
+
 
     public UserInfoModel(UserInfoDTO userInfoDTO){
         this.id = userInfoDTO.getId();

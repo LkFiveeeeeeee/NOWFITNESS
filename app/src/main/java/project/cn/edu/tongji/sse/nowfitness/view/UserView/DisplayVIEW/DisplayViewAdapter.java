@@ -35,7 +35,9 @@ public class DisplayViewAdapter extends RecyclerView.Adapter<DisplayViewVHolder>
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayPresenter.jumpToPersonPage(individualModel.getId(),individualModel.getUserName(),individualModel.getNickName(),individualModel.getPicture());
+                displayPresenter.jumpToPersonPage(
+                        individualModel.getId(),individualModel.getUserName(),
+                        individualModel.getNickName(),individualModel.getPicture());
             }
         });
     }

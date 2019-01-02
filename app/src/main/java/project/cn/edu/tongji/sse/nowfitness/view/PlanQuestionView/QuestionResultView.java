@@ -1,7 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +18,6 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
-import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.QuestionResultPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
@@ -40,10 +36,10 @@ public class QuestionResultView extends AppCompatActivity implements QuestionRes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        type = intent.getIntExtra(ConstantMethod.result_Integer,0);
+        type = intent.getIntExtra(Constant.RESULT_INTEGER,0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_result_view);
-        questionResultPresenter = new QuestionResultPresenter(this,this);
+        questionResultPresenter = new QuestionResultPresenter(this);
         initData();
         initView();
     }
@@ -113,5 +109,11 @@ public class QuestionResultView extends AppCompatActivity implements QuestionRes
     public void postError(Throwable e) {
         ConstantMethod.toastShort(QuestionResultView.this,"网络连接出错,请检查网络");
         e.printStackTrace();
+    }
+
+    @Override
+    protected void onDestroy() {
+        questionResultPresenter.onViewDestroyed();
+        super.onDestroy();
     }
 }

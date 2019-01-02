@@ -1,4 +1,41 @@
 
+<<<<<<< HEAD
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(Ë¡”‡8Ÿ»Æ€-
+k
+AWgCxKxwLN4U8H7a6AEDsquid:S2974"4Make this class "final" or add a public constructor.(Ø¡²›ÿÿÿÿÿ8àÍ–€-
+R
+AWgCxKxwLN4U8H7a6AECsquid:S1451"&Add or update the header of this file.8àÍ–€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(™ˆêî8á÷Æ€-
+o
+AWgCxKxwLN4U8H7a6AD_squid:S1213"8Move this variable to comply with Java Code Conventions.(€«Àüùÿÿÿÿ8àÍ–€-
+
+AWgCxKxwLN4U8H7a6AEA"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ø¡²›ÿÿÿÿÿ8àÍ–€-
+c
+AWgCxKxwLN4U8H7a6AD9squid:IndentationCheck"!Make this line start at column 3.(œ»Ûµøÿÿÿÿ8àÍ–€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(Ã˜óÉÿÿÿÿÿ8Åö¹Å€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(âÛÑîùÿÿÿÿ8ä¤Ðå€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(¶øÿþúÿÿÿÿ8Ÿ»Æ€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(È¹Ÿˆüÿÿÿÿ8®¿Æ€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(ÔÔ…Ì8ä¤Ðå€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(Ø­õ8ÂÍÆ€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(ŠÌØˆúÿÿÿÿ8ÃÍæÅ€-
+
+AWgCxKxwLN4U8H7a6AEB"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(œ»Ûµøÿÿÿÿ8àÍ–€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(û–—8ÄÂÉÅ€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(É·“‡ùÿÿÿÿ8±Ó»Å€-
+j
+AWgCxKxwLN4U8H7a6AD-squid:S1213"8Move this variable to comply with Java Code Conventions.(ìžÜò8àÍ–€-
+Ssquid:S1213"8Move this variable to comply with Java Code Conventions.(ˆîT8¼Ò©Æ€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(³¼êÖ8¼Ò©Æ€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(ëÀÕÍ8¡¢åå€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(ÉÕ°¦üÿÿÿÿ8¡¢åå€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(óØÊ‡ûÿÿÿÿ8¡¢åå€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(ºä„³8¡¢åå€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(ßêÉ©8¡¢åå€-
+Tsquid:S1213"8Move this variable to comply with Java Code Conventions.(…½–ã8¡¢åå€-
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(Á§ÎËüÿÿÿÿ8¡¢åå€-
+9squid:S2386"Make this member "protected".(ëÀÕÍ8¡¢åå€-
+=======
 q
 AWgCmhbKx5JDG4YppcArsquid:UselessImportCheck"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8èöõ£õ,
 R
@@ -19,3 +56,4 @@ o
 AWgCmhbKx5JDG4YppcAysquid:S2068"V'PASSWORD' detected in this expression, review this potentially hard-coded credential.(È¢šÖÿÿÿÿÿ8¨Û©ô,
 q
 AWgCmhbKx5JDG4YppcAxsquid:S1118":Add a private constructor to hide the implicit public one.(Ø¡²›ÿÿÿÿÿ8¨Û©ô,
+>>>>>>> bef9ec1f7c5d9c2e40185757d74b2eb97c77bb5e

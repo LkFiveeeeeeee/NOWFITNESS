@@ -1,0 +1,48 @@
+
+Gsquid:IndentationCheck"!Make this line start at column 3.(¸ÄŞJ8äÊ®ê€-
+Hsquid:IndentationCheck"!Make this line start at column 5.(å¯Ô«8äÊ®ê€-
+Msquid:IndentationCheck"!Make this line start at column 5.(²Ï¸öûÿÿÿÿ8äÊ®ê€-
+Msquid:IndentationCheck"!Make this line start at column 5.(ŠÖæ­ÿÿÿÿÿ8äÊ®ê€-
+Msquid:IndentationCheck"!Make this line start at column 5.(«àµÀüÿÿÿÿ8äÊ®ê€-
+Nsquid:IndentationCheck""Make this line start at column 11.(Ğ¸™áúÿÿÿÿ8äÊ®ê€-
+Nsquid:IndentationCheck""Make this line start at column 13.(¡Ø˜Êıÿÿÿÿ8äÊ®ê€-
+Msquid:IndentationCheck"!Make this line start at column 5.(¾«ˆƒüÿÿÿÿ8äÊ®ê€-
+Msquid:IndentationCheck"!Make this line start at column 7.(”Ç©šùÿÿÿÿ8äÊ®ê€-
+Msquid:IndentationCheck"!Make this line start at column 7.(ùõ›…ÿÿÿÿÿ8äÊ®ê€-
+Msquid:IndentationCheck"!Make this line start at column 5.(ùõ›…ÿÿÿÿÿ8äÊ®ê€-
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(”ŞŒ¢8äÊ®ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(”ŞŒ¢8äÊ®ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¨Œşÿÿÿÿ8äÊ®ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(»èÌàøÿÿÿÿ8äÊ®ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(®âŠ¡ùÿÿÿÿ8äÊ®ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÜÔ³ÿûÿÿÿÿ8äÊ®ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(«àµÀüÿÿÿÿ8äÊ®ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Ğ¸™áúÿÿÿÿ8äÊ®ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Äšô8äÊ®ê€-
+y"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¾«ˆƒüÿÿÿÿ8äÊ®ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8äÊ®ê€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(äÄí†8äÊ®ê€-
+r
+squid:S109"RAssign this magic number 5 to a well-named constant, and use the constant instead.(‘ôÁÀıÿÿÿÿ8äÊ®ê€-
+m
+squid:S109"RAssign this magic number 2 to a well-named constant, and use the constant instead.(ÊÒ´8äÊ®ê€-
+m
+squid:S109"RAssign this magic number 3 to a well-named constant, and use the constant instead.(éèáñ8äÊ®ê€-
+l
+squid:S109"RAssign this magic number 4 to a well-named constant, and use the constant instead.(¿—)8äÊ®ê€-
+t
+squid:S109"TAssign this magic number 200 to a well-named constant, and use the constant instead.(¾«ˆƒüÿÿÿÿ8äÊ®ê€-
+t
+squid:S109"TAssign this magic number 300 to a well-named constant, and use the constant instead.(¾«ˆƒüÿÿÿÿ8äÊ®ê€-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(­í™˜8äÊ®ê€-
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8äÊ®ê€-
+<squid:S1451"&Add or update the header of this file.8äÊ®ê€-
+Hsquid:S1659"'Declare "sportsFun" on a separate line.(ıá™„ıÿÿÿÿ8äÊ®ê€-
+Hsquid:S1659"'Declare "sportsPeo" on a separate line.(ıá™„ıÿÿÿÿ8äÊ®ê€-
+ysquid:S1450"XRemove the "sportsExa" field and declare it as a local variable in the relevant methods.(ıá™„ıÿÿÿÿ8äÊ®ê€-
+ysquid:S1450"XRemove the "sportsFun" field and declare it as a local variable in the relevant methods.(ıá™„ıÿÿÿÿ8äÊ®ê€-
+ysquid:S1450"XRemove the "sportsPeo" field and declare it as a local variable in the relevant methods.(ıá™„ıÿÿÿÿ8äÊ®ê€-
+zsquid:S1450"YRemove the "heartImage" field and declare it as a local variable in the relevant methods.(«Ìû¦ÿÿÿÿÿ8äÊ®ê€-
+Vsquid:S1258":Add a constructor to the class, or provide default values.(”ŞŒ¢8äÊ®ê€-
+t2squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8äÊ®ê€-
+Jsquid:S2143")Use the Java 8 Date and Time API instead.(”Ç©šùÿÿÿÿ8äÊ®ê€-

@@ -188,4 +188,11 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
         mTencent.shareToQzone(this.getActivity(), params,null);
     }
 
+    @Override
+    public void onDestroy() {
+        momentsPresenter.onViewDestroyed();
+        super.onDestroy();
+    }
+
+
 }

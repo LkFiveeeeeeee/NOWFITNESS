@@ -4,6 +4,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginMethod;
 
@@ -22,7 +23,7 @@ public class LoginPresenter extends BasePresenter{
 
     public boolean verifyForUserName(String userName){
 
-        if(userName.length() < 6){
+        if(userName.length() < Constant.MIN_LENGTH){
             loginView.userNameSetError("用户名长度过短");
             return false;
         }
@@ -31,7 +32,7 @@ public class LoginPresenter extends BasePresenter{
     }
 
     public boolean verifyForPassWord(String passWord){
-        if(passWord.length() < 6){
+        if(passWord.length() < Constant.MIN_LENGTH){
             loginView.passWordSetError("密码长度过短");
             return false;
         }
@@ -46,7 +47,7 @@ public class LoginPresenter extends BasePresenter{
             subscriptions.add(apiRepository.verifyInfo(userNameBody,passWordBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(loginMethod::loginSuccess,loginMethod::loginError)
+            .subscribe(loginMethod::loginSuccess,loginMethod::netError)
             );
             //onResponse 成功跳转主页面,失败Toast提示
         }
@@ -56,7 +57,7 @@ public class LoginPresenter extends BasePresenter{
         subscriptions.add(apiRepository.queryUserInfo(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginMethod::querySuccess,loginMethod::loginError)
+                .subscribe(loginMethod::querySuccess,loginMethod::netError)
         );
     }
 }

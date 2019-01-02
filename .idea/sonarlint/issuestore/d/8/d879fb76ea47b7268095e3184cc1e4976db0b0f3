@@ -1,0 +1,35 @@
+
+Š
+AWgCxKn_LN4U8H7a5_u1"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(å¥‡8àÍ–€-
+Š
+AWgCxKn_LN4U8H7a5_u62squid:RightCurlyBraceDifferentLineAsNextBlockCheck"1Move this "else" keyword to a new dedicated line.(å¥‡8àÍ–€-
+i
+AWgCxKn-LN4U8H7a5_uvsquid:S1313"7Make sure using this hardcoded IP address is safe here.(Ø’Ùä8àÍ–€-
+c
+AWgCxKn-LN4U8H7a5_utsquid:IndentationCheck"!Make this line start at column 7.(åƒÄõÿÿÿÿÿ8àÍ–€-
+
+AWgCxKn_LN4U8H7a5_u0"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¶»†¬ÿÿÿÿÿ8àÍ–€-
+]
+AWgCxKn-LN4U8H7a5_upsquid:IndentationCheck"!Make this line start at column 3.(ˆ™r8àÍ–€-
+Š
+AWgCxKn-LN4U8H7a5_uw"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ÿ»ëß8àÍ–€-
+c
+AWgCxKn-LN4U8H7a5_uusquid:IndentationCheck"!Make this line start at column 7.(åƒÄõÿÿÿÿÿ8àÍ–€-
+‰
+AWgCxKn_LN4U8H7a5_ux"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ˆ™r8àÍ–€-
+
+AWgCxKn_LN4U8H7a5_uy"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(¤ŸÂ«ÿÿÿÿÿ8àÍ–€-
+R
+AWgCxKn_LN4U8H7a5_u4squid:S1451"&Add or update the header of this file.8àÍ–€-
+Š
+AWgCxKn_LN4U8H7a5_uz"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(Å£Ûœ8àÍ–€-
+c
+AWgCxKn-LN4U8H7a5_ussquid:IndentationCheck"!Make this line start at column 5.(¶»†¬ÿÿÿÿÿ8àÍ–€-
+c
+AWgCxKn-LN4U8H7a5_uqsquid:IndentationCheck"!Make this line start at column 5.(£³ô·ùÿÿÿÿ8àÍ–€-
+t"squid:LeftCurlyBraceStartLineCheck"AMove this left curly brace to the beginning of next line of code.(ò¾à8àÍ–€-
+Msquid:IndentationCheck"!Make this line start at column 5.(Æ’Ü¥ÿÿÿÿÿ8º‰©€-
+[squid:UselessImportCheck"-Remove this unused import 'okhttp3.Response'.(Ï‚ñ—øÿÿÿÿ8ïå‰©€-
+{squid:S4174"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Æ’Ü¥ÿÿÿÿÿ8º‰©€-
+^squid:UselessImportCheck"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8ïå‰©€-
+Psquid:S2974"4Make this class "final" or add a public constructor.(ÿ»ëß8ê›ˆ©€-
