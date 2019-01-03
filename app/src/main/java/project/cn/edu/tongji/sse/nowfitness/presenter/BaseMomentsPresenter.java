@@ -135,6 +135,12 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
     public static Bundle setShareContent(String title,String summary,String contentUrl,String imageUrl) {
         Bundle params;
         params = new Bundle();
+        if(title==null||title.equals(""))
+            title = "来自NOWFITNESS应用";
+        if(summary.equals(""))
+            summary = "欢迎使用NOWFITNESS";
+        if(contentUrl.equals("http://47.107.167.12:8080/api/image/null"))
+            contentUrl = imageUrl;
         params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE,QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
         params.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);// 标题
         params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, summary);// 摘要
