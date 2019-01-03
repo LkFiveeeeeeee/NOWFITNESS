@@ -525,7 +525,7 @@
 
 #### 1.1 View 
 
-- ![界面图](C:/Users/a/Desktop/%E6%96%87%E6%A1%A3/img/%E4%B9%A6%E7%B1%8D%E8%BD%AE%E6%92%AD%E5%9B%BE.png)
+- ![界面图](img/书籍轮播图.png)
 
 - **轮播图使用的开源库 **
 
