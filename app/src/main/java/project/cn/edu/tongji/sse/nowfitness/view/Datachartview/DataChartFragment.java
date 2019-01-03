@@ -126,11 +126,12 @@ public class DataChartFragment
 
 
     private void initChart()  {
-
-        for(int i = 0;i < stepModels.size();i++){
-            entries.add(new Entry((float) i, Float.valueOf(stepModels.get(i).getStep())));
-            barEntries.add(new BarEntry(i,Float.valueOf(stepModels.get(i).getStep())));
-            dateList.add(stepModels.get(i).getToday());
+        if(entries.size() == 0){
+            for(int i = 0;i < stepModels.size();i++){
+                entries.add(new Entry((float) i, Float.valueOf(stepModels.get(i).getStep())));
+                barEntries.add(new BarEntry(i,Float.valueOf(stepModels.get(i).getStep())));
+                dateList.add(stepModels.get(i).getToday());
+            }
         }
         Legend legend = combinedChart.getLegend();
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
@@ -167,7 +168,7 @@ public class DataChartFragment
         combinedChart.getAxisRight().setDrawGridLines(false);
         combinedChart.getAxisLeft().setAxisMinimum(0);
         combinedChart.getAxisRight().setAxisMinimum(0);
-        combinedChart.animateX(2000);
+        combinedChart.animateX(0);
         combinedChart.setExtraLeftOffset(10);
         combinedChart.setExtraRightOffset(10);
         combinedChart.getXAxis().setGranularity(1f);
