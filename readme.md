@@ -52,7 +52,7 @@
 
 #### 1.1 View
 
-- ![界面图](C:/Users/a/Desktop/%E6%96%87%E6%A1%A3/img/login.jpg)
+- ![界面图](img/login.jpg)
 
 - View的成员与函数
 
@@ -108,7 +108,7 @@
 
 #### 2.1 View
 
-- ![界面图](C:/Users/a/Desktop/%E6%96%87%E6%A1%A3/img/register.jpg)
+- ![界面图](img/register.jpg)
 
 - View的成员与函数
 
@@ -309,26 +309,27 @@
 
     > implements **DisplayViewMethod SwipeRefreshLayout.OnRefreshListener ToPersonPageView**
 
-    + View的成员与函数
-        | 成员                | 类型               | 访问权限 | 描述                       |
-        | ------------------- | ------------------ | -------- | -------------------------- |
-        | displayPresenter    | DisplayPresenter   | private  | 用于数据交互的presetner    |
-        | displayRecyclerView | RecyclerView       | private  | 展示信息列表               |
-        | swipeRefreshLayout  | SwipeRefreshLayout | private  | 刷新layout                 |
-        | type                | int                | private  | 标记是粉丝列表还是关注列表 |
-        | isRefresh           | boolean            | private  | 判断当前是否在刷新         |
+    + **View的成员与函数**
 
-        | 方法                                                         | 访问权限 | 返回值  | 描述                                                         |
-        | ------------------------------------------------------------ | -------- | ------- | ------------------------------------------------------------ |
-        | initView()                                                   | public   | void    | 初始化View,内调用setToolbar，setDisplayText，initSwipeLayout |
-        | setToolbar()                                                 | private  | void    | 初始化toolbar控件                                            |
-        | initSwipeLayout()                                            | private  | void    | 初始化刷新Layout                                             |
-        | setDisplayText()                                             | private  | void    | 设置左上角显示的文字是粉丝列表还是关注列表                   |
-        | queryForSuccess(ResponseModel<IndividualsList> modelList)    | public   | void    | 当请求用户信息成功时执行的操作                               |
-        | queryError(Throwable e)                                      | public   | void    | 当请求失败时执行的操作                                       |
-        | onOptionsItemSelected(MenuItem item)                         | public   | boolean | 当点击toolbar按钮时执行的操作                                |
-        | jumpToPersonPage(int id, String userName, String nickName, String personPhoto) | public   | void    | 当点击某一行用户时执行的操作                                 |
-        | onRefresh()                                                  | public   | void    | 当在刷新状态时执行的操作                                     |
+      | 成员                                                         | 类型               | 访问权限 | 描述                                                         |
+      | ------------------------------------------------------------ | ------------------ | -------- | ------------------------------------------------------------ |
+      | displayPresenter                                             | DisplayPresenter   | private  | 用于数据交互的presetner                                      |
+      | displayRecyclerView                                          | RecyclerView       | private  | 展示信息列表                                                 |
+      | swipeRefreshLayout                                           | SwipeRefreshLayout | private  | 刷新layout                                                   |
+      | type                                                         | int                | private  | 标记是粉丝列表还是关注列表                                   |
+      | isRefresh                                                    | boolean            | private  | 判断当前是否在刷新                                           |
+      
+      | 方法                                                         | 访问权限           | 返回值   | 描述                                                         |
+      | ------------------------------------------------------------ | --------           | -------  | ------------------------------------------------------------ |
+      | initView()                                                   | public             | void     | 初始化View,内调用setToolbar，setDisplayText，initSwipeLayout |
+      | setToolbar()                                                 | private            | void     | 初始化toolbar控件                                            |
+      | initSwipeLayout()                                            | private            | void     | 初始化刷新Layout                                             |
+      | setDisplayText()                                             | private            | void     | 设置左上角显示的文字是粉丝列表还是关注列表                   |
+      | queryForSuccess(ResponseModel<IndividualsList> modelList)    | public             | void     | 当请求用户信息成功时执行的操作                               |
+      | queryError(Throwable e)                                      | public             | void     | 当请求失败时执行的操作                                       |
+      | onOptionsItemSelected(MenuItem item)                         | public             | boolean  | 当点击toolbar按钮时执行的操作                                |
+      | jumpToPersonPage(int id, String userName, String nickName, String personPhoto) | public             | void     | 当点击某一行用户时执行的操作                                 |
+      | onRefresh()                                                  | public             | void     | 当在刷新状态时执行的操作                                     |
 
 + **DisplayViewAdapter**
 
@@ -351,23 +352,25 @@
 
 > extend  **RecyclerView.ViewHolder**
 >
->   + View的成员与函数
->      | 成员            | 类型            | 访问权限 | 描述                    |
->      | --------------- | --------------- | -------- | ----------------------- |
->      | avatar          | CircleImageView | private  | 头像                    |
->      | nickName        | TextView        | private  | 昵称                    |
->      | sex             | TextView        | private  | 性别                    |
->      | individualModel | IndividualModel | private  | 存储个人信息的model     |
->      | switchButton    | AppCompatButton | private  | 切换关注的按钮          |
->      | followPresenter | FollowPresenter | private  | 用于交互信息的Presetner |
->
->      | 方法                                                         | 访问权限 | 类型 | 描述                                                    |
->      | ------------------------------------------------------------ | -------- | ---- | ------------------------------------------------------- |
->      | DisplayViewVHolder(LayoutInflater inflater, ViewGroup parent) | public   | 无   | 构造函数                                                |
->      | setSwitchButton(boolean judge)                               | private  | void | 更换按钮状态,内根据条件语句调用setFollow或者setUnFollow |
->      | setUnFollow()                                                | private  | void | 将按钮设为未关注                                        |
->      | setFollow()                                                  | private  | void | 将按钮设为关注                                          |
->      | bind(final IndividualModel individual)                       | public   | void | 给控件绑定监听事件                                      |
+
++ **View的成员函数和方法**
+
+  | 成员            | 类型            | 访问权限 | 描述                    |
+  | --------------- | --------------- | -------- | ----------------------- |
+  | avatar          | CircleImageView | private  | 头像                    |
+  | nickName        | TextView        | private  | 昵称                    |
+  | sex             | TextView        | private  | 性别                    |
+  | individualModel | IndividualModel | private  | 存储个人信息的model     |
+  | switchButton    | AppCompatButton | private  | 切换关注的按钮          |
+  | followPresenter | FollowPresenter | private  | 用于交互信息的Presetner |
+
+  | 方法                                                         | 访问权限 | 类型 | 描述                                                    |
+  | ------------------------------------------------------------ | -------- | ---- | ------------------------------------------------------- |
+  | DisplayViewVHolder(LayoutInflater inflater, ViewGroup parent) | public   | 无   | 构造函数                                                |
+  | setSwitchButton(boolean judge)                               | private  | void | 更换按钮状态,内根据条件语句调用setFollow或者setUnFollow |
+  | setUnFollow()                                                | private  | void | 将按钮设为未关注                                        |
+  | setFollow()                                                  | private  | void | 将按钮设为关注                                          |
+  | bind(final IndividualModel individual)                       | public   | void | 给控件绑定监听事件                                      |
 
 
 + **DisplayNoItemAdapter && DisplayViewNoItemHolder**
@@ -525,7 +528,7 @@
 
 #### 1.1 View 
 
-- ![界面图](C:/Users/a/Desktop/%E6%96%87%E6%A1%A3/img/%E4%B9%A6%E7%B1%8D%E8%BD%AE%E6%92%AD%E5%9B%BE.png)
+- ![界面图](img/书籍轮播图.png)
 
 - **轮播图使用的开源库 **
 
@@ -601,7 +604,7 @@
 
 - **界面效果图**
 
-  ![](C:/Users/a/Desktop/%E6%96%87%E6%A1%A3/img/%E5%8A%A8%E6%80%81%E4%B8%BB%E9%A1%B5.png)
+  ![](img/书籍轮播图.png)
 
 - **上拉刷新使用的开源库**
 
@@ -1100,6 +1103,7 @@
 + **PlanQuestionView**
 
     + View的成员与函数
+
         | 成员                         | 类型                         | 访问权限 | 描述           |
         | ---------------------------- | ---------------------------- | -------- | -------------- |
         | viewPager                    | ViewPager                    | private  |                |
@@ -1152,6 +1156,7 @@
   + ![界面图](img/questionView.jpg)
 
     + View的成员与函数
+    
         | 成员          | 类型     | 访问权限 | 描述               |
         | ------------- | -------- | -------- | ------------------ |
         | questionText  | TextView | private  | 用于显示问题的控件 |
@@ -1174,30 +1179,33 @@
 #### 3.1 View
 
 + **QuestionResultView**
-  + ![界面图](img/resultVIEW.JPg)
+
+  + ![界面图](img/resultView.jpg)
 
     + View的成员与函数
-        | 成员                    | 类型                    | 访问权限 | 描述                   |
-        | ----------------------- | ----------------------- | -------- | ---------------------- |
-        | sportsExamples          | List<String>            | private  | 推荐的运动例子         |
-        | functions               | List<String>            | private  | 功效                   |
-        | people                  | List<String>            | private  | 适用人群               |
-        | image                   | int []                  | private  | ui显示                 |
-        | questionResultPresenter | QuestionResultPresenter | private  | 用于交互的presenter    |
-        | sportsExa               | TextView                | private  | 显示推荐例子的控件     |
-        | sportsFun               | TextView                | private  | 显示功效的控件         |
-        | sportsPeo               | TextView                | private  | 显示适用人群的控件     |
-        | heartImage              | ImageView               | private  | 心脏图片               |
-        | finishButton            | Button                  | private  | 完成这一activity的按钮 |
-        | type                    | int                     | private  | 标志状态               |
 
-        | 方法                                     | 访问权限 | 返回值  | 描述               |
-        | ---------------------------------------- | -------- | ------- | ------------------ |
-        | initData()                               | public   | void    | 初始化数据         |
-        | initView(View view)                      | private  | void    | 初始化页面         |
-        | setListener()                            | public   | private | 设置按钮监听       |
-        | postSuccess(ResponseModel responseModel) | public   | void    | 打卡成功时调用     |
-        | postError(Throwable e)                   | public   | void    | 网络连接失败时调用 |
+      | 成员                    | 类型                    | 访问权限 | 描述                   |
+      | ----------------------- | ----------------------- | -------- | ---------------------- |
+      | sportsExamples          | List<String>            | private  | 推荐的运动例子         |
+      | functions               | List<String>            | private  | 功效                   |
+      | people                  | List<String>            | private  | 适用人群               |
+      | image                   | int []                  | private  | ui显示                 |
+      | questionResultPresenter | QuestionResultPresenter | private  | 用于交互的presenter    |
+      | sportsExa               | TextView                | private  | 显示推荐例子的控件     |
+      | sportsFun               | TextView                | private  | 显示功效的控件         |
+      | sportsPeo               | TextView                | private  | 显示适用人群的控件     |
+      | heartImage              | ImageView               | private  | 心脏图片               |
+      | finishButton            | Button                  | private  | 完成这一activity的按钮 |
+      | type                    | int                     | private  | 标志状态               |
+
+
+    | 方法                                     | 访问权限 | 返回值  | 描述               |
+    | ---------------------------------------- | -------- | ------- | ------------------ |
+    | initData()                               | public   | void    | 初始化数据         |
+    | initView(View view)                      | private  | void    | 初始化页面         |
+    | setListener()                            | public   | private | 设置按钮监听       |
+    | postSuccess(ResponseModel responseModel) | public   | void    | 打卡成功时调用     |
+    | postError(Throwable e)                   | public   | void    | 网络连接失败时调用 |
 
 #### 3.2 Presenter
 
@@ -1237,6 +1245,7 @@
 + **DataChartView**
 
     + View的成员与函数
+    
         | 成员             | 类型                | 访问权限 | 描述                |
         | ---------------- | ------------------- | -------- | ------------------- |
         | backIcon         | ImageView           | private  | 后退按钮的Image     |
@@ -1255,15 +1264,15 @@
     > extend  **FragmentPagerAdapter**
     + View的成员与函数
 
-       | 成员               | 类型           | 访问权限 | 描述                               |
-       | ------------------ | -------------- | -------- | ---------------------------------- |
-       | dataChartFragments | List<Fragment> | private  | 一个用于存储数据分析Fragment的List |
+      | 成员               | 类型           | 访问权限 | 描述                               |
+      | ------------------ | -------------- | -------- | ---------------------------------- |
+      | dataChartFragments | List<Fragment> | private  | 一个用于存储数据分析Fragment的List |
 
-       | 方法                                              | 访问权限 | 返回值   | 描述                       |
-       | ------------------------------------------------- | -------- | -------- | -------------------------- |
-       | DataChartAdapter(FragmentManager fragmentManager) | public   | 无       | 构造函数                   |
-       | getItem(int position)                             | public   | Fragment | 获得在position出的Fragment |
-       | getCount()                                        | public   | int      |                            |
+      | 方法                                              | 访问权限 | 返回值   | 描述                       |
+      | ------------------------------------------------- | -------- | -------- | -------------------------- |
+      | DataChartAdapter(FragmentManager fragmentManager) | public   | 无       | 构造函数                   |
+      | getItem(int position)                             | public   | Fragment | 获得在position出的Fragment |
+      | getCount()                                        | public   | int      |                            |
 
 #### 2.1 View
 
@@ -1274,6 +1283,7 @@
 > extend  **Fragment**
 > implements  **DataChartMethod**
 >   + View的成员与函数
+>
 >      | 成员               | 类型               | 访问权限 | 描述                    |
 >      | ------------------ | ------------------ | -------- | ----------------------- |
 >      | dayView            | View               | private  | View                    |
@@ -1330,6 +1340,7 @@
 > implements  **DataChartMethod**
 >
 >   + View的成员与函数
+>
 >      | 成员               | 类型               | 访问权限 | 描述                         |
 >      | ------------------ | ------------------ | -------- | ---------------------------- |
 >      | combinedChart      | CombinedChart      | private  | 由线状图和柱状图构成的复合图 |
@@ -1389,6 +1400,7 @@
   > **extends** BasePresenter
 
   - **详情描述**
+
   > 见 **2.2**
 
 
