@@ -139,7 +139,8 @@ public class DayFragment extends Fragment implements DataChartMethod {
 
     @Override
     public void querySuccess(ResponseModel<StepModelList> stepModelListResponseModel) {
-        if(stepModelListResponseModel.getStatus() >= 200 && stepModelListResponseModel.getStatus() < 300){
+        if(stepModelListResponseModel.getStatus() >= 200 && stepModelListResponseModel.getStatus() < 300
+                && stepModelListResponseModel.getData().getDays() != 0){
             yesterdayCount = Integer.
                     valueOf(stepModelListResponseModel.getData().getStepModels().get(0).getStep());
         }else{
