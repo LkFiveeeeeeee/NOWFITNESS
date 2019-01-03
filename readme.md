@@ -52,7 +52,7 @@
 
 #### 1.1 View
 
-- ![界面图](C:/Users/a/Desktop/%E6%96%87%E6%A1%A3/img/login.jpg)
+- ![界面图](img/login.jpg)
 
 - View的成员与函数
 
@@ -108,7 +108,7 @@
 
 #### 2.1 View
 
-- ![界面图](C:/Users/a/Desktop/%E6%96%87%E6%A1%A3/img/register.jpg)
+- ![界面图](img/register.jpg)
 
 - View的成员与函数
 
@@ -601,7 +601,7 @@
 
 - **界面效果图**
 
-  ![](C:/Users/a/Desktop/%E6%96%87%E6%A1%A3/img/%E5%8A%A8%E6%80%81%E4%B8%BB%E9%A1%B5.png)
+  ![](img/书籍详情.png)
 
 - **上拉刷新使用的开源库**
 
