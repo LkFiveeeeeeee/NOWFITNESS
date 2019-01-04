@@ -39,7 +39,15 @@ public class PersonPagePresenter extends BaseMomentsPresenter{
         personPageView.initView();
     }
 
+    /**
+     * @Author: omf
+     * @Description: 网络请求获得用户动态
+     * @Param userID
+     * @Param pageNum 动态页码
+     * @Return: void
+     */
     public void getUserMoments(int userID, int pageNum){
+
         subscriptions.add(apiRepository.getUserMoments(userID,pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

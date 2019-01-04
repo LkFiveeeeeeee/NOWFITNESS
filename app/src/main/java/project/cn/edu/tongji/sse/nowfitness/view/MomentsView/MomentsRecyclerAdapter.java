@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
@@ -25,10 +28,10 @@ import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.OfflineViewHolde
 
 public class MomentsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final int NORMAL = 0;
-    public static final int NO_CONTENT= 1;
-    public static final int NO_NETWORK =2;
-    public static final int LOADING =3;
+    public static final int NORMAL = 0;//正常的动态布局
+    public static final int NO_CONTENT= 1;//无内容的布局
+    public static final int NO_NETWORK =2;//断网的布局
+    public static final int LOADING =3;//加载中布局
 
 
     private List<MomentsModel> momentsLab;
@@ -100,4 +103,18 @@ public class MomentsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             return viewStates;
     }
 
+    /**
+     * @Author: omf
+     * @Description: 在recyclerview中的view被回收时的处理
+     * @Param holder
+     * @Return: void
+     */
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        if(holder!=null&&holder instanceof MomentsViewHolder){
+            Glide.with(holder.itemView).clear(((MomentsViewHolder)holder).contentPicImage);//取消该view中glide加载图片
+            ((MomentsViewHolder)holder).contentPicImage.setVisibility(View.VISIBLE);//设置view中图片可见
+        }
+        super.onViewRecycled(holder);
+    }
 }

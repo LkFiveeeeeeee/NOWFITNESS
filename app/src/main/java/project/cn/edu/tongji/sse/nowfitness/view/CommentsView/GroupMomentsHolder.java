@@ -52,6 +52,12 @@ public class GroupMomentsHolder extends BaseExHolder implements View.OnClickList
         }
     }
 
+    /**
+     * @Author: omf
+     * @Description: 设置点击的响应事件，跳转到个人社交主页
+     * @Param view
+     * @Return: void
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()){

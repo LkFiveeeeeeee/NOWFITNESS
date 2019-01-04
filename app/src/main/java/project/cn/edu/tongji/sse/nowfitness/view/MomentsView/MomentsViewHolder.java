@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
@@ -36,7 +37,7 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
 
     private int type ;
     private CircleImageView userPhotoImage;
-    private ImageView contentPicImage;
+    public ImageView contentPicImage;
     private TextView nickNameTextView;
     private TextView contentTextView;
     private TextView timeTextView;
@@ -84,10 +85,10 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
             timeTextView.setText(time);
             like.setSelected(moments.isLiked());
             if (moments.getUserPhoto()!=null) {
-                Glide.with(itemView).load(moments.getUserPhoto()).into(userPhotoImage);
+                Glide.with(itemView).load(moments.getUserPhoto()).apply(options).into(userPhotoImage);
             }
             if(!moments.getImage().substring(moments.getImage().length()-4).equals("null")) {
-                Glide.with(itemView).load(moments.getImage()).into(contentPicImage);
+                Glide.with(itemView).load(moments.getImage()).apply(options).into(contentPicImage);
             }
             else {
                 contentPicImage.setVisibility(View.GONE);
@@ -229,5 +230,10 @@ public class MomentsViewHolder extends RecyclerView.ViewHolder implements View.O
         }
         popup.show();
     }
+
+    RequestOptions options = new RequestOptions()
+            .centerCrop()
+            .placeholder(R.mipmap.loading)
+            .error(R.mipmap.fail);
 }
 

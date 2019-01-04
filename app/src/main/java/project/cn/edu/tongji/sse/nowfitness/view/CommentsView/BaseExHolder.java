@@ -11,8 +11,8 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
 public class BaseExHolder {
     protected Context mContext;
     protected MomentsDetailPresenter momentsDetailPresenter;
-    protected int childPosition;
-    protected int groupPosition;
+    protected int childPosition;//在expanableListView 的二级list中的位置
+    protected int groupPosition;//在expanableListView 的 一级list中的位置
     public BaseExHolder(Context context,MomentsDetailPresenter momentsDetailPresenter){
         this.mContext = context;
         this.momentsDetailPresenter = momentsDetailPresenter;

@@ -19,10 +19,6 @@ import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsRecyclerAdap
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 
-/**
- * Created by a on 2018/12/13.
- */
-
 public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageView {
     protected MomentsRecyclerAdapter momentsRecyclerAdapter;
     private RecyclerView momentsRecyclerView;
@@ -72,12 +68,17 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
         momentsRecyclerView.setAdapter(momentsRecyclerAdapter);
     }
 
-
     public void setAdapterStates(int states){
         momentsRecyclerAdapter.setViewStatus(states);
         momentsRecyclerAdapter.notifyItemChanged(0);
     }
 
+     /**
+      * @Author: omf
+      * @Description: 获得下一个动态的页码
+      * @Param
+      * @Return: int
+      */
     public int getNextPage(){
         return pageNum + 1;
     }
@@ -132,15 +133,27 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
         //override in subclass
     }
 
+     /**
+      * @Author: omf
+      * @Description: 将要分享的到QZONE的信息打包
+      * @Param title
+      * @Param summary
+      * @Param contentUrl
+      * @Param imageUrl
+      * @Return: android.os.Bundle
+      */
     public static Bundle setShareContent(String title,String summary,String contentUrl,String imageUrl) {
         Bundle params;
         params = new Bundle();
-        if(title==null||title.equals(""))
+        if(title==null||title.equals("")) {
             title = "来自NOWFITNESS应用";
-        if(summary.equals(""))
+        }
+        if(summary.equals("")) {
             summary = "欢迎使用NOWFITNESS";
-        if(contentUrl.equals("http://47.107.167.12:8080/api/image/null"))
+        }
+        if(contentUrl.equals("http://47.107.167.12:8080/api/image/null")) {
             contentUrl = imageUrl;
+        }
         params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE,QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
         params.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);// 标题
         params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, summary);// 摘要

@@ -55,7 +55,6 @@ public class BookPresenter extends BasePresenter{
         //设置图片集合
         bookBanner.setImageLoader(new MyImageLoader());
         bookBanner.setImages(images);
-
         //设置bookBanner动画效果
         bookBanner.setBannerAnimation(Transformer.Default);
         //设置标题集合（当bookBanner样式有显示title时）
@@ -85,7 +84,7 @@ public class BookPresenter extends BasePresenter{
         }
         initBanner();
     }
-    private class MyImageLoader extends ImageLoader {
+    private class MyImageLoader extends ImageLoader {//轮播图的图片加载类重写
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
             Glide.with(context.getApplicationContext())

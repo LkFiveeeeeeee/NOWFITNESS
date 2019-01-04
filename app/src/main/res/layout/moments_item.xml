@@ -98,11 +98,14 @@
                 <ImageView
                     android:id="@+id/content_image"
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:lineSpacingExtra="2dip"
                     android:scaleType="centerInside"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="120dp"
+                    android:maxWidth="120dp"
                     android:src="@mipmap/ic_launcher" />
 
             </RelativeLayout>

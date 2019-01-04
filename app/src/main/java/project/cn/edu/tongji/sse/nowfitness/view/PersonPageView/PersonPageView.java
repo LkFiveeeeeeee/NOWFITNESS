@@ -193,7 +193,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset <= -headLayout.getHeight() / 2) {
+                if (verticalOffset <= -headLayout.getHeight() / 2) {//appbar滑动只有原高度一半时显示title
                     if(nickName!=null) {
                         mCollapsingToolbarLayout.setTitle(nickName);
                     }
@@ -208,15 +208,22 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
         });
     }
 
+    /**
+     * @Author: omf
+     * @Description: 网络请求获取服务端用户个人动态成功后的回调
+     * @Param momentsModelListResponseModel
+     * @Return: void
+     */
     @Override
     public void querySuccess(ResponseModel<MomentsModelList> momentsModelListResponseModel) {
+
         if(momentsModelListResponseModel.getStatus() >= Constant.NET_CODE_200
                 || momentsModelListResponseModel.getStatus() < Constant.NET_CODE_300){
             if(momentsModelListResponseModel.getData().getTotal()==0) {
                 personPagePresenter.setAdapterStates(MomentsRecyclerAdapter.NO_CONTENT);
             }
             else if(momentsModelListResponseModel.getData().getSize()==0) {
-                refreshLayout.finishLoadMoreWithNoMoreData();
+                refreshLayout.finishLoadMoreWithNoMoreData();//设置底部无更多数据
             }else {
                 personPagePresenter.setPages(momentsModelListResponseModel.getData().getPages());
                 personPagePresenter.setPageNum(momentsModelListResponseModel.getData().getPageNum());
@@ -224,17 +231,23 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
                 if(momentsModelListResponseModel.getData().getPageNum()==1) {
                     personPagePresenter.resetMomentsList(momentsModelListResponseModel.getData().getList());
                     personPagePresenter.setAdapterStates(MomentsRecyclerAdapter.NORMAL);
-                    refreshLayout.setNoMoreData(false);
-                    refreshLayout.finishRefresh();
+                    refreshLayout.setNoMoreData(false);//重置底部load的状态
+                    refreshLayout.finishRefresh();//结束顶部刷新动画
                 }
                 else {
                     personPagePresenter.addMomentsList(momentsModelListResponseModel.getData().getList());
-                    refreshLayout.finishLoadMore();
+                    refreshLayout.finishLoadMore();//结束底部加载动画
                 }
 
             }
         }
     }
+    /**
+     * @Author: omf
+     * @Description: 网络请求获取服务端用户个人信息成功后的回调
+     * @Param userInfoModelResponseModel
+     * @Return: void
+     */
     @Override
     public void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel) {
         if(userInfoModelResponseModel.getStatus() >= Constant.NET_CODE_200
@@ -244,8 +257,15 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
         }
     }
 
+    /**
+     * @Author: omf
+     * @Description: 网络请求失败回调
+     * @Param e
+     * @Return: void
+     */
     @Override
     public void queryError(Throwable e) {
+        Toast.makeText(this,"网络连接开小差了...",Toast.LENGTH_SHORT).show();
         e.printStackTrace();
     }
 
@@ -266,7 +286,7 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
             Log.d("momentsview", "onActivityResult: "+String.valueOf(position)+"  "+String.valueOf(commentsNum));
            personPagePresenter.notifyCommentsNumChange(position,commentsNum);
         }
-        Tencent.onActivityResultData(requestCode, resultCode, data, null);
+        Tencent.onActivityResultData(requestCode, resultCode, data, null);//QZONE分享后的回调
     }
 
     @Override
