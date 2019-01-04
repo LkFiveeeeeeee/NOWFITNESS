@@ -115,6 +115,7 @@ public class PublishMomentView extends AppCompatActivity implements PublishMomen
         if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
             UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
             userInfoModel.setMomentsNum(userInfoModel.getMomentsNum() + 1);
+            ConstantMethod.toastShort(getApplicationContext(),"发表成功!");
             finish();
         }else{
             ConstantMethod.toastShort(PublishMomentView.this,responseModel.getError());

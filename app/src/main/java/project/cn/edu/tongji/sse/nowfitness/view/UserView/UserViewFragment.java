@@ -431,8 +431,9 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     public void applyForImageChange(ResponseModel model) {
         if(model.getStatus() >= 200 && model.getStatus() < 300){
             ConstantMethod.toastShort(getContext(),"更换成功!");
+        }else{
+            ConstantMethod.toastShort(getContext(),"由于网络原因,更换失败!!!");
         }
-        ConstantMethod.toastShort(getContext(),"由于网络原因,更换失败!!!");
     }
 
 

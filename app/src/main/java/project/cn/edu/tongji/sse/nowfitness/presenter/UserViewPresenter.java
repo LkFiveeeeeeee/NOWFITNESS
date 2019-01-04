@@ -1,9 +1,13 @@
 package project.cn.edu.tongji.sse.nowfitness.presenter;
 
 
+import android.util.Log;
+
 import java.io.File;
 
+import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -15,6 +19,9 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewMethod;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
+
+import static project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication.getContext;
 
 public class UserViewPresenter extends BasePresenter{
     private UserViewFragment userView;
@@ -68,14 +75,24 @@ public class UserViewPresenter extends BasePresenter{
     }
 
     public void postAvatar(String uri, int userId){
-        File file = new File(uri);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
-        RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(userId));
-        subscriptions.add(apiRepository.postUserAvatar(part,requestId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(userViewMethod::applyForImageChange,userViewMethod::queryError));
+        File imageFile = new File(uri);
+        new Compressor(getContext())
+                .compressToFileAsFlowable(imageFile)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(file -> {
+                    File compressFile = file;
+                    Log.d("compress", "accept: Ok");
+                    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),compressFile);
+                    MultipartBody.Part part = MultipartBody.Part.createFormData("file",compressFile.getName(),requestFile);
+                    RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(userId));
+                    subscriptions.add(apiRepository.postUserAvatar(part,requestId)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(userViewMethod::applyForImageChange,userViewMethod::queryError));
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    ConstantMethod.toastShort(getContext(),throwable.getMessage());
+                });
     }
 
 }
