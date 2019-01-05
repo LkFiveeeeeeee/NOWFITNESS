@@ -26,6 +26,9 @@ import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.UserViewFragment;
 import project.cn.edu.tongji.sse.nowfitness.view.PublishMomentView.PublishMomentView;
 
+/**
+ * Created by LK on 2018/11/22.
+ */
 
 public class MainView extends AppCompatActivity {
 

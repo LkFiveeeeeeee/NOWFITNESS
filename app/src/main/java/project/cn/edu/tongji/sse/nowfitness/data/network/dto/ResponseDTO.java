@@ -1,5 +1,9 @@
 package project.cn.edu.tongji.sse.nowfitness.data.network.dto;
 
+/**
+ * Created by LK on 2018/11/29.
+ */
+
 public class ResponseDTO<T>{
     /**
      * timestamp : 2018-12-11 22:49:52.94

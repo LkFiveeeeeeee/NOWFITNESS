@@ -4,6 +4,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
+/**
+ * Created by LK on 2018/12/11.
+ */
+
 public class StepDetector implements SensorEventListener {
 
     //存放三维数据

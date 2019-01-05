@@ -40,7 +40,9 @@ import project.cn.edu.tongji.sse.nowfitness.pedometermodule.accelerometer.StepCo
 import project.cn.edu.tongji.sse.nowfitness.presenter.StepServicePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
-
+/**
+ * Created by LK on 2018/12/11.
+ */
 
 public class StepService extends Service
         implements SensorEventListener,StepServiceMethod{

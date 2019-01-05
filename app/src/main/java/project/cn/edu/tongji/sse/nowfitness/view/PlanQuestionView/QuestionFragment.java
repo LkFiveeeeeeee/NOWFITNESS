@@ -18,6 +18,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.Question;
 import project.cn.edu.tongji.sse.nowfitness.model.QuestionList;
 
+/**
+ * Created by LK on 2018/12/2.
+ */
+
 public class QuestionFragment extends BaseFragment {
     private TextView questionText;
     private Button chooseA;

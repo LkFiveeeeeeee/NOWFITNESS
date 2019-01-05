@@ -23,6 +23,10 @@ import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 import static project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication.getContext;
 
+/**
+ * Created by LK on 2018/11/24.
+ */
+
 public class UserViewPresenter extends BasePresenter{
     private UserViewFragment userView;
     private UserViewMethod userViewMethod;

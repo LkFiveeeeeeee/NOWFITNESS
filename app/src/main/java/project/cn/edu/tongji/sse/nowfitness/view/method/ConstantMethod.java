@@ -15,6 +15,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MyGlideEngine;
 
+/**
+ * Created by LK on 2018/11/26.
+ */
+
 public class ConstantMethod {
     private ConstantMethod(){}
 

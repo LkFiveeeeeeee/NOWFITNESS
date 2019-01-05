@@ -4,6 +4,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.MomentsModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
+/**
+ * Created by LK on 2018/11/28.
+ */
+
 public interface MomentsMethod {
 
     void queryError(Throwable e);

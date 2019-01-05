@@ -3,6 +3,10 @@ package project.cn.edu.tongji.sse.nowfitness.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by LK on 2018/12/11.
+ */
+
 public class QuestionList {
     private static QuestionList questionList;
 

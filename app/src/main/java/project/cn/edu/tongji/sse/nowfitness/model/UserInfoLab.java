@@ -2,6 +2,10 @@ package project.cn.edu.tongji.sse.nowfitness.model;
 
 import android.util.Log;
 
+/**
+ * Created by LK on 2018/11/26.
+ */
+
 public class UserInfoLab  {
     private static UserInfoLab userInfoLab;
 

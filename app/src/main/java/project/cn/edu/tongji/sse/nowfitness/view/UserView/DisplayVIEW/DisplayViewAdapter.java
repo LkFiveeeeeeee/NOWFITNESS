@@ -10,6 +10,10 @@ import java.util.List;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.DisplayPresenter;
 
+/**
+ * Created by LK on 2018/11/24.
+ */
+
 public class DisplayViewAdapter extends RecyclerView.Adapter<DisplayViewVHolder> {
     private List<IndividualModel> individualModels;
     private DisplayPresenter displayPresenter;

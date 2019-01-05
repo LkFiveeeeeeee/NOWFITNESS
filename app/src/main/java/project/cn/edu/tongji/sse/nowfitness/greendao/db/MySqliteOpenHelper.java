@@ -4,6 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * Created by LK on 2018/11/27.
+ */
+
 public class MySqliteOpenHelper extends DaoMaster.OpenHelper {
     String TAG = "GreenDAOHelper Operation";
 

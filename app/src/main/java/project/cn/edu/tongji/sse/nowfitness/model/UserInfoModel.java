@@ -9,6 +9,10 @@ import java.util.List;
 import project.cn.edu.tongji.sse.nowfitness.data.network.dto.UserInfoDTO;
 import org.greenrobot.greendao.annotation.Generated;
 
+/**
+ * Created by LK on 2018/11/26.
+ */
+
 @Entity
 public class UserInfoModel {
     @Id(autoincrement = true)

@@ -37,7 +37,12 @@ import project.cn.edu.tongji.sse.nowfitness.model.StepModelList;
 import project.cn.edu.tongji.sse.nowfitness.presenter.DataChartPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
-//带有图片的Fragment
+
+/**
+ * 带有图片的Fragment
+ * Created by LK on 2018/12/11.
+ */
+
 public class DataChartFragment
         extends Fragment implements DataChartMethod{
     private static final String DAY_NUMBER = "DAYNUMBER";
@@ -57,6 +62,12 @@ public class DataChartFragment
     private List<String> dateList = new ArrayList<>();
 
 
+    /**
+     * 建立一个新的DataChartFragment
+     * 将count放到Bundle里,在onCreateView里将bundle中存储的东西取出
+     * @param count 天数
+     * @return DataChartFragment
+     */
     static DataChartFragment newInstance(int count) {
         DataChartFragment dataChartFragment = new DataChartFragment();
         Bundle bundle = new Bundle();

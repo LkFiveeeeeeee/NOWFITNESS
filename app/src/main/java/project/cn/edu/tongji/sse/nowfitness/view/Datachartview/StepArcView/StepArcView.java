@@ -12,6 +12,10 @@ import android.view.View;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 
+/**
+ * Created by LK on 2018/12/14.
+ */
+
 public class StepArcView extends View {
     /**StepArcView
      * 圆弧的宽度

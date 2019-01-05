@@ -2,6 +2,10 @@ package project.cn.edu.tongji.sse.nowfitness.data.network.dto;
 
 import java.util.List;
 
+/**
+ * Created by LK on 2018/11/26.
+ */
+
 public class UserInfoDTO {
 
 

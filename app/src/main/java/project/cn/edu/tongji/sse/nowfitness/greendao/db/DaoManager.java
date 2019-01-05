@@ -7,6 +7,10 @@ import android.util.Log;
 
 import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 
+/**
+ * Created by LK on 2018/11/27.
+ */
+
 
 public class DaoManager {
     // DB name

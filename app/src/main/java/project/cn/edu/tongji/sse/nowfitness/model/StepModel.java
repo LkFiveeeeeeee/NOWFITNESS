@@ -8,6 +8,9 @@ import org.greenrobot.greendao.annotation.Transient;
 import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataDTO;
 import project.cn.edu.tongji.sse.nowfitness.data.network.dto.StepDataListDTO;
 
+/**
+ * Created by LK on 2018/12/11.
+ */
 
 @Entity
 public class StepModel {

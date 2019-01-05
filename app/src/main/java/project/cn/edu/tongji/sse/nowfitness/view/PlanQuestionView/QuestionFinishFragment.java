@@ -17,6 +17,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.QuestionList;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
+/**
+ * Created by LK on 2018/12/2.
+ */
+
 public class QuestionFinishFragment extends BaseFragment {
     private Button finishButton;
 

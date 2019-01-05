@@ -1,5 +1,9 @@
 package project.cn.edu.tongji.sse.nowfitness.pedometermodule.accelerometer;
 
+/**
+ * Created by LK on 2018/12/11.
+ */
+
 public class StepCount implements StepCountListener{
     private int priCount = 0;
     private int uiCount = 0;

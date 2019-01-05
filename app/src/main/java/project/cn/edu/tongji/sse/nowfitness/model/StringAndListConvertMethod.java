@@ -8,6 +8,10 @@ import java.util.List;
 
 import static java.util.Arrays.*;
 
+/**
+ * Created by LK on 2018/11/27.
+ */
+
 public class StringAndListConvertMethod implements PropertyConverter<List<String>,String> {
     @Override
     public List<String> convertToEntityProperty(String databaseValue) {

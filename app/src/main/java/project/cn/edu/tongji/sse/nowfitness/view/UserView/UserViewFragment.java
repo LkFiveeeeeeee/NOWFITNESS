@@ -61,7 +61,9 @@ import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.CalendarControlMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.CalendarView.ConstantColor;
 
-
+/**
+ * Created by LK on 2018/11/22.
+ */
 
 public class UserViewFragment extends Fragment implements CalendarControlMethod, UserViewMethod,SensorEventListener,ToPersonPageView {
     /*temp para*/

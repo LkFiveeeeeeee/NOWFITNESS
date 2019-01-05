@@ -10,6 +10,9 @@ import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.model.Question;
 
+/**
+ * Created by LK on 2018/12/2.
+ */
 
 public class QuestionFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private List<Question> questionModelList;

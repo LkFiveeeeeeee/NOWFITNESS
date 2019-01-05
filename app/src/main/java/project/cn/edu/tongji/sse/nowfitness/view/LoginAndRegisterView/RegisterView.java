@@ -32,6 +32,11 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.RegisterPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
+
+/**
+ * Created by LK on 2018/11/18.
+ */
+
 public class RegisterView extends AppCompatActivity implements RegisterMethod{
     private FloatingActionButton cancelButton;
     private CardView registerCardView;

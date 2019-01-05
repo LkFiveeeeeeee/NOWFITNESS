@@ -9,6 +9,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayView;
 import project.cn.edu.tongji.sse.nowfitness.view.UserView.DisplayVIEW.DisplayViewMethod;
 
+/**
+ * Created by LK on 2018/11/24.
+ */
+
 public class DisplayPresenter extends BasePresenter{
     private DisplayView displayView;
     private DisplayViewMethod displayViewMethod;

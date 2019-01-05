@@ -3,9 +3,13 @@ package project.cn.edu.tongji.sse.nowfitness.model;
 
 import android.Manifest;
 
+/**
+ * Created by LK on 2018/11/24.
+ */
+
+
 public class Constant {
     private Constant(){}
-    public static final String LOGIN_SUCCESS="login success";
     public static final String APP_ID = "1108077260";
     public static final double AVA_STEP = 0.75;
     public static final int ONE_THOUSAND = 1000;

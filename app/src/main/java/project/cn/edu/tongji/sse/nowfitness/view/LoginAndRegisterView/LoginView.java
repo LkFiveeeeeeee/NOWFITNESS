@@ -28,6 +28,10 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.LoginPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
+/**
+ * Created by LK on 2018/11/18.
+ */
+
 public class LoginView extends AppCompatActivity implements LoginMethod {
 
     private LoginPresenter loginPresenter;

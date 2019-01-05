@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import project.cn.edu.tongji.sse.nowfitness.data.network.dto.MomentsListDTO;
 
+/**
+ * Created by LK on 2018/11/28.
+ */
+
 public class MomentsModel implements Serializable {
     private int momentsId;
     private int userId;

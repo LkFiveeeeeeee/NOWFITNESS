@@ -7,6 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by LK on 2018/12/11.
+ */
+
 public class DataChartAdapter extends FragmentPagerAdapter {
     private List<Fragment> dataChartFragments = new ArrayList<>();
     public DataChartAdapter(FragmentManager fragmentManager){

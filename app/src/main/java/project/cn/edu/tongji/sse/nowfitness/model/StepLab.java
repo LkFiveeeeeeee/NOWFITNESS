@@ -1,5 +1,8 @@
 package project.cn.edu.tongji.sse.nowfitness.model;
 
+/**
+ * Created by LK on 2018/12/11.
+ */
 
 public class StepLab {
     private static StepLab stepModelLab;

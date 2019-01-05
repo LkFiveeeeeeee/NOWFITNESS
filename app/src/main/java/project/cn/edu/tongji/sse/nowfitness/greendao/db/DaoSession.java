@@ -23,6 +23,10 @@ import project.cn.edu.tongji.sse.nowfitness.greendao.db.UserInfoModelDao;
  * 
  * @see org.greenrobot.greendao.AbstractDaoSession
  */
+
+/**
+ * Created by LK on 2018/11/27.
+ */
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig stepModelDaoConfig;

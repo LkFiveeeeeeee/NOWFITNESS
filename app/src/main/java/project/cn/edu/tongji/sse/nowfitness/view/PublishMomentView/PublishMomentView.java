@@ -28,6 +28,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PublishMomentPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
+/**
+ * Created by LK on 2018/11/26.
+ */
+
 public class PublishMomentView extends AppCompatActivity implements PublishMomentMethod {
     private ImageView photoSelected;
     private PublishMomentPresenter publishMomentPresenter;

@@ -12,6 +12,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Created by LK on 2018/11/19.
+ */
+
 public class NetWorkUtils {
     private NetWorkUtils(){}
 

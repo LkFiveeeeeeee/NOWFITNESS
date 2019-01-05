@@ -27,6 +27,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.StepModelList;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
+/**
+ * Created by LK on 2018/11/19.
+ */
+
 public class APIRepositoryImpl
         implements APIRepository {
 

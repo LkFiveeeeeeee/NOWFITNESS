@@ -30,6 +30,10 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+/**
+ * Created by LK on 2018/11/19.
+ */
+
 public interface ApiInterface {
 
 

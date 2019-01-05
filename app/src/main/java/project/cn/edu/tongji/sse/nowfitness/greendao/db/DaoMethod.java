@@ -8,6 +8,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.StepModel;
 import project.cn.edu.tongji.sse.nowfitness.model.Token;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
+/**
+ * Created by LK on 2018/11/28.
+ */
+
 public class DaoMethod {
 
     private DaoMethod(){}

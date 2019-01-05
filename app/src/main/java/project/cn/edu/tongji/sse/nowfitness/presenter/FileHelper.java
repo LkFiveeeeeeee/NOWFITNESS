@@ -11,8 +11,13 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 
-//用来处理文件
-//从uri来得到图片的String路径
+/**
+ * 用来处理文件
+ * 从uri来得到图片的String路径
+ * Created by LK on 2018/11/28.
+ */
+
+
 public class FileHelper {
     private FileHelper(){}
 

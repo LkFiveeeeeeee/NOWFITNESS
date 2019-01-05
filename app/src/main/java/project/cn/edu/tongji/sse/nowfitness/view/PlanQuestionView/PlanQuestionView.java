@@ -14,6 +14,11 @@ import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.Question;
 import project.cn.edu.tongji.sse.nowfitness.model.QuestionList;
 
+
+/**
+ * Created by LK on 2018/11/29.
+ */
+
 public class PlanQuestionView extends AppCompatActivity{
     private ViewPager viewPager;
     private Toolbar toolbar;

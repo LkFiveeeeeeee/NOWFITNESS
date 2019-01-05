@@ -18,6 +18,10 @@ import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 import static project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication.getContext;
 
+/**
+ * Created by LK on 2018/11/26.
+ */
+
 public class PublishMomentPresenter extends BasePresenter {
     private PublishMomentMethod publishMomentMethod;
 

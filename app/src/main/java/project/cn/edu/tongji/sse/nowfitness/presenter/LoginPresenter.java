@@ -8,6 +8,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginMethod;
 
+/**
+ * Created by LK on 2018/11/18.
+ */
+
 public class LoginPresenter extends BasePresenter{
     private final LoginView loginView;
     private final LoginMethod loginMethod;

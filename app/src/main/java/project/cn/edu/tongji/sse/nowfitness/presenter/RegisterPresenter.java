@@ -11,6 +11,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.RegisterView;
 
+/**
+ * Created by LK on 2018/11/18.
+ */
+
 public class RegisterPresenter extends BasePresenter{
     private RegisterView registerView;
     private RegisterMethod registerMethod;

@@ -24,6 +24,10 @@ import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
+/**
+ * Created by LK on 2018/11/24.
+ */
+
 public class DisplayView extends AppCompatActivity
         implements DisplayViewMethod,SwipeRefreshLayout.OnRefreshListener,ToPersonPageView {
 

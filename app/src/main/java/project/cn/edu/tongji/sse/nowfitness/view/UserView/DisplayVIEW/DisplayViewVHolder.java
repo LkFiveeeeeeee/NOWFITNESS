@@ -17,6 +17,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FollowPresenter;
 
+/**
+ * Created by LK on 2018/11/24.
+ */
+
 public class DisplayViewVHolder extends RecyclerView.ViewHolder {
     private final CircleImageView avatar;
     private TextView nickName;
@@ -63,10 +67,12 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
         sex.setText(individualModel.getSex());
         Glide.with(itemView).load(individualModel.getPicture()).into(avatar);
         setSwitchButton(individualModel.isStated());
+        //设置监听,当点击之后
         switchButton.setOnClickListener((View view) -> {
             individualModel.setStated(!individualModel.isStated());
             setSwitchButton(individualModel.isStated());
             UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+            //当关注之后,设置一些信息的动态变化,并将该动作传递到后台
             if(individualModel.isStated()){
                 followPresenter.postFollowInfo((int)UserInfoLab.get().
                         getUserInfoModel().getId(),individualModel.getId());

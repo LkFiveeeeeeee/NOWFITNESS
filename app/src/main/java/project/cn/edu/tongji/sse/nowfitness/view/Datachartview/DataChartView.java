@@ -11,6 +11,10 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 
+/**
+ * Created by LK on 2018/12/11.
+ */
+
 public class DataChartView extends AppCompatActivity {
     private ImageView backIcon;
     private SegmentTabLayout switchLayout;

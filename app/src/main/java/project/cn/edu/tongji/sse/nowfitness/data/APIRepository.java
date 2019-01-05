@@ -10,6 +10,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.CommentsDetailModel;
 import project.cn.edu.tongji.sse.nowfitness.model.CommentsReplyModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 
+/**
+ * Created by LK on 2018/11/19.
+ */
+
 public interface APIRepository {
 
     Single verifyInfo(RequestBody userName, RequestBody passWord);

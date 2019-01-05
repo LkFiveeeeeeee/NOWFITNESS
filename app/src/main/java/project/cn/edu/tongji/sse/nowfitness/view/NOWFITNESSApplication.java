@@ -9,6 +9,10 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
+
+/**
+ * Created by LK on 2018/11/27.
+ */
 public class NOWFITNESSApplication extends Application {
     private static Context context;
     @Override
