@@ -1,5 +1,9 @@
 package project.cn.edu.tongji.sse.nowfitness.data.network.dto;
 
+/**
+ * Create by LK on 2018/1/2.
+ */
+
 public class StepDataListDTO {
     /**
      * id : 2

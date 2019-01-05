@@ -280,7 +280,7 @@ public class APIRepositoryImpl
     }
 
     @Override
-    public Single deleteFollowInfo(int userId, int followId) {
+    public Single<ResponseModel> deleteFollowInfo(int userId, int followId) {
         ResponseModel responseModel = new ResponseModel();
         return api.deleteFollowInfo(userId,followId)
                 .map(responseDTO -> {

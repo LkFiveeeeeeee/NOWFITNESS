@@ -34,6 +34,10 @@ import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.Encryption;
 
+/**
+ * Create by LK on 2018/12/15.
+ */
+
 public class UserSettingView extends AppCompatActivity
         implements UserSettingMethod{
     /**

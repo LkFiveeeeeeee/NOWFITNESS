@@ -5,6 +5,10 @@ import io.reactivex.schedulers.Schedulers;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.view.PlanQuestionView.QuestionResultMethod;
 
+/**
+ * Create by LK on 2018/12/30.
+ */
+
 public class QuestionResultPresenter extends BasePresenter{
     private QuestionResultMethod questionResultMethod;
 

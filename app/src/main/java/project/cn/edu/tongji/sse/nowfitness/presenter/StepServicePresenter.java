@@ -12,6 +12,11 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.pedometermodule.stepservice.StepServiceMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
+
+/**
+ * Create by LK on 2018/12/24.
+ */
+
 public class StepServicePresenter extends BasePresenter{
     private final StepServiceMethod stepServiceMethod;
     public StepServicePresenter(StepServiceMethod stepServiceMethod){

@@ -12,22 +12,25 @@ import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.cn.edu.tongji.sse.nowfitness.R;
+import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualModel;
+import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FollowPresenter;
+import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 /**
  * Created by LK on 2018/11/24.
  */
 
-public class DisplayViewVHolder extends RecyclerView.ViewHolder {
+public class DisplayViewVHolder extends RecyclerView.ViewHolder implements FollowMethod{
     private final CircleImageView avatar;
     private TextView nickName;
     private TextView sex;
     private IndividualModel individualModel;
     private AppCompatButton switchButton;
-    private FollowPresenter followPresenter = new FollowPresenter();
+    private FollowPresenter followPresenter = new FollowPresenter(this);
 
     public DisplayViewVHolder(LayoutInflater inflater, ViewGroup parent){
         super(inflater.inflate(R.layout.individual_item,parent,false));
@@ -76,15 +79,38 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
             if(individualModel.isStated()){
                 followPresenter.postFollowInfo((int)UserInfoLab.get().
                         getUserInfoModel().getId(),individualModel.getId());
-                userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() + 1);
+
             }else{
                 followPresenter.deleteFollowInfo((int)UserInfoLab.get().
                         getUserInfoModel().getId(),individualModel.getId());
-                userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() - 1);
+
             }
         });
     }
 
 
+    @Override
+    public void postSuccess(ResponseModel responseModel) {
+        if(responseModel.getStatus() >= Constant.NET_CODE_200 && responseModel.getStatus() < Constant.NET_CODE_300){
+            UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+            userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() + 1);
+        }else{
+            ConstantMethod.toastShort(itemView.getContext(),"请求错误");
+        }
+    }
 
+    @Override
+    public void deleteSuccess(ResponseModel responseModel) {
+        if(responseModel.getStatus() >= Constant.NET_CODE_200 && responseModel.getStatus() < Constant.NET_CODE_300){
+            UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
+            userInfoModel.setFollowingNum(userInfoModel.getFollowingNum() - 1);
+        }else{
+            ConstantMethod.toastShort(itemView.getContext(),"请求错误");
+        }
+    }
+
+    @Override
+    public void sendError(Throwable e) {
+        ConstantMethod.toastShort(itemView.getContext(),"网络连接错误");
+    }
 }

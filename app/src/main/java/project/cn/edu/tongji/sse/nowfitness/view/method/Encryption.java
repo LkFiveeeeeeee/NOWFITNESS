@@ -4,6 +4,10 @@ import android.util.Log;
 
 import java.security.MessageDigest;
 
+/**
+ * Create by LK on 2018/12/30.
+ */
+
 public class Encryption {
     private Encryption(){
         //DO NOTHING

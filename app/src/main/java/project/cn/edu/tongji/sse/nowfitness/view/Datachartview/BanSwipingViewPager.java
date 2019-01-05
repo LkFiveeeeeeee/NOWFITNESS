@@ -13,6 +13,8 @@ import android.view.MotionEvent;
  * Created by LK on 2018/12/14.
  */
 
+
+
 public class BanSwipingViewPager extends ViewPager {
 
     private boolean isSwiping = false;

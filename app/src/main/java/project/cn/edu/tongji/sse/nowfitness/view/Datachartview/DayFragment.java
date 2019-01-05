@@ -32,6 +32,10 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.DataChartPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.Datachartview.StepArcView.StepArcView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
+/**
+* Create by LK on 2018/12/14.
+*/
+
 public class DayFragment extends Fragment implements DataChartMethod {
     /**CardView For Day*/
     private View dayView;

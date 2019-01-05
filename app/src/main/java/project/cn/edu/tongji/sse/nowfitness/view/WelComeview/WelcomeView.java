@@ -27,6 +27,11 @@ import project.cn.edu.tongji.sse.nowfitness.view.MainView.MainView;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
 
+
+/**
+ * Create by LK on 2018/12/22.
+ */
+
 public class WelcomeView extends AppCompatActivity implements WelcomeViewMethod,PermissionMethod {
     private ParticleView welcomePage;
     private WelcomeViewPresenter welcomeViewPresenter;

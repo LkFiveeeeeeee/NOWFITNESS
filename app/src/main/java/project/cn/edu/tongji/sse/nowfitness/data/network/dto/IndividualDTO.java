@@ -1,5 +1,10 @@
 package project.cn.edu.tongji.sse.nowfitness.data.network.dto;
 
+
+/**
+ * Create by LK on 2018/12/24.
+ */
+
 public class IndividualDTO {
     /**
      * id : 5

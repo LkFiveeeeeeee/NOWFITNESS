@@ -3,6 +3,11 @@ package project.cn.edu.tongji.sse.nowfitness.model;
 import java.util.List;
 import java.util.PrimitiveIterator;
 
+
+/**
+ * Create by LK on 2018/12/26.
+ */
+
 public class StepModelList {
 
 

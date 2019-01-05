@@ -4,6 +4,10 @@ import java.util.List;
 
 import project.cn.edu.tongji.sse.nowfitness.data.network.dto.MomentsDTO;
 
+/**
+ * Create by LK on 2018/12/20.
+ */
+
 public class MomentsModelList {
     private int total;
     private List<MomentsModel> list;

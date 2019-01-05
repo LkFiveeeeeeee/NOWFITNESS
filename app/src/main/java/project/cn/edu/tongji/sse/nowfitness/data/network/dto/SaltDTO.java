@@ -1,5 +1,10 @@
 package project.cn.edu.tongji.sse.nowfitness.data.network.dto;
 
+
+/**
+ * Create by LK on 2018/12/30.
+ */
+
 public class SaltDTO {
     /**
      * salt : 439c3

@@ -9,6 +9,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.view.UserSettingView.UserSettingMethod;
 
+/**
+ * Create by LK on 2018/12/18.
+ */
+
 public class UserSettingPresenter extends BasePresenter {
     private UserSettingMethod userSettingMethod;
     public UserSettingPresenter(UserSettingMethod userSettingMethod){
