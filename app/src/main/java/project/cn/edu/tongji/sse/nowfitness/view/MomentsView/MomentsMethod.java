@@ -16,4 +16,7 @@ public interface MomentsMethod {
 
     void queryInfoSuccess(ResponseModel<UserInfoModel> userInfoModelResponseModel);
 
+    void connectSuccess(ResponseModel responseModel);
+    void connectError(Throwable e);
+
 }

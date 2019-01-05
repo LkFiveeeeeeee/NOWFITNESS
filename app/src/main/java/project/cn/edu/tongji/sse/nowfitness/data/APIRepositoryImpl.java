@@ -191,7 +191,7 @@ public class APIRepositoryImpl
     }
 
     @Override
-    public Single deleteReply(int id) {
+    public Single<ResponseModel> deleteReply(int id) {
         ResponseModel responseModel = new ResponseModel();
         return api.deleteReply(id)
                 .map(responseDTO -> {

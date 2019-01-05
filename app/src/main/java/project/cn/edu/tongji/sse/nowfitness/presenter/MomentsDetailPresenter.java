@@ -90,7 +90,7 @@ public class MomentsDetailPresenter extends BasePresenter {
         subscriptions.add(apiRepository.makeReply(commentsReplyModel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe());
+                .subscribe(commentsMethod::connectSuccess,commentsMethod::connectError));
     }
 
     public boolean deleteReply(int groupPos,int childPos){
@@ -106,7 +106,7 @@ public class MomentsDetailPresenter extends BasePresenter {
         subscriptions.add(apiRepository.deleteReply(replyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(commentsMethod::connectSuccess,commentsMethod::connectError)
         );
     }
 
@@ -143,7 +143,7 @@ public class MomentsDetailPresenter extends BasePresenter {
         subscriptions.add(apiRepository.makeNewCommentInfo(commentsDetailModel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe());
+                .subscribe(commentsMethod::connectSuccess,commentsMethod::connectError));
     }
 
     public void resetCommentsList(List<CommentsDetailModel> commentsDetailModelList){
@@ -162,7 +162,7 @@ public class MomentsDetailPresenter extends BasePresenter {
         subscriptions.add(apiRepository.deleteComment(commentsList.get(groupPos).getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe());
+                .subscribe(commentsMethod::connectSuccess,commentsMethod::connectError));
        adapter.deleteComments(groupPos);
     }
 

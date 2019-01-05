@@ -98,7 +98,7 @@ public class PersonPagePresenter extends BaseMomentsPresenter{
         subscriptions.add(apiRepository.deleteMoment(momentID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(momentsMethod::connectSuccess,momentsMethod::connectError)
         );
     }
 

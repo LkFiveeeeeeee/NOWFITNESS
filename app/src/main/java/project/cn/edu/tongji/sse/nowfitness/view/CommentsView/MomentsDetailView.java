@@ -55,6 +55,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsDetailPresenter;
+import project.cn.edu.tongji.sse.nowfitness.presenter.NetWorkUtil;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MyQzoneShare;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.PersonPageView;
 import project.cn.edu.tongji.sse.nowfitness.view.PersonPageView.ToPersonPageView;
@@ -106,6 +107,16 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     @Override
     public void makeCommentsError(Throwable e) {
         e.printStackTrace();
+    }
+
+    @Override
+    public void connectSuccess(ResponseModel responseModel) {
+        //nothing to do
+    }
+
+    @Override
+    public void connectError(Throwable e) {
+        Toast.makeText(MomentsDetailView.this,"网络错误...",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -413,7 +424,11 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
 
     @Override
     public void shareToQZone(Bundle params) {
-        mTencent.shareToQzone(MomentsDetailView.this, params,null);
+        if(NetWorkUtil.isNetworkConnected(this)) {
+            mTencent.shareToQzone(MomentsDetailView.this, params,myIUListener);
+        }else{
+            Toast.makeText(this,"网络连接断开...",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -431,22 +446,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //设置QZONE分享后的回调（无效）
-        Tencent.onActivityResultData(requestCode, resultCode, data, new IUiListener() {
-            @Override
-            public void onComplete(Object o) {
-                Toast.makeText(getApplicationContext(),"分享成功",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(UiError uiError) {
-                //分享错误
-            }
-
-            @Override
-            public void onCancel() {
-                //取消分享
-            }
-        });
+        Tencent.onActivityResultData(requestCode, resultCode, data, myIUListener);
     }
 
     @Override
@@ -454,4 +454,22 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         momentsDetailPresenter.onViewDestroyed();
         super.onDestroy();
     }
+    MyIUListener myIUListener = new MyIUListener();
+    private class MyIUListener implements IUiListener {
+        @Override
+        public void onComplete(Object o) {
+           // Toast.makeText(getApplicationContext(),"分享成功",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+            //分享错误
+        }
+
+        @Override
+        public void onCancel() {
+            //取消分享
+        }
+    }
+
 }

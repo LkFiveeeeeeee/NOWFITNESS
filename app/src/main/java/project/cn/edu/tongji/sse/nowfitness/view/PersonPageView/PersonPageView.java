@@ -41,6 +41,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
+import project.cn.edu.tongji.sse.nowfitness.presenter.NetWorkUtil;
 import project.cn.edu.tongji.sse.nowfitness.presenter.PersonPagePresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsRecyclerAdapter;
@@ -257,6 +258,16 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
         }
     }
 
+    @Override
+    public void connectSuccess(ResponseModel responseModel) {
+        //nothing to do
+    }
+
+    @Override
+    public void connectError(Throwable e) {
+        Toast.makeText(PersonPageView.this,"网络错误...",Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * @Author: omf
      * @Description: 网络请求失败回调
@@ -286,12 +297,16 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
             Log.d("momentsview", "onActivityResult: "+String.valueOf(position)+"  "+String.valueOf(commentsNum));
            personPagePresenter.notifyCommentsNumChange(position,commentsNum);
         }
-        Tencent.onActivityResultData(requestCode, resultCode, data, null);//QZONE分享后的回调
+        Tencent.onActivityResultData(requestCode, resultCode, data, myIUListener);//QZONE分享后的回调
     }
 
     @Override
     public void shareToQZone(Bundle params) {
-        mTencent.shareToQzone(PersonPageView.this, params,null);
+        if(NetWorkUtil.isNetworkConnected(this)) {
+            mTencent.shareToQzone(PersonPageView.this, params,myIUListener);
+        }else{
+            Toast.makeText(this,"网络连接断开...",Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -320,5 +335,22 @@ public class PersonPageView extends AppCompatActivity implements MomentsMethod, 
     protected void onDestroy() {
         personPagePresenter.onViewDestroyed();
         super.onDestroy();
+    }
+    MyIUListener myIUListener = new MyIUListener();
+    private class MyIUListener implements IUiListener {
+        @Override
+        public void onComplete(Object o) {
+            // Toast.makeText(getApplicationContext(),"分享成功",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+            //分享错误
+        }
+
+        @Override
+        public void onCancel() {
+            //取消分享
+        }
     }
 }

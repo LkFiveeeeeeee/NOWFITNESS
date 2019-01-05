@@ -35,6 +35,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.ResponseModel;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoLab;
 import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.MomentsPresenter;
+import project.cn.edu.tongji.sse.nowfitness.presenter.NetWorkUtil;
 import project.cn.edu.tongji.sse.nowfitness.view.LeftView.LeftFragment;
 
 /**
@@ -144,6 +145,16 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
     }
 
     @Override
+    public void connectSuccess(ResponseModel responseModel) {
+        //nothing to do
+    }
+
+    @Override
+    public void connectError(Throwable e) {
+        Toast.makeText(this.getActivity(),"网络错误...",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void queryError(Throwable e) {
         if(momentsPresenter.getTotal()==0) {
             momentsPresenter.setAdapterStates(MomentsRecyclerAdapter.NO_NETWORK);
@@ -181,18 +192,39 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
             Log.d("momentsview", "onActivityResult: "+String.valueOf(position)+"  "+String.valueOf(commentsNum));
             momentsPresenter.notifyCommentsNumChange(position,commentsNum);
         }
-        Tencent.onActivityResultData(requestCode, resultCode, data, null);
+        Tencent.onActivityResultData(requestCode, resultCode, data, myIUListener);
     }
 
     @Override
     public void shareToQZone(Bundle params) {
-        mTencent.shareToQzone(this.getActivity(), params,null);
+        if(NetWorkUtil.isNetworkConnected(this.getContext())) {
+            mTencent.shareToQzone(this.getActivity(), params, myIUListener);
+        }else{
+            Toast.makeText(this.getActivity(),"网络连接断开...",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onDestroy() {
         momentsPresenter.onViewDestroyed();
         super.onDestroy();
+    }
+    MyIUListener myIUListener = new MyIUListener();
+    private class MyIUListener implements IUiListener {
+        @Override
+        public void onComplete(Object o) {
+            // Toast.makeText(getApplicationContext(),"分享成功",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+            //分享错误
+        }
+
+        @Override
+        public void onCancel() {
+            //取消分享
+        }
     }
 
 

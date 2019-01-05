@@ -17,4 +17,7 @@ public interface CommentsMethod {
 
     void makeCommentsSuccess(ResponseModel responseModel);
     void makeCommentsError(Throwable e);
+
+    void connectSuccess(ResponseModel responseModel);
+    void connectError(Throwable e);
 }

@@ -91,7 +91,7 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
         subscriptions.add(apiRepository.postLikeInfo(momentsId,likesId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(momentsMethod::connectSuccess,momentsMethod::connectError)
         );
     }
 
@@ -99,7 +99,7 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
         subscriptions.add(apiRepository.delLikeInfo(momentsId,likesId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(momentsMethod::connectSuccess,momentsMethod::connectError)
         );
     }
 
@@ -107,14 +107,14 @@ public class BaseMomentsPresenter extends BasePresenter implements ToPersonPageV
         subscriptions.add(apiRepository.postFollowInfo(userId,followId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(momentsMethod::connectSuccess,momentsMethod::connectError)
         );
     }
     public void deleteFollowingInfo(int userId,int followId){
         subscriptions.add(apiRepository.deleteFollowInfo(userId, followId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(momentsMethod::connectSuccess,momentsMethod::connectError)
         );
     }
 
