@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
 import project.cn.edu.tongji.sse.nowfitness.model.IndividualsList;
@@ -64,7 +66,7 @@ public class DisplayView extends AppCompatActivity
     private void setToolbar(){
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -98,7 +100,7 @@ public class DisplayView extends AppCompatActivity
                 displayRecyclerView.setAdapter(displayNoItemAdapter);
                 displayNoItemAdapter.notifyDataSetChanged();
             }else{
-                /**
+                /*
                  * 如果请求的是关注列表,则将关注状态全部更改为true;
                  */
                 if(type == Constant.STARS_TYPE){

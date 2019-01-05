@@ -80,10 +80,8 @@ public class UserViewPresenter extends BasePresenter{
                 .compressToFileAsFlowable(imageFile)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(file -> {
-                    File compressFile = file;
-                    Log.d("compress", "accept: Ok");
-                    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),compressFile);
-                    MultipartBody.Part part = MultipartBody.Part.createFormData("file",compressFile.getName(),requestFile);
+                    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+                    MultipartBody.Part part = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
                     RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(userId));
                     subscriptions.add(apiRepository.postUserAvatar(part,requestId)
                             .subscribeOn(Schedulers.io())

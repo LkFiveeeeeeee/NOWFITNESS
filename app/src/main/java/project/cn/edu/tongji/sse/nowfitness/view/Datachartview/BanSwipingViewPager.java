@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+// 自定义一个禁止滑动的ViewPager
 public class BanSwipingViewPager extends ViewPager {
 
     private boolean isSwiping = false;

@@ -44,8 +44,10 @@ import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class StepService extends Service
         implements SensorEventListener,StepServiceMethod{
-    private String TAG = "StepService Debug";
+    private final String TAG = "StepService Debug";
 
+    //计时间隔
+    private final int countInternal = 1000;
     //30s进行一次存储
     public  int duration = 30 * 1000;
     //传感器管理对象
@@ -80,9 +82,6 @@ public class StepService extends Service
     //
     private int countTime = 0;
 
-    //频道ID
-    private String channelID;
-
     //UI监听器
     private UpdateUICallBack uiCallBack;
 
@@ -115,8 +114,9 @@ public class StepService extends Service
         notificationManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            channelID = createChannel();
-            builder = new NotificationCompat.Builder(this,channelID);
+            //频道ID
+            String channelID = createChannel();
+            builder = new NotificationCompat.Builder(this, channelID);
             builder.setContentTitle("NowFitness计步")
                     .setContentText("今日计步" + currentStep +" 步")
                     .setContentIntent(getDefaultIntent(Notification.FLAG_ONGOING_EVENT))
@@ -129,7 +129,7 @@ public class StepService extends Service
                     .setOnlyAlertOnce(true)
                     .setSmallIcon(R.drawable.fitnesslogo);
         }else{
-            builder = new NotificationCompat.Builder(this);
+            builder = new NotificationCompat.Builder(this,"default");
             builder.setContentTitle("NowFitness计步")
                     .setContentText("今日计步" + currentStep +" 步")
                     .setContentIntent(getDefaultIntent(Notification.FLAG_ONGOING_EVENT))
@@ -151,7 +151,6 @@ public class StepService extends Service
     }
 
     private PendingIntent getDefaultIntent(int flagOngoingEvent) {
-
         return PendingIntent.getActivity(this,1,new Intent(),flagOngoingEvent);
     }
 
@@ -246,7 +245,7 @@ public class StepService extends Service
 
     private void startTimeCount(){
         if(time == null){
-            time = new TimeCount(duration,1000);
+            time = new TimeCount(duration,countInternal);
         }
         time.start();
     }

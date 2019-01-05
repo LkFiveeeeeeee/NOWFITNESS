@@ -123,6 +123,7 @@ public class QuestionFragment extends BaseFragment {
 
     }
 
+    //设置选择状态
     private void setChooseState(){
         List<Button> buttons = new ArrayList<>();
         buttons.add(chooseA);
@@ -133,6 +134,7 @@ public class QuestionFragment extends BaseFragment {
             buttons.add(chooseE);
         }
         for(int i = 0; i < buttons.size();i++){
+            //遍历选项,如果有个按钮被选择,则在QuestionList中将该页面的选择设为该按钮的索引
             if(!buttons.get(i).isEnabled()){
                 Log.d("QSFragment", "onResume: " + i + " button!!!!!");
                 QuestionList.get().getBonusIndex()[quesIndex] = i;

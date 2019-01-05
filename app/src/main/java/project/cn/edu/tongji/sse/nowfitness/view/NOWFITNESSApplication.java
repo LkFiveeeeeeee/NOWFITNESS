@@ -23,7 +23,7 @@ public class NOWFITNESSApplication extends Application {
     }
 
 
-    /**
+    /*
      * 将启动服务迁移到MainView
      */
 

@@ -18,7 +18,7 @@ import project.cn.edu.tongji.sse.nowfitness.model.UserInfoModel;
 import project.cn.edu.tongji.sse.nowfitness.presenter.FollowPresenter;
 
 public class DisplayViewVHolder extends RecyclerView.ViewHolder {
-    private CircleImageView avatar;
+    private final CircleImageView avatar;
     private TextView nickName;
     private TextView sex;
     private IndividualModel individualModel;
@@ -28,10 +28,10 @@ public class DisplayViewVHolder extends RecyclerView.ViewHolder {
     public DisplayViewVHolder(LayoutInflater inflater, ViewGroup parent){
         super(inflater.inflate(R.layout.individual_item,parent,false));
 
-        avatar = (CircleImageView) itemView.findViewById(R.id.avatar);
-        nickName = (TextView) itemView.findViewById(R.id.username);
-        sex = (TextView) itemView.findViewById(R.id.sex);
-        switchButton = (AppCompatButton) itemView.findViewById(R.id.follow_button);
+        avatar = itemView.findViewById(R.id.avatar);
+        nickName = itemView.findViewById(R.id.username);
+        sex = itemView.findViewById(R.id.sex);
+        switchButton = itemView.findViewById(R.id.follow_button);
 
     }
 

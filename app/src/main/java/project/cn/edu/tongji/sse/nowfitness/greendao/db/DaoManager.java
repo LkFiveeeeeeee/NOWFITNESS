@@ -9,10 +9,12 @@ import project.cn.edu.tongji.sse.nowfitness.view.NOWFITNESSApplication;
 
 
 public class DaoManager {
+    // DB name
     private static final String DB_NAME="greendao";
     private static DaoManager daoInstance;
     private DaoMaster daoMaster;
     private DaoSession daoSession;
+    // 单例,可随时获取
     public static DaoManager getDaoInstance(){
         if(null == daoInstance){
             daoInstance = new DaoManager();
@@ -20,6 +22,7 @@ public class DaoManager {
         return daoInstance;
     }
 
+    // 构造函数
     private DaoManager(){
         if(daoInstance == null){
             if(NOWFITNESSApplication.getContext() == null){

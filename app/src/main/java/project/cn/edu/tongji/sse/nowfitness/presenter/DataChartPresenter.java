@@ -7,11 +7,12 @@ import project.cn.edu.tongji.sse.nowfitness.view.Datachartview.DataChartMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class DataChartPresenter extends BasePresenter {
-    private DataChartMethod dataChartMethod;
+    private final DataChartMethod dataChartMethod;
     public DataChartPresenter(DataChartMethod dataChartMethod){
         this.dataChartMethod = dataChartMethod;
     }
 
+    //获得计步数据
     public void getStepsData(int dayCount){
         ConstantMethod.checkUserInfoModel();
         int id = (int) UserInfoLab.get().getUserInfoModel().getId();

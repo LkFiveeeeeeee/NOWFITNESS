@@ -1,5 +1,6 @@
 package project.cn.edu.tongji.sse.nowfitness.view.UserView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -273,6 +274,7 @@ public class UserViewFragment extends Fragment implements CalendarControlMethod,
     @Override
     public Date stringConvertToDate(String dateString) {
         Date date = new Date();
+        @SuppressLint("SimpleDateFormat")
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
             date = sdf.parse(dateString);

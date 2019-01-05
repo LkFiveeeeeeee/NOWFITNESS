@@ -1,6 +1,5 @@
 package project.cn.edu.tongji.sse.nowfitness.view.UserSettingView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,13 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
+
+import java.util.Objects;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.greendao.db.DaoManager;
@@ -79,136 +78,104 @@ public class UserSettingView extends AppCompatActivity
         setToolbar();
     }
 
+    //初始化设置密码dialog
     private void setUpPassWordDialog(){
         LayoutInflater inflater = getLayoutInflater();
         View passWordView = inflater.inflate
-                (R.layout.changepassword_view,(ViewGroup) findViewById(R.id.password_dialog));
+                (R.layout.changepassword_view, findViewById(R.id.password_dialog));
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        oldPassword = (TextInputEditText) passWordView.findViewById(R.id.old_password);
-        newPassword = (TextInputEditText) passWordView.findViewById(R.id.new_password);
-        repeatPassword = (TextInputEditText) passWordView.findViewById(R.id.repeat_password);
+        oldPassword = passWordView.findViewById(R.id.old_password);
+        newPassword = passWordView.findViewById(R.id.new_password);
+        repeatPassword = passWordView.findViewById(R.id.repeat_password);
         passWordDialog = builder.setTitle("修改密码")
             .setView(passWordView)
             .setIcon(R.drawable.password)
-            .setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    passWordDialog.hide();
-                }
-            })
+            .setNeutralButton("取消", (dialogInterface, i) -> passWordDialog.hide())
             .setPositiveButton("确定",null)
             .create();
-        passWordDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialogInterface) {
-                Button positive = passWordDialog.getButton(dialogInterface.BUTTON_POSITIVE);
-                positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(verifyPassword(oldPassword.getText().toString(),
-                                newPassword.getText().toString(),
-                                repeatPassword.getText().toString())){
-                            userSettingPresenter.changePassword(newPassword.getText().toString());
-                        }
-                    }
-                });
-            }
+        passWordDialog.setOnShowListener(dialogInterface -> {
+            Button positive = passWordDialog.getButton(dialogInterface.BUTTON_POSITIVE);
+            positive.setOnClickListener(view -> {
+                //当用户点击完成时,先验证其输入是否满足条件
+                if(verifyPassword(oldPassword.getText().toString(),
+                        newPassword.getText().toString(),
+                        repeatPassword.getText().toString())){
+                    userSettingPresenter.changePassword(newPassword.getText().toString());
+                }
+            });
         });
 
     }
 
+    //初始化设置个人信息dialog
     private void setUpUserInfoDialog(){
         LayoutInflater inflater = getLayoutInflater();
         View userInfoView = inflater.inflate
-                (R.layout.changeuserinfo_view,(ViewGroup) findViewById(R.id.userinfo_dialog));
+                (R.layout.changeuserinfo_view, findViewById(R.id.userinfo_dialog));
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        ageInfo = (EditText) userInfoView.findViewById(R.id.age_text);
-        RadioGroup sexChoose = (RadioGroup) userInfoView.findViewById(R.id.sex_button);
-        nickNameText = (TextInputEditText) userInfoView.findViewById(R.id.username_text);
+        ageInfo = userInfoView.findViewById(R.id.age_text);
+        RadioGroup sexChoose = userInfoView.findViewById(R.id.sex_button);
+        nickNameText = userInfoView.findViewById(R.id.username_text);
         nickNameText.setText(UserInfoLab.get().getUserInfoModel().getNickName());
         sex = UserInfoLab.get().getUserInfoModel().getSex();
-        if(sex.equals("男")){
-            sexChoose.check(R.id.male_sex);
-        }else if(sex.equals("女")){
-            sexChoose.check(R.id.female_sex);
-        }else{
-            //DO NOTHING
+        switch (sex) {
+            case "男":
+                sexChoose.check(R.id.male_sex);
+                break;
+            case "女":
+                sexChoose.check(R.id.female_sex);
+                break;
+            default:
+                //DO NOTHING
+                break;
         }
         ageInfo.setText(String.valueOf(UserInfoLab.get().getUserInfoModel().getAge()));
-
-        sexChoose.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                RadioButton sexButton = (RadioButton) userInfoView.findViewById(i);
-                sex = sexButton.getText().toString();
-                Toast.makeText(getApplicationContext(),"你选择了" + sex,Toast.LENGTH_SHORT).show();
-            }
+        sexChoose.setOnCheckedChangeListener((radioGroup, i) -> {
+            RadioButton sexButton = userInfoView.findViewById(i);
+            sex = sexButton.getText().toString();
         });
 
         userInfoDialog = builder.setTitle("修改个人信息")
                 .setView(userInfoView)
                 .setIcon(R.mipmap.ic_add)
-                .setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        passWordDialog.hide();
-                    }
-                })
+                .setNeutralButton("取消", (dialogInterface, i) -> passWordDialog.hide())
                 .setPositiveButton("确定",null)
                 .create();
-        userInfoDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialogInterface) {
-                Button positive = userInfoDialog.getButton(dialogInterface.BUTTON_POSITIVE);
-                positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(verifyInfo(nickNameText.getText().toString(),ageInfo.getText().toString(),
-                                sex)){
-                            UserInfoModel putModel = new UserInfoModel(UserInfoLab.get().getUserInfoModel());
-                            putModel.setAge(Integer.valueOf(ageInfo.getText().toString()));
-                            putModel.setNickName(nickNameText.getText().toString());
-                            putModel.setSex(sex);
-                            putModel.setPictureUrl("");
-                            userSettingPresenter.putUserInfo(putModel);
-                        }
-                    }
-                });
-            }
+        //当用户点击确认时,先判断其输入是否合法
+        userInfoDialog.setOnShowListener(dialogInterface -> {
+            Button positive = userInfoDialog.getButton(dialogInterface.BUTTON_POSITIVE);
+            positive.setOnClickListener(view -> {
+                if(verifyInfo(nickNameText.getText().toString(),ageInfo.getText().toString(),
+                        sex)){
+                    UserInfoModel putModel = new UserInfoModel(UserInfoLab.get().getUserInfoModel());
+                    putModel.setAge(Integer.valueOf(ageInfo.getText().toString()));
+                    putModel.setNickName(nickNameText.getText().toString());
+                    putModel.setSex(sex);
+                    putModel.setPictureUrl("");
+                    userSettingPresenter.putUserInfo(putModel);
+                }
+            });
         });
 
     }
 
 
     private void setListener(){
-        passWordSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                passWordDialog.show();
-            }
-        });
-        userInfoSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userInfoDialog.show();
-            }
-        });
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DaoMethod.deleteToken();
-                Intent intent = new Intent(UserSettingView.this,LoginView.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-            }
+        passWordSetting.setOnClickListener(view -> passWordDialog.show());
+        userInfoSetting.setOnClickListener(view -> userInfoDialog.show());
+        logoutButton.setOnClickListener(view -> {
+            DaoMethod.deleteToken();
+            Intent intent = new Intent(UserSettingView.this,LoginView.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         });
     }
 
     private void setToolbar(){
         Toolbar toolbar = findViewById(R.id.userinfo_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -220,7 +187,7 @@ public class UserSettingView extends AppCompatActivity
         return true;
     }
 
-    public boolean verifyInfo(String userName, String age, String sex){
+    private boolean verifyInfo(String userName, String age, String sex){
         if(userName.equals("")){
             ConstantMethod.toastShort(getApplicationContext(),"用户名不能为空");
             return false;

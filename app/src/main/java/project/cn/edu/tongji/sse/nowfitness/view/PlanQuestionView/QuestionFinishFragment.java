@@ -25,7 +25,7 @@ public class QuestionFinishFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.question_finish,container,false);
-        this.questionView = (CardView) view.findViewById(R.id.question_container);
+        this.questionView = view.findViewById(R.id.question_container);
         this.questionView.setMaxCardElevation(questionView.getCardElevation()
                 * Constant.MAX_ELEVATION_FACTOR);
         initView(view);
@@ -42,6 +42,7 @@ public class QuestionFinishFragment extends BaseFragment {
         finishButton.setOnClickListener((View view) -> {
             if(QuestionList.get().calculateScore()){
                 Intent intent = new Intent(getActivity(),QuestionResultView.class);
+                //向结果activity传递结果value,并跳转
                 intent.putExtra(Constant.RESULT_INTEGER,sortValue(QuestionList.get().getScore()));
                 startActivity(intent);
                 Objects.requireNonNull(getActivity()).finish();

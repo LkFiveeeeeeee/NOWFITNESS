@@ -62,19 +62,19 @@ public class StepArcView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        /**中心点的x坐标*/
+        /*中心点的x坐标*/
         float centerX = (getWidth()) / 2;
-        /**指定圆弧的外轮廓矩形区域*/
+        /*指定圆弧的外轮廓矩形区域*/
         RectF rectF = new RectF(0 + borderWidth, borderWidth, 2 * centerX - borderWidth, 2 * centerX - borderWidth);
 
-        /**【第一步】绘制整体的黄色圆弧*/
+        /*【第一步】绘制整体的黄色圆弧*/
         drawArcYellow(canvas, rectF);
-        /**
+        /*
         *【第二步】绘制当前进度的红色圆弧*/
         drawArcRed(canvas, rectF);
         /*【第三步】绘制当前进度的红色数字*/
         drawTextNumber(canvas, centerX);
-        /**【第四步】绘制"步数"的红色数字*/
+        /*【第四步】绘制"步数"的红色数字*/
         drawTextStepString(canvas, centerX);
     }
 
@@ -86,20 +86,20 @@ public class StepArcView extends View {
      */
     private void drawArcYellow(Canvas canvas, RectF rectF) {
         Paint paint = new Paint();
-        /** 默认画笔颜色，黄色 */
+        /* 默认画笔颜色，黄色 */
         paint.setColor(getResources().getColor(R.color.rightFragment));
-        /** 结合处为圆弧*/
+        /* 结合处为圆弧*/
         paint.setStrokeJoin(Paint.Join.ROUND);
-        /** 设置画笔的样式 Paint.Cap.Round ,Cap.SQUARE等分别为圆形、方形*/
+        /* 设置画笔的样式 Paint.Cap.Round ,Cap.SQUARE等分别为圆形、方形*/
         paint.setStrokeCap(Paint.Cap.ROUND);
-        /** 设置画笔的填充样式 Paint.Style.FILL  :填充内部;Paint.Style.FILL_AND_STROKE  ：填充内部和描边;  Paint.Style.STROKE  ：仅描边*/
+        /* 设置画笔的填充样式 Paint.Style.FILL  :填充内部;Paint.Style.FILL_AND_STROKE  ：填充内部和描边;  Paint.Style.STROKE  ：仅描边*/
         paint.setStyle(Paint.Style.STROKE);
-        /**抗锯齿功能*/
+        /*抗锯齿功能*/
         paint.setAntiAlias(true);
-        /**设置画笔宽度*/
+        /*设置画笔宽度*/
         paint.setStrokeWidth(borderWidth);
 
-        /**绘制圆弧的方法
+        /*绘制圆弧的方法
          * drawArc(RectF oval, float startAngle, float sweepAngle, boolean useCenter, Paint paint)//画弧，
          参数一是RectF对象，一个矩形区域椭圆形的界限用于定义在形状、大小、电弧，
          参数二是起始角(度)在电弧的开始，圆弧起始角度，单位为度。
@@ -171,12 +171,7 @@ public class StepArcView extends View {
         return bounds_Number.height();
     }
 
-    /**
-     * dip 转换成px
-     *
-     * @param dip
-     * @return
-     */
+
 
     private int dipToPx(float dip) {
         float density = getContext().getResources().getDisplayMetrics().density;
@@ -196,13 +191,13 @@ public class StepArcView extends View {
      * @param currentCounts 所走步数
      */
     public void setCurrentCount(int totalStepNum, int currentCounts) {
-        /**如果当前走的步数超过总步数则圆弧还是270度，不能成为园*/
+        /*如果当前走的步数超过总步数则圆弧还是270度，不能成为圆*/
         int tempCounts = currentCounts;
         if (currentCounts > totalStepNum) {
             currentCounts = totalStepNum;
         }
 
-        /**上次所走步数占用总共步数的百分比*/
+        /*上次所走步数占用总共步数的百分比*/
         float previousStep;
         if((float) Integer.valueOf(stepNumber) < totalStepNum){
             previousStep = (float) Integer.valueOf(stepNumber);
@@ -210,14 +205,15 @@ public class StepArcView extends View {
             previousStep = totalStepNum;
         }
         float scalePrevious = previousStep / totalStepNum;
-        /**换算成弧度最后要到达的角度的长度-->弧长*/
+        /*换算成弧度最后要到达的角度的长度-->弧长*/
+
         float previousAngleLength = scalePrevious * angleLength;
 
-        /**所走步数占用总共步数的百分比*/
+        /*所走步数占用总共步数的百分比*/
         float scale = (float) currentCounts / totalStepNum;
-        /**换算成弧度最后要到达的角度的长度-->弧长*/
+        /*换算成弧度最后要到达的角度的长度-->弧长*/
         float nowAngleLength = scale * angleLength;
-        /**开始执行动画*/
+        /*开始执行动画*/
         setAnimation(previousAngleLength, nowAngleLength, animationLength);
 
         stepNumber = String.valueOf(tempCounts);
@@ -243,7 +239,7 @@ public class StepArcView extends View {
         progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                /**每次在初始值和结束值之间产生的一个平滑过渡的值，逐步去更新进度*/
+                /*每次在初始值和结束值之间产生的一个平滑过渡的值，逐步去更新进度*/
                 currentAngleLength = (float) animation.getAnimatedValue();
                 invalidate();
             }

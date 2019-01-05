@@ -17,7 +17,7 @@ public class NetWorkUtils {
 
     public static Retrofit makeRetrofit(){
         return new Retrofit.Builder()
-                .baseUrl("http://47.107.167.12:8080/api/")
+                .baseUrl("http://47.107.167.12:8080/api/")  // base url
                 .client(makeClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -30,7 +30,6 @@ public class NetWorkUtils {
                 .connectTimeout(timeout,TimeUnit.SECONDS)
                 .readTimeout(timeout,TimeUnit.SECONDS)
                 .addInterceptor(makeLoggingInterceptor())
-           //     .addInterceptor()
                 .build();
     }
 

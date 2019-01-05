@@ -141,16 +141,15 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
         passWordLayout.setError(error);
     }
 
+    //当请求后台登录成功后,向后台请求个人信息
+    //此时页面不跳转
     @Override
     public void loginSuccess(ResponseModel<Token> responseModel) {
-        Log.d("1111111", "loginSuccess: ");
-        Log.d("11111",Constant.LOGIN_SUCCESS);
         if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
             Token token = responseModel.getData();
             token.setUserName(userName.getText().toString());
             DaoMethod.insertToken(token);
             loginPresenter.queryForUserInfo(userName.getText().toString());
-
         }else{
             Toast.makeText(this, responseModel.getError(),Toast.LENGTH_SHORT).show();
         }
@@ -163,6 +162,8 @@ public class LoginView extends AppCompatActivity implements LoginMethod {
         ConstantMethod.toastShort(LoginView.this,"网络错误!");
     }
 
+    //当请求个人信息成功时,才进行跳转。
+    //因为进入主页面时会立刻请求动态信息,而进行这一操作需要个人信息的一些参数,如果同时进行会发生错误
     @Override
     public void querySuccess(ResponseModel<UserInfoModel> responseModel) {
         if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){

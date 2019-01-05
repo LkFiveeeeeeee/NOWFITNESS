@@ -9,8 +9,8 @@ import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginView;
 import project.cn.edu.tongji.sse.nowfitness.view.LoginAndRegisterView.LoginMethod;
 
 public class LoginPresenter extends BasePresenter{
-    private LoginView loginView;
-    private LoginMethod loginMethod;
+    private final LoginView loginView;
+    private final LoginMethod loginMethod;
 
     public LoginPresenter(LoginView loginView,LoginMethod loginMethod){
         this.loginView = loginView;
@@ -21,6 +21,7 @@ public class LoginPresenter extends BasePresenter{
         loginView.initView();
     }
 
+    // 验证用户名长度
     public boolean verifyForUserName(String userName){
 
         if(userName.length() < Constant.MIN_LENGTH){
@@ -31,6 +32,7 @@ public class LoginPresenter extends BasePresenter{
         return true;
     }
 
+    //验证密码长度
     public boolean verifyForPassWord(String passWord){
         if(passWord.length() < Constant.MIN_LENGTH){
             loginView.passWordSetError("密码长度过短");
@@ -40,6 +42,7 @@ public class LoginPresenter extends BasePresenter{
         return true;
     }
 
+    //向后台请求登录
     public void queryForVerify(String userName, String passWord){
         if(verifyForUserName(userName) && verifyForPassWord(passWord)){
             RequestBody userNameBody = RequestBody.create(MediaType.parse("text/plain"),userName);

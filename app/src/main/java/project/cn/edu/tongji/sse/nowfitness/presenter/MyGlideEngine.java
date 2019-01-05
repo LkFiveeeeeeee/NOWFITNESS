@@ -10,6 +10,8 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
 import com.zhihu.matisse.engine.ImageEngine;
 
+//自行义Glide
+//为了适配 Matisse,使用初始的Glide会发生错误
 public class MyGlideEngine implements ImageEngine {
 
 

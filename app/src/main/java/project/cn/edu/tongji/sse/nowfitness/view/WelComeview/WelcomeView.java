@@ -28,8 +28,8 @@ import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 import project.cn.edu.tongji.sse.nowfitness.view.method.PermissionMethod;
 
 public class WelcomeView extends AppCompatActivity implements WelcomeViewMethod,PermissionMethod {
-    ParticleView welcomePage;
-    WelcomeViewPresenter welcomeViewPresenter;
+    private ParticleView welcomePage;
+    private WelcomeViewPresenter welcomeViewPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +39,9 @@ public class WelcomeView extends AppCompatActivity implements WelcomeViewMethod,
         welcomePage = findViewById(R.id.welcome_nowfitness);
         welcomePage.startAnim();
         welcomePage.setOnParticleAnimListener(() -> {
+            //首先对权限进行请求
             if(checkPermission()){
+                //如果请求成功则执行跳转
                 checkPageJump();
             }
         });
@@ -62,6 +64,7 @@ public class WelcomeView extends AppCompatActivity implements WelcomeViewMethod,
 
     @Override
     public void queryError(Throwable e){
+        //如果请求个人信息失败,则从数据库获得个人信息,并进入主页面
         Log.d("WelcomeView",e.toString());
         UserInfoModel userInfoModel = DaoMethod.queryForUserInfo().get(0);
         UserInfoLab.get().setUserInfoModel(userInfoModel);
@@ -98,14 +101,16 @@ public class WelcomeView extends AppCompatActivity implements WelcomeViewMethod,
         }
     }
 
-    public void checkPageJump(){
+    private void checkPageJump(){
 
+        //从本地数据库获取Token
         List<Token> tokenList = DaoMethod.queryForToken();
         if(!tokenList.isEmpty()){
-            //查询个人信息
+            //如果token不为空,则向后台查询个人信息
             welcomeViewPresenter.queryForUserInfo(tokenList.get(0).getUserName());
 
         }else{
+            //否则,转向登录界面
             Intent intent = new Intent(WelcomeView.this,LoginView.class);
             startActivity(intent);
             finish();

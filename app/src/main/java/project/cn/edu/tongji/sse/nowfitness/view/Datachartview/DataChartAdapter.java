@@ -14,6 +14,7 @@ public class DataChartAdapter extends FragmentPagerAdapter {
         final int WEEK = 7;
         final int MONTH = 30;
 
+        // init 3个fragments
         dataChartFragments.add(new DayFragment());
         dataChartFragments.add(DataChartFragment.newInstance(WEEK));
         dataChartFragments.add(DataChartFragment.newInstance(MONTH));

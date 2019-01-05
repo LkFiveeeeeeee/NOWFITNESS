@@ -13,11 +13,12 @@ import project.cn.edu.tongji.sse.nowfitness.pedometermodule.stepservice.StepServ
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class StepServicePresenter extends BasePresenter{
-    StepServiceMethod stepServiceMethod;
+    private final StepServiceMethod stepServiceMethod;
     public StepServicePresenter(StepServiceMethod stepServiceMethod){
         this.stepServiceMethod = stepServiceMethod;
     }
 
+    //更新今日步数
     public void putTodayStepsData(int steps) {
         String temp = "text/plain";
         UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();

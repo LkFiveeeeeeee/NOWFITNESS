@@ -30,8 +30,6 @@ public class QuestionResultView extends AppCompatActivity implements QuestionRes
     private List<String> people = new ArrayList<>();
     private int []  image;
     private QuestionResultPresenter questionResultPresenter;
-    private TextView sportsExa,sportsFun,sportsPeo;
-    private ImageView heartImage;
     private Button finishButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +41,19 @@ public class QuestionResultView extends AppCompatActivity implements QuestionRes
         initData();
         initView();
     }
-    public void initView(){
-        sportsExa = (TextView)findViewById(R.id.sports_example);
-        sportsFun = (TextView)findViewById(R.id.sports_function);
-        sportsPeo = (TextView)findViewById(R.id.who_need);
-        heartImage = (ImageView)findViewById(R.id.heart_image);
-        finishButton = (Button) findViewById(R.id.finish_button);
+    private void initView(){
+        TextView sportsExa = findViewById(R.id.sports_example);
+        TextView sportsFun = findViewById(R.id.sports_function);
+        TextView sportsPeo = findViewById(R.id.who_need);
+        ImageView heartImage = findViewById(R.id.heart_image);
+        finishButton = findViewById(R.id.finish_button);
         heartImage.setImageResource(image[type]);
         sportsExa.setText(sportsExamples.get(type));
         sportsFun.setText(functions.get(type));
         sportsPeo.setText(people.get(type));
         setListener();
     }
-    public void initData(){
+    private void initData(){
         sportsExamples.add("举重、短跑、拳击、格斗");
         sportsExamples.add("马拉松、长距离游泳、激烈球类运动,HIIT ");
         sportsExamples.add("慢跑，健身舞，高尔夫，较为缓和的球类运动");
@@ -80,12 +78,7 @@ public class QuestionResultView extends AppCompatActivity implements QuestionRes
     }
 
     private void setListener(){
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                questionResultPresenter.postDailyCheck();
-            }
-        });
+        finishButton.setOnClickListener(view -> questionResultPresenter.postDailyCheck());
     }
 
 

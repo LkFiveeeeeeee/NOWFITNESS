@@ -5,6 +5,7 @@ import project.cn.edu.tongji.sse.nowfitness.data.APIRepositoryImpl;
 import project.cn.edu.tongji.sse.nowfitness.data.DouBanAPIRepositoryImpl;
 
 public class BasePresenter {
+    //基类定义
     protected  CompositeDisposable subscriptions = new CompositeDisposable();
     protected APIRepositoryImpl apiRepository = new APIRepositoryImpl();
     public void onViewDestroyed(){

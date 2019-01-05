@@ -21,7 +21,7 @@ public class ConstantMethod {
 
 
 
-
+    //在Fragment中使用Matisse
     public static void useMatisseFromFragment(Fragment fragment){
         Matisse.from(fragment)
                 .choose(MimeType.ofImage())
@@ -36,6 +36,7 @@ public class ConstantMethod {
     }
 
 
+    //在Activity中使用Matisse
     public static void userMatisseFromActivity(Activity activity){
         Matisse.from(activity)
                 .choose(MimeType.ofImage())
@@ -49,13 +50,16 @@ public class ConstantMethod {
                 .forResult(Constant.REQUEST_IMAGE_CODE);
     }
 
+    //公用Toast函数
     public static void toastShort(Context context,String string){
         Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
     }
 
+    //通过步数和体重计算卡路里
     public static double countCalories(int steps,double weight){
         return steps * weight * Constant.AVA_STEP * 1.036 / Constant.ONE_THOUSAND;
     }
+
 
     public static void checkUserInfoModel(){
         if(UserInfoLab.get().getUserInfoModel() == null){

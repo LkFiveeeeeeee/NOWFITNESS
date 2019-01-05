@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +18,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.zhihu.matisse.Matisse;
 
 import java.util.List;
+import java.util.Objects;
 
 import project.cn.edu.tongji.sse.nowfitness.R;
 import project.cn.edu.tongji.sse.nowfitness.model.Constant;
@@ -29,7 +29,6 @@ import project.cn.edu.tongji.sse.nowfitness.presenter.PublishMomentPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
 public class PublishMomentView extends AppCompatActivity implements PublishMomentMethod {
-    private Toolbar toolbar;
     private ImageView photoSelected;
     private PublishMomentPresenter publishMomentPresenter;
     private AppCompatEditText inputText;
@@ -51,43 +50,36 @@ public class PublishMomentView extends AppCompatActivity implements PublishMomen
     }
 
     private void setToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.inflateMenu(R.menu.publish_menu);
     }
 
     private void initView(){
-        photoSelected = (ImageView) findViewById(R.id.display_image);
-        inputText = (AppCompatEditText) findViewById(R.id.moment_text);
+        photoSelected = findViewById(R.id.display_image);
+        inputText = findViewById(R.id.moment_text);
         setListener();
     }
 
     private void setListener(){
-        photoSelected.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ConstantMethod.userMatisseFromActivity(PublishMomentView.this);
-            }
-        });
-        photoSelected.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Glide.with(getWindow().getDecorView()).load(R.drawable.camera)
-                        .transition(new DrawableTransitionOptions().crossFade(1000))
-                        .into(photoSelected);
-                return true;
-            }
+        photoSelected.setOnClickListener(view -> ConstantMethod.userMatisseFromActivity(PublishMomentView.this));
+        photoSelected.setOnLongClickListener(view -> {
+            Glide.with(getWindow().getDecorView()).load(R.drawable.camera)
+                    .transition(new DrawableTransitionOptions().crossFade(1000))
+                    .into(photoSelected);
+            return true;
         });
     }
 
+    //选择图片后进行回调
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQUEST_IMAGE_CODE && resultCode == Activity.RESULT_OK) {
             imageUri = Matisse.obtainResult(data);
-            Log.d("1111", "onActivityResult:succsess Image ");
+            //获取Uri,并使用Glide将其添加
             Glide.with(getWindow().getDecorView()).load(imageUri.get(0)).into(photoSelected);
         }
     }
@@ -113,6 +105,7 @@ public class PublishMomentView extends AppCompatActivity implements PublishMomen
     @Override
     public void postSuccess(ResponseModel responseModel) {
         if(responseModel.getStatus() >= 200 && responseModel.getStatus() < 300){
+            //当发表动态发成功时,将个人页面的动态数量更新,然后给出提示Toast,最后才退出该页面
             UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
             userInfoModel.setMomentsNum(userInfoModel.getMomentsNum() + 1);
             ConstantMethod.toastShort(getApplicationContext(),"发表成功!");

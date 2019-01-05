@@ -7,7 +7,6 @@ import java.io.File;
 
 import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -39,10 +38,9 @@ public class PublishMomentPresenter extends BasePresenter {
                     .compressToFileAsFlowable(imageFile)
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .subscribe(file -> {
-                        File compressFile = file;
                         Log.d("compress", "accept: Ok");
-                        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),compressFile);
-                        MultipartBody.Part part = MultipartBody.Part.createFormData("file",compressFile.getName(),requestFile);
+                        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+                        MultipartBody.Part part = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
                         postMomentWithFile(userId,requestContent,part);
                     }, throwable -> {
                                    throwable.printStackTrace();
@@ -55,6 +53,7 @@ public class PublishMomentPresenter extends BasePresenter {
 
     }
 
+    //向后台传输有图片的动态
     private void postMomentWithFile(RequestBody userId, RequestBody requestContent, MultipartBody.Part part){
         subscriptions.add(apiRepository.postMoment(userId,requestContent,part)
                 .subscribeOn(Schedulers.io())
@@ -62,6 +61,7 @@ public class PublishMomentPresenter extends BasePresenter {
                 .subscribe(publishMomentMethod::postSuccess,publishMomentMethod::postError));
     }
 
+    //向后台传输无图片的动态
     private void postMomentWithoutFile(RequestBody userId, RequestBody requestContent){
         subscriptions.add(apiRepository.postMomentWithoutFile(userId,requestContent)
                 .subscribeOn(Schedulers.io())

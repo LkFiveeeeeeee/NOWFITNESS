@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -26,7 +25,6 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +37,10 @@ import project.cn.edu.tongji.sse.nowfitness.model.StepModelList;
 import project.cn.edu.tongji.sse.nowfitness.presenter.DataChartPresenter;
 import project.cn.edu.tongji.sse.nowfitness.view.method.ConstantMethod;
 
+//带有图片的Fragment
 public class DataChartFragment
         extends Fragment implements DataChartMethod{
-    public static final String DAY_NUMBER = "DAYNUMBER";
+    private static final String DAY_NUMBER = "DAYNUMBER";
 
 
     private CombinedChart combinedChart;
@@ -77,15 +76,15 @@ public class DataChartFragment
         return view;
     }
 
-    public void initView(View view) {
-        combinedChart = (CombinedChart) view.findViewById(R.id.data_linechart);
-        dataColumn = (LinearLayout) view.findViewById(R.id.data_column);
+    private void initView(View view) {
+        combinedChart = view.findViewById(R.id.data_linechart);
+        dataColumn = view.findViewById(R.id.data_column);
         noDataView = view.findViewById(R.id.no_data);
         badNetworkView = view.findViewById(R.id.bad_network);
-        TextView warningWord = (TextView) noDataView.findViewById(R.id.warning_word);
-        stepEnergy = (TextView) view.findViewById(R.id.step_energy);
-        stepKm = (TextView) view.findViewById(R.id.step_km);
-        stepText = (TextView) view.findViewById(R.id.step_text);
+        TextView warningWord = noDataView.findViewById(R.id.warning_word);
+        stepEnergy = view.findViewById(R.id.step_energy);
+        stepKm = view.findViewById(R.id.step_km);
+        stepText = view.findViewById(R.id.step_text);
         warningWord.setText("暂无数据");
         getStepCount();
     }
@@ -97,15 +96,18 @@ public class DataChartFragment
         dataChartPresenter.getStepsData(dayCount);
     }
 
+    //将警告View设为不可见
     private void setWarningViewGone(){
         noDataView.setVisibility(View.GONE);
     }
 
+    //将图表View设为不可见
     private void setChartViewGone(){
         combinedChart.setVisibility(View.GONE);
         dataColumn.setVisibility(View.GONE);
     }
 
+    //将网络错误View设为不可见
     private void setNetworkViewGone(){
         badNetworkView.setVisibility(View.GONE);
     }
@@ -125,7 +127,9 @@ public class DataChartFragment
     }
 
 
+    //设置数据图表
     private void initChart()  {
+        //设置Entry
         if(entries.size() == 0){
             for(int i = 0;i < stepModels.size();i++){
                 entries.add(new Entry((float) i, Float.valueOf(stepModels.get(i).getStep())));
@@ -214,13 +218,8 @@ public class DataChartFragment
 
 
     private void setXAxisData(){
-        combinedChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                Log.d("temp1111", "getFormattedValue: " + value);
-                return (strToDate(dateList.get((int) value)) + "日");
-            }
-        });
+        combinedChart.getXAxis().setValueFormatter((value, axis) ->
+                (strToDate(dateList.get((int) value)) + "日"));
     }
 
     private int strToDate(String dataStr) {

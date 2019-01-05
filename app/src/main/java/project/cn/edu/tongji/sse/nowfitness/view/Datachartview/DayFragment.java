@@ -57,12 +57,12 @@ public class DayFragment extends Fragment implements DataChartMethod {
     }
 
     private void initView(View view){
-        stepChart = (StepArcView) view.findViewById(R.id.step_chart);
-        stepText = (TextView) view.findViewById(R.id.step_text);
-        stepKm = (TextView) view.findViewById(R.id.step_km);
-        stepEnergy = (TextView) view.findViewById(R.id.step_energy);
-        relativeStep = (TextView) view.findViewById(R.id.relative_step);
-        trendImage = (ImageView) view.findViewById(R.id.trend_image);
+        stepChart = view.findViewById(R.id.step_chart);
+        stepText = view.findViewById(R.id.step_text);
+        stepKm = view.findViewById(R.id.step_km);
+        stepEnergy = view.findViewById(R.id.step_energy);
+        relativeStep = view.findViewById(R.id.relative_step);
+        trendImage = view.findViewById(R.id.trend_image);
 
     }
 
@@ -72,6 +72,7 @@ public class DayFragment extends Fragment implements DataChartMethod {
         setServiceConnection();
     }
 
+    // 连接计步Service
     public void setServiceConnection(){
         Intent intent = new Intent(getContext(),StepService.class);
         initView(dayView);
@@ -79,6 +80,7 @@ public class DayFragment extends Fragment implements DataChartMethod {
             @SuppressLint("SetTextI18n")
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                //绑定,并初始化视图
                 StepService stepService = ((StepService.StepBinder) iBinder).getService();
                 stepChart.setCurrentCount(7000,stepService.getStepCount());
                 UserInfoModel userInfoModel = UserInfoLab.get().getUserInfoModel();
@@ -86,6 +88,7 @@ public class DayFragment extends Fragment implements DataChartMethod {
                 stepKm.setText((int) ((double) stepService.getStepCount() * 0.75) + "m");
                 stepEnergy.setText(String.valueOf((int) ConstantMethod.countCalories(
                         stepService.getStepCount(),userInfoModel.getWeight())) + "Kcal");
+                //重写回调接口,当计步数据变化时,此View同样动态变化
                 stepService.registerCallBack((int stepCounts) -> {
                     stepChart.setCurrentCount(Constant.MAX_STEPS,stepCounts);
                     stepText.setText(String.valueOf(stepCounts));
@@ -110,6 +113,7 @@ public class DayFragment extends Fragment implements DataChartMethod {
         }
     }
 
+    //计算与昨天相比较的相对步数
     public void setRelativeStep(int stepCount){
         if(stepCount - yesterdayCount >= 0){
             if(isAdded()){
@@ -128,6 +132,7 @@ public class DayFragment extends Fragment implements DataChartMethod {
         ));
     }
 
+    //当该Fragment前台不可见时,解绑service
     @Override
     public void onStop() {
         super.onStop();
