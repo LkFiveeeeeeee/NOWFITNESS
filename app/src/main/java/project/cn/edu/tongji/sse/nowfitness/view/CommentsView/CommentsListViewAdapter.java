@@ -31,7 +31,6 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
     private int order ;
 
     private List<CommentsDetailModel> commentsList;
-    //private List<CommentsReplyModel> replyList;
     private MomentsDetailView context;
     private MomentsModel dMomentsModel;
 
@@ -59,6 +58,12 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
         return commentsList.size();
     }
 
+    /**
+     * @Author: omf
+     * @Description: 获得一级list中位置为i的二级list中view的数量
+     * @Param i view的位置
+     * @Return: int 数量
+     */
     @Override
     public int getChildrenCount(int i) {
         if(commentsList.get(i).getRepliesList() == null){
@@ -95,7 +100,6 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        //getCombinedChildId(groupPosition, childPosition);
         return childPosition;
     }
 
@@ -104,12 +108,19 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
+    /**
+     * @Author: omf
+     * @Description: 获得view的类型
+     * @Param groupPosition
+     * @Return: int
+     */
     @Override
     public int getGroupType(int groupPosition) {
+
         if(groupPosition==0){
-            return TYPE_1;
+            return TYPE_1;//动态布局
         }else{
-            return TYPE_2;
+            return TYPE_2;//评论布局
         }
     }
 
@@ -117,7 +128,7 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(final int groupPosition, boolean isExpand, View convertView, ViewGroup viewGroup) {
         int type = getGroupType(groupPosition);
-        if(type==TYPE_2) {//&&commentsList.size()>=1
+        if(type==TYPE_2) {
             final GroupHolder groupHolder;
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.comment_item, viewGroup, false);
@@ -142,7 +153,7 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
                 } else {
                     groupMomentsHolder = (GroupMomentsHolder) convertView.getTag();
                 }
-                //Glide.with(context).load(R.drawable.test);//errorrrrr
+
                 groupMomentsHolder.onBindView(dMomentsModel);
                 return convertView;
 
@@ -151,7 +162,6 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean b,
                              View convertView, ViewGroup viewGroup) {
-        // type = getChildType(groupPosition,childPosition);
         final ChildHolder childHolder;
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.comment_reply_item, viewGroup, false);
@@ -170,7 +180,6 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
     }
 
     public void addTheCommentData(CommentsDetailModel commentDetailBean){
-
         if(commentDetailBean!=null){
             commentsList.add(commentDetailBean);
             notifyDataSetChanged();
@@ -180,9 +189,15 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
 
     }
 
+    /**
+     * @Author: omf
+     * @Description: 初始化
+     * @Param replyDetailBean
+     * @Param groupPosition
+     * @Return: void
+     */
     public void addTheReplyData(CommentsReplyModel replyDetailBean, int groupPosition){
         if(replyDetailBean!=null){
-            Log.e("wwww", "addTheReplyData: >>>>该刷新回复列表了:"+replyDetailBean.toString() );
             if(commentsList.get(groupPosition).getRepliesList() != null ){
                 commentsList.get(groupPosition).getRepliesList().add(replyDetailBean);
             }else {
@@ -212,6 +227,13 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
         notifyDataSetChanged();
     }
 
+    /**
+     * @Author: omf
+     * @Description: 移除list中的reply的数据
+     * @Param groupPos 在一级list中的位置
+     * @Param childPos 在二级list中的位置
+     * @Return: boolean
+     */
     public boolean deleteReply(int groupPos,int childPos){
         if(commentsList.get(groupPos).getRepliesList() != null ){
             commentsList.get(groupPos).getRepliesList().remove(childPos);
@@ -222,6 +244,12 @@ public class CommentsListViewAdapter extends BaseExpandableListAdapter {
         }
     }
 
+    /**
+     * @Author: omf
+     * @Description: 移除list中评论数据
+     * @Param groupPos 在一级list中的位置
+     * @Return: boolean
+     */
     public boolean deleteComments(int groupPos){
         if(commentsList.get(groupPos)!=null){
             commentsList.remove(groupPos);

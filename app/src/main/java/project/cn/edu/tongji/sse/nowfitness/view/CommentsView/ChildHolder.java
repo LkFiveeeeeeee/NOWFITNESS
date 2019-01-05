@@ -33,6 +33,7 @@ public class ChildHolder extends  BaseExHolder implements View.OnClickListener{
             tv_fromName.setText(replyUser);
 
         }else {
+
             tv_toName.setText("无名"+":");
         }
         tv_content.setText(commentsReplyModel.getContent());
@@ -44,6 +45,12 @@ public class ChildHolder extends  BaseExHolder implements View.OnClickListener{
         }
     }
 
+    /**
+     * @Author: omf
+     * @Description: 设置点击回复中用户的名字的响应事件
+     * @Param view
+     * @Return: void
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

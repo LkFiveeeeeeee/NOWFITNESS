@@ -35,10 +35,14 @@ import project.cn.edu.tongji.sse.nowfitness.view.MomentsView.MomentsView;
 
 import static android.support.constraint.Constraints.TAG;
 
-/**
- * Created by a on 2018/11/22.
- */
-
+ /**
+  *
+  * @Package:
+  * @ClassName:      LeftFragment.java
+  * @Description:    社交动态主页面
+  * @Author:         omf
+  * @UpdateDate:     2019/1/4 23:18
+  */
 public class LeftFragment extends Fragment implements BookMethod{
 
     public static String TAB_TYPE_1= "following";
@@ -73,8 +77,13 @@ public class LeftFragment extends Fragment implements BookMethod{
         return myView;
     }
 
+     /**
+      * @Author: omf
+      * @Description: 初始化UI控件
+      * @Param
+      * @Return: void
+      */
     public void initView(){
-
         mToolbar=(Toolbar)myView.findViewById(R.id.leftfragment_toolbar);
         mAppCompatActivity.setSupportActionBar(mToolbar);
         mAppCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -110,6 +119,12 @@ public class LeftFragment extends Fragment implements BookMethod{
         initEvent();
     }
 
+     /**
+      * @Author: omf
+      * @Description: 为UI控件设置监听器
+      * @Param
+      * @Return: void
+      */
     private void initEvent(){
         bookBanner.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -138,6 +153,7 @@ public class LeftFragment extends Fragment implements BookMethod{
         tabBar.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(newsFeedViewPager));
         //到交互双向联动，也就是点击tab，viewpager就会去变动，滑动viewpager，tab也会自动变,只有在仅仅文字颜色变动时才可以使用法该种方法
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Log.e(TAG, "onCreateOptionsMenu()");
@@ -146,17 +162,37 @@ public class LeftFragment extends Fragment implements BookMethod{
         super.onCreateOptionsMenu(menu,inflater);
     }
 
+     /**
+      * @Author: omf
+      * @Description: 网络请求失败时的回调函数
+      * @Param e
+      * @Return: void
+      */
     @Override
     public void queryError(Throwable e) {
             e.printStackTrace();
     }
 
+     /**
+      * @Author: omf
+      * @Description: 请求获取豆瓣书籍成功时的回调函数
+      * @Param bookResponseModel
+      * @Return: void
+      */
     @Override
     public void querySuccess(BookResponseModel bookResponseModel) {
         bookPresenter.setBooksLab(bookResponseModel.getBooks());
-        bookPresenter.resetBanner();
+        bookPresenter.resetBanner();//重新设置书籍轮播图
     }
+
+     /**
+      * @Author: omf
+      * @Description: 根据当前的日期获得书籍的初始序号
+      * @Param
+      * @Return: int
+      */
     private int getRandomBookStart(){
+
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

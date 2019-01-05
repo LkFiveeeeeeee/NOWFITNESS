@@ -248,11 +248,11 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
                 break;
             case COMMENT_TARGET_COMMENTS:
                 commentsDetailModel = commentsList.get(groupPosition);
-                commentText.setHint("回复 " + commentsDetailModel.getCommentUserName() + " 的评论:");
+                commentText.setHint("回复 " + commentsDetailModel.getCommentUserNickName()+ " 的评论:");
                 break;
             case COMMENT_TARGET_REPLYS:
                 commentsDetailModel = commentsList.get(groupPosition);
-                commentText.setHint("回复"+commentsDetailModel.getRepliesList().get(childPosition).getFromUserName()
+                commentText.setHint("回复"+commentsDetailModel.getRepliesList().get(childPosition).getFromUserNickName()
                         + "的评论");
                 break;
             default:
@@ -322,7 +322,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
             case COMMENT_TARGET_COMMENTS:
                 if(commentsList.get(groupPosition).getCommentUserName()
                         .equals(UserInfoLab.get().getUserInfoModel().getUserName())){
-                    result = false;
+                    result = false;//不可以评论自己的评论
                  }else {
                     result = true;
                 }
@@ -330,7 +330,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
             case COMMENT_TARGET_REPLYS:
                 if(commentsList.get(groupPosition).getRepliesList().get(childPosition).getFromUserName()
                         .equals(UserInfoLab.get().getUserInfoModel().getUserName())) {
-                    result = false;
+                    result = false;//不可以回复自己的回复
                 }else {
                     result = true;
                 }
@@ -341,13 +341,20 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         }
         return result;
     }
-
+    /**
+     * @Author: omf
+     * @Description: 显示评论或回复的输入框
+     * @Param v
+     * @Param childPos
+     * @Param groupPos 在一级list的中位置
+     * @Return: void
+     */
     private void showPopWindows(View v,int childPos,int groupPos) {
         View mPopView = LayoutInflater.from(this).inflate(R.layout.menu_popup, null);
         final PopupWindow mPopWindow = new PopupWindow(mPopView, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        //这个很重要 ,获取弹窗的长宽度
+        //获取弹窗的长宽度
         mPopView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int popupWidth = mPopView.getMeasuredWidth();
         int popupHeight = mPopView.getMeasuredHeight();
@@ -370,6 +377,12 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         });
     }
 
+    /**
+     * @Author: omf
+     * @Description: 重写点击手机自带的返回按钮的响应事件
+     * @Param
+     * @Return: void
+     */
     @Override
     public void onBackPressed() {
         resultBack();
@@ -384,10 +397,17 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
         }
         return super.onOptionsItemSelected(item);
     }
+    /**
+     * @Author: omf
+     * @Description: 设置返回给上一个activity或fragment的数据
+     * @Param
+     * @Return: void
+     */
     private void resultBack(){
         Intent intent=new Intent();
         intent.putExtra("position",originPos);
         intent.putExtra("commentsNum",momentsDetailPresenter.pMomentsModel.getCommentsNum());
+        Log.d("ssssss",String.valueOf(originPos)+String.valueOf(momentsDetailPresenter.pMomentsModel.getCommentsNum()));
         setResult(Activity.RESULT_OK,intent);
     }
 
@@ -410,6 +430,7 @@ public class MomentsDetailView extends AppCompatActivity implements CommentsMeth
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //设置QZONE分享后的回调（无效）
         Tencent.onActivityResultData(requestCode, resultCode, data, new IUiListener() {
             @Override
             public void onComplete(Object o) {

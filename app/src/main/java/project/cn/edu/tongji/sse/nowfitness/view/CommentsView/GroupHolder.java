@@ -48,13 +48,12 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
         if(commentsDetailModel.getCommentTime()!=null) {
             String time = commentsDetailModel.getCommentTime();
             time = time.substring(0, 19);
-            time = time.replace("T", " ");
+            time = time.replace("T", " ");//格式化时间
             tv_time.setText(time);
         }else{
             String time = getTimeStamp();
             tv_time.setText(time);
         }
-        Log.e("aaaaa", "onBindView: "+commentsDetailModel.getCommentUserPhoto());
         Glide.with(myView).load(commentsDetailModel.getCommentUserPhoto()).into(logo);
         tv_name.setText(commentsDetailModel.getCommentUserNickName());
         tv_name.setOnClickListener(this);
@@ -68,8 +67,14 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
             menu.setVisibility(View.GONE);
         }
     }
+    /**
+     * @Author: omf
+     * @Description: 根据在一级list中的位置来设定分割线
+     * @Param groupPostion 位置
+     * @Return: void
+     */
     public void setTopDivider(int groupPostion) {
-        if (groupPostion <= 1) {
+        if (groupPostion <= 1) {//第一个和第二个隐藏分割线
             topDivider.setVisibility(View.GONE);
         } else {
             topDivider.setVisibility(View.VISIBLE);
@@ -96,6 +101,12 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
                     break;
         }
     }
+    /**
+     * @Author: omf
+     * @Description: 获得当前系统时间
+     * @Param
+     * @Return: java.lang.String
+     */
     private String getTimeStamp(){
         long time = System.currentTimeMillis();
         String timeStamp = String.valueOf(time/1000);
@@ -106,6 +117,12 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
         sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         return sdf.format(new Date(Long.valueOf(timeStamp+"000")));
     }
+    /**
+     * @Author: omf
+     * @Description: 评论菜单的点击事件（删除该评论）
+     * @Param
+     * @Return: void
+     */
     private void commentMenuClickEvent(){
         PopupMenu popup = new PopupMenu(mContext,menu);
         popup.getMenuInflater().inflate(R.menu.comments_pop_menu, popup.getMenu());
@@ -115,8 +132,8 @@ public class GroupHolder extends BaseExHolder implements View.OnClickListener {
                 switch (item.getItemId()){
                     case R.id.delete:
                         momentsDetailPresenter.pMomentsModel.
-                                setCommentsNum( momentsDetailPresenter.pMomentsModel.getCommentsNum()-1);
-                        momentsDetailPresenter.deleteComments(groupPosition);
+                                setCommentsNum( momentsDetailPresenter.pMomentsModel.getCommentsNum()-1);//评论数量-1
+                        momentsDetailPresenter.deleteComments(groupPosition);//删除评论
                         break;
                     default:
                         break;

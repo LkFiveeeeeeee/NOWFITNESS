@@ -297,6 +297,12 @@ public interface ApiInterface {
     Single<ResponseDTO<SaltDTO>>
         changePassword(@Part("userId") RequestBody userId, @Part("password") RequestBody password);
 
+    /**
+     * 获得用户与另一用户的关系
+     * @param userID 用户id
+     * @param anotherUserId 另一位用户的id
+     * @return ResponseDTO ( T data is defined to be RelationDTO)
+     */
     @GET("user/{userId}/anotherUser/{anotherUserId}")
     Single<ResponseDTO<RelationDTO>>
         getUserRelation(@Path("userId") int userID, @Path("anotherUserId") int anotherUserId);

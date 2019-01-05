@@ -150,6 +150,7 @@ public class MomentsView extends Fragment implements MomentsMethod,MyQzoneShare{
         }
         else {
             refreshLayout.finishLoadMore(false);
+            momentsPresenter.setAdapterStates(MomentsRecyclerAdapter.NORMAL);
         }
         swipeRefreshLayout.setRefreshing(false);
         e.printStackTrace();

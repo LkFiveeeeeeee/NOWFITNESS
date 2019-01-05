@@ -66,13 +66,17 @@ public class MomentsDetailPresenter extends BasePresenter {
             replyDetailModel.setToUserName(commentsList.get(groupPosition).
                     getRepliesList().get(childPosition).getFromUserName());
             replyDetailModel.setToUserId(commentsList.get(groupPosition).
-                    getRepliesList().get(childPosition).getToUserId());
+                    getRepliesList().get(childPosition).getFromUserId());
+            replyDetailModel.setToUserNickName(commentsList.get(groupPosition).
+                    getRepliesList().get(childPosition).getFromUserNickName());
         }
         else {
             replyDetailModel.setToUserName(commentsList.get(groupPosition).getCommentUserName());
             replyDetailModel.setToUserId(commentsList.get(groupPosition).getCommentUserId());
+            replyDetailModel.setToUserNickName(commentsList.get(groupPosition).getCommentUserNickName());
         }
         replyDetailModel.setFromUserName(UserInfoLab.get().getUserInfoModel().getUserName());
+        replyDetailModel.setFromUserNickName(UserInfoLab.get().getUserInfoModel().getNickName());
         replyDetailModel.setCommentId(commentsList.get(groupPosition).getId());
         replyDetailModel.setFromUserId((int)UserInfoLab.get().getUserInfoModel().getId());
 
@@ -90,6 +94,7 @@ public class MomentsDetailPresenter extends BasePresenter {
     }
 
     public boolean deleteReply(int groupPos,int childPos){
+
         deleteReply(commentsList.get(groupPos).getRepliesList().get(childPos).getId());
         if(!adapter.deleteReply(groupPos, childPos)) {
             return false;
